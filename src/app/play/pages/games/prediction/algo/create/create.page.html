@@ -1,0 +1,137 @@
+<div class="container-fluid">
+    <div class="content">
+        <div class="row align-items-center">
+            <div class="col-sm">
+                <h1 class="content-title my-10">
+                    Prediction
+                </h1>
+            </div>
+            <div class="col-auto">
+                <button class="btn mr-5" type="button" (click)="navigateToPage(gameDefinition.route)">
+                    <i class="fas fa-arrow-left text-danger mr-5"></i>
+                    Back
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row row-eq-spacing-xl">
+        <div class="col-xl-12">
+            <div class="card h-full">
+                <div class="row">
+                    <div class="col-sm">
+                        <h2 class="content-title text-success">
+                            Create new prediction game
+                        </h2>
+                        <p class="text-muted mb-20">
+                            Anyone can create a prediction game using our game engine. As the game creator, you will
+                            earn a share of the prize pool. When creating the game, you will be defining the potential
+                            game outcomes for the players to bet on. Games are setup with native Algorand coin ALGO, as
+                            the currency. At the end of the game, you are responsible for submitting the winning
+                            outcome.
+                        </p>
+                    </div>
+                </div>
+                <hr>
+                <div class="form-group my-20">
+                    <label class="text-secondary">Name</label>
+                    <p class="mt-0 text-muted font-size-12">
+                        Just a short title to help players easily identify this game. Maximum 32 characters.
+                    </p>
+                    <input [(ngModel)]="model.name" class="form-control w-400 mw-full" type="text" maxlength="32"
+                        placeholder="Name">
+                </div>
+                <hr>
+                <div class="form-group my-20">
+                    <label class="text-secondary">Timer</label>
+                    <p class="mt-0 text-muted font-size-12">
+                        Set the end time for this game. We will only allow betting until this time is reached.
+                    </p>
+                    <input [(ngModel)]="model.timer" class="form-control w-400 mw-full" type="datetime-local">
+                </div>
+                <hr>
+                <div class="form-group my-20">
+                    <label class="text-secondary">Options</label>
+                    <p class="mt-0 text-muted font-size-12">
+                        Prediction games can have up to 3 options for players to bet on. Choose how many options are
+                        available for this game and set their names. Option name should be less than 24 characters.
+                    </p>
+                    <div class="btn-group mb-20" role="group">
+                        <button class="btn" [ngClass]="{'btn-secondary': model.options == 2}" (click)="changeOptions(2)"
+                            type="button">2</button>
+                        <button class="btn" [ngClass]="{'btn-secondary': model.options == 3}" (click)="changeOptions(3)"
+                            type="button">3</button>
+                    </div>
+                    <div class="input-group w-400 mw-full">
+                        <div class="input-group-prepend w-quarter">
+                            <span class="input-group-text w-full">Option 1</span>
+                        </div>
+                        <input [(ngModel)]="model.option1" class="form-control w-three-quarter" type="text"
+                            maxlength="24" placeholder="Name of option">
+                    </div>
+                    <div class="input-group w-400 mw-full">
+                        <div class="input-group-prepend w-quarter">
+                            <span class="input-group-text w-full">Option 2</span>
+                        </div>
+                        <input [(ngModel)]="model.option2" class="form-control w-three-quarter" type="text"
+                            maxlength="24" placeholder="Name of option">
+                    </div>
+                    <div *ngIf="model.options > 2" class="input-group w-400 mw-full">
+                        <div class="input-group-prepend w-quarter">
+                            <span class="input-group-text w-full">Option 3</span>
+                        </div>
+                        <input [(ngModel)]="model.option3" class="form-control w-three-quarter" type="text"
+                            maxlength="24" placeholder="Name of option">
+                    </div>
+                </div>
+                <hr>
+                <div class="form-group my-20">
+                    <label class="text-secondary">Payouts</label>
+                    <p class="mt-0 text-muted font-size-12">
+                        Choose how the prize pool must be divided between each party. Make sure the
+                        percentages are in integers and they add up exactly to 100.
+                    </p>
+                    <div class="input-group w-400 mw-full">
+                        <div class="input-group-prepend w-three-quarter">
+                            <span class="input-group-text w-full">Winners payment percentage</span>
+                        </div>
+                        <input [ngModel]="model.winnerPercentage" (ngModelChange)="updateWinnerPercentage($event)"
+                            class="form-control w-quarter" type="number" min="1" max="100" step="1" placeholder="-">
+                    </div>
+                    <div class="input-group w-400 mw-full">
+                        <div class="input-group-prepend w-three-quarter">
+                            <span class="input-group-text w-full">Your profit percentage</span>
+                        </div>
+                        <input [ngModel]="model.managerPercentage" (ngModelChange)="updateManagerPercentage($event)"
+                            class="form-control w-quarter" type="number" min="1" max="100" step="1" placeholder="-">
+                    </div>
+                    <div class="input-group w-400 mw-full">
+                        <div class="input-group-prepend w-three-quarter">
+                            <span class="input-group-text w-full">Platform fee percentage</span>
+                        </div>
+                        <input value="{{model.platformPercentage}}" class="form-control w-quarter" type="number" min="1"
+                            max="100" disabled>
+                    </div>
+                    <div class="input-group w-400 mw-full">
+                        <div class="input-group-prepend w-three-quarter">
+                            <span class="input-group-text w-full">Total percentage</span>
+                        </div>
+                        <input
+                            [ngClass]="{'text-secondary': model.totalPercentage < 100, 'text-success': model.totalPercentage == 100, 'text-danger': model.totalPercentage > 100}"
+                            value="{{model.totalPercentage}}" class="form-control w-quarter" type="number" min="1"
+                            max="100" disabled>
+                    </div>
+                </div>
+                <button *ngIf="!actions.creatingGame" class="btn btn-success mt-20" (click)="createGame()">
+                    Create Game
+                </button>
+                <button *ngIf="actions.creatingGame" class="btn btn-success mt-20">
+                    <i class="fas fa-cog fa-spin mx-20"></i>
+                </button>
+                <p class="text-muted font-size-12 mt-20 mb-0">
+                    Creating a game costs
+                    <span innerHTML="{{gameDefinition.creationCost | amount:0 | async}}"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

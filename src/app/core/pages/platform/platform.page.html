@@ -1,0 +1,34 @@
+<div class="container-fluid">
+    <div class="content">
+        <div class="row align-items-center">
+            <div class="col-sm">
+                <h1 class="content-title my-10">
+                    Platform
+                </h1>
+            </div>
+            <div class="col-auto">
+                <button class="btn mr-5" type="button" (click)="navigateToPage('')">
+                    <i class="fas fa-arrow-left text-danger mr-5"></i>
+                    Back
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row row-eq-spacing-xl">
+        <div class="col-xl-4" *ngFor="let platform of platforms" (click)="navigateToPage(platform.route)">
+            <div class="card h-full">
+                <div class="row hand">
+                    <div class="col-sm">
+                        <h1>
+                            <i class="{{platform.icon}}" [ngStyle]="{'color': platform.color}"></i>
+                        </h1>
+                        <h2 class="content-title text-success">{{platform.name}}</h2>
+                        <p class="text-muted mb-0">
+                            {{platform.description}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

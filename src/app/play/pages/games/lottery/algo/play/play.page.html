@@ -1,0 +1,476 @@
+<div class="container-fluid">
+    <div class="content">
+        <div class="row align-items-center">
+            <div class="col-sm">
+                <h1 class="content-title my-10">
+                    Lottery
+                </h1>
+            </div>
+            <div class="col-auto">
+                <button class="btn mr-5" type="button" (click)="navigateToPage(gameDefinition.route)">
+                    <i class="fas fa-arrow-left text-danger mr-5"></i>
+                    Back
+                </button>
+                <button class="btn" type="button" (click)="loadGameDetails()">
+                    <i class="fas fa-cog text-danger mr-5" [ngClass]="{'fa-spin': loading}"></i>
+                    Refresh
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row row-eq-spacing-xl">
+        <div *ngIf="actions.loadingGame" class="col-xl-6">
+            <div class="card h-full">
+                <div class="row">
+                    <div class="col-sm">
+                        <h2 class="content-title text-success">
+                            Game details
+                        </h2>
+                        <p class="text-muted mb-20">
+                            {{gameDefinition.description}}
+                        </p>
+                    </div>
+                </div>
+                <hr>
+            </div>
+        </div>
+        <div *ngIf="!actions.loadingGame && loadingError" class="col-xl-6">
+            <div class="card h-full">
+                <div class="row">
+                    <div class="col-sm">
+                        <h2 class="content-title text-success">
+                            Game details
+                        </h2>
+                        <p class="text-muted mb-20">
+                            {{gameDefinition.description}}
+                        </p>
+                    </div>
+                </div>
+                <hr>
+                <p class="text-danger mb-20">
+                    We could not find the details of this lottery.
+                </p>
+                <button class="btn btn-success mb-5 mr-5" (click)="navigateToPage(gameDefinition.route)">
+                    Browse Active Games
+                </button>
+            </div>
+        </div>
+        <div *ngIf="!actions.loadingGame && !loadingError" class="col-xl-6">
+            <div class="card h-full">
+                <div class="row">
+                    <div class="col-sm">
+                        <h2 class="content-title text-success">
+                            Game details
+                        </h2>
+                        <p class="text-muted mb-20">
+                            {{gameDefinition.description}}
+                        </p>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-no-outer-padding">
+                        <tbody>
+                            <tr>
+                                <td class="text-secondary">Name</td>
+                                <td>{{gameDetails.storage.name}}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-secondary">Manager</td>
+                                <td innerHTML="{{gameDetails.storage.manager | identity | async}}"></td>
+                            </tr>
+                            <tr>
+                                <td class="text-secondary">Asset</td>
+                                <td innerHTML="{{gameDetails.assetId | asset | async}}"></td>
+                            </tr>
+                            <tr>
+                                <td class="text-secondary">Volume</td>
+                                <td innerHTML="{{gameDetails.storage.volume | amount:gameDetails.assetId | async}}">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-secondary">Status</td>
+                                <td>{{gameDetails.status}}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-secondary">Timer</td>
+                                <td>{{gameDetails.timespanLeft}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="!actions.loadingGame && !loadingError" class="col-xl-6">
+            <div class="card h-full">
+                <div class="row">
+                    <div class="col-sm">
+                        <h2 class="content-title text-success">
+                            Purchase tickets
+                        </h2>
+                        <p *ngIf="gameDetails.status == 'Running'" class="text-muted mb-20">
+                            This lottery is currently active. Purchase tickets by paying with
+                            <span innerHTML="{{gameDetails.assetId | asset:false | async}}"></span>.
+                            The more tickets you buy, the higher your chances of winning.
+                        </p>
+                        <p *ngIf="gameDetails.status == 'Finalising'" class="text-muted mb-20">
+                            This lottery is being finalised by its manager now. You can no longer purchase tickets of
+                            this lottery. If you purchased tickets earlier, you will be able to see whether you have
+                            won, once it is finalised.
+                        </p>
+                        <p *ngIf="gameDetails.status == 'Completed'" class="text-muted mb-20">
+                            This lottery is finalised now. You can no longer purchase tickets of this lottery. If you
+                            purchased tickets earlier, scroll down to see whether you have won.
+                        </p>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-no-outer-padding">
+                        <tbody>
+                            <tr>
+                                <td class="text-secondary">Your tickets</td>
+                                <td innerHTML="{{gameDetails.account.volume | amount:gameDetails.assetId | async}}">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-secondary">Your chance of winning</td>
+                                <td>{{gameDetails.account.percentage | number: '1.2-2'}}%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div *ngIf="gameDetails.status == 'Running'">
+                    <div class="form-group my-20">
+                        <label class="text-secondary">Amount</label>
+                        <p class="mt-0 text-muted font-size-12">
+                            Enter how much <span innerHTML="{{gameDetails.assetId | asset:false | async}}"></span> you
+                            want to pay for your tickets.
+                        </p>
+                        <input [(ngModel)]="model.amount" class="form-control w-400 mw-full" type="number"
+                            placeholder="Amount">
+                    </div>
+                    <button *ngIf="!actions.buyingTickets" class="btn btn-success" (click)="buyTickets()">
+                        Buy Tickets
+                    </button>
+                    <button *ngIf="actions.buyingTickets" class="btn btn-success">
+                        <i class="fas fa-cog fa-spin mx-20"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row row-eq-spacing-xl">
+        <div *ngIf="!actions.loadingGame && !loadingError" class="col-xl-12">
+            <div class="card h-full">
+                <div class="row">
+                    <div class="col-sm">
+                        <h2 class="content-title text-success">
+                            Payouts
+                        </h2>
+                        <p *ngIf="gameDetails.status == 'Running'" class="text-muted mb-20">
+                            The <span innerHTML="{{gameDetails.assetId | asset:false | async}}"></span> spent by players
+                            to purchase tickets of this lottery is distributed between winners, game manager and our
+                            platform as below. As more tickets are
+                            purchased, the payout amounts will increase accordingly.
+                        </p>
+                        <p *ngIf="gameDetails.status == 'Finalising'" class="text-muted mb-20">
+                            The <span innerHTML="{{gameDetails.assetId | asset:false | async}}"></span> spent by players
+                            to purchase tickets of this lottery will be distributed between winners, game manager and
+                            our platform as below.
+                        </p>
+                        <p *ngIf="gameDetails.status == 'Completed'" class="text-muted mb-20">
+                            The <span innerHTML="{{gameDetails.assetId | asset:false | async}}"></span> spent by players
+                            to purchase tickets of this lottery is distributed between winners, game manager and our
+                            platform as below.
+                        </p>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-no-outer-padding">
+                        <tbody>
+                            <tr>
+                                <td class="text-secondary">Payee</td>
+                                <td class="text-secondary">Percentage</td>
+                                <td class="text-secondary">Receiver</td>
+                                <td class="text-secondary">Amount</td>
+                            </tr>
+                            <tr *ngFor="let payout of gameDetails.payouts">
+                                <td>{{payout.payee}}</td>
+                                <td>{{payout.percentage}}%</td>
+                                <td innerHTML="{{payout.address | identity | async}}"></td>
+                                <td>
+                                    <span innerHTML="{{payout.amount | amount:gameDetails.assetId | async}}"></span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row row-eq-spacing-xl">
+        <div *ngIf="!actions.loadingGame && !loadingError" class="col-xl-6">
+            <div class="card h-full">
+                <div class="row">
+                    <div class="col-sm">
+                        <h2 class="content-title text-success">
+                            Tickets distribution
+                        </h2>
+                        <p *ngIf="gameDetails.status == 'Running'" class="text-muted mb-20">
+                            Check out how the tickets of this lottery is distributed between players at the moment. The
+                            more tickets a player has, the higher his chances of winning.
+                        </p>
+                        <p *ngIf="gameDetails.status == 'Finalising'" class="text-muted mb-20">
+                            Check out how the tickets of this lottery is distributed between players. The more tickets a
+                            player has, the higher his chances of winning.
+                        </p>
+                        <p *ngIf="gameDetails.status == 'Completed'" class="text-muted mb-20">
+                            Check out how the tickets of this lottery is distributed between players. The more tickets a
+                            player has, the higher his chances of winning.
+                        </p>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-no-outer-padding">
+                        <tbody>
+                            <tr>
+                                <td class="text-secondary">Player</td>
+                                <td class="text-secondary">Tickets</td>
+                                <td class="text-secondary" *ngIf="gameDetails.status == 'Completed'">Payout</td>
+                            </tr>
+                            <tr *ngFor="let ticket of gameDetails.tickets">
+                                <td innerHTML="{{ticket.address | identity | async}}"></td>
+                                <td innerHTML="{{ticket.amount | amount:gameDetails.assetId | async}}"></td>
+                                <td *ngIf="gameDetails.status == 'Completed'">
+                                    <span innerHTML="{{ticket.payout | amount:gameDetails.assetId | async}}"></span>
+                                    <span *ngIf="ticket.payout > 0" class="ml-10 hand" data-toggle="tooltip"
+                                        data-title="Winner">
+                                        <i class="fas fa-medal text-success"></i>
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="!actions.loadingGame && !loadingError && gameDetails.storage.manager == app.account && gameDetails.status == 'Running'"
+            class="col-xl-6">
+            <div class="card h-full">
+                <div class="row">
+                    <div class="col-sm">
+                        <h2 class="content-title text-success">
+                            Finalise game
+                        </h2>
+                        <p class="text-muted mb-20">
+                            As the manager of this game, you will be able to choose the winners and finalise the game
+                            when the timer runs out.
+                        </p>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-no-outer-padding">
+                        <tbody>
+                            <tr>
+                                <td class="text-secondary">Your current profit</td>
+                                <td
+                                    innerHTML="{{gameDetails.storage.managerShare | amount:gameDetails.assetId | async}}">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-secondary">Time left</td>
+                                <td>{{gameDetails.timespanLeft}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="!actions.loadingGame && !loadingError && gameDetails.storage.manager == app.account && gameDetails.status == 'Finalising'"
+            class="col-xl-6">
+            <div class="card h-full">
+                <div class="row">
+                    <div class="col-sm">
+                        <h2 class="content-title text-success">
+                            Finalise game
+                        </h2>
+                        <p *ngIf="gameDetails.storage.volume > 0" class="text-muted mb-20">
+                            Now that the game timer has run out, you can finalise it to choose the winners and receive
+                            your profits.
+                        </p>
+                        <p *ngIf="gameDetails.storage.volume == 0" class="text-muted mb-20">
+                            Unfortunately, no one has purchased tickets of this lottery. So there is nothing to be
+                            finalised.
+                        </p>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-no-outer-padding">
+                        <tbody>
+                            <tr>
+                                <td class="text-secondary">Your profit</td>
+                                <td
+                                    innerHTML="{{gameDetails.storage.managerShare | amount:gameDetails.assetId | async}}">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div *ngIf="gameDetails.storage.volume > 0">
+                    <button *ngIf="!actions.finalisingGame" class="btn btn-success mt-20 mb-0" (click)="finaliseGame()">
+                        Finalise Game
+                    </button>
+                    <button *ngIf="actions.finalisingGame" class="btn btn-success mt-20 mb-0">
+                        <i class="fas fa-cog fa-spin mx-20"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="!actions.loadingGame && !loadingError && gameDetails.storage.manager == app.account && gameDetails.status == 'Completed' && gameDetails.storage.volume == 0"
+            class="col-xl-6">
+            <div class="card h-full">
+                <div class="row">
+                    <div class="col-sm">
+                        <h2 class="content-title text-success">
+                            Finalise game
+                        </h2>
+                        <p *ngIf="gameDetails.storage.volume > 0" class="text-muted mb-20">
+                            Now that the game timer has run out, you can finalise it to choose the winners and receive
+                            your profits.
+                        </p>
+                        <p *ngIf="gameDetails.storage.volume == 0" class="text-muted mb-20">
+                            Unfortunately, no one has purchased tickets of this lottery. So there is nothing to be
+                            finalised.
+                        </p>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-no-outer-padding">
+                        <tbody>
+                            <tr>
+                                <td class="text-secondary">Your profit</td>
+                                <td
+                                    innerHTML="{{gameDetails.storage.managerShare | amount:gameDetails.assetId | async}}">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="!actions.loadingGame && !loadingError && gameDetails.storage.manager == app.account && gameDetails.status == 'Completed'"
+            class="col-xl-6">
+            <div class="card h-full">
+                <div class="row">
+                    <div class="col-sm">
+                        <h2 class="content-title text-success">
+                            Thank You
+                        </h2>
+                        <p class="text-muted mb-20">
+                            Thank you for creating this lottery using our platform. It is now fully completed.
+                        </p>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-no-outer-padding">
+                        <tbody>
+                            <tr>
+                                <td class="text-secondary">Your profit</td>
+                                <td
+                                    innerHTML="{{gameDetails.storage.managerShare | amount:gameDetails.assetId | async}}">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div>
+                    <button class="btn btn-success mt-20 mb-0"
+                        (click)="navigateToPage(gameDefinition.route + '/create')">
+                        Create New Game
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="!actions.loadingGame && !loadingError && gameDetails.storage.manager != app.account"
+            class="col-xl-6">
+            <div class="card h-full">
+                <div class="row">
+                    <div class="col-sm">
+                        <h2 class="content-title text-success">
+                            Create new game
+                        </h2>
+                        <p class="text-muted mb-20">
+                            Anyone can create a lottery game using our game engine. As the game creator, you will earn a
+                            share of the prize pool. When creating the game, you get to choose the number of winners and
+                            their prize percentages. Games can be setup with ALGO or any other Algorand ASA. At then end
+                            of the game, we will help you choose the winners based on their purchased ticket amounts.
+                        </p>
+                        <button class="btn btn-success mb-0" (click)="navigateToPage(gameDefinition.route + '/create')">
+                            Create New Game
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row row-eq-spacing-xl"
+        *ngIf="!actions.loadingGame && !loadingError && gameDetails.storage.manager == app.account && gameDetails.status == 'Running'">
+        <div class="col-xl-6">
+            <div class="card h-full">
+                <div class="row">
+                    <div class="col-sm">
+                        <h2 class="content-title text-success">
+                            Update name
+                        </h2>
+                        <p class="text-muted mb-20">
+                            As the manager of this lottery you can update its name anytime before the timer runs out.
+                        </p>
+                    </div>
+                </div>
+                <hr>
+                <div class="form-group my-20">
+                    <label class="text-secondary">Name</label>
+                    <p class="mt-0 text-muted font-size-12">
+                        Just a short title to help players easily identify this lottery. Maximum 64 characters.
+                    </p>
+                    <input [(ngModel)]="model.name" class="form-control w-400 mw-full" type="text" maxlength="64"
+                        placeholder="Name">
+                </div>
+                <button *ngIf="!actions.updatingName" class="btn btn-success" (click)="updateName()">
+                    Update Name
+                </button>
+                <button *ngIf="actions.updatingName" class="btn btn-success">
+                    <i class="fas fa-cog fa-spin mx-20"></i>
+                </button>
+            </div>
+        </div>
+        <div class="col-xl-6">
+            <div class="card h-full">
+                <div class="row">
+                    <div class="col-sm">
+                        <h2 class="content-title text-success">
+                            Update timer
+                        </h2>
+                        <p class="text-muted mb-20">
+                            As the manager of this lottery you can update its timer anytime before the current timer
+                            runs out.
+                        </p>
+                    </div>
+                </div>
+                <hr>
+                <div class="form-group my-20">
+                    <label class="text-secondary">Timer</label>
+                    <p class="mt-0 text-muted font-size-12">
+                        Set the end time for lottery. We will only allow ticket purchases until this time is reached.
+                    </p>
+                    <input [(ngModel)]="model.timer" class="form-control w-400 mw-full" type="datetime-local">
+                </div>
+                <button *ngIf="!actions.updatingTimer" class="btn btn-success" (click)="updateTimer()">
+                    Update Timer
+                </button>
+                <button *ngIf="actions.updatingTimer" class="btn btn-success">
+                    <i class="fas fa-cog fa-spin mx-20"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

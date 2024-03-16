@@ -1,0 +1,34 @@
+<div class="container-fluid">
+    <div class="content">
+        <div class="row align-items-center">
+            <div class="col-sm">
+                <h1 class="content-title my-10">
+                    Games
+                </h1>
+            </div>
+            <div class="col-auto">
+                <button class="btn mr-5" type="button" (click)="navigateToPage('play')">
+                    <i class="fas fa-arrow-left text-danger mr-5"></i>
+                    Back
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row row-eq-spacing-xl">
+        <div class="col-xl-4" *ngFor="let game of games" (click)="navigateToPage(game.route)">
+            <div class="card h-full">
+                <div class="row hand">
+                    <div class="col-sm">
+                        <h1>
+                            <i class="{{game.icon}}" [ngStyle]="{'color': game.color}"></i>
+                        </h1>
+                        <h2 class="content-title text-success">{{game.name}}</h2>
+                        <p class="text-muted mb-0">
+                            {{game.description}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

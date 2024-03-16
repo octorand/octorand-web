@@ -1,0 +1,95 @@
+<div *ngIf="app" class="page-wrapper with-navbar with-navbar-fixed-bottom with-sidebar">
+    <div class="sticky-alerts"></div>
+    <nav class="navbar">
+        <div class="navbar-content">
+            <button class="btn btn-action" type="button" (click)="toggleSidebar()">
+                <i class="fa fa-bars"></i>
+            </button>
+        </div>
+        <a class="navbar-brand ml-10 hand" (click)="navigateToPage(app.project.route)">
+            <img src="/assets/img/logo/logo.svg">
+            <span>OCTORAND</span>
+        </a>
+        <div class="navbar-content ml-auto">
+            <div *ngIf="app.project" class="dropdown with-arrow project-dropdown mr-5">
+                <button class="btn btn-primary" data-toggle="dropdown" type="button" id="project-dropdown"
+                    aria-haspopup="true" aria-expanded="false" [ngClass]="{'btn-action': isMobile}">
+                    <i class="fas fa-th-large"></i>
+                    <span *ngIf="!isMobile" class="ml-5">{{app.project.name}}</span>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="project-dropdown">
+                    <a *ngFor="let project of projects" class="dropdown-item hand" (click)="selectProject(project)">
+                        <i class="fas fa-circle mr-5" [ngClass]="{'text-primary': project.id == app.project.id}"></i>
+                        <span [ngClass]="{'text-primary': project.id == app.project.id}">{{project.name}}</span>
+                    </a>
+                </div>
+            </div>
+            <div class="dropdown with-arrow connect-dropdown">
+                <button class="btn btn-primary" data-toggle="dropdown" type="button" id="connect-dropdown"
+                    aria-haspopup="true" aria-expanded="false" [ngClass]="{'btn-action': isMobile}">
+                    <i class="fas fa-user"></i>
+                    <span *ngIf="!isMobile && app.account" class="ml-5">
+                        {{app.account | identity: false:false | async}}
+                    </span>
+                    <span *ngIf="!isMobile && !app.account" class="ml-5">Connect</span>
+                </button>
+                <div *ngIf="app.account" class="dropdown-menu dropdown-menu-right" aria-labelledby="connect-dropdown">
+                    <a *ngFor="let address of app.addresses" class="dropdown-item hand"
+                        (click)="selectAddress(address)">
+                        <i class="fas fa-circle mr-5" [ngClass]="{'text-primary': app.account == address}"></i>
+                        <span [ngClass]="{'text-primary': app.account == address}">
+                            {{address | identity: false:false | async}}
+                        </span>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item hand" (click)="disconnectAccount()">
+                        <i class="fas fa-circle mr-5 text-danger"></i>
+                        <span class="text-danger">Disconnect</span>
+                    </a>
+                </div>
+                <div *ngIf="!app.account" class="dropdown-menu dropdown-menu-right" aria-labelledby="connect-dropdown">
+                    <a *ngFor="let wallet of wallets" class="dropdown-item hand" (click)="selectWallet(wallet)">
+                        <i class="fas fa-circle mr-5" [ngStyle]="{'color': wallet.color}"></i>
+                        <span>{{wallet.name}}</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="sidebar-overlay" (click)="toggleSidebar()"></div>
+    <div class="sidebar">
+        <div class="sidebar-menu">
+            <div *ngFor="let section of app.sidebar">
+                <h5 class="sidebar-title hand" (click)="navigateToPage(section.route)">{{section.name}}
+                </h5>
+                <div class="sidebar-divider"></div>
+                <a *ngFor="let item of section.items" class="sidebar-link sidebar-link-with-icon hand"
+                    (click)="navigateToPage(item.route)">
+                    <span class="sidebar-icon">
+                        <i class="{{item.icon}}" [ngStyle]="{'color': item.color}"></i>
+                    </span>
+                    {{item.name}}
+                </a>
+                <br>
+            </div>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <router-outlet></router-outlet>
+    </div>
+    <nav class="navbar navbar-fixed-bottom">
+        <div class="navbar-content">
+            <button class="btn btn-action" type="button" (click)="toggleSidebar()">
+                <i class="fa fa-bars"></i>
+            </button>
+        </div>
+        <div class="navbar-content mx-auto">
+            <a *ngFor="let social of socials" href="{{social.url}}" target="_blank" class="mx-5">
+                <button class="btn" type="button" [ngClass]="{'btn-action': isMobile}">
+                    <i class="{{social.icon}}" [ngStyle]="{'color': social.color}"></i>
+                    <span *ngIf="!isMobile" class="ml-5">{{social.name}}</span>
+                </button>
+            </a>
+        </div>
+    </nav>
+</div>

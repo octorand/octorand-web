@@ -1,0 +1,91 @@
+<div class="container-fluid">
+    <div class="content">
+        <div class="row align-items-center">
+            <div class="col-sm">
+                <h1 class="content-title my-10">
+                    Tokenomics
+                </h1>
+            </div>
+            <div class="col-auto">
+                <button class="btn mr-5" type="button" (click)="navigateToPage('platform')">
+                    <i class="fas fa-arrow-left text-danger mr-5"></i>
+                    Back
+                </button>
+                <button class="btn" type="button" (click)="loadTokenDetails()">
+                    <i class="fas fa-cog text-danger mr-5" [ngClass]="{'fa-spin': loading}"></i>
+                    Refresh
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row row-eq-spacing-xl">
+        <div class="col-xl-6">
+            <div class="card h-full">
+                <div class="row">
+                    <div class="col-sm">
+                        <h2 class="content-title text-success">
+                            Token details
+                        </h2>
+                        <p class="text-muted mb-20">
+                            OCTO token, the native currency of Octorand platform comes with interesting deflationary
+                            dynamics. It is a multi purpose utility token with many use cases across the entire
+                            Octorand ecosystem.
+                        </p>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-no-outer-padding">
+                        <tbody>
+                            <tr>
+                                <td class="text-secondary">Asset id</td>
+                                <td>{{assetId}}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-secondary">Asset unit</td>
+                                <td>OCTO</td>
+                            </tr>
+                            <tr>
+                                <td class="text-secondary">Asset decimals</td>
+                                <td>6</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-6">
+            <div class="card h-full">
+                <div class="row">
+                    <div class="col-sm">
+                        <h2 class="content-title text-success">
+                            Token supply
+                        </h2>
+                        <p class="text-muted mb-20">
+                            The OCTO supply is finite and hyper-deflationary. Supply is burned each time users do things
+                            like transform their Primes, upgrade their artwork, send messages to other Prime holders,
+                            and more.
+                        </p>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-no-outer-padding">
+                        <tbody>
+                            <tr>
+                                <td class="text-secondary">Total supply</td>
+                                <td innerHTML="{{totalSupply | amount:assetId | async}}"></td>
+                            </tr>
+                            <tr>
+                                <td class="text-secondary">Burnt supply</td>
+                                <td innerHTML="{{burntSupply | amount:assetId | async}}"></td>
+                            </tr>
+                            <tr>
+                                <td class="text-secondary">Remaining supply</td>
+                                <td innerHTML="{{remainingSupply | amount:assetId | async}}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

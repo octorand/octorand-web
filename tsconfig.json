@@ -1,0 +1,76 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "ES2022",
+    "module": "es2020",
+    "lib": [
+      "es2020",
+      "dom"
+    ],
+    "paths": {
+      "@environment": [
+        "./src/environments/environment"
+      ],
+      "@lib": [
+        "./src/lib/lib.module.ts"
+      ],
+      "@lib/helpers": [
+        "./src/lib/helpers/_index"
+      ],
+      "@lib/pipes": [
+        "./src/lib/pipes/_index"
+      ],
+      "@lib/wallets": [
+        "./src/lib/wallets/_index"
+      ],
+      "@app/core": [
+        "./src/app/core/core.module.ts"
+      ],
+      "@app/core/pages": [
+        "./src/app/core/pages/_index"
+      ],
+      "@app/core/services": [
+        "./src/app/core/services/_index"
+      ],
+      "@app/play": [
+        "./src/app/play/play.module.ts"
+      ],
+      "@app/play/contracts": [
+        "./src/app/play/contracts/_index"
+      ],
+      "@app/play/models": [
+        "./src/app/play/models/_index"
+      ],
+      "@app/play/pages": [
+        "./src/app/play/pages/_index"
+      ],
+      "@app/play/services": [
+        "./src/app/play/services/_index"
+      ]
+    },
+    "useDefineForClassFields": false
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
+  }
+}
