@@ -6,8 +6,8 @@
     "build": "npm run build:testnet && npm run build:mainnet",
     "build:testnet": "ng build --configuration testnet --output-path=dist/testnet",
     "build:mainnet": "ng build --configuration mainnet --output-path=dist/mainnet",
-    "start:testnet": "ng serve -o --port 8810 --configuration development-testnet",
-    "start:mainnet": "ng serve -o --port 8820 --configuration development-mainnet"
+    "start:testnet": "ng serve -o --port 8810 --configuration preview-testnet",
+    "start:mainnet": "ng serve -o --port 8820 --configuration preview-mainnet"
   },
   "private": true,
   "dependencies": {

@@ -75,7 +75,7 @@
               ],
               "outputHashing": "all"
             },
-            "development-testnet": {
+            "preview-testnet": {
               "buildOptimizer": false,
               "optimization": false,
               "vendorChunk": true,
@@ -89,7 +89,7 @@
                 }
               ]
             },
-            "development-mainnet": {
+            "preview-mainnet": {
               "buildOptimizer": false,
               "optimization": false,
               "vendorChunk": true,
@@ -104,7 +104,7 @@
               ]
             }
           },
-          "defaultConfiguration": "development-testnet"
+          "defaultConfiguration": "preview-testnet"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -115,14 +115,14 @@
             "testnet": {
               "browserTarget": "octorand-web:build:testnet"
             },
-            "development-testnet": {
-              "browserTarget": "octorand-web:build:development-testnet"
+            "preview-testnet": {
+              "browserTarget": "octorand-web:build:preview-testnet"
             },
-            "development-mainnet": {
-              "browserTarget": "octorand-web:build:development-mainnet"
+            "preview-mainnet": {
+              "browserTarget": "octorand-web:build:preview-mainnet"
             }
           },
-          "defaultConfiguration": "development-testnet"
+          "defaultConfiguration": "preview-testnet"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
