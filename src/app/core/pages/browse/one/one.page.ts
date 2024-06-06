@@ -16,9 +16,9 @@ export class CoreBrowseOnePage implements OnInit, OnDestroy {
   app: any = null;
 
   /**
-   * Track token details loading task
+   * Track prime details loading task
    */
-  tokenDetailsLoadTask: any = null;
+  primeDetailsLoadTask: any = null;
 
   /**
    * Tracking actions
@@ -56,7 +56,7 @@ export class CoreBrowseOnePage implements OnInit, OnDestroy {
    * Destroy component
    */
   ngOnDestroy() {
-    clearInterval(this.tokenDetailsLoadTask);
+    clearInterval(this.primeDetailsLoadTask);
   }
 
   /**
@@ -73,29 +73,19 @@ export class CoreBrowseOnePage implements OnInit, OnDestroy {
    * Initialize tasks
    */
   initTasks() {
-    this.loadTokenDetails();
-    this.tokenDetailsLoadTask = setInterval(() => { this.loadTokenDetails() }, 30000);
+    this.loadPrimeDetails();
+    this.primeDetailsLoadTask = setInterval(() => { this.loadPrimeDetails() }, 30000);
   }
 
   /**
-   * Load token details
+   * Load prime details
    */
-  loadTokenDetails() {
+  loadPrimeDetails() {
     this.loading = true;
-    // this.assetId = environment.platform_asset_id;
-    // this.chainHelper.lookupAsset(environment.platform_asset_id).then((asset: any) => {
-    //   this.totalSupply = asset['params']['total'];
-    //   this.chainHelper.lookupAccount(environment.burner_address).then((account: any) => {
-    //     let balance = account['assets'].find((a: any) => a['asset-id'] == asset.index);
-    //     if (balance) {
-    //       this.burntSupply = balance.amount;
-    //     }
-
-    //     this.remainingSupply = this.totalSupply - this.burntSupply;
-    //     this.actions.loadingDetails = false;
-    //     this.loading = false;
-    //   });
-    // });
+    this.chainHelper.lookupAccountCreatedApplications(environment.gen1.manager_address).then((applications: any) => {
+      console.log(applications);
+      this.loading = false;
+    });
   }
 
   /**

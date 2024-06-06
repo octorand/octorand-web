@@ -3,80 +3,18 @@
         <div class="row align-items-center">
             <div class="col-sm">
                 <h1 class="content-title my-10">
-                    Treasury
+                    Browse Two
                 </h1>
             </div>
             <div class="col-auto">
-                <button class="btn mr-5" type="button" (click)="navigateToPage('platform')">
+                <button class="btn mr-5" type="button" (click)="navigateToPage('browse')">
                     <i class="fas fa-arrow-left text-danger mr-5"></i>
                     Back
                 </button>
-                <button class="btn" type="button" (click)="loadTreasuryDetails()">
+                <button class="btn" type="button" (click)="loadTokenDetails()">
                     <i class="fas fa-cog text-danger mr-5" [ngClass]="{'fa-spin': loading}"></i>
                     Refresh
                 </button>
-            </div>
-        </div>
-    </div>
-    <div class="row row-eq-spacing-xl">
-        <div class="col-xl-5">
-            <div class="card h-full">
-                <div class="row">
-                    <div class="col-sm">
-                        <h2 class="content-title text-success">
-                            Token burns
-                        </h2>
-                        <p class="text-muted mb-20">
-                            Treasury is where we store 50% of platform profits. We use the balance of treasury to
-                            buyback and burn OCTO token.
-                        </p>
-                    </div>
-                </div>
-                <div class="table-responsive">
-                    <table class="table table-no-outer-padding">
-                        <tbody>
-                            <tr>
-                                <td class="text-secondary">Current treasury balance</td>
-                                <td innerHTML="{{currentBalance | amount:0 | async}}"></td>
-                            </tr>
-                            <tr>
-                                <td class="text-secondary">Total burned tokens</td>
-                                <td innerHTML="{{totalBurned | amount:assetId | async}}"></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-7">
-            <div class="card h-full">
-                <div class="row">
-                    <div class="col-sm">
-                        <h2 class="content-title text-success">
-                            Burns history
-                        </h2>
-                        <p class="text-muted mb-20">
-                            Burning is a manual process as of now. We convert ALGO and other ASAs we receive as platform
-                            fees to OCTO periodically for burning. Check out how much OCTO we have been burning so far.
-                        </p>
-                    </div>
-                </div>
-                <div class="table-responsive">
-                    <table class="table table-no-outer-padding">
-                        <tbody>
-                            <tr>
-                                <td class="text-secondary">Date</td>
-                                <td class="text-secondary">Transaction</td>
-                                <td class="text-secondary">Amount</td>
-                            </tr>
-                            <tr *ngFor="let history of burnsHistory">
-                                <td>{{history['round-time'] * 1000 | date: 'longDate'}}</td>
-                                <td innerHTML="{{history['id'] | transaction}}"></td>
-                                <td innerHTML="{{history['asset-transfer-transaction']['amount'] | amount:assetId | async}}"></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
             </div>
         </div>
     </div>

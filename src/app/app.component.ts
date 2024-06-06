@@ -1,6 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { AppHelper, ProjectHelper, SocialHelper, WalletHelper } from '@lib/helpers';
+import { AppHelper, SidebarHelper, SocialHelper, WalletHelper } from '@lib/helpers';
 import { environment } from '@environment';
 
 import { PeraWalletConnect } from "@perawallet/connect";
@@ -10,7 +10,6 @@ import QRCodeModal from "algorand-walletconnect-qrcode-modal";
 
 declare var window: any;
 declare var halfmoon: any;
-declare var AlgoSigner: any;
 
 @Component({
   selector: 'app-root',
@@ -45,11 +44,6 @@ export class AppComponent implements OnInit {
   isMobile: boolean = false;
 
   /**
-   * Project links
-   */
-  projects: Array<any> = [];
-
-  /**
    * Social links
    */
   socials: Array<any> = [];
@@ -60,18 +54,23 @@ export class AppComponent implements OnInit {
   wallets: Array<any> = [];
 
   /**
+   * Sidebar links
+   */
+  sidebar: Array<any> = [];
+
+  /**
    * Construct component
    *
    * @param router
    * @param appHelper
-   * @param projectHelper
+   * @param sidebarHelper
    * @param socialHelper
    * @param walletHelper
    */
   constructor(
     private router: Router,
     private appHelper: AppHelper,
-    private projectHelper: ProjectHelper,
+    private sidebarHelper: SidebarHelper,
     private socialHelper: SocialHelper,
     private walletHelper: WalletHelper
   ) { }
@@ -102,9 +101,9 @@ export class AppComponent implements OnInit {
       this.app = value;
     });
 
-    this.projects = this.projectHelper.list();
     this.socials = this.socialHelper.list();
     this.wallets = this.walletHelper.list();
+    this.sidebar = this.sidebarHelper.list();
   }
 
   /**
@@ -157,9 +156,6 @@ export class AppComponent implements OnInit {
    */
   selectWallet(wallet: any) {
     switch (wallet.id) {
-      case 'algo-signer':
-        this.manageAlgoSigner(wallet.id);
-        break;
       case 'exodus':
         this.manageExodus(wallet.id);
         break;
@@ -175,50 +171,6 @@ export class AppComponent implements OnInit {
     }
 
     this.hideConnectDropdown();
-  }
-
-  /**
-   * Select project
-   *
-   * @param project
-   */
-  selectProject(project: any) {
-    this.navigateToPage(project.route);
-    this.hideProjectDropdown();
-  }
-
-  /**
-   * Manage the connection of algo signer
-   *
-   * @param wallet
-   */
-  manageAlgoSigner(wallet: string) {
-    if (typeof AlgoSigner !== 'undefined') {
-      let ledger = 'TestNet';
-      if (environment.production) {
-        ledger = 'MainNet';
-      }
-
-      AlgoSigner.connect().then(() => {
-        AlgoSigner.accounts({ ledger: ledger }).then((detected: Array<any>) => {
-          let accounts = [];
-          for (let i = 0; i < detected.length; i++) {
-            accounts.push(detected[i].address);
-          }
-          if (accounts.length > 0) {
-            this.connectAccount(wallet, accounts);
-          } else {
-            this.appHelper.showError("Algo signer is not configured with accounts.");
-          }
-        }).catch(() => {
-          this.appHelper.showError("Algo signer is not connected.");
-        });
-      }).catch(() => {
-        this.appHelper.showError("Algo signer is not connected.");
-      });
-    } else {
-      this.appHelper.showError("Algo signer is not installed.");
-    };
   }
 
   /**
@@ -405,21 +357,6 @@ export class AppComponent implements OnInit {
    */
   hideConnectDropdown() {
     let dropdown = document.querySelector('.connect-dropdown');
-    if (dropdown) {
-      dropdown.classList.remove('show');
-
-      let button = dropdown.querySelector('.btn');
-      if (button) {
-        button.classList.remove('active');
-      }
-    }
-  }
-
-  /**
-   * Hide the project dropdown
-   */
-  hideProjectDropdown() {
-    let dropdown = document.querySelector('.project-dropdown');
     if (dropdown) {
       dropdown.classList.remove('show');
 

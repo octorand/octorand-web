@@ -16,9 +16,9 @@ export class CoreBrowseTwoPage implements OnInit, OnDestroy {
   app: any = null;
 
   /**
-   * Track treasury details loading task
+   * Track prime details loading task
    */
-  treasuryDetailsLoadTask: any = null;
+  primeDetailsLoadTask: any = null;
 
   /**
    * Tracking actions
@@ -56,7 +56,7 @@ export class CoreBrowseTwoPage implements OnInit, OnDestroy {
    * Destroy component
    */
   ngOnDestroy() {
-    clearInterval(this.treasuryDetailsLoadTask);
+    clearInterval(this.primeDetailsLoadTask);
   }
 
   /**
@@ -73,34 +73,19 @@ export class CoreBrowseTwoPage implements OnInit, OnDestroy {
    * Initialize tasks
    */
   initTasks() {
-    this.loadTreasuryDetails();
-    this.treasuryDetailsLoadTask = setInterval(() => { this.loadTreasuryDetails() }, 30000);
+    this.loadPrimeDetails();
+    this.primeDetailsLoadTask = setInterval(() => { this.loadPrimeDetails() }, 30000);
   }
 
   /**
-   * Load treasury details
+   * Load prime details
    */
-  loadTreasuryDetails() {
+  loadPrimeDetails() {
     this.loading = true;
-    // this.chainHelper.lookupAccount(environment.treasury_address).then((account: any) => {
-    //   this.chainHelper.lookupAssetTransferTransactions(environment.treasury_address, environment.platform_asset_id).then((transactions: Array<any>) => {
-    //     this.currentBalance = account.amount;
-
-    //     let burnsHistory = transactions.filter(transaction => { return transaction['asset-transfer-transaction']['receiver'] == environment.burner_address });
-    //     burnsHistory.sort((first, second) => second['round-time'] - first['round-time']);
-
-    //     let totalBurned = 0;
-    //     for (let i = 0; i < burnsHistory.length; i++) {
-    //       totalBurned = totalBurned + burnsHistory[i]['asset-transfer-transaction']['amount'];
-    //     }
-
-    //     this.burnsHistory = burnsHistory;
-    //     this.totalBurned = totalBurned;
-
-    //     this.actions.loadingDetails = false;
-    //     this.loading = false;
-    //   });
-    // });
+    this.chainHelper.lookupAccountCreatedApplications(environment.gen2.manager_address).then((applications: any) => {
+      console.log(applications);
+      this.loading = false;
+    });
   }
 
   /**

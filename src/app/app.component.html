@@ -11,19 +11,6 @@
             <span>OCTORAND</span>
         </a>
         <div class="navbar-content ml-auto">
-            <div *ngIf="app.project" class="dropdown with-arrow project-dropdown mr-5">
-                <button class="btn btn-primary" data-toggle="dropdown" type="button" id="project-dropdown"
-                    aria-haspopup="true" aria-expanded="false" [ngClass]="{'btn-action': isMobile}">
-                    <i class="fas fa-th-large"></i>
-                    <span *ngIf="!isMobile" class="ml-5">{{app.project.name}}</span>
-                </button>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="project-dropdown">
-                    <a *ngFor="let project of projects" class="dropdown-item hand" (click)="selectProject(project)">
-                        <i class="fas fa-circle mr-5" [ngClass]="{'text-primary': project.id == app.project.id}"></i>
-                        <span [ngClass]="{'text-primary': project.id == app.project.id}">{{project.name}}</span>
-                    </a>
-                </div>
-            </div>
             <div class="dropdown with-arrow connect-dropdown">
                 <button class="btn btn-primary" data-toggle="dropdown" type="button" id="connect-dropdown"
                     aria-haspopup="true" aria-expanded="false" [ngClass]="{'btn-action': isMobile}">
@@ -60,8 +47,7 @@
     <div class="sidebar">
         <div class="sidebar-menu">
             <div *ngFor="let section of app.sidebar">
-                <h5 class="sidebar-title hand" (click)="navigateToPage(section.route)">{{section.name}}
-                </h5>
+                <h5 class="sidebar-title hand">{{section.name}}</h5>
                 <div class="sidebar-divider"></div>
                 <a *ngFor="let item of section.items" class="sidebar-link sidebar-link-with-icon hand"
                     (click)="navigateToPage(item.route)">
