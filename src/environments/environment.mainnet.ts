@@ -1,6 +1,5 @@
 export const environment = {
   production: true,
-  version: 'mainnet',
   algo_server: 'https://mainnet-api.algonode.cloud',
   algo_indexer: 'https://mainnet-idx.algonode.cloud',
   algo_explorer: 'https://explorer.perawallet.app',

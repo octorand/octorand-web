@@ -1,6 +1,5 @@
 export const environment = {
   production: false,
-  version: 'testnet',
   algo_server: 'https://testnet-api.algonode.cloud',
   algo_indexer: 'https://testnet-idx.algonode.cloud',
   algo_explorer: 'https://testnet.explorer.perawallet.app',
