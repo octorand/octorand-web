@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppHelper } from '@lib/helpers';
-import { PlatformTokenomicsService, PlatformTreasuryService } from '@app/core/services';
 
 @Component({
-  selector: 'app-core-platform',
-  templateUrl: './platform.page.html',
-  styleUrls: ['./platform.page.scss'],
+  selector: 'app-core-browse',
+  templateUrl: './browse.page.html',
+  styleUrls: ['./browse.page.scss'],
 })
-export class CorePlatformPage implements OnInit {
+export class CoreBrowsePage implements OnInit {
 
   /**
    * App state
@@ -16,23 +15,14 @@ export class CorePlatformPage implements OnInit {
   app: any = null;
 
   /**
-   * List of platform links
-   */
-  platforms: Array<any> = [];
-
-  /**
    * Construct component
    *
    * @param router
    * @param appHelper
-   * @param platformTreasuryService
-   * @param platformTokenomicsService
    */
   constructor(
     private router: Router,
-    private appHelper: AppHelper,
-    private platformTreasuryService: PlatformTreasuryService,
-    private platformTokenomicsService: PlatformTokenomicsService
+    private appHelper: AppHelper
   ) { }
 
   /**
@@ -50,11 +40,6 @@ export class CorePlatformPage implements OnInit {
     this.appHelper.app.subscribe((value: any) => {
       this.app = value;
     });
-
-    this.platforms = [
-      this.platformTokenomicsService.getDefinition(),
-      this.platformTreasuryService.getDefinition(),
-    ];
   }
 
   /**

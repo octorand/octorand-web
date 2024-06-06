@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgxGoogleAnalyticsModule, NgxGoogleAnalyticsRouterModule } from 'ngx-google-analytics';
 import { LibModule } from '@lib';
 import { CoreModule } from '@app/core';
-import { PlayModule } from '@app/play';
 import { AppComponent } from './app.component';
 import { environment } from '@environment';
 
@@ -12,10 +11,6 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => CoreModule
-  },
-  {
-    path: 'play',
-    loadChildren: () => PlayModule
   },
   {
     path: '**',

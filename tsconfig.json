@@ -31,11 +31,20 @@
       "@lib": [
         "./src/lib/lib.module.ts"
       ],
+      "@lib/contracts": [
+        "./src/lib/contracts/_index"
+      ],
       "@lib/helpers": [
         "./src/lib/helpers/_index"
       ],
+      "@lib/models": [
+        "./src/lib/models/_index"
+      ],
       "@lib/pipes": [
         "./src/lib/pipes/_index"
+      ],
+      "@lib/services": [
+        "./src/lib/services/_index"
       ],
       "@lib/wallets": [
         "./src/lib/wallets/_index"
@@ -46,24 +55,6 @@
       "@app/core/pages": [
         "./src/app/core/pages/_index"
       ],
-      "@app/core/services": [
-        "./src/app/core/services/_index"
-      ],
-      "@app/play": [
-        "./src/app/play/play.module.ts"
-      ],
-      "@app/play/contracts": [
-        "./src/app/play/contracts/_index"
-      ],
-      "@app/play/models": [
-        "./src/app/play/models/_index"
-      ],
-      "@app/play/pages": [
-        "./src/app/play/pages/_index"
-      ],
-      "@app/play/services": [
-        "./src/app/play/services/_index"
-      ]
     },
     "useDefineForClassFields": false
   },

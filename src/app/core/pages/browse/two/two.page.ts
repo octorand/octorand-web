@@ -4,36 +4,16 @@ import { AppHelper, ChainHelper } from '@lib/helpers';
 import { environment } from '@environment';
 
 @Component({
-  selector: 'app-core-platform-treasury',
-  templateUrl: './treasury.page.html',
-  styleUrls: ['./treasury.page.scss'],
+  selector: 'app-core-browse-two',
+  templateUrl: './two.page.html',
+  styleUrls: ['./two.page.scss'],
 })
-export class CorePlatformTreasuryPage implements OnInit, OnDestroy {
+export class CoreBrowseTwoPage implements OnInit, OnDestroy {
 
   /**
    * App state
    */
   app: any = null;
-
-  /**
-   * Token id
-   */
-  assetId = 0;
-
-  /**
-   * Current balance of treasury
-   */
-  currentBalance: number = 0;
-
-  /**
-   * Number of tokens burned so far
-   */
-  totalBurned: number = 0;
-
-  /**
-   * Transaction history of burns
-   */
-  burnsHistory: Array<any> = [];
 
   /**
    * Track treasury details loading task
@@ -102,26 +82,25 @@ export class CorePlatformTreasuryPage implements OnInit, OnDestroy {
    */
   loadTreasuryDetails() {
     this.loading = true;
-    this.assetId = environment.platform_asset_id;
-    this.chainHelper.lookupAccount(environment.treasury_address).then((account: any) => {
-      this.chainHelper.lookupAssetTransferTransactions(environment.treasury_address, environment.platform_asset_id).then((transactions: Array<any>) => {
-        this.currentBalance = account.amount;
+    // this.chainHelper.lookupAccount(environment.treasury_address).then((account: any) => {
+    //   this.chainHelper.lookupAssetTransferTransactions(environment.treasury_address, environment.platform_asset_id).then((transactions: Array<any>) => {
+    //     this.currentBalance = account.amount;
 
-        let burnsHistory = transactions.filter(transaction => { return transaction['asset-transfer-transaction']['receiver'] == environment.burner_address });
-        burnsHistory.sort((first, second) => second['round-time'] - first['round-time']);
+    //     let burnsHistory = transactions.filter(transaction => { return transaction['asset-transfer-transaction']['receiver'] == environment.burner_address });
+    //     burnsHistory.sort((first, second) => second['round-time'] - first['round-time']);
 
-        let totalBurned = 0;
-        for (let i = 0; i < burnsHistory.length; i++) {
-          totalBurned = totalBurned + burnsHistory[i]['asset-transfer-transaction']['amount'];
-        }
+    //     let totalBurned = 0;
+    //     for (let i = 0; i < burnsHistory.length; i++) {
+    //       totalBurned = totalBurned + burnsHistory[i]['asset-transfer-transaction']['amount'];
+    //     }
 
-        this.burnsHistory = burnsHistory;
-        this.totalBurned = totalBurned;
+    //     this.burnsHistory = burnsHistory;
+    //     this.totalBurned = totalBurned;
 
-        this.actions.loadingDetails = false;
-        this.loading = false;
-      });
-    });
+    //     this.actions.loadingDetails = false;
+    //     this.loading = false;
+    //   });
+    // });
   }
 
   /**

@@ -16,16 +16,16 @@ const routes: Routes = [
         component: Pages.CoreHomePage
       },
       {
-        path: 'platform',
-        component: Pages.CorePlatformPage
+        path: 'browse',
+        component: Pages.CoreBrowsePage
       },
       {
-        path: 'platform/tokenomics',
-        component: Pages.CorePlatformTokenomicsPage
+        path: 'browse/gen1',
+        component: Pages.CoreBrowseOnePage
       },
       {
-        path: 'platform/treasury',
-        component: Pages.CorePlatformTreasuryPage
+        path: 'browse/gen2',
+        component: Pages.CoreBrowseTwoPage
       }
     ]
   }
@@ -35,9 +35,9 @@ const routes: Routes = [
   declarations: [
     CoreContainer,
     Pages.CoreHomePage,
-    Pages.CorePlatformPage,
-    Pages.CorePlatformTokenomicsPage,
-    Pages.CorePlatformTreasuryPage,
+    Pages.CoreBrowsePage,
+    Pages.CoreBrowseOnePage,
+    Pages.CoreBrowseTwoPage,
   ],
   imports: [
     CommonModule,

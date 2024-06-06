@@ -4,36 +4,16 @@ import { AppHelper, ChainHelper } from '@lib/helpers';
 import { environment } from '@environment';
 
 @Component({
-  selector: 'app-core-platform-tokenomics',
-  templateUrl: './tokenomics.page.html',
-  styleUrls: ['./tokenomics.page.scss'],
+  selector: 'app-core-browse-one',
+  templateUrl: './one.page.html',
+  styleUrls: ['./one.page.scss'],
 })
-export class CorePlatformTokenomicsPage implements OnInit, OnDestroy {
+export class CoreBrowseOnePage implements OnInit, OnDestroy {
 
   /**
    * App state
    */
   app: any = null;
-
-  /**
-   * Token id
-   */
-  assetId = 0;
-
-  /**
-   * Total supply of token
-   */
-  totalSupply: number = 0;
-
-  /**
-   * Burnt supply of token
-   */
-  burntSupply: number = 0;
-
-  /**
-   * Current supply of token
-   */
-  remainingSupply: number = 0;
 
   /**
    * Track token details loading task
@@ -102,20 +82,20 @@ export class CorePlatformTokenomicsPage implements OnInit, OnDestroy {
    */
   loadTokenDetails() {
     this.loading = true;
-    this.assetId = environment.platform_asset_id;
-    this.chainHelper.lookupAsset(environment.platform_asset_id).then((asset: any) => {
-      this.totalSupply = asset['params']['total'];
-      this.chainHelper.lookupAccount(environment.burner_address).then((account: any) => {
-        let balance = account['assets'].find((a: any) => a['asset-id'] == asset.index);
-        if (balance) {
-          this.burntSupply = balance.amount;
-        }
+    // this.assetId = environment.platform_asset_id;
+    // this.chainHelper.lookupAsset(environment.platform_asset_id).then((asset: any) => {
+    //   this.totalSupply = asset['params']['total'];
+    //   this.chainHelper.lookupAccount(environment.burner_address).then((account: any) => {
+    //     let balance = account['assets'].find((a: any) => a['asset-id'] == asset.index);
+    //     if (balance) {
+    //       this.burntSupply = balance.amount;
+    //     }
 
-        this.remainingSupply = this.totalSupply - this.burntSupply;
-        this.actions.loadingDetails = false;
-        this.loading = false;
-      });
-    });
+    //     this.remainingSupply = this.totalSupply - this.burntSupply;
+    //     this.actions.loadingDetails = false;
+    //     this.loading = false;
+    //   });
+    // });
   }
 
   /**
