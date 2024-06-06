@@ -46,7 +46,7 @@
     <div class="sidebar-overlay" (click)="toggleSidebar()"></div>
     <div class="sidebar">
         <div class="sidebar-menu">
-            <div *ngFor="let section of app.sidebar">
+            <div *ngFor="let section of sidebar">
                 <h5 class="sidebar-title hand">{{section.name}}</h5>
                 <div class="sidebar-divider"></div>
                 <a *ngFor="let item of section.items" class="sidebar-link sidebar-link-with-icon hand"
