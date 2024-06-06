@@ -1,27 +1,105 @@
 export const environment = {
-  production: true,
+  production: false,
   algo_server: "https://mainnet-api.algonode.cloud",
   algo_indexer: "https://mainnet-idx.algonode.cloud",
-  algo_explorer: "https://algoexplorer.io",
-  analytics_code: "G-HKQQFB8MGD",
-  master_address: "",
-  treasury_address: "",
-  burner_address: "",
-  platform_asset_id: 559219992,
-  play: {
-    apps: {
-      lottery: {
-        algo: {
-          main_app_id: 316779930,
-          main_app_address: "HTYPPO2AIF5PMIB2G6YZOKZS3SJNPM7WYOHHXUQQQADNZICYNZTR3BPT7Y",
-          main_app_creator: "YH66MXV2GD4RE5EVQK7NEBIR77LKNBMKTBHX5Z5WNYAMDNBFC4LUZCYVCE"
+  algo_explorer: "https://explorer.perawallet.app",
+  analytics_code: "",
+  admin_address: "",
+  platform: {
+    asset_id: 559219992,
+    manager: "NP5K3WA5H6SBM36DJDZDMPFDVQPRIX6RAXNZ3H6EIC32K6C75YNAMM6Z44",
+    reserve: "NP5K3WA5H6SBM36DJDZDMPFDVQPRIX6RAXNZ3H6EIC32K6C75YNAMM6Z44"
+  },
+  gen1: {
+    manager_address: "",
+    contracts: {
+      prime: {
+        buy: {
+          application_id: 0,
+          application_address: ""
+        },
+        list: {
+          application_id: 0,
+          application_address: ""
+        },
+        mint: {
+          application_id: 0,
+          application_address: ""
+        },
+        optin: {
+          application_id: 0,
+          application_address: ""
+        },
+        optout: {
+          application_id: 0,
+          application_address: ""
+        },
+        rename: {
+          application_id: 0,
+          application_address: ""
+        },
+        repaint: {
+          application_id: 0,
+          application_address: ""
+        },
+        unlist: {
+          application_id: 0,
+          application_address: ""
+        },
+        upgrade: {
+          application_id: 0,
+          application_address: ""
+        },
+        withdraw: {
+          application_id: 0,
+          application_address: ""
         }
-      },
-      prediction: {
-        algo: {
-          main_app_id: 316781415,
-          main_app_address: "IYQCOT3XCWFT6R7R7O5HMNLYUEOMQKIXX7UB2YRYK4TXOKDKQ2KS5G6G5M",
-          main_app_creator: "YH66MXV2GD4RE5EVQK7NEBIR77LKNBMKTBHX5Z5WNYAMDNBFC4LUZCYVCE"
+      }
+    }
+  },
+  gen2: {
+    manager_address: "",
+    contracts: {
+      prime: {
+        buy: {
+          application_id: 0,
+          application_address: ""
+        },
+        list: {
+          application_id: 0,
+          application_address: ""
+        },
+        mint: {
+          application_id: 0,
+          application_address: ""
+        },
+        optin: {
+          application_id: 0,
+          application_address: ""
+        },
+        optout: {
+          application_id: 0,
+          application_address: ""
+        },
+        rename: {
+          application_id: 0,
+          application_address: ""
+        },
+        repaint: {
+          application_id: 0,
+          application_address: ""
+        },
+        unlist: {
+          application_id: 0,
+          application_address: ""
+        },
+        upgrade: {
+          application_id: 0,
+          application_address: ""
+        },
+        withdraw: {
+          application_id: 0,
+          application_address: ""
         }
       }
     }
