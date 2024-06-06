@@ -1,105 +1,106 @@
 export const environment = {
-  production: false,
-  algo_server: "https://mainnet-api.algonode.cloud",
-  algo_indexer: "https://mainnet-idx.algonode.cloud",
-  algo_explorer: "https://explorer.perawallet.app",
-  analytics_code: "",
-  admin_address: "",
+  production: true,
+  version: 'mainnet',
+  algo_server: 'https://mainnet-api.algonode.cloud',
+  algo_indexer: 'https://mainnet-idx.algonode.cloud',
+  algo_explorer: 'https://explorer.perawallet.app',
+  analytics_code: '',
+  admin_address: '',
   platform: {
     asset_id: 559219992,
-    manager: "NP5K3WA5H6SBM36DJDZDMPFDVQPRIX6RAXNZ3H6EIC32K6C75YNAMM6Z44",
-    reserve: "NP5K3WA5H6SBM36DJDZDMPFDVQPRIX6RAXNZ3H6EIC32K6C75YNAMM6Z44"
+    manager: 'NP5K3WA5H6SBM36DJDZDMPFDVQPRIX6RAXNZ3H6EIC32K6C75YNAMM6Z44',
+    reserve: 'NP5K3WA5H6SBM36DJDZDMPFDVQPRIX6RAXNZ3H6EIC32K6C75YNAMM6Z44'
   },
   gen1: {
-    manager_address: "",
+    manager_address: '',
     contracts: {
       prime: {
         buy: {
           application_id: 0,
-          application_address: ""
+          application_address: ''
         },
         list: {
           application_id: 0,
-          application_address: ""
+          application_address: ''
         },
         mint: {
           application_id: 0,
-          application_address: ""
+          application_address: ''
         },
         optin: {
           application_id: 0,
-          application_address: ""
+          application_address: ''
         },
         optout: {
           application_id: 0,
-          application_address: ""
+          application_address: ''
         },
         rename: {
           application_id: 0,
-          application_address: ""
+          application_address: ''
         },
         repaint: {
           application_id: 0,
-          application_address: ""
+          application_address: ''
         },
         unlist: {
           application_id: 0,
-          application_address: ""
+          application_address: ''
         },
         upgrade: {
           application_id: 0,
-          application_address: ""
+          application_address: ''
         },
         withdraw: {
           application_id: 0,
-          application_address: ""
+          application_address: ''
         }
       }
     }
   },
   gen2: {
-    manager_address: "",
+    manager_address: '',
     contracts: {
       prime: {
         buy: {
           application_id: 0,
-          application_address: ""
+          application_address: ''
         },
         list: {
           application_id: 0,
-          application_address: ""
+          application_address: ''
         },
         mint: {
           application_id: 0,
-          application_address: ""
+          application_address: ''
         },
         optin: {
           application_id: 0,
-          application_address: ""
+          application_address: ''
         },
         optout: {
           application_id: 0,
-          application_address: ""
+          application_address: ''
         },
         rename: {
           application_id: 0,
-          application_address: ""
+          application_address: ''
         },
         repaint: {
           application_id: 0,
-          application_address: ""
+          application_address: ''
         },
         unlist: {
           application_id: 0,
-          application_address: ""
+          application_address: ''
         },
         upgrade: {
           application_id: 0,
-          application_address: ""
+          application_address: ''
         },
         withdraw: {
           application_id: 0,
-          application_address: ""
+          application_address: ''
         }
       }
     }
