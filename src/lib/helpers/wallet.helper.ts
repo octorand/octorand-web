@@ -6,13 +6,6 @@ export class WalletHelper {
 
     wallets = [
         {
-            id: 'algo-signer',
-            name: 'Algo Signer',
-            color: '#f16522',
-            mainnet: true,
-            testnet: true
-        },
-        {
             id: 'exodus',
             name: 'Exodus',
             color: '#8255a0',

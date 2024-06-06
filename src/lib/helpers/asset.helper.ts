@@ -24,6 +24,7 @@ export class AssetHelper {
                 this.values.push({
                     id: id,
                     unit: asset['params']['unit-name'],
+                    name: asset['params']['name'],
                     decimals: asset['params']['decimals']
                 });
 

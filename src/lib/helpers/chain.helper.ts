@@ -1,6 +1,7 @@
 ﻿import { Injectable } from '@angular/core';
 import { AppHelper } from './app.helper';
-import { AlgoSignerWallet, ExodusWallet, PeraWalletWallet, DeflyWalletWallet, WalletConnectWallet } from '@lib/wallets';
+import { ExodusWallet, PeraWalletWallet, DeflyWalletWallet, WalletConnectWallet } from '@lib/wallets';
+import { Md5 } from 'ts-md5';
 import { environment } from '@environment';
 
 declare var algosdk: any;
@@ -14,7 +15,6 @@ export class ChainHelper {
 
     constructor(
         private appHelper: AppHelper,
-        private algoSignerWallet: AlgoSignerWallet,
         private exodusWallet: ExodusWallet,
         private peraWalletWallet: PeraWalletWallet,
         private deflyWalletWallet: DeflyWalletWallet,
@@ -104,52 +104,48 @@ export class ChainHelper {
      */
     async lookupAccountCreatedApplications(address: string): Promise<Array<any>> {
         let limit = 1000;
-        let resultsCount = 1;
-        let nextToken = '';
-
+        let key = 'applications';
         let applications = [];
 
-        while (resultsCount > 0) {
-            let response = await this.getIndexerClient().lookupAccountCreatedApplications(address).limit(limit).nextToken(nextToken).do();
-
-            let data = response['applications'];
-            for (let i = 0; i < data.length; i++) {
-                applications.push(data[i]);
-            }
-
-            resultsCount = data.length;
-            if (resultsCount > 0) {
-                nextToken = response['next-token'];
-            }
+        let pager = await this.getPagedResults(this.getIndexerClient().lookupAccountCreatedApplications(address), limit, key);
+        for (let i = 0; i < pager.length; i++) {
+            applications.push(pager[i])
         }
 
         return applications;
     }
 
     /**
-     * Lookup transactions for an account or asset
+     * Lookup assets created by an account
      *
      * @param address
      */
-    async lookupAccountTransactions(id: number): Promise<Array<any>> {
+    async lookupAccountCreatedAssets(address: string): Promise<Array<any>> {
         let limit = 1000;
-        let resultsCount = 1;
-        let nextToken = '';
+        let key = 'assets';
+        let assets = [];
 
+        let pager = await this.getPagedResults(this.getIndexerClient().lookupAccountCreatedAssets(address), limit, key);
+        for (let i = 0; i < pager.length; i++) {
+            assets.push(pager[i])
+        }
+
+        return assets;
+    }
+
+    /**
+     * Lookup transactions for an asset
+     *
+     * @param address
+     */
+    async lookupAssetTransactions(id: number): Promise<Array<any>> {
+        let limit = 1000;
+        let key = 'transactions';
         let transactions = [];
 
-        while (resultsCount > 0) {
-            let response = await this.getIndexerClient().lookupAssetTransactions(id).limit(limit).nextToken(nextToken).do();
-
-            let data = response['transactions'];
-            for (let i = 0; i < data.length; i++) {
-                transactions.push(data[i]);
-            }
-
-            resultsCount = data.length;
-            if (resultsCount > 0) {
-                nextToken = response['next-token'];
-            }
+        let pager = await this.getPagedResults(this.getIndexerClient().lookupAssetTransactions(id), limit, key);
+        for (let i = 0; i < pager.length; i++) {
+            transactions.push(pager[i])
         }
 
         return transactions;
@@ -162,23 +158,12 @@ export class ChainHelper {
      */
     async lookupPaymentTransactions(from: string): Promise<Array<any>> {
         let limit = 1000;
-        let resultsCount = 1;
-        let nextToken = '';
-
+        let key = 'transactions';
         let transactions = [];
 
-        while (resultsCount > 0) {
-            let response = await this.getIndexerClient().lookupAccountTransactions(from).txType('pay').currencyGreaterThan(0).limit(limit).nextToken(nextToken).do();
-
-            let data = response['transactions'];
-            for (let i = 0; i < data.length; i++) {
-                transactions.push(data[i]);
-            }
-
-            resultsCount = data.length;
-            if (resultsCount > 0) {
-                nextToken = response['next-token'];
-            }
+        let pager = await this.getPagedResults(this.getIndexerClient().lookupAccountTransactions(from).txType('pay').currencyGreaterThan(0), limit, key);
+        for (let i = 0; i < pager.length; i++) {
+            transactions.push(pager[i])
         }
 
         return transactions;
@@ -191,23 +176,12 @@ export class ChainHelper {
      */
     async lookupAssetTransferTransactions(from: string, id: number): Promise<Array<any>> {
         let limit = 1000;
-        let resultsCount = 1;
-        let nextToken = '';
-
+        let key = 'transactions';
         let transactions = [];
 
-        while (resultsCount > 0) {
-            let response = await this.getIndexerClient().lookupAccountTransactions(from).assetID(id).txType('axfer').currencyGreaterThan(0).limit(limit).nextToken(nextToken).do();
-
-            let data = response['transactions'];
-            for (let i = 0; i < data.length; i++) {
-                transactions.push(data[i]);
-            }
-
-            resultsCount = data.length;
-            if (resultsCount > 0) {
-                nextToken = response['next-token'];
-            }
+        let pager = await this.getPagedResults(this.getIndexerClient().lookupAccountTransactions(from).assetID(id).txType('axfer').currencyGreaterThan(0), limit, key);
+        for (let i = 0; i < pager.length; i++) {
+            transactions.push(pager[i])
         }
 
         return transactions;
@@ -256,8 +230,6 @@ export class ChainHelper {
      */
     private async signTransactions(transactions: Array<any>) {
         switch (this.appHelper.getWallet()) {
-            case 'algo-signer':
-                return await this.algoSignerWallet.sign(transactions);
             case 'exodus':
                 return await this.exodusWallet.sign(transactions);
             case 'pera-wallet':
@@ -295,4 +267,44 @@ export class ChainHelper {
             await this.getAlgodClient().statusAfterBlock(lastround).do();
         }
     };
+
+    /**
+     * Get a list of paged results from indexer
+     *
+     * @param callback
+     * @param limit
+     * @param key
+     */
+    private async getPagedResults(callback: any, limit: number, key: string) {
+        let entries = [];
+        let pages: Array<any> = [];
+        let hashes: Array<string> = [];
+
+        let next = '';
+        while (next !== undefined) {
+            let response = await callback.limit(limit).nextToken(next).do();
+            let data = response[key];
+            next = response['next-token'];
+
+            if (pages.includes(next)) {
+                break;
+            } else {
+                pages.push(next);
+            }
+
+            if (data) {
+                for (let i = 0; i < data.length; i++) {
+                    let entry = data[i];
+                    let hash = Md5.hashStr(JSON.stringify(entry));
+
+                    if (!hashes.includes(hash)) {
+                        entries.push(entry);
+                        hashes.push(hash);
+                    }
+                }
+            }
+        }
+
+        return entries;
+    }
 }

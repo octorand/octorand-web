@@ -12,9 +12,7 @@ export class AppHelper {
         initialised: boolean,
         account: string | null,
         wallet: string | null,
-        addresses: Array<string>,
-        sidebar: Array<any>,
-        project: any
+        addresses: Array<string>
     };
 
     constructor() {
@@ -25,8 +23,6 @@ export class AppHelper {
             account: null,
             wallet: null,
             addresses: [],
-            sidebar: [],
-            project: null,
         };
 
         this.initCurrentUser();
@@ -63,26 +59,6 @@ export class AppHelper {
     setAddresses(addresses: Array<string>) {
         localStorage.setItem('addresses', addresses.join(','));
         this.state.addresses = addresses;
-        this.app.next({ ...this.state });
-    }
-
-    /**
-     * Set current project
-     *
-     * @param project
-     */
-    setProject(project: any) {
-        this.state.project = project;
-        this.app.next({ ...this.state });
-    }
-
-    /**
-     * Set current sidebar
-     *
-     * @param sidebar
-     */
-    setSidebar(sidebar: Array<any>) {
-        this.state.sidebar = sidebar;
         this.app.next({ ...this.state });
     }
 
