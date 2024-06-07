@@ -2,7 +2,7 @@
     <div class="content">
         <div class="row align-items-center">
             <div class="col-sm">
-                <h1 class="content-title">
+                <h1 class="content-title text-secondary">
                     Browse
                 </h1>
             </div>
@@ -13,24 +13,19 @@
                 </button>
             </div>
         </div>
-    </div>
-    <div class="row row-eq-spacing-xl">
-        <div class="col-xl-4" (click)="navigateToPage('browse/gen1')">
-            <div class="card h-full">
-                <div class="row hand">
-                    <div class="col-sm">
-                        <h2 class="content-title text-success">Gen One</h2>
-                    </div>
-                </div>
-            </div>
+        <div class="row">
+            <p class="text-muted">
+
+            </p>
         </div>
-        <div class="col-xl-4" (click)="navigateToPage('browse/gen2')">
-            <div class="card h-full">
-                <div class="row hand">
-                    <div class="col-sm">
-                        <h2 class="content-title text-success">Gen Two</h2>
-                    </div>
-                </div>
+    </div>
+    <div class="content">
+        <div class="cards">
+            <div class="card m-0 h-full" (click)="navigateToPage('browse/gen1')">
+                <h2 class="content-title text-success">Gen One</h2>
+            </div>
+            <div class="card m-0 h-full" (click)="navigateToPage('browse/gen2')">
+                <h2 class="content-title text-success">Gen Two</h2>
             </div>
         </div>
     </div>
