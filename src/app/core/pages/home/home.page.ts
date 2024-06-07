@@ -1,8 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppHelper } from '@lib/helpers';
-import { AppModel } from '@lib/models';
+import { AppHelper, ChainHelper, DataHelper } from '@lib/helpers';
+import { AppModel, DataModel } from '@lib/models';
+import { GenOnePrimeService, GenTwoPrimeService } from '@lib/services';
 import { Subscription } from 'rxjs';
+import { environment } from '@environment';
 
 @Component({
   selector: 'app-core-home',
@@ -17,19 +19,47 @@ export class CoreHomePage implements OnInit, OnDestroy {
   app: AppModel = new AppModel();
 
   /**
+   * Data state
+   */
+  data: DataModel = new DataModel();
+
+  /**
    * App subscription
    */
   appSubscription: Subscription = new Subscription();
+
+  /**
+   * Data subscription
+   */
+  dataSubscription: Subscription = new Subscription();
+
+  /**
+   * Track prime details loading task
+   */
+  primeDetailsLoadTask: any = null;
+
+  /**
+   * True if data loading is going on
+   */
+  loading: boolean = true;
 
   /**
    * Construct component
    *
    * @param router
    * @param appHelper
+   * @param chainHelper
+   * @param dataHelper
+   * @param genOnePrimeService
+   * @param genTwoPrimeService
    */
   constructor(
     private router: Router,
-    private appHelper: AppHelper
+    private appHelper: AppHelper,
+    private chainHelper: ChainHelper,
+    private dataHelper: DataHelper,
+    private genOnePrimeService: GenOnePrimeService,
+    private genTwoPrimeService: GenTwoPrimeService
   ) { }
 
   /**
@@ -37,6 +67,8 @@ export class CoreHomePage implements OnInit, OnDestroy {
    */
   ngOnInit() {
     this.initApp();
+    this.initData();
+    this.initTasks();
   }
 
   /**
@@ -44,6 +76,8 @@ export class CoreHomePage implements OnInit, OnDestroy {
    */
   ngOnDestroy() {
     this.appSubscription.unsubscribe();
+    this.dataSubscription.unsubscribe();
+    clearInterval(this.primeDetailsLoadTask);
   }
 
   /**
@@ -51,8 +85,44 @@ export class CoreHomePage implements OnInit, OnDestroy {
    */
   initApp() {
     this.app = this.appHelper.getDefaultState();
-    this.appSubscription = this.appHelper.app.subscribe((value: any) => {
+    this.appSubscription = this.appHelper.app.subscribe((value: AppModel) => {
       this.app = value;
+    });
+  }
+
+  /**
+   * Initialize data
+   */
+  initData() {
+    this.data = this.dataHelper.getDefaultState();
+    this.dataSubscription = this.dataHelper.data.subscribe((value: DataModel) => {
+      this.data = value;
+    });
+  }
+
+  /**
+   * Initialize tasks
+   */
+  initTasks() {
+    this.loadPrimeDetails();
+    this.primeDetailsLoadTask = setInterval(() => { this.loadPrimeDetails() }, 30000);
+  }
+
+  /**
+   * Load prime details
+   */
+  loadPrimeDetails() {
+    this.loading = true;
+    this.chainHelper.lookupAccountCreatedApplications(environment.gen1.manager_address).then((applications: any) => {
+      let primes = this.genOnePrimeService.list(applications);
+      this.dataHelper.setGenOnePrimes(primes);
+      this.loading = false;
+    });
+
+    this.chainHelper.lookupAccountCreatedApplications(environment.gen2.manager_address).then((applications: any) => {
+      let primes = this.genTwoPrimeService.list(applications);
+      this.dataHelper.setGenTwoPrimes(primes);
+      this.loading = false;
     });
   }
 

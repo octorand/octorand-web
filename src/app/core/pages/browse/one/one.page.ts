@@ -83,7 +83,7 @@ export class CoreBrowseOnePage implements OnInit, OnDestroy {
    */
   initApp() {
     this.app = this.appHelper.getDefaultState();
-    this.appSubscription = this.appHelper.app.subscribe((value: any) => {
+    this.appSubscription = this.appHelper.app.subscribe((value: AppModel) => {
       this.app = value;
     });
   }
@@ -93,7 +93,7 @@ export class CoreBrowseOnePage implements OnInit, OnDestroy {
    */
   initData() {
     this.data = this.dataHelper.getDefaultState();
-    this.dataSubscription = this.dataHelper.data.subscribe((value: any) => {
+    this.dataSubscription = this.dataHelper.data.subscribe((value: DataModel) => {
       this.data = value;
     });
   }
