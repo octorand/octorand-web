@@ -1,6 +1,7 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { AppHelper, SidebarHelper, SocialHelper, WalletHelper } from '@lib/helpers';
+import { Subscription } from 'rxjs';
 import { environment } from '@environment';
 
 import { PeraWalletConnect } from "@perawallet/connect";
@@ -16,12 +17,17 @@ declare var halfmoon: any;
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
 
   /**
    * App state
    */
   app: any = null;
+
+  /**
+   * App subscription
+   */
+  appSubscription: Subscription = new Subscription();
 
   /**
    * The wallet connect connection
@@ -85,6 +91,13 @@ export class AppComponent implements OnInit {
   }
 
   /**
+   * Destroy component
+   */
+  ngOnDestroy() {
+    this.appSubscription.unsubscribe();
+  }
+
+  /**
    * Listen to window resize event
    */
   @HostListener('window:resize')
@@ -97,7 +110,7 @@ export class AppComponent implements OnInit {
    */
   initApp() {
     this.app = this.appHelper.getDefaultState();
-    this.appHelper.app.subscribe((value: any) => {
+    this.appSubscription = this.appHelper.app.subscribe((value: any) => {
       this.app = value;
     });
 

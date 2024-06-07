@@ -6,7 +6,7 @@ declare var halfmoon: any;
 @Injectable({ providedIn: 'root' })
 export class AppHelper {
 
-    app: any;
+    app: Subject<any>;
 
     state: {
         initialised: boolean,

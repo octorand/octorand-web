@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppHelper, ChainHelper } from '@lib/helpers';
+import { AppHelper, ChainHelper, DataHelper } from '@lib/helpers';
 import { GenTwoPrime } from '@lib/models';
 import { GenTwoPrimeService } from '@lib/services';
+import { Subscription } from 'rxjs';
 import { environment } from '@environment';
 
 @Component({
@@ -16,6 +17,16 @@ export class CoreBrowseTwoPage implements OnInit, OnDestroy {
    * App state
    */
   app: any = null;
+
+  /**
+   * App subscription
+   */
+  appSubscription: Subscription = new Subscription();
+
+  /**
+   * Data subscription
+   */
+  dataSubscription: Subscription = new Subscription();
 
   /**
    * Track prime details loading task
@@ -38,11 +49,13 @@ export class CoreBrowseTwoPage implements OnInit, OnDestroy {
    * @param router
    * @param appHelper
    * @param chainHelper
+   * @param dataHelper
    * @param genTwoPrimeService
    */
   constructor(
     private router: Router,
     private appHelper: AppHelper,
+    private dataHelper: DataHelper,
     private chainHelper: ChainHelper,
     private genTwoPrimeService: GenTwoPrimeService
   ) { }
@@ -52,6 +65,7 @@ export class CoreBrowseTwoPage implements OnInit, OnDestroy {
    */
   ngOnInit() {
     this.initApp();
+    this.initData();
     this.initTasks();
   }
 
@@ -59,6 +73,8 @@ export class CoreBrowseTwoPage implements OnInit, OnDestroy {
    * Destroy component
    */
   ngOnDestroy() {
+    this.appSubscription.unsubscribe();
+    this.dataSubscription.unsubscribe();
     clearInterval(this.primeDetailsLoadTask);
   }
 
@@ -67,8 +83,17 @@ export class CoreBrowseTwoPage implements OnInit, OnDestroy {
    */
   initApp() {
     this.app = this.appHelper.getDefaultState();
-    this.appHelper.app.subscribe((value: any) => {
+    this.appSubscription = this.appHelper.app.subscribe((value: any) => {
       this.app = value;
+    });
+  }
+
+  /**
+   * Initialize data
+   */
+  initData() {
+    this.dataSubscription = this.dataHelper.data.subscribe((value: any) => {
+      this.primes = value.gen2.primes;
     });
   }
 
@@ -86,7 +111,8 @@ export class CoreBrowseTwoPage implements OnInit, OnDestroy {
   loadPrimeDetails() {
     this.loading = true;
     this.chainHelper.lookupAccountCreatedApplications(environment.gen2.manager_address).then((applications: any) => {
-      this.primes = this.genTwoPrimeService.list(applications);
+      let primes = this.genTwoPrimeService.list(applications);
+      this.dataHelper.setGenTwoPrimes(primes);
       this.loading = false;
     });
   }

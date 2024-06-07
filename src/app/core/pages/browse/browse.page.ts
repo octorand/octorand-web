@@ -1,18 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppHelper } from '@lib/helpers';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-core-browse',
   templateUrl: './browse.page.html',
   styleUrls: ['./browse.page.scss'],
 })
-export class CoreBrowsePage implements OnInit {
+export class CoreBrowsePage implements OnInit, OnDestroy {
 
   /**
    * App state
    */
   app: any = null;
+
+  /**
+   * App subscription
+   */
+  appSubscription: Subscription = new Subscription();
 
   /**
    * Construct component
@@ -33,11 +39,18 @@ export class CoreBrowsePage implements OnInit {
   }
 
   /**
+   * Destroy component
+   */
+  ngOnDestroy() {
+    this.appSubscription.unsubscribe();
+  }
+
+  /**
    * Initialize app
    */
   initApp() {
     this.app = this.appHelper.getDefaultState();
-    this.appHelper.app.subscribe((value: any) => {
+    this.appSubscription = this.appHelper.app.subscribe((value: any) => {
       this.app = value;
     });
   }
