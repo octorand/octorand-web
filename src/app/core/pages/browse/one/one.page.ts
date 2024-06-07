@@ -1,6 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppHelper, ChainHelper } from '@lib/helpers';
+import { GenOnePrime } from '@lib/models';
+import { GenOnePrimeService } from '@lib/services';
 import { environment } from '@environment';
 
 @Component({
@@ -21,27 +23,28 @@ export class CoreBrowseOnePage implements OnInit, OnDestroy {
   primeDetailsLoadTask: any = null;
 
   /**
-   * Tracking actions
-   */
-  actions = {
-    loadingDetails: true
-  };
-
-  /**
    * True if data loading is going on
    */
   loading: boolean = true;
+
+  /**
+   * List of primes
+   */
+  primes: Array<GenOnePrime> = [];
 
   /**
    * Construct component
    *
    * @param router
    * @param appHelper
+   * @param chainHelper
+   * @param genOnePrimeService
    */
   constructor(
     private router: Router,
     private appHelper: AppHelper,
-    private chainHelper: ChainHelper
+    private chainHelper: ChainHelper,
+    private genOnePrimeService: GenOnePrimeService
   ) { }
 
   /**
@@ -83,7 +86,7 @@ export class CoreBrowseOnePage implements OnInit, OnDestroy {
   loadPrimeDetails() {
     this.loading = true;
     this.chainHelper.lookupAccountCreatedApplications(environment.gen1.manager_address).then((applications: any) => {
-      console.log(applications);
+      this.primes = this.genOnePrimeService.list(applications);
       this.loading = false;
     });
   }

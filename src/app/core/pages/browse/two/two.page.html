@@ -18,4 +18,18 @@
             </div>
         </div>
     </div>
+    <div class="row row-eq-spacing-xl">
+        <div class="col-xl-4" *ngFor="let prime of primes" (click)="navigateToPage('prime/gen2/{{prime.id}}')">
+            <div class="card h-full">
+                <div class="row hand">
+                    <div class="col-sm">
+                        <h2 class="content-title text-success">{{prime.id}}</h2>
+                        <p class="text-muted mb-0">
+                            {{prime.name}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

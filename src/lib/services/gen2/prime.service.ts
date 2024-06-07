@@ -26,7 +26,6 @@ export class GenTwoPrimeService {
         for (let i = 0; i < applications.length; i++) {
             models.push(this.create(applications[i]));
         }
-        models.sort((first, second) => second.id - first.id);
 
         return models;
     }
