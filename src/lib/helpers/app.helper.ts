@@ -1,4 +1,5 @@
 ﻿import { Injectable } from '@angular/core';
+import { AppModel } from '../models/app.model';
 import { Subject } from 'rxjs';
 
 declare var halfmoon: any;
@@ -8,12 +9,7 @@ export class AppHelper {
 
     app: Subject<any>;
 
-    state: {
-        initialised: boolean,
-        account: string | null,
-        wallet: string | null,
-        addresses: Array<string>
-    };
+    state: AppModel;
 
     constructor() {
         this.app = new Subject<any>();
@@ -79,7 +75,7 @@ export class AppHelper {
     /**
      * Get default state
      */
-    getDefaultState(): any {
+    getDefaultState(): AppModel {
         return this.state;
     }
 

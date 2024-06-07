@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { GenTwoPrime } from '@lib/models';
+import { GenTwoPrimeModel } from '@lib/models';
 
 @Injectable({ providedIn: 'root' })
 export class GenTwoPrimeService {
@@ -9,8 +9,8 @@ export class GenTwoPrimeService {
      *
      * @param application
      */
-    create(application: any): GenTwoPrime {
-        let model = new GenTwoPrime();
+    create(application: any): GenTwoPrimeModel {
+        let model = new GenTwoPrimeModel();
         model.load(application);
 
         return model;

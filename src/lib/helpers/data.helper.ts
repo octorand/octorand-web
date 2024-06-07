@@ -1,34 +1,23 @@
 ﻿import { Injectable } from '@angular/core';
+import { DataModel } from '../models/data.model';
+import { GenOnePrimeModel } from '../models/gen1/prime.model';
+import { GenTwoPrimeModel } from '../models/gen2/prime.model';
 import { Subject } from 'rxjs';
-import { GenOnePrime } from '../models/gen1/prime.model';
-import { GenTwoPrime } from '../models/gen2/prime.model';
 
 @Injectable({ providedIn: 'root' })
 export class DataHelper {
 
     data: Subject<any>;
 
-    state: {
-        initialised: boolean,
-        gen1: {
-            primes: Array<GenOnePrime>
-        },
-        gen2: {
-            primes: Array<GenTwoPrime>
-        }
-    };
+    state: DataModel;
 
     constructor() {
         this.data = new Subject<any>();
 
         this.state = {
             initialised: false,
-            gen1: {
-                primes: []
-            },
-            gen2: {
-                primes: []
-            },
+            genOnePrimes: [],
+            genTwoPrimes: [],
         };
 
         this.state.initialised = true;
@@ -39,8 +28,8 @@ export class DataHelper {
      *
      * @param primes
      */
-    setGenOnePrimes(primes: Array<GenOnePrime>) {
-        this.state.gen1.primes = primes;
+    setGenOnePrimes(primes: Array<GenOnePrimeModel>) {
+        this.state.genOnePrimes = primes;
         this.data.next({ ...this.state });
     }
 
@@ -49,22 +38,15 @@ export class DataHelper {
      *
      * @param primes
      */
-    setGenTwoPrimes(primes: Array<GenTwoPrime>) {
-        this.state.gen2.primes = primes;
+    setGenTwoPrimes(primes: Array<GenTwoPrimeModel>) {
+        this.state.genTwoPrimes = primes;
         this.data.next({ ...this.state });
     }
 
     /**
-     * Get gen one primes
+     * Get default state
      */
-    getGenOnePrimes(): Array<GenOnePrime> {
-        return this.state.gen1.primes;
-    }
-
-    /**
-     * Get gen two primes
-     */
-    getGenTwoPrimes(): Array<GenTwoPrime> {
-        return this.state.gen2.primes;
+    getDefaultState(): DataModel {
+        return this.state;
     }
 }

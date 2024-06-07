@@ -1,6 +1,7 @@
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { AppHelper, SidebarHelper, SocialHelper, WalletHelper } from '@lib/helpers';
+import { AppModel } from '@lib/models';
 import { Subscription } from 'rxjs';
 import { environment } from '@environment';
 
@@ -22,7 +23,7 @@ export class AppComponent implements OnInit, OnDestroy {
   /**
    * App state
    */
-  app: any = null;
+  app: AppModel = new AppModel();
 
   /**
    * App subscription

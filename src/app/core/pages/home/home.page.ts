@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppHelper } from '@lib/helpers';
+import { AppModel } from '@lib/models';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -13,7 +14,7 @@ export class CoreHomePage implements OnInit, OnDestroy {
   /**
    * App state
    */
-  app: any = null;
+  app: AppModel = new AppModel();
 
   /**
    * App subscription

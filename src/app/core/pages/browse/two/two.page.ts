@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppHelper, ChainHelper, DataHelper } from '@lib/helpers';
-import { GenTwoPrime } from '@lib/models';
+import { AppModel, DataModel } from '@lib/models';
 import { GenTwoPrimeService } from '@lib/services';
 import { Subscription } from 'rxjs';
 import { environment } from '@environment';
@@ -16,7 +16,12 @@ export class CoreBrowseTwoPage implements OnInit, OnDestroy {
   /**
    * App state
    */
-  app: any = null;
+  app: AppModel = new AppModel();
+
+  /**
+   * Data state
+   */
+  data: DataModel = new DataModel();
 
   /**
    * App subscription
@@ -39,11 +44,6 @@ export class CoreBrowseTwoPage implements OnInit, OnDestroy {
   loading: boolean = true;
 
   /**
-   * List of primes
-   */
-  primes: Array<GenTwoPrime> = [];
-
-  /**
    * Construct component
    *
    * @param router
@@ -55,8 +55,8 @@ export class CoreBrowseTwoPage implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private appHelper: AppHelper,
-    private dataHelper: DataHelper,
     private chainHelper: ChainHelper,
+    private dataHelper: DataHelper,
     private genTwoPrimeService: GenTwoPrimeService
   ) { }
 
@@ -92,8 +92,9 @@ export class CoreBrowseTwoPage implements OnInit, OnDestroy {
    * Initialize data
    */
   initData() {
+    this.data = this.dataHelper.getDefaultState();
     this.dataSubscription = this.dataHelper.data.subscribe((value: any) => {
-      this.primes = value.gen2.primes;
+      this.data = value;
     });
   }
 

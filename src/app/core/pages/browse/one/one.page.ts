@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppHelper, ChainHelper, DataHelper } from '@lib/helpers';
-import { GenOnePrime } from '@lib/models';
+import { AppModel, DataModel } from '@lib/models';
 import { GenOnePrimeService } from '@lib/services';
 import { Subscription } from 'rxjs';
 import { environment } from '@environment';
@@ -16,7 +16,12 @@ export class CoreBrowseOnePage implements OnInit, OnDestroy {
   /**
    * App state
    */
-  app: any = null;
+  app: AppModel = new AppModel();
+
+  /**
+   * Data state
+   */
+  data: DataModel = new DataModel();
 
   /**
    * App subscription
@@ -39,24 +44,19 @@ export class CoreBrowseOnePage implements OnInit, OnDestroy {
   loading: boolean = true;
 
   /**
-   * List of primes
-   */
-  primes: Array<GenOnePrime> = [];
-
-  /**
    * Construct component
    *
    * @param router
    * @param appHelper
    * @param chainHelper
    * @param dataHelper
-   * @param genOnePrimeService
+   * @param genTwoPrimeService
    */
   constructor(
     private router: Router,
     private appHelper: AppHelper,
-    private dataHelper: DataHelper,
     private chainHelper: ChainHelper,
+    private dataHelper: DataHelper,
     private genOnePrimeService: GenOnePrimeService
   ) { }
 
@@ -92,8 +92,9 @@ export class CoreBrowseOnePage implements OnInit, OnDestroy {
    * Initialize data
    */
   initData() {
+    this.data = this.dataHelper.getDefaultState();
     this.dataSubscription = this.dataHelper.data.subscribe((value: any) => {
-      this.primes = value.gen1.primes;
+      this.data = value;
     });
   }
 

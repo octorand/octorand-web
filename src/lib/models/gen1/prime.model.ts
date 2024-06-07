@@ -1,6 +1,6 @@
 declare var algosdk: any;
 
-export class GenOnePrime {
+export class GenOnePrimeModel {
 
     id: number = 0;
     platform_asset_id: number = 0;
