@@ -69,7 +69,7 @@
                 <i class="fa fa-bars"></i>
             </button>
         </div>
-        <div class="navbar-content mx-auto">
+        <div class="navbar-content ml-auto">
             <a *ngFor="let social of socials" href="{{social.url}}" target="_blank" class="mx-5">
                 <button class="btn" type="button" [ngClass]="{'btn-action': isMobile}">
                     <i class="{{social.icon}}" [ngStyle]="{'color': social.color}"></i>
