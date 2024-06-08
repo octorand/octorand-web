@@ -1,31 +1,27 @@
 <div class="container-fluid">
     <div class="content">
         <div class="row align-items-center">
-            <div class="col-sm">
-                <h1 class="content-title text-secondary">
-                    Browse
-                </h1>
-            </div>
-            <div class="col-auto">
-                <button class="btn mr-5" type="button" (click)="navigateToPage('')">
-                    <i class="fas fa-arrow-left text-danger mr-5"></i>
-                    Back
-                </button>
-            </div>
-        </div>
-        <div class="row">
-            <p class="text-muted">
-
-            </p>
-        </div>
-    </div>
-    <div class="content">
-        <div class="cards">
-            <div class="card m-0 h-full" (click)="navigateToPage('browse/gen1')">
-                <h2 class="content-title text-success">Gen One</h2>
-            </div>
-            <div class="card m-0 h-full" (click)="navigateToPage('browse/gen2')">
-                <h2 class="content-title text-success">Gen Two</h2>
+            <div class="col">
+                <div class="description mx-auto text-center">
+                    <h1 class="content-title text-secondary mb-20">
+                        Browse Collections
+                    </h1>
+                    <p class="text-muted mb-20">
+                        Step into the enchanting world of Octorand, where Primes reign supreme as the sole inhabitants.
+                        Initially, 1000 Primes graced this realm, but as time unfolded, each of these first generation
+                        Primes gave birth to 8 offspring, leading to the emergence of 8000 Primes in the second
+                        generation. Explore the wonders of Octorand, where the legacy of these mystical entities
+                        unfolds.
+                    </p>
+                    <div class="cards mb-20">
+                        <div class="card m-0 h-full" (click)="navigateToPage('browse/gen1')">
+                            <h2 class="content-title text-success">Gen One</h2>
+                        </div>
+                        <div class="card m-0 h-full" (click)="navigateToPage('browse/gen2')">
+                            <h2 class="content-title text-success">Gen Two</h2>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

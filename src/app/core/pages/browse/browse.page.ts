@@ -39,11 +39,6 @@ export class CoreBrowsePage implements OnInit, OnDestroy {
   primeDetailsLoadTask: any = null;
 
   /**
-   * True if data loading is going on
-   */
-  loading: boolean = true;
-
-  /**
    * Construct component
    *
    * @param router
@@ -112,17 +107,14 @@ export class CoreBrowsePage implements OnInit, OnDestroy {
    * Load prime details
    */
   loadPrimeDetails() {
-    this.loading = true;
     this.chainHelper.lookupAccountCreatedApplications(environment.gen1.manager_address).then((applications: any) => {
       let primes = this.genOnePrimeService.list(applications);
       this.dataHelper.setGenOnePrimes(primes);
-      this.loading = false;
     });
 
     this.chainHelper.lookupAccountCreatedApplications(environment.gen2.manager_address).then((applications: any) => {
       let primes = this.genTwoPrimeService.list(applications);
       this.dataHelper.setGenTwoPrimes(primes);
-      this.loading = false;
     });
   }
 
