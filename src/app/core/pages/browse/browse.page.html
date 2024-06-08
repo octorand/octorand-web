@@ -14,11 +14,69 @@
                         unfolds.
                     </p>
                     <div class="cards mb-20">
-                        <div class="card m-0 h-full" (click)="navigateToPage('browse/gen1')">
+                        <div class="card m-0 h-full">
                             <h2 class="content-title text-success">Gen One</h2>
+                            <div class="table-responsive">
+                                <table class="table table-no-outer-padding">
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-secondary">Toal Primes</td>
+                                            <td class="text-right">{{data.genOnePrimes.length}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-secondary">Unique Owners</td>
+                                            <td class="text-right">0</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-secondary">Trading Volume</td>
+                                            <td class="text-right">1,000,000 ALGO</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-secondary">For Sale</td>
+                                            <td class="text-right">0</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-secondary">Floor Price</td>
+                                            <td class="text-right">0</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <button class="btn btn-success btn-block mt-20" (click)="navigateToPage('browse/gen1')">
+                                Browse Gen One Primes
+                            </button>
                         </div>
-                        <div class="card m-0 h-full" (click)="navigateToPage('browse/gen2')">
-                            <h2 class="content-title text-success">Gen Two</h2>
+                        <div class="card m-0 h-full">
+                            <h2 class="content-title text-primary">Gen Two</h2>
+                            <div class="table-responsive">
+                                <table class="table table-no-outer-padding">
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-secondary">Toal Primes</td>
+                                            <td class="text-right">{{data.genTwoPrimes.length}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-secondary">Unique Owners</td>
+                                            <td class="text-right">0</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-secondary">Trading Volume</td>
+                                            <td class="text-right">1,000,000 ALGO</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-secondary">For Sale</td>
+                                            <td class="text-right">0</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-secondary">Floor Price</td>
+                                            <td class="text-right">0</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <button class="btn btn-primary btn-block mt-20" (click)="navigateToPage('browse/gen2')">
+                                Browse Gen Two Primes
+                            </button>
                         </div>
                     </div>
                 </div>
