@@ -24,6 +24,18 @@ export class CoreBrowsePage implements OnInit, OnDestroy {
   data: DataModel = new DataModel();
 
   /**
+   * View model
+   */
+  view = {
+    gen1: {
+      total: 0
+    },
+    gen2: {
+      total: 0
+    }
+  }
+
+  /**
    * App subscription
    */
   appSubscription: Subscription = new Subscription();
@@ -64,6 +76,7 @@ export class CoreBrowsePage implements OnInit, OnDestroy {
     this.initApp();
     this.initData();
     this.initTasks();
+    this.refreshView();
   }
 
   /**
@@ -92,6 +105,7 @@ export class CoreBrowsePage implements OnInit, OnDestroy {
     this.data = this.dataHelper.getDefaultState();
     this.dataSubscription = this.dataHelper.data.subscribe((value: DataModel) => {
       this.data = value;
+      this.refreshView();
     });
   }
 
@@ -116,6 +130,16 @@ export class CoreBrowsePage implements OnInit, OnDestroy {
       let primes = this.genTwoPrimeService.list(applications);
       this.dataHelper.setGenTwoPrimes(primes);
     });
+  }
+
+  /**
+   * Refresh view state
+   */
+  refreshView() {
+    if (this.data) {
+      this.view.gen1.total = this.data.genOnePrimes.length;
+      this.view.gen2.total = this.data.genTwoPrimes.length;
+    }
   }
 
   /**
