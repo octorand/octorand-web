@@ -2,16 +2,16 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppHelper, ChainHelper, DataHelper } from '@lib/helpers';
 import { AppModel, DataModel } from '@lib/models';
-import { GenTwoPrimeService } from '@lib/services';
+import { GenOnePrimeService } from '@lib/services';
 import { Subscription } from 'rxjs';
 import { environment } from '@environment';
 
 @Component({
-  selector: 'app-core-browse-two',
-  templateUrl: './two.page.html',
-  styleUrls: ['./two.page.scss'],
+  selector: 'app-core-browse-gen1',
+  templateUrl: './gen1.page.html',
+  styleUrls: ['./gen1.page.scss'],
 })
-export class CoreBrowseTwoPage implements OnInit, OnDestroy {
+export class CoreBrowseOnePage implements OnInit, OnDestroy {
 
   /**
    * App state
@@ -57,7 +57,7 @@ export class CoreBrowseTwoPage implements OnInit, OnDestroy {
     private appHelper: AppHelper,
     private chainHelper: ChainHelper,
     private dataHelper: DataHelper,
-    private genTwoPrimeService: GenTwoPrimeService
+    private genOnePrimeService: GenOnePrimeService
   ) { }
 
   /**
@@ -111,9 +111,9 @@ export class CoreBrowseTwoPage implements OnInit, OnDestroy {
    */
   loadPrimeDetails() {
     this.loading = true;
-    this.chainHelper.lookupAccountCreatedApplications(environment.gen2.manager_address).then((applications: any) => {
-      let primes = this.genTwoPrimeService.list(applications);
-      this.dataHelper.setGenTwoPrimes(primes);
+    this.chainHelper.lookupAccountCreatedApplications(environment.gen1.manager_address).then((applications: any) => {
+      let primes = this.genOnePrimeService.list(applications);
+      this.dataHelper.setGenOnePrimes(primes);
       this.loading = false;
     });
   }
