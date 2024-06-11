@@ -66,6 +66,8 @@ export class GenOnePrimeModel {
                     break;
             }
         }
+
+        this.calculateBadges();
     }
 
     /**

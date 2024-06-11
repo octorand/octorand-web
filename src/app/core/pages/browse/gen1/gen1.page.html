@@ -28,9 +28,9 @@
                     </p>
                     <nav>
                         <ul class="pagination text-center">
-                            <li class="page-item" *ngFor="let sort of sorts"
-                                [ngClass]="{'active': sort == selectedSort, 'hand': sort != selectedSort}">
-                                <a class="page-link px-20" tabindex="-1" (click)="changeSort(sort)">
+                            <li class="page-item hand" *ngFor="let sort of sorts">
+                                <a class="page-link px-20" tabindex="-1" (click)="changeSort(sort)"
+                                    [ngClass]="{'bg-primary': sort == selectedSort}">
                                     {{sort}}
                                 </a>
                             </li>
@@ -41,9 +41,9 @@
                     </p>
                     <nav>
                         <ul class="pagination text-center">
-                            <li class="page-item hand" *ngFor="let badge of badges"
-                                [ngClass]="{'active': selectedBadges.includes(badge)}">
-                                <a class="page-link px-20" tabindex="-1" (click)="changeBadge(badge)">
+                            <li class="page-item hand" *ngFor="let badge of badges">
+                                <a class="page-link px-20" tabindex="-1" (click)="changeBadge(badge)"
+                                    [ngClass]="{'bg-primary': selectedBadges.includes(badge)}">
                                     {{badge}}
                                 </a>
                             </li>
@@ -70,6 +70,9 @@
                             </p>
                             <p class="text-muted mb-0">
                                 {{prime.rank}}
+                            </p>
+                            <p class="text-muted mb-0">
+                                {{prime.badges}}
                             </p>
                         </div>
                     </div>

@@ -66,5 +66,29 @@ export class GenTwoPrimeModel {
                     break;
             }
         }
+
+        this.calculateBadges();
+    }
+
+    /**
+     * Calculate badges
+     */
+    calculateBadges() {
+        let badges: Array<string> = [];
+
+        if (this.is_founder) {
+            badges.push('Founder');
+        }
+        if (this.is_artifact) {
+            badges.push('Artifact');
+        }
+        if (this.is_pioneer) {
+            badges.push('Pioneer');
+        }
+        if (this.is_explorer) {
+            badges.push('Explorer');
+        }
+
+        this.badges = badges;
     }
 }

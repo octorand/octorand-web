@@ -174,6 +174,10 @@ export class CoreBrowseOnePage implements OnInit, OnDestroy {
     if (this.data) {
       let allResults = this.data.genOnePrimes;
 
+      if (this.selectedBadges.length > 0) {
+        allResults = allResults.filter(x => this.selectedBadges.every(b => x.badges.includes(b)))
+      }
+
       switch (this.selectedSort) {
         case 'Id':
           allResults.sort((first, second) => first.id - second.id);
@@ -226,7 +230,6 @@ export class CoreBrowseOnePage implements OnInit, OnDestroy {
    * @param badge
    */
   changeBadge(badge: string) {
-    console.log(this.selectedBadges, badge);
     if (this.selectedBadges.includes(badge)) {
       this.selectedBadges = this.selectedBadges.filter(b => b != badge);
     } else {
