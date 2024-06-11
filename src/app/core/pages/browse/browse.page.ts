@@ -24,18 +24,6 @@ export class CoreBrowsePage implements OnInit, OnDestroy {
   data: DataModel = new DataModel();
 
   /**
-   * View model
-   */
-  view = {
-    gen1: {
-      total: 0
-    },
-    gen2: {
-      total: 0
-    }
-  }
-
-  /**
    * App subscription
    */
   appSubscription: Subscription = new Subscription();
@@ -49,6 +37,16 @@ export class CoreBrowsePage implements OnInit, OnDestroy {
    * Track prime details loading task
    */
   primeDetailsLoadTask: any = null;
+
+  /**
+   * Gen one primes total
+   */
+  genOneTotal: number = 0
+
+  /**
+   * Gen two primes total
+   */
+  genTwoTotal: number = 0
 
   /**
    * Construct component
@@ -136,8 +134,8 @@ export class CoreBrowsePage implements OnInit, OnDestroy {
    */
   refreshView() {
     if (this.data) {
-      this.view.gen1.total = this.data.genOnePrimes.length;
-      this.view.gen2.total = this.data.genTwoPrimes.length;
+      this.genOneTotal = this.data.genOnePrimes.length;
+      this.genTwoTotal = this.data.genTwoPrimes.length;
     }
   }
 

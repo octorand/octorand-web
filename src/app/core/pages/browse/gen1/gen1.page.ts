@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppHelper, ChainHelper, DataHelper } from '@lib/helpers';
-import { AppModel, DataModel } from '@lib/models';
+import { AppModel, DataModel, GenOnePrimeModel } from '@lib/models';
 import { GenOnePrimeService } from '@lib/services';
 import { Subscription } from 'rxjs';
 import { environment } from '@environment';
@@ -24,23 +24,6 @@ export class CoreBrowseOnePage implements OnInit, OnDestroy {
   data: DataModel = new DataModel();
 
   /**
-   * View model
-   */
-  view = {
-    currentPage: 1,
-    resultsPerPage: 30,
-    owner: null,
-    listed: false,
-    trait: '********',
-    badges: [],
-    sortBy: 'Rank',
-    sortOrder: 'Ascending',
-    total: 0,
-    pages: 10,
-    primes: []
-  }
-
-  /**
    * App subscription
    */
   appSubscription: Subscription = new Subscription();
@@ -54,6 +37,31 @@ export class CoreBrowseOnePage implements OnInit, OnDestroy {
    * Track prime details loading task
    */
   primeDetailsLoadTask: any = null;
+
+  /**
+   * Current page number
+   */
+  currentPage: number = 1;
+
+  /**
+   * Number of results per page
+   */
+  resultsPerPage: number = 100;
+
+  /**
+   * Total number of results
+   */
+  totalResults: number = 0;
+
+  /**
+   * Total number of pages
+   */
+  pagesCount: number = 0;
+
+  /**
+   * Results in the current page
+   */
+  currentPageResults: Array<GenOnePrimeModel> = [];
 
   /**
    * Construct component
@@ -135,6 +143,17 @@ export class CoreBrowseOnePage implements OnInit, OnDestroy {
    */
   refreshView() {
     if (this.data) {
+      let allResults = this.data.genOnePrimes;
+      let totalResults = allResults.length;
+      let pagesCount = Math.ceil(totalResults / this.resultsPerPage);
+
+      let start = this.resultsPerPage * (this.currentPage - 1);
+      let end = start + this.resultsPerPage;
+      let currentPageResults = allResults.slice(start, end);
+
+      this.totalResults = totalResults;
+      this.pagesCount = pagesCount;
+      this.currentPageResults = currentPageResults;
     }
   }
 
@@ -143,7 +162,8 @@ export class CoreBrowseOnePage implements OnInit, OnDestroy {
    * @param page
    */
   changePage(page: any) {
-    console.log(page);
+    this.currentPage = page;
+    this.refreshView();
   }
 
   /**

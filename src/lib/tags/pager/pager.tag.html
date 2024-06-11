@@ -1,27 +1,29 @@
-<div class="columns is-mobile is-variable is-1 pagination" *ngIf="totalPages > 1">
-  <div class="column is-2">
-    <button (click)="firstPage()" class="button is-primary is-fullwidth">
-      <i class="fas fa-angle-double-left"></i>
-    </button>
-  </div>
-  <div class="column is-2">
-    <button (click)="previousPage()" class="button is-primary is-fullwidth">
-      <i class="fas fa-angle-left"></i>
-    </button>
-  </div>
-  <div class="column is-4">
-    <p>
-      {{currentPage}} of {{totalPages}}
-    </p>
-  </div>
-  <div class="column is-2">
-    <button (click)="nextPage()" class="button is-primary is-fullwidth">
-      <i class="fas fa-angle-right"></i>
-    </button>
-  </div>
-  <div class="column is-2">
-    <button (click)="lastPage()" class="button is-primary is-fullwidth">
-      <i class="fas fa-angle-double-right"></i>
-    </button>
-  </div>
-</div>
+<nav *ngIf="totalPages > 1">
+  <ul class="pagination text-center">
+    <li class="page-item hand">
+      <a (click)="firstPage()" class="page-link">
+        <i class="fas fa-angle-double-left"></i>
+      </a>
+    </li>
+    <li class="page-item hand">
+      <a (click)="previousPage()" class="page-link">
+        <i class="fas fa-angle-left"></i>
+      </a>
+    </li>
+    <li class="page-item disabled">
+      <a class="page-link px-20" tabindex="-1">
+        {{currentPage}} of {{totalPages}}
+      </a>
+    </li>
+    <li class="page-item hand">
+      <a (click)="nextPage()" class="page-link">
+        <i class="fas fa-angle-right"></i>
+      </a>
+    </li>
+    <li class="page-item hand">
+      <a (click)="lastPage()" class="page-link">
+        <i class="fas fa-angle-double-right"></i>
+      </a>
+    </li>
+  </ul>
+</nav>
