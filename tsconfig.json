@@ -46,6 +46,9 @@
       "@lib/services": [
         "./src/lib/services/_index"
       ],
+      "@lib/tags": [
+        "./src/lib/tags/_index"
+      ],
       "@lib/wallets": [
         "./src/lib/wallets/_index"
       ],

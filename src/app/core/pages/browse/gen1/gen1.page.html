@@ -6,6 +6,9 @@
                     <h1 class="content-title text-secondary mb-20">
                         Browse Primes
                     </h1>
+                    <lib-tags-pager [totalPages]="view.pages" [currentPage]="view.currentPage"
+                        (onPageChange)="changePage($event)">
+                    </lib-tags-pager>
                     <div class="cards mb-20">
                         <div class="card m-0 h-full" *ngFor="let prime of data.genOnePrimes"
                             (click)="navigateToPage('prime/gen1/{{prime.id}}')">

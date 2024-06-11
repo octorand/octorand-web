@@ -24,6 +24,23 @@ export class CoreBrowseOnePage implements OnInit, OnDestroy {
   data: DataModel = new DataModel();
 
   /**
+   * View model
+   */
+  view = {
+    currentPage: 1,
+    resultsPerPage: 30,
+    owner: null,
+    listed: false,
+    trait: '********',
+    badges: [],
+    sortBy: 'Rank',
+    sortOrder: 'Ascending',
+    total: 0,
+    pages: 10,
+    primes: []
+  }
+
+  /**
    * App subscription
    */
   appSubscription: Subscription = new Subscription();
@@ -119,6 +136,14 @@ export class CoreBrowseOnePage implements OnInit, OnDestroy {
   refreshView() {
     if (this.data) {
     }
+  }
+
+  /**
+   * When page is changed
+   * @param page
+   */
+  changePage(page: any) {
+    console.log(page);
   }
 
   /**
