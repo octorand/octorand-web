@@ -75,7 +75,6 @@ export class CoreBrowseOnePage implements OnInit, OnDestroy {
     'Id',
     'Name',
     'Rank',
-    'Price',
   ];
 
   /**
@@ -169,8 +168,6 @@ export class CoreBrowseOnePage implements OnInit, OnDestroy {
           break;
         case 'Rank':
           allResults.sort((first, second) => first.rank - second.rank);
-          break;
-        case 'Price':
           break;
       }
 
