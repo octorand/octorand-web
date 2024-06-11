@@ -23,6 +23,19 @@
                             </li>
                         </ul>
                     </nav>
+                    <p class="text-muted mb-0">
+                        Sort
+                    </p>
+                    <nav>
+                        <ul class="pagination text-center">
+                            <li class="page-item" *ngFor="let sort of sortKeys"
+                                [ngClass]="{'active': sort == sortBy, 'hand': sort != sortBy}">
+                                <a class="page-link px-20" tabindex="-1" (click)="changeSortBy(sort)">
+                                    {{sort}}
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </div>
@@ -39,6 +52,9 @@
                             <h2 class="content-title text-success">{{prime.id}}</h2>
                             <p class="text-muted mb-0">
                                 {{prime.name}}
+                            </p>
+                            <p class="text-muted mb-0">
+                                {{prime.rank}}
                             </p>
                         </div>
                     </div>

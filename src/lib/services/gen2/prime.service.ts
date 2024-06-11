@@ -27,6 +27,16 @@ export class GenTwoPrimeService {
             models.push(this.create(applications[i]));
         }
 
+        var rank = 1;
+        models.sort((first, second) => second.score - first.score);
+        for (let i = 0; i < models.length; i++) {
+            if (i > 0 && models[i].score < models[i - 1].score) {
+                rank++;
+            }
+            models[i].rank = rank;
+        }
+        models.sort((first, second) => first.id - second.id);
+
         return models;
     }
 }

@@ -64,6 +64,21 @@ export class CoreBrowseOnePage implements OnInit, OnDestroy {
   currentPageResults: Array<GenOnePrimeModel> = [];
 
   /**
+   * Sort by key
+   */
+  sortBy: string = 'Id';
+
+  /**
+   * Keys for sorting
+   */
+  sortKeys: Array<string> = [
+    'Id',
+    'Name',
+    'Rank',
+    'Price',
+  ];
+
+  /**
    * Construct component
    *
    * @param router
@@ -144,6 +159,21 @@ export class CoreBrowseOnePage implements OnInit, OnDestroy {
   refreshView() {
     if (this.data) {
       let allResults = this.data.genOnePrimes;
+
+      switch (this.sortBy) {
+        case 'Id':
+          allResults.sort((first, second) => first.id - second.id);
+          break;
+        case 'Name':
+          allResults.sort((first, second) => first.name.localeCompare(second.name));
+          break;
+        case 'Rank':
+          allResults.sort((first, second) => first.rank - second.rank);
+          break;
+        case 'Price':
+          break;
+      }
+
       let totalResults = allResults.length;
       let pagesCount = Math.ceil(totalResults / this.resultsPerPage);
 
@@ -159,10 +189,22 @@ export class CoreBrowseOnePage implements OnInit, OnDestroy {
 
   /**
    * When page is changed
+   *
    * @param page
    */
   changePage(page: any) {
     this.currentPage = page;
+    this.refreshView();
+  }
+
+  /**
+   * When sort key is changed
+   *
+   * @param sort
+   */
+  changeSortBy(sort: string) {
+    this.sortBy = sort;
+    this.currentPage = 1;
     this.refreshView();
   }
 

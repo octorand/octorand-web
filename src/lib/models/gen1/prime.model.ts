@@ -24,6 +24,7 @@ export class GenOnePrimeModel {
     parent_id: number = 0;
     application_id: number = 0;
     application_address: string = '';
+    rank: number = 0;
 
     /**
      * Load values from contract information
