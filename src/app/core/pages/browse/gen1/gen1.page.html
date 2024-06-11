@@ -6,10 +6,34 @@
                     <h1 class="content-title text-secondary mb-20">
                         Browse Primes
                     </h1>
+                    <p class="text-muted mb-0">
+                        Generation
+                    </p>
+                    <nav>
+                        <ul class="pagination text-center">
+                            <li class="page-item active">
+                                <a class="page-link px-20" tabindex="-1">
+                                    GEN1
+                                </a>
+                            </li>
+                            <li class="page-item hand">
+                                <a (click)="navigateToPage('browse/gen2')" class="page-link px-20">
+                                    GEN2
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <hr class="my-0">
+        <div class="row align-items-center">
+            <div class="col">
+                <div class="mx-auto text-center">
                     <lib-tags-pager [totalPages]="pagesCount" [currentPage]="currentPage"
                         (onPageChange)="changePage($event)">
                     </lib-tags-pager>
-                    <div class="cards mb-20">
+                    <div class="cards">
                         <div class="card m-0 h-full" *ngFor="let prime of currentPageResults"
                             (click)="navigateToPage('prime/gen1/{{prime.id}}')">
                             <h2 class="content-title text-success">{{prime.id}}</h2>
@@ -18,6 +42,9 @@
                             </p>
                         </div>
                     </div>
+                    <lib-tags-pager [totalPages]="pagesCount" [currentPage]="currentPage"
+                        (onPageChange)="changePage($event)">
+                    </lib-tags-pager>
                 </div>
             </div>
         </div>
