@@ -39,11 +39,6 @@ export class CoreBrowseTwoPage implements OnInit, OnDestroy {
   primeDetailsLoadTask: any = null;
 
   /**
-   * True if data loading is going on
-   */
-  loading: boolean = true;
-
-  /**
    * Construct component
    *
    * @param router
@@ -67,6 +62,7 @@ export class CoreBrowseTwoPage implements OnInit, OnDestroy {
     this.initApp();
     this.initData();
     this.initTasks();
+    this.refreshView();
   }
 
   /**
@@ -95,6 +91,7 @@ export class CoreBrowseTwoPage implements OnInit, OnDestroy {
     this.data = this.dataHelper.getDefaultState();
     this.dataSubscription = this.dataHelper.data.subscribe((value: DataModel) => {
       this.data = value;
+      this.refreshView();
     });
   }
 
@@ -110,12 +107,18 @@ export class CoreBrowseTwoPage implements OnInit, OnDestroy {
    * Load prime details
    */
   loadPrimeDetails() {
-    this.loading = true;
-    this.chainHelper.lookupAccountCreatedApplications(environment.gen2.manager_address).then((applications: any) => {
+    this.chainHelper.lookupAccountCreatedApplications(environment.gen1.manager_address).then((applications: any) => {
       let primes = this.genTwoPrimeService.list(applications);
-      this.dataHelper.setGenTwoPrimes(primes);
-      this.loading = false;
+      this.dataHelper.setGenOnePrimes(primes);
     });
+  }
+
+  /**
+   * Refresh view state
+   */
+  refreshView() {
+    if (this.data) {
+    }
   }
 
   /**

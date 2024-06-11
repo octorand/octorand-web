@@ -1,0 +1,27 @@
+<div class="columns is-mobile is-variable is-1 pagination" *ngIf="totalPages > 1">
+  <div class="column is-2">
+    <button (click)="firstPage()" class="button is-primary is-fullwidth">
+      <i class="fas fa-angle-double-left"></i>
+    </button>
+  </div>
+  <div class="column is-2">
+    <button (click)="previousPage()" class="button is-primary is-fullwidth">
+      <i class="fas fa-angle-left"></i>
+    </button>
+  </div>
+  <div class="column is-4">
+    <p>
+      {{currentPage}} of {{totalPages}}
+    </p>
+  </div>
+  <div class="column is-2">
+    <button (click)="nextPage()" class="button is-primary is-fullwidth">
+      <i class="fas fa-angle-right"></i>
+    </button>
+  </div>
+  <div class="column is-2">
+    <button (click)="lastPage()" class="button is-primary is-fullwidth">
+      <i class="fas fa-angle-double-right"></i>
+    </button>
+  </div>
+</div>

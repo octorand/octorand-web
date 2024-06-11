@@ -125,7 +125,6 @@ export class CoreBrowsePage implements OnInit, OnDestroy {
       let primes = this.genOnePrimeService.list(applications);
       this.dataHelper.setGenOnePrimes(primes);
     });
-
     this.chainHelper.lookupAccountCreatedApplications(environment.gen2.manager_address).then((applications: any) => {
       let primes = this.genTwoPrimeService.list(applications);
       this.dataHelper.setGenTwoPrimes(primes);
