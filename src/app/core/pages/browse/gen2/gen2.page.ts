@@ -109,7 +109,7 @@ export class CoreBrowseTwoPage implements OnInit, OnDestroy {
   loadPrimeDetails() {
     this.chainHelper.lookupAccountCreatedApplications(environment.gen1.manager_address).then((applications: any) => {
       let primes = this.genTwoPrimeService.list(applications);
-      this.dataHelper.setGenOnePrimes(primes);
+      this.dataHelper.setGenTwoPrimes(primes);
     });
   }
 

@@ -25,6 +25,7 @@ export class GenOnePrimeModel {
     application_id: number = 0;
     application_address: string = '';
     rank: number = 0;
+    badges: Array<string> = [];
 
     /**
      * Load values from contract information
@@ -65,5 +66,27 @@ export class GenOnePrimeModel {
                     break;
             }
         }
+    }
+
+    /**
+     * Calculate badges
+     */
+    calculateBadges() {
+        let badges: Array<string> = [];
+
+        if (this.is_founder) {
+            badges.push('Founder');
+        }
+        if (this.is_artifact) {
+            badges.push('Artifact');
+        }
+        if (this.is_pioneer) {
+            badges.push('Pioneer');
+        }
+        if (this.is_explorer) {
+            badges.push('Explorer');
+        }
+
+        this.badges = badges;
     }
 }

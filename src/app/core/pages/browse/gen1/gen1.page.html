@@ -36,6 +36,19 @@
                             </li>
                         </ul>
                     </nav>
+                    <p class="text-muted mb-0">
+                        Badges
+                    </p>
+                    <nav>
+                        <ul class="pagination text-center">
+                            <li class="page-item hand" *ngFor="let badge of badges"
+                                [ngClass]="{'active': selectedBadges.includes(badge)}">
+                                <a class="page-link px-20" tabindex="-1" (click)="changeBadge(badge)">
+                                    {{badge}}
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </div>

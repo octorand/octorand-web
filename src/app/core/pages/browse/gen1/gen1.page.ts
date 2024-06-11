@@ -86,7 +86,10 @@ export class CoreBrowseOnePage implements OnInit, OnDestroy {
    * List of badges
    */
   badges: Array<string> = [
-
+    'Founder',
+    'Artifact',
+    'Pioneer',
+    'Explorer',
   ];
 
   /**
@@ -213,6 +216,22 @@ export class CoreBrowseOnePage implements OnInit, OnDestroy {
    */
   changeSort(sort: string) {
     this.selectedSort = sort;
+    this.currentPage = 1;
+    this.refreshView();
+  }
+
+  /**
+   * When badge is changed
+   *
+   * @param badge
+   */
+  changeBadge(badge: string) {
+    console.log(this.selectedBadges, badge);
+    if (this.selectedBadges.includes(badge)) {
+      this.selectedBadges = this.selectedBadges.filter(b => b != badge);
+    } else {
+      this.selectedBadges.push(badge);
+    }
     this.currentPage = 1;
     this.refreshView();
   }

@@ -25,6 +25,7 @@ export class GenTwoPrimeModel {
     application_id: number = 0;
     application_address: string = '';
     rank: number = 0;
+    badges: Array<string> = [];
 
     /**
      * Load values from contract information
