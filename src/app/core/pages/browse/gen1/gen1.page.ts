@@ -64,17 +64,29 @@ export class CoreBrowseOnePage implements OnInit, OnDestroy {
   currentPageResults: Array<GenOnePrimeModel> = [];
 
   /**
-   * Sort by key
+   * Sort sort
    */
-  sortBy: string = 'Id';
+  selectedSort: string = 'Id';
+
+  /**
+   * Selected list of badges
+   */
+  selectedBadges: Array<string> = [];
 
   /**
    * Keys for sorting
    */
-  sortKeys: Array<string> = [
+  sorts: Array<string> = [
     'Id',
     'Name',
     'Rank',
+  ];
+
+  /**
+   * List of badges
+   */
+  badges: Array<string> = [
+
   ];
 
   /**
@@ -159,7 +171,7 @@ export class CoreBrowseOnePage implements OnInit, OnDestroy {
     if (this.data) {
       let allResults = this.data.genOnePrimes;
 
-      switch (this.sortBy) {
+      switch (this.selectedSort) {
         case 'Id':
           allResults.sort((first, second) => first.id - second.id);
           break;
@@ -195,12 +207,12 @@ export class CoreBrowseOnePage implements OnInit, OnDestroy {
   }
 
   /**
-   * When sort key is changed
+   * When sort is changed
    *
    * @param sort
    */
-  changeSortBy(sort: string) {
-    this.sortBy = sort;
+  changeSort(sort: string) {
+    this.selectedSort = sort;
     this.currentPage = 1;
     this.refreshView();
   }

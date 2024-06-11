@@ -28,9 +28,9 @@
                     </p>
                     <nav>
                         <ul class="pagination text-center">
-                            <li class="page-item" *ngFor="let sort of sortKeys"
-                                [ngClass]="{'active': sort == sortBy, 'hand': sort != sortBy}">
-                                <a class="page-link px-20" tabindex="-1" (click)="changeSortBy(sort)">
+                            <li class="page-item" *ngFor="let sort of sorts"
+                                [ngClass]="{'active': sort == selectedSort, 'hand': sort != selectedSort}">
+                                <a class="page-link px-20" tabindex="-1" (click)="changeSort(sort)">
                                     {{sort}}
                                 </a>
                             </li>
@@ -43,9 +43,11 @@
         <div class="row align-items-center">
             <div class="col">
                 <div class="mx-auto text-center">
-                    <lib-tags-pager [totalPages]="pagesCount" [currentPage]="currentPage"
-                        (onPageChange)="changePage($event)">
-                    </lib-tags-pager>
+                    <div class="my-20">
+                        <lib-tags-pager [totalPages]="pagesCount" [currentPage]="currentPage"
+                            (onPageChange)="changePage($event)">
+                        </lib-tags-pager>
+                    </div>
                     <div class="cards">
                         <div class="card m-0 h-full" *ngFor="let prime of currentPageResults"
                             (click)="navigateToPage('prime/gen1/{{prime.id}}')">
@@ -58,9 +60,11 @@
                             </p>
                         </div>
                     </div>
-                    <lib-tags-pager [totalPages]="pagesCount" [currentPage]="currentPage"
-                        (onPageChange)="changePage($event)">
-                    </lib-tags-pager>
+                    <div class="mt-20">
+                        <lib-tags-pager [totalPages]="pagesCount" [currentPage]="currentPage"
+                            (onPageChange)="changePage($event)">
+                        </lib-tags-pager>
+                    </div>
                 </div>
             </div>
         </div>
