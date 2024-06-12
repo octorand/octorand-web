@@ -86,10 +86,26 @@ export class CoreBrowseOnePage implements OnInit, OnDestroy {
    * List of badges
    */
   badges: Array<string> = [
-    'Founder',
     'Artifact',
-    'Pioneer',
+    'Bountiful',
+    'Chameleon',
+    'Changeling',
+    'Culture',
+    'Drained',
+    'Exotic',
     'Explorer',
+    'Family',
+    'Fancy',
+    'Fiction',
+    'Flipper',
+    'Founder',
+    'Phrase',
+    'Pioneer',
+    'Prefix',
+    'Pristine',
+    'Shapeshifter',
+    'Suffix',
+    'Wordsmith',
   ];
 
   /**

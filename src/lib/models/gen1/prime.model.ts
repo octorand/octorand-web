@@ -114,22 +114,24 @@ export class GenOnePrimeModel {
             badges.push('Flipper');
         }
 
-        let alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        if (alphabet.includes(this.name)) {
-            badges.push('Straight');
-        }
-
         let equidistant = true;
         for (let i = 0; i < this.name.length - 1; i++) {
             if (this.name.charAt(i) != this.name.charAt(i + 1)) {
                 equidistant = false;
             }
         }
-        if (equidistant) {
-            badges.push('Equidistant');
-        }
 
         let fancy = false;
+
+        let alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        if (alphabet.includes(this.name)) {
+            fancy = true;
+        }
+
+        if (equidistant) {
+            fancy = true;
+        }
+
         let char0 = this.name.charAt(0);
         let char1 = this.name.charAt(1);
         let char2 = this.name.charAt(2);
@@ -138,19 +140,24 @@ export class GenOnePrimeModel {
         let char5 = this.name.charAt(5);
         let char6 = this.name.charAt(6);
         let char7 = this.name.charAt(7);
+
         if ((char0 == char2) && (char1 == char3) && (char4 == char6) && (char5 == char7)) {
             fancy = true;
         }
+
         if ((char0 == char1) && (char2 == char3) && (char4 == char5) && (char6 == char7)) {
             fancy = true;
         }
+
         if ((char0 == char7) && (char1 == char6) && (char2 == char5) && (char3 == char4)) {
             fancy = true;
         }
+
         if ((char0 == char4) && (char1 == char5) && (char2 == char6) && (char3 == char7)) {
             fancy = true;
         }
-        if (fancy && !equidistant) {
+
+        if (fancy) {
             badges.push('Fancy');
         }
 
