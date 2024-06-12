@@ -24,19 +24,6 @@
                         </ul>
                     </nav>
                     <p class="text-muted mb-5">
-                        Sort
-                    </p>
-                    <nav>
-                        <ul class="pagination text-center">
-                            <li class="page-item hand" *ngFor="let sort of sorts">
-                                <a class="page-link px-20" tabindex="-1" (click)="changeSort(sort)"
-                                    [ngClass]="{'bg-primary': sort == selectedSort}">
-                                    {{sort}}
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                    <p class="text-muted mb-5">
                         Badges
                     </p>
                     <nav>
@@ -45,6 +32,19 @@
                                 <a class="page-link px-20" tabindex="-1" (click)="changeBadge(badge)"
                                     [ngClass]="{'bg-primary': selectedBadges.includes(badge)}">
                                     {{badge}}
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <p class="text-muted mb-5">
+                        Sort
+                    </p>
+                    <nav>
+                        <ul class="pagination text-center">
+                            <li class="page-item hand" *ngFor="let sort of sorts">
+                                <a class="page-link px-20" tabindex="-1" (click)="changeSort(sort)"
+                                    [ngClass]="{'bg-primary': sort == selectedSort}">
+                                    {{sort}}
                                 </a>
                             </li>
                         </ul>
