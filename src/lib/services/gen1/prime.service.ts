@@ -25,7 +25,7 @@ export class GenOnePrimeService {
         let models = [];
         for (let i = 0; i < applications.length; i++) {
             let model = new GenOnePrimeModel();
-            model = this.loadValues(applications[i], model);
+            model = this.loadValues(model, applications[i]);
             model = this.calculateBadges(model);
             models.push(model);
         }
@@ -173,10 +173,10 @@ export class GenOnePrimeService {
             badges.push('Fancy');
         }
 
-        let smithFind = this.wordSmiths.includes(model.name);
-        let fictionFind = this.wordFictions.includes(model.name);
-        let cultureFind = this.wordCultures.includes(model.name);
-        let phraseFind = this.wordPhrases.includes(model.name);
+        let smithFind = this.wordSmiths.includes(model.name.toLowerCase());
+        let fictionFind = this.wordFictions.includes(model.name.toLowerCase());
+        let cultureFind = this.wordCultures.includes(model.name.toLowerCase());
+        let phraseFind = this.wordPhrases.includes(model.name.toLowerCase());
 
         if (smithFind) {
             badges.push('Wordsmith');
@@ -194,7 +194,7 @@ export class GenOnePrimeService {
             model.name.substring(0, 6),
             model.name.substring(0, 7),
         ];
-        let wordsInPrefix = prefixWords.some(w => this.wordParts.includes(w));
+        let wordsInPrefix = prefixWords.some(w => this.wordParts.includes(w.toLowerCase()));
         if (wordsInPrefix) {
             badges.push('Prefix');
         }
@@ -205,7 +205,7 @@ export class GenOnePrimeService {
             model.name.substring(3, 8),
             model.name.substring(4, 8),
         ];
-        let wordsInSuffix = suffixWords.some(w => this.wordParts.includes(w));
+        let wordsInSuffix = suffixWords.some(w => this.wordParts.includes(w.toLowerCase()));
         if (wordsInSuffix) {
             badges.push('Suffix');
         }

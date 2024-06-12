@@ -16,7 +16,7 @@ export class GenTwoPrimeService {
         let models = [];
         for (let i = 0; i < applications.length; i++) {
             let model = new GenTwoPrimeModel();
-            model = this.loadValues(applications[i], model);
+            model = this.loadValues(model, applications[i]);
             models.push(model);
         }
 
