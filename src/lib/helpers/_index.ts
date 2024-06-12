@@ -6,3 +6,4 @@ export * from './identity.helper';
 export * from './sidebar.helper';
 export * from './social.helper';
 export * from './wallet.helper';
+export * from './word.helper';

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
+import { WordHelper } from '@lib/helpers';
 import { GenOnePrimeModel } from '@lib/models';
-import { WordCulture, WordFiction, WordPart, WordPhrase, WordSmith } from '@lib/words';
 
 declare var algosdk: any;
 
@@ -8,13 +8,13 @@ declare var algosdk: any;
 export class GenOnePrimeService {
 
     /**
-     * List of words in dictionary
+     * Construct component
+     *
+     * @param wordHelper
      */
-    wordCultures = WordCulture.list;
-    wordFictions = WordFiction.list;
-    wordParts = WordPart.list;
-    wordPhrases = WordPhrase.list;
-    wordSmiths = WordSmith.list;
+    constructor(
+        private wordHelper: WordHelper
+    ) { }
 
     /**
      * Create prime models from application states
@@ -23,6 +23,9 @@ export class GenOnePrimeService {
      */
     list(applications: Array<any>): Array<GenOnePrimeModel> {
         let models = [];
+
+        let start = Date.now();
+
         for (let i = 0; i < applications.length; i++) {
             let model = new GenOnePrimeModel();
             model = this.loadValues(model, applications[i]);
@@ -32,6 +35,9 @@ export class GenOnePrimeService {
 
         models = this.calculateRank(models);
 
+        let end = Date.now();
+
+        console.log((end - start) * 8 / 1000);
 
         return models;
     }
@@ -173,10 +179,10 @@ export class GenOnePrimeService {
             badges.push('Fancy');
         }
 
-        let smithFind = this.wordSmiths.includes(model.name.toLowerCase());
-        let fictionFind = this.wordFictions.includes(model.name.toLowerCase());
-        let cultureFind = this.wordCultures.includes(model.name.toLowerCase());
-        let phraseFind = this.wordPhrases.includes(model.name.toLowerCase());
+        let smithFind = this.wordHelper.searchSmith(model.name);
+        let fictionFind = this.wordHelper.searchFiction(model.name);
+        let cultureFind = this.wordHelper.searchCulture(model.name);
+        let phraseFind = this.wordHelper.searchPhrase(model.name);
 
         if (smithFind) {
             badges.push('Wordsmith');
@@ -195,10 +201,13 @@ export class GenOnePrimeService {
             model.name.substring(0, 7),
         ];
 
-        let wordsInPrefix = prefixWords.some(w => this.wordParts.includes(w.toLowerCase()));
-
-        if (wordsInPrefix) {
-            badges.push('Prefix');
+        for (let i = 0; i < prefixWords.length; i++) {
+            let prefix = prefixWords[i];
+            let prefixFind = this.wordHelper.searchPart(prefix);
+            if (prefixFind) {
+                badges.push('Prefix');
+                break;
+            }
         }
 
         let suffixWords = [
@@ -208,10 +217,13 @@ export class GenOnePrimeService {
             model.name.substring(4, 8),
         ];
 
-        let wordsInSuffix = suffixWords.some(w => this.wordParts.includes(w.toLowerCase()));
-
-        if (wordsInSuffix) {
-            badges.push('Suffix');
+        for (let i = 0; i < suffixWords.length; i++) {
+            let suffix = suffixWords[i];
+            let suffixFind = this.wordHelper.searchPart(suffix);
+            if (suffixFind) {
+                badges.push('Suffix');
+                break;
+            }
         }
 
         model.badges = badges;
