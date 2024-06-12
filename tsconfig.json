@@ -52,6 +52,9 @@
       "@lib/wallets": [
         "./src/lib/wallets/_index"
       ],
+      "@lib/words": [
+        "./src/lib/words/_index"
+      ],
       "@app/core": [
         "./src/app/core/core.module.ts"
       ],

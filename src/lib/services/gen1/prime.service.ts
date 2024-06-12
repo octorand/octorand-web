@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
 import { GenOnePrimeModel } from '@lib/models';
+import { WordCulture, WordFiction, WordPart, WordPhrase, WordSmith } from '@lib/words';
+
+declare var algosdk: any;
 
 @Injectable({ providedIn: 'root' })
 export class GenOnePrimeService {
 
     /**
-     * Create prime model from application state
-     *
-     * @param application
+     * List of words in dictionary
      */
-    create(application: any): GenOnePrimeModel {
-        let model = new GenOnePrimeModel();
-        model.load(application);
-
-        return model;
-    }
+    wordCultures = WordCulture.list;
+    wordFictions = WordFiction.list;
+    wordParts = WordPart.list;
+    wordPhrases = WordPhrase.list;
+    wordSmiths = WordSmith.list;
 
     /**
      * Create prime models from application states
@@ -24,12 +24,195 @@ export class GenOnePrimeService {
     list(applications: Array<any>): Array<GenOnePrimeModel> {
         let models = [];
         for (let i = 0; i < applications.length; i++) {
-            models.push(this.create(applications[i]));
+            let model = new GenOnePrimeModel();
+            model = this.loadValues(applications[i], model);
+            model = this.calculateBadges(model);
+            models.push(model);
         }
 
         models = this.calculateRank(models);
 
+
         return models;
+    }
+
+    /**
+     * Load values from contract information
+     *
+     * @param model
+     * @param application
+     */
+    loadValues(model: GenOnePrimeModel, application: any): GenOnePrimeModel {
+        model.application_id = application['id'];
+        model.application_address = algosdk.getApplicationAddress(model.application_id);
+
+        let global = application['params']['global-state'];
+        for (let i = 0; i < global.length; i++) {
+            let params = global[i];
+            let key = Buffer.from(params.key, 'base64').toString('utf-8');
+            let value = Buffer.from(params.value['bytes'], 'base64');
+
+            switch (key) {
+                case 'Prime':
+                    model.id = algosdk.decodeUint64(value.subarray(0, 8));
+                    model.platform_asset_id = algosdk.decodeUint64(value.subarray(8, 16));
+                    model.prime_asset_id = algosdk.decodeUint64(value.subarray(16, 24));
+                    model.legacy_asset_id = algosdk.decodeUint64(value.subarray(24, 32));
+                    model.parent_application_id = algosdk.decodeUint64(value.subarray(32, 40));
+                    model.theme = algosdk.decodeUint64(value.subarray(40, 42));
+                    model.skin = algosdk.decodeUint64(value.subarray(42, 44));
+                    model.is_founder = algosdk.decodeUint64(value.subarray(44, 45));
+                    model.is_artifact = algosdk.decodeUint64(value.subarray(45, 46));
+                    model.is_pioneer = algosdk.decodeUint64(value.subarray(46, 47));
+                    model.is_explorer = algosdk.decodeUint64(value.subarray(47, 48));
+                    model.score = algosdk.decodeUint64(value.subarray(48, 56));
+                    model.price = algosdk.decodeUint64(value.subarray(56, 64));
+                    model.seller = algosdk.encodeAddress(value.subarray(64, 96));
+                    model.sales = algosdk.decodeUint64(value.subarray(96, 98));
+                    model.drains = algosdk.decodeUint64(value.subarray(98, 100));
+                    model.transforms = algosdk.decodeUint64(value.subarray(100, 102));
+                    model.vaults = algosdk.decodeUint64(value.subarray(102, 104));
+                    model.name = value.subarray(104, 112).toString('utf-8').trim();
+                    break;
+            }
+        }
+
+        return model;
+    }
+
+    /**
+     * Calculate badges
+     *
+     * @param model
+     */
+    private calculateBadges(model: GenOnePrimeModel): GenOnePrimeModel {
+        let badges: Array<string> = [];
+
+        if (model.is_founder) {
+            badges.push('Founder');
+        }
+
+        if (model.is_artifact) {
+            badges.push('Artifact');
+        }
+
+        if (model.is_pioneer) {
+            badges.push('Pioneer');
+        }
+
+        if (model.is_explorer) {
+            badges.push('Explorer');
+        }
+
+        if (model.transforms == 0) {
+            badges.push('Pristine');
+        }
+
+        if (model.drains == 0) {
+            badges.push('Bountiful');
+        }
+
+        if (model.transforms >= 100) {
+            badges.push('Chameleon');
+        } else if (model.transforms >= 50) {
+            badges.push('Shapeshifter');
+        } else if (model.transforms >= 25) {
+            badges.push('Changeling');
+        }
+
+        if (model.sales >= 10) {
+            badges.push('Exotic');
+        } else if (model.sales >= 5) {
+            badges.push('Flipper');
+        }
+
+        let equidistant = true;
+        for (let i = 0; i < model.name.length - 1; i++) {
+            if (model.name.charAt(i) != model.name.charAt(i + 1)) {
+                equidistant = false;
+            }
+        }
+
+        let fancy = false;
+
+        let alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        if (alphabet.includes(model.name)) {
+            fancy = true;
+        }
+
+        if (equidistant) {
+            fancy = true;
+        }
+
+        let char0 = model.name.charAt(0);
+        let char1 = model.name.charAt(1);
+        let char2 = model.name.charAt(2);
+        let char3 = model.name.charAt(3);
+        let char4 = model.name.charAt(4);
+        let char5 = model.name.charAt(5);
+        let char6 = model.name.charAt(6);
+        let char7 = model.name.charAt(7);
+
+        if ((char0 == char2) && (char1 == char3) && (char4 == char6) && (char5 == char7)) {
+            fancy = true;
+        }
+
+        if ((char0 == char1) && (char2 == char3) && (char4 == char5) && (char6 == char7)) {
+            fancy = true;
+        }
+
+        if ((char0 == char7) && (char1 == char6) && (char2 == char5) && (char3 == char4)) {
+            fancy = true;
+        }
+
+        if ((char0 == char4) && (char1 == char5) && (char2 == char6) && (char3 == char7)) {
+            fancy = true;
+        }
+
+        if (fancy) {
+            badges.push('Fancy');
+        }
+
+        let smithFind = this.wordSmiths.includes(model.name);
+        let fictionFind = this.wordFictions.includes(model.name);
+        let cultureFind = this.wordCultures.includes(model.name);
+        let phraseFind = this.wordPhrases.includes(model.name);
+
+        if (smithFind) {
+            badges.push('Wordsmith');
+        } else if (fictionFind) {
+            badges.push('Fiction');
+        } else if (cultureFind) {
+            badges.push('Culture');
+        } else if (phraseFind) {
+            badges.push('Phrase');
+        }
+
+        let prefixWords = [
+            model.name.substring(0, 4),
+            model.name.substring(0, 5),
+            model.name.substring(0, 6),
+            model.name.substring(0, 7),
+        ];
+        let wordsInPrefix = prefixWords.some(w => this.wordParts.includes(w));
+        if (wordsInPrefix) {
+            badges.push('Prefix');
+        }
+
+        let suffixWords = [
+            model.name.substring(1, 8),
+            model.name.substring(2, 8),
+            model.name.substring(3, 8),
+            model.name.substring(4, 8),
+        ];
+        let wordsInSuffix = suffixWords.some(w => this.wordParts.includes(w));
+        if (wordsInSuffix) {
+            badges.push('Suffix');
+        }
+
+        model.badges = badges;
+
+        return model;
     }
 
     /**
