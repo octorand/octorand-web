@@ -79,14 +79,79 @@ export class GenOnePrimeModel {
         if (this.is_founder) {
             badges.push('Founder');
         }
+
         if (this.is_artifact) {
             badges.push('Artifact');
         }
+
         if (this.is_pioneer) {
             badges.push('Pioneer');
         }
+
         if (this.is_explorer) {
             badges.push('Explorer');
+        }
+
+        if (this.transforms == 0) {
+            badges.push('Pristine');
+        }
+
+        if (this.drains == 0) {
+            badges.push('Bountiful');
+        }
+
+        if (this.transforms >= 100) {
+            badges.push('Chameleon');
+        } else if (this.transforms >= 50) {
+            badges.push('Shapeshifter');
+        } else if (this.transforms >= 25) {
+            badges.push('Changeling');
+        }
+
+        if (this.sales >= 10) {
+            badges.push('Exotic');
+        } else if (this.sales >= 5) {
+            badges.push('Flipper');
+        }
+
+        let alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        if (alphabet.includes(this.name)) {
+            badges.push('Straight');
+        }
+
+        let equidistant = true;
+        for (let i = 0; i < this.name.length - 1; i++) {
+            if (this.name.charAt(i) != this.name.charAt(i + 1)) {
+                equidistant = false;
+            }
+        }
+        if (equidistant) {
+            badges.push('Equidistant');
+        }
+
+        let fancy = false;
+        let char0 = this.name.charAt(0);
+        let char1 = this.name.charAt(1);
+        let char2 = this.name.charAt(2);
+        let char3 = this.name.charAt(3);
+        let char4 = this.name.charAt(4);
+        let char5 = this.name.charAt(5);
+        let char6 = this.name.charAt(6);
+        let char7 = this.name.charAt(7);
+        if ((char0 == char2) && (char1 == char3) && (char4 == char6) && (char5 == char7)) {
+            fancy = true;
+        }
+        if ((char0 == char1) && (char2 == char3) && (char4 == char5) && (char6 == char7)) {
+            fancy = true;
+        }
+        if ((char0 == char7) && (char1 == char6) && (char2 == char5) && (char3 == char4)) {
+            fancy = true;
+        }
+        if ((char0 == char4) && (char1 == char5) && (char2 == char6) && (char3 == char7)) {
+            fancy = true;
+        }
+        if (fancy && !equidistant) {
+            badges.push('Fancy');
         }
 
         this.badges = badges;
