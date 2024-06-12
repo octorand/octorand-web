@@ -24,8 +24,6 @@ export class GenOnePrimeService {
     list(applications: Array<any>): Array<GenOnePrimeModel> {
         let models = [];
 
-        let start = Date.now();
-
         for (let i = 0; i < applications.length; i++) {
             let model = new GenOnePrimeModel();
             model = this.loadValues(model, applications[i]);
@@ -34,10 +32,6 @@ export class GenOnePrimeService {
         }
 
         models = this.calculateRank(models);
-
-        let end = Date.now();
-
-        console.log((end - start) * 8 / 1000);
 
         return models;
     }

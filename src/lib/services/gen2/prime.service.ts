@@ -23,6 +23,7 @@ export class GenTwoPrimeService {
      */
     list(applications: Array<any>): Array<GenTwoPrimeModel> {
         let models = [];
+
         for (let i = 0; i < applications.length; i++) {
             let model = new GenTwoPrimeModel();
             model = this.loadValues(model, applications[i]);
@@ -183,19 +184,19 @@ export class GenTwoPrimeService {
         let wordSection1 = model.name.substring(0, 8);
         let wordSection2 = model.name.substring(8);
 
-        let smithFind = this.wordHelper.searchSmith(model.name.toLowerCase());
+        let smithFind = this.wordHelper.searchSmith(model.name);
         let smithFind1 = this.wordHelper.searchSmith(wordSection1);
         let smithFind2 = this.wordHelper.searchSmith(wordSection2);
 
-        let fictionFind = this.wordHelper.searchFiction(model.name.toLowerCase());
+        let fictionFind = this.wordHelper.searchFiction(model.name);
         let fictionFind1 = this.wordHelper.searchFiction(wordSection1);
         let fictionFind2 = this.wordHelper.searchFiction(wordSection2);
 
-        let cultureFind = this.wordHelper.searchCulture(model.name.toLowerCase());
+        let cultureFind = this.wordHelper.searchCulture(model.name);
         let cultureFind1 = this.wordHelper.searchCulture(wordSection1);
         let cultureFind2 = this.wordHelper.searchCulture(wordSection2);
 
-        let phraseFind = this.wordHelper.searchPhrase(model.name.toLowerCase());
+        let phraseFind = this.wordHelper.searchPhrase(model.name);
         let phraseFind1 = this.wordHelper.searchPhrase(wordSection1);
         let phraseFind2 = this.wordHelper.searchPhrase(wordSection2);
 

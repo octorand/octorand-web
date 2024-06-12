@@ -22,7 +22,7 @@ export class WordHelper {
     /**
      * List of dictionary words
      */
-    smiths: Array<string> = [];
+    smiths: Array<any> = [];
 
     /**
      * Construct component
@@ -40,7 +40,6 @@ export class WordHelper {
      * @param word
      */
     searchCulture(word: string): boolean {
-        word = word.toLowerCase();
         return this.cultures.includes(word);
     }
 
@@ -50,7 +49,6 @@ export class WordHelper {
      * @param word
      */
     searchFiction(word: string): boolean {
-        word = word.toLowerCase();
         return this.fictions.includes(word);
     }
 
@@ -60,7 +58,6 @@ export class WordHelper {
      * @param word
      */
     searchPhrase(word: string): boolean {
-        word = word.toLowerCase();
         return this.phrases.includes(word);
     }
 
@@ -70,7 +67,8 @@ export class WordHelper {
      * @param word
      */
     searchSmith(word: string): boolean {
-        word = word.toLowerCase();
-        return this.smiths.includes(word);
+        let first = word.charAt(0);
+        let letter = this.smiths.find(s => s.letter == first);
+        return letter ? letter.list.includes(word) : false;
     }
 }
