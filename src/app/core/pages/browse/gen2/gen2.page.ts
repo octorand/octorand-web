@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppHelper, ChainHelper, DataHelper } from '@lib/helpers';
-import { AppModel, DataModel } from '@lib/models';
+import { AppModel, DataModel, GenTwoPrimeModel } from '@lib/models';
 import { GenTwoPrimeService } from '@lib/services';
 import { Subscription } from 'rxjs';
 import { environment } from '@environment';
@@ -37,6 +37,76 @@ export class CoreBrowseTwoPage implements OnInit, OnDestroy {
    * Track prime details loading task
    */
   primeDetailsLoadTask: any = null;
+
+  /**
+   * Current page number
+   */
+  currentPage: number = 1;
+
+  /**
+   * Number of results per page
+   */
+  resultsPerPage: number = 100;
+
+  /**
+   * Total number of results
+   */
+  totalResults: number = 0;
+
+  /**
+   * Total number of pages
+   */
+  pagesCount: number = 0;
+
+  /**
+   * Results in the current page
+   */
+  currentPageResults: Array<GenTwoPrimeModel> = [];
+
+  /**
+   * Sort sort
+   */
+  selectedSort: string = 'Id';
+
+  /**
+   * Selected list of badges
+   */
+  selectedBadges: Array<string> = [];
+
+  /**
+   * Keys for sorting
+   */
+  sorts: Array<string> = [
+    'Id',
+    'Name',
+    'Rank',
+  ];
+
+  /**
+   * List of badges
+   */
+  badges: Array<string> = [
+    'Artifact',
+    'Bountiful',
+    'Chameleon',
+    'Changeling',
+    'Culture',
+    'Drained',
+    'Exotic',
+    'Explorer',
+    'Family',
+    'Fancy',
+    'Fiction',
+    'Flipper',
+    'Founder',
+    'Phrase',
+    'Pioneer',
+    'Prefix',
+    'Pristine',
+    'Shapeshifter',
+    'Suffix',
+    'Wordsmith',
+  ];
 
   /**
    * Construct component
@@ -107,7 +177,7 @@ export class CoreBrowseTwoPage implements OnInit, OnDestroy {
    * Load prime details
    */
   loadPrimeDetails() {
-    this.chainHelper.lookupAccountCreatedApplications(environment.gen1.manager_address).then((applications: any) => {
+    this.chainHelper.lookupAccountCreatedApplications(environment.gen2.manager_address).then((applications: any) => {
       let primes = this.genTwoPrimeService.list(applications);
       this.dataHelper.setGenTwoPrimes(primes);
     });
@@ -118,7 +188,71 @@ export class CoreBrowseTwoPage implements OnInit, OnDestroy {
    */
   refreshView() {
     if (this.data) {
+      let allResults = this.data.genTwoPrimes;
+
+      if (this.selectedBadges.length > 0) {
+        allResults = allResults.filter(x => this.selectedBadges.every(b => x.badges.includes(b)))
+      }
+
+      switch (this.selectedSort) {
+        case 'Id':
+          allResults.sort((first, second) => first.id - second.id);
+          break;
+        case 'Name':
+          allResults.sort((first, second) => first.name.localeCompare(second.name));
+          break;
+        case 'Rank':
+          allResults.sort((first, second) => first.rank - second.rank);
+          break;
+      }
+
+      let totalResults = allResults.length;
+      let pagesCount = Math.ceil(totalResults / this.resultsPerPage);
+
+      let start = this.resultsPerPage * (this.currentPage - 1);
+      let end = start + this.resultsPerPage;
+      let currentPageResults = allResults.slice(start, end);
+
+      this.totalResults = totalResults;
+      this.pagesCount = pagesCount;
+      this.currentPageResults = currentPageResults;
     }
+  }
+
+  /**
+   * When page is changed
+   *
+   * @param page
+   */
+  changePage(page: any) {
+    this.currentPage = page;
+    this.refreshView();
+  }
+
+  /**
+   * When sort is changed
+   *
+   * @param sort
+   */
+  changeSort(sort: string) {
+    this.selectedSort = sort;
+    this.currentPage = 1;
+    this.refreshView();
+  }
+
+  /**
+   * When badge is changed
+   *
+   * @param badge
+   */
+  changeBadge(badge: string) {
+    if (this.selectedBadges.includes(badge)) {
+      this.selectedBadges = this.selectedBadges.filter(b => b != badge);
+    } else {
+      this.selectedBadges.push(badge);
+    }
+    this.currentPage = 1;
+    this.refreshView();
   }
 
   /**

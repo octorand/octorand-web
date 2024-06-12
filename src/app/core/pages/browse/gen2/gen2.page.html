@@ -6,14 +6,80 @@
                     <h1 class="content-title text-secondary mb-20">
                         Browse Primes
                     </h1>
-                    <div class="cards mb-20">
-                        <div class="card m-0 h-full" *ngFor="let prime of data.genTwoPrimes"
-                            (click)="navigateToPage('prime/gen2/{{prime.id}}')">
+                    <p class="text-muted mb-5">
+                        Generation
+                    </p>
+                    <nav>
+                        <ul class="pagination text-center">
+                            <li class="page-item hand">
+                                <a class="page-link px-20" (click)="navigateToPage('browse/gen1')">
+                                    GEN1
+                                </a>
+                            </li>
+                            <li class="page-item active" tabindex="-1">
+                                <a class="page-link px-20">
+                                    GEN2
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <p class="text-muted mb-5">
+                        Sort
+                    </p>
+                    <nav>
+                        <ul class="pagination text-center">
+                            <li class="page-item hand" *ngFor="let sort of sorts">
+                                <a class="page-link px-20" tabindex="-1" (click)="changeSort(sort)"
+                                    [ngClass]="{'bg-primary': sort == selectedSort}">
+                                    {{sort}}
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <p class="text-muted mb-5">
+                        Badges
+                    </p>
+                    <nav>
+                        <ul class="pagination text-center">
+                            <li class="page-item hand" *ngFor="let badge of badges">
+                                <a class="page-link px-20" tabindex="-1" (click)="changeBadge(badge)"
+                                    [ngClass]="{'bg-primary': selectedBadges.includes(badge)}">
+                                    {{badge}}
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <hr class="my-0">
+        <div class="row align-items-center">
+            <div class="col">
+                <div class="mx-auto text-center">
+                    <div class="my-20">
+                        <lib-tags-pager [totalPages]="pagesCount" [currentPage]="currentPage"
+                            (onPageChange)="changePage($event)">
+                        </lib-tags-pager>
+                    </div>
+                    <div class="cards">
+                        <div class="card m-0 h-full" *ngFor="let prime of currentPageResults"
+                            (click)="navigateToPage('prime/gen1/{{prime.id}}')">
                             <h2 class="content-title text-success">{{prime.id}}</h2>
                             <p class="text-muted mb-0">
                                 {{prime.name}}
                             </p>
+                            <p class="text-muted mb-0">
+                                {{prime.rank}}
+                            </p>
+                            <p class="text-muted mb-0">
+                                {{prime.badges}}
+                            </p>
                         </div>
+                    </div>
+                    <div class="mt-20">
+                        <lib-tags-pager [totalPages]="pagesCount" [currentPage]="currentPage"
+                            (onPageChange)="changePage($event)">
+                        </lib-tags-pager>
                     </div>
                 </div>
             </div>
