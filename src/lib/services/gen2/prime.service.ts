@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
+import { WordHelper } from '@lib/helpers';
 import { GenTwoPrimeModel } from '@lib/models';
-import { WordCulture, WordFiction, WordPart, WordPhrase, WordSmith } from '@lib/words';
 
 declare var algosdk: any;
 
@@ -8,13 +8,13 @@ declare var algosdk: any;
 export class GenTwoPrimeService {
 
     /**
-     * List of words in dictionary
+     * Construct component
+     *
+     * @param wordHelper
      */
-    wordCultures = WordCulture.list;
-    wordFictions = WordFiction.list;
-    wordParts = WordPart.list;
-    wordPhrases = WordPhrase.list;
-    wordSmiths = WordSmith.list;
+    constructor(
+        private wordHelper: WordHelper
+    ) { }
 
     /**
      * Create prime models from application states
@@ -132,16 +132,16 @@ export class GenTwoPrimeService {
             }
         }
 
-        let fancy = false;
+        if (equidistant) {
+            badges.push('Equidistant');
+        }
 
         let alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         if (alphabet.includes(model.name)) {
-            fancy = true;
+            badges.push('Straight');
         }
 
-        if (equidistant) {
-            fancy = true;
-        }
+        let fancy = false;
 
         let char0 = model.name.charAt(0);
         let char1 = model.name.charAt(1);
@@ -176,28 +176,28 @@ export class GenTwoPrimeService {
             fancy = true;
         }
 
-        if (fancy) {
+        if (fancy && !equidistant) {
             badges.push('Fancy');
         }
 
-        let wordSection1 = model.name.substring(0, 8).toLowerCase();
-        let wordSection2 = model.name.substring(8).toLowerCase();
+        let wordSection1 = model.name.substring(0, 8);
+        let wordSection2 = model.name.substring(8);
 
-        let smithFind = this.wordSmiths.includes(model.name.toLowerCase());
-        let smithFind1 = this.wordSmiths.includes(wordSection1);
-        let smithFind2 = this.wordSmiths.includes(wordSection2);
+        let smithFind = this.wordHelper.searchSmith(model.name.toLowerCase());
+        let smithFind1 = this.wordHelper.searchSmith(wordSection1);
+        let smithFind2 = this.wordHelper.searchSmith(wordSection2);
 
-        let fictionFind = this.wordFictions.includes(model.name.toLowerCase());
-        let fictionFind1 = this.wordFictions.includes(wordSection1);
-        let fictionFind2 = this.wordFictions.includes(wordSection2);
+        let fictionFind = this.wordHelper.searchFiction(model.name.toLowerCase());
+        let fictionFind1 = this.wordHelper.searchFiction(wordSection1);
+        let fictionFind2 = this.wordHelper.searchFiction(wordSection2);
 
-        let cultureFind = this.wordCultures.includes(model.name.toLowerCase());
-        let cultureFind1 = this.wordCultures.includes(wordSection1);
-        let cultureFind2 = this.wordCultures.includes(wordSection2);
+        let cultureFind = this.wordHelper.searchCulture(model.name.toLowerCase());
+        let cultureFind1 = this.wordHelper.searchCulture(wordSection1);
+        let cultureFind2 = this.wordHelper.searchCulture(wordSection2);
 
-        let phraseFind = this.wordPhrases.includes(model.name.toLowerCase());
-        let phraseFind1 = this.wordPhrases.includes(wordSection1);
-        let phraseFind2 = this.wordPhrases.includes(wordSection2);
+        let phraseFind = this.wordHelper.searchPhrase(model.name.toLowerCase());
+        let phraseFind1 = this.wordHelper.searchPhrase(wordSection1);
+        let phraseFind2 = this.wordHelper.searchPhrase(wordSection2);
 
         if (smithFind || (smithFind1 && smithFind2)) {
             badges.push('Wordsmith');
@@ -207,48 +207,6 @@ export class GenTwoPrimeService {
             badges.push('Culture');
         } else if (phraseFind || (phraseFind1 && phraseFind2)) {
             badges.push('Phrase');
-        }
-
-        let prefixWords1 = [
-            model.name.substring(0, 4),
-            model.name.substring(0, 5),
-            model.name.substring(0, 6),
-            model.name.substring(0, 7),
-        ];
-
-        let prefixWords2 = [
-            model.name.substring(8, 12),
-            model.name.substring(8, 13),
-            model.name.substring(8, 14),
-            model.name.substring(8, 15),
-        ];
-
-        let wordsInPrefix1 = prefixWords1.some(w => this.wordParts.includes(w.toLowerCase()));
-        let wordsInPrefix2 = prefixWords2.some(w => this.wordParts.includes(w.toLowerCase()));
-
-        if (wordsInPrefix1 && wordsInPrefix2) {
-            badges.push('Prefix');
-        }
-
-        let suffixWords1 = [
-            model.name.substring(1, 8),
-            model.name.substring(2, 8),
-            model.name.substring(3, 8),
-            model.name.substring(4, 8),
-        ];
-
-        let suffixWords2 = [
-            model.name.substring(9),
-            model.name.substring(10),
-            model.name.substring(11),
-            model.name.substring(12),
-        ];
-
-        let wordsInSuffix1 = suffixWords1.some(w => this.wordParts.includes(w.toLowerCase()));
-        let wordsInSuffix2 = suffixWords2.some(w => this.wordParts.includes(w.toLowerCase()));
-
-        if (wordsInSuffix1 && wordsInSuffix2) {
-            badges.push('Suffix');
         }
 
         model.badges = badges;

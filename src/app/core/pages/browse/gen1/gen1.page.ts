@@ -92,6 +92,7 @@ export class CoreBrowseOnePage implements OnInit, OnDestroy {
     'Changeling',
     'Culture',
     'Drained',
+    'Equidistant',
     'Exotic',
     'Explorer',
     'Family',
@@ -101,10 +102,9 @@ export class CoreBrowseOnePage implements OnInit, OnDestroy {
     'Founder',
     'Phrase',
     'Pioneer',
-    'Prefix',
     'Pristine',
     'Shapeshifter',
-    'Suffix',
+    'Straight',
     'Wordsmith',
   ];
 

@@ -139,16 +139,16 @@ export class GenOnePrimeService {
             }
         }
 
-        let fancy = false;
+        if (equidistant) {
+            badges.push('Equidistant');
+        }
 
         let alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         if (alphabet.includes(model.name)) {
-            fancy = true;
+            badges.push('Straight');
         }
 
-        if (equidistant) {
-            fancy = true;
-        }
+        let fancy = false;
 
         let char0 = model.name.charAt(0);
         let char1 = model.name.charAt(1);
@@ -175,7 +175,7 @@ export class GenOnePrimeService {
             fancy = true;
         }
 
-        if (fancy) {
+        if (fancy && !equidistant) {
             badges.push('Fancy');
         }
 
@@ -192,38 +192,6 @@ export class GenOnePrimeService {
             badges.push('Culture');
         } else if (phraseFind) {
             badges.push('Phrase');
-        }
-
-        let prefixWords = [
-            model.name.substring(0, 4),
-            model.name.substring(0, 5),
-            model.name.substring(0, 6),
-            model.name.substring(0, 7),
-        ];
-
-        for (let i = 0; i < prefixWords.length; i++) {
-            let prefix = prefixWords[i];
-            let prefixFind = this.wordHelper.searchPart(prefix);
-            if (prefixFind) {
-                badges.push('Prefix');
-                break;
-            }
-        }
-
-        let suffixWords = [
-            model.name.substring(1, 8),
-            model.name.substring(2, 8),
-            model.name.substring(3, 8),
-            model.name.substring(4, 8),
-        ];
-
-        for (let i = 0; i < suffixWords.length; i++) {
-            let suffix = suffixWords[i];
-            let suffixFind = this.wordHelper.searchPart(suffix);
-            if (suffixFind) {
-                badges.push('Suffix');
-                break;
-            }
         }
 
         model.badges = badges;

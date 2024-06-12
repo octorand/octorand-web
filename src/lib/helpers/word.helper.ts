@@ -1,16 +1,27 @@
 ﻿import { Injectable } from '@angular/core';
-import { WordCulture, WordFiction, WordPart, WordPhrase, WordSmith } from '@lib/words';
+import { WordCulture, WordFiction, WordPhrase, WordSmith } from '@lib/words';
 
 @Injectable({ providedIn: 'root' })
 export class WordHelper {
 
     /**
-     * words in dictionary
+     * List of cultures
      */
     cultures: Array<string> = [];
+
+    /**
+     * List of fictions
+     */
     fictions: Array<string> = [];
-    parts: Array<string> = [];
+
+    /**
+     * List of phrases
+     */
     phrases: Array<string> = [];
+
+    /**
+     * List of dictionary words
+     */
     smiths: Array<string> = [];
 
     /**
@@ -19,7 +30,6 @@ export class WordHelper {
     constructor() {
         this.cultures = WordCulture.list;
         this.fictions = WordFiction.list;
-        this.parts = WordPart.list;
         this.phrases = WordPhrase.list;
         this.smiths = WordSmith.list;
     }
@@ -42,16 +52,6 @@ export class WordHelper {
     searchFiction(word: string): boolean {
         word = word.toLowerCase();
         return this.fictions.includes(word);
-    }
-
-    /**
-     * Search for a part
-     *
-     * @param word
-     */
-    searchPart(word: string): boolean {
-        word = word.toLowerCase();
-        return this.parts.includes(word);
     }
 
     /**
