@@ -8,6 +8,15 @@ declare var algosdk: any;
 export class GenTwoPrimeService {
 
     /**
+     * List of words in dictionary
+     */
+    wordCultures = WordCulture.list;
+    wordFictions = WordFiction.list;
+    wordParts = WordPart.list;
+    wordPhrases = WordPhrase.list;
+    wordSmiths = WordSmith.list;
+
+    /**
      * Create prime models from application states
      *
      * @param applications
@@ -17,6 +26,7 @@ export class GenTwoPrimeService {
         for (let i = 0; i < applications.length; i++) {
             let model = new GenTwoPrimeModel();
             model = this.loadValues(model, applications[i]);
+            model = this.calculateBadges(model);
             models.push(model);
         }
 
@@ -65,6 +75,183 @@ export class GenTwoPrimeService {
                     break;
             }
         }
+
+        return model;
+    }
+
+    /**
+     * Calculate badges
+     *
+     * @param model
+     */
+    private calculateBadges(model: GenTwoPrimeModel): GenTwoPrimeModel {
+        let badges: Array<string> = [];
+
+        if (model.is_founder) {
+            badges.push('Founder');
+        }
+
+        if (model.is_artifact) {
+            badges.push('Artifact');
+        }
+
+        if (model.is_pioneer) {
+            badges.push('Pioneer');
+        }
+
+        if (model.is_explorer) {
+            badges.push('Explorer');
+        }
+
+        if (model.transforms == 0) {
+            badges.push('Pristine');
+        }
+
+        if (model.drains == 0) {
+            badges.push('Bountiful');
+        }
+
+        if (model.transforms >= 100) {
+            badges.push('Chameleon');
+        } else if (model.transforms >= 50) {
+            badges.push('Shapeshifter');
+        } else if (model.transforms >= 25) {
+            badges.push('Changeling');
+        }
+
+        if (model.sales >= 10) {
+            badges.push('Exotic');
+        } else if (model.sales >= 5) {
+            badges.push('Flipper');
+        }
+
+        let equidistant = true;
+        for (let i = 0; i < model.name.length - 1; i++) {
+            if (model.name.charAt(i) != model.name.charAt(i + 1)) {
+                equidistant = false;
+            }
+        }
+
+        let fancy = false;
+
+        let alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        if (alphabet.includes(model.name)) {
+            fancy = true;
+        }
+
+        if (equidistant) {
+            fancy = true;
+        }
+
+        let char0 = model.name.charAt(0);
+        let char1 = model.name.charAt(1);
+        let char2 = model.name.charAt(2);
+        let char3 = model.name.charAt(3);
+        let char4 = model.name.charAt(4);
+        let char5 = model.name.charAt(5);
+        let char6 = model.name.charAt(6);
+        let char7 = model.name.charAt(7);
+        let char8 = model.name.charAt(8);
+        let char9 = model.name.charAt(9);
+        let char10 = model.name.charAt(10);
+        let char11 = model.name.charAt(11);
+        let char12 = model.name.charAt(12);
+        let char13 = model.name.charAt(13);
+        let char14 = model.name.charAt(14);
+        let char15 = model.name.charAt(15);
+
+        if ((char0 == char2) && (char1 == char3) && (char4 == char6) && (char5 == char7) && (char8 == char10) && (char9 == char11) && (char12 == char14) && (char13 == char15)) {
+            fancy = true;
+        }
+
+        if ((char0 == char1) && (char2 == char3) && (char4 == char5) && (char6 == char7) && (char8 == char9) && (char10 == char11) && (char12 == char13) && (char14 == char15)) {
+            fancy = true;
+        }
+
+        if ((char0 == char15) && (char1 == char14) && (char2 == char13) && (char3 == char12) && (char4 == char11) && (char5 == char10) && (char6 == char9) && (char7 == char8)) {
+            fancy = true;
+        }
+
+        if ((char0 == char8) && (char1 == char9) && (char2 == char10) && (char3 == char11) && (char4 == char12) && (char5 == char13) && (char6 == char14) && (char7 == char15)) {
+            fancy = true;
+        }
+
+        if (fancy) {
+            badges.push('Fancy');
+        }
+
+        let wordSection1 = model.name.substring(0, 8).toLowerCase();
+        let wordSection2 = model.name.substring(8).toLowerCase();
+
+        let smithFind = this.wordSmiths.includes(model.name.toLowerCase());
+        let smithFind1 = this.wordSmiths.includes(wordSection1);
+        let smithFind2 = this.wordSmiths.includes(wordSection2);
+
+        let fictionFind = this.wordFictions.includes(model.name.toLowerCase());
+        let fictionFind1 = this.wordFictions.includes(wordSection1);
+        let fictionFind2 = this.wordFictions.includes(wordSection2);
+
+        let cultureFind = this.wordCultures.includes(model.name.toLowerCase());
+        let cultureFind1 = this.wordCultures.includes(wordSection1);
+        let cultureFind2 = this.wordCultures.includes(wordSection2);
+
+        let phraseFind = this.wordPhrases.includes(model.name.toLowerCase());
+        let phraseFind1 = this.wordPhrases.includes(wordSection1);
+        let phraseFind2 = this.wordPhrases.includes(wordSection2);
+
+        if (smithFind || (smithFind1 && smithFind2)) {
+            badges.push('Wordsmith');
+        } else if (fictionFind || (fictionFind1 && fictionFind2) || (smithFind1 && fictionFind2) || (smithFind2 && fictionFind1)) {
+            badges.push('Fiction');
+        } else if (cultureFind || (cultureFind1 && cultureFind2) || (smithFind1 && cultureFind2) || (smithFind2 && cultureFind1)) {
+            badges.push('Culture');
+        } else if (phraseFind || (phraseFind1 && phraseFind2)) {
+            badges.push('Phrase');
+        }
+
+        let prefixWords1 = [
+            model.name.substring(0, 4),
+            model.name.substring(0, 5),
+            model.name.substring(0, 6),
+            model.name.substring(0, 7),
+        ];
+
+        let prefixWords2 = [
+            model.name.substring(8, 12),
+            model.name.substring(8, 13),
+            model.name.substring(8, 14),
+            model.name.substring(8, 15),
+        ];
+
+        let wordsInPrefix1 = prefixWords1.some(w => this.wordParts.includes(w.toLowerCase()));
+        let wordsInPrefix2 = prefixWords2.some(w => this.wordParts.includes(w.toLowerCase()));
+
+        if (wordsInPrefix1 && wordsInPrefix2) {
+            badges.push('Prefix');
+        }
+
+        let suffixWords1 = [
+            model.name.substring(1, 8),
+            model.name.substring(2, 8),
+            model.name.substring(3, 8),
+            model.name.substring(4, 8),
+        ];
+
+        let suffixWords2 = [
+            model.name.substring(9),
+            model.name.substring(10),
+            model.name.substring(11),
+            model.name.substring(12),
+        ];
+
+        let wordsInSuffix1 = suffixWords1.some(w => this.wordParts.includes(w.toLowerCase()));
+        let wordsInSuffix2 = suffixWords2.some(w => this.wordParts.includes(w.toLowerCase()));
+
+        if (wordsInSuffix1 && wordsInSuffix2) {
+            badges.push('Suffix');
+        }
+
+        model.badges = badges;
 
         return model;
     }

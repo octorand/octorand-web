@@ -194,7 +194,9 @@ export class GenOnePrimeService {
             model.name.substring(0, 6),
             model.name.substring(0, 7),
         ];
+
         let wordsInPrefix = prefixWords.some(w => this.wordParts.includes(w.toLowerCase()));
+
         if (wordsInPrefix) {
             badges.push('Prefix');
         }
@@ -205,7 +207,9 @@ export class GenOnePrimeService {
             model.name.substring(3, 8),
             model.name.substring(4, 8),
         ];
+
         let wordsInSuffix = suffixWords.some(w => this.wordParts.includes(w.toLowerCase()));
+
         if (wordsInSuffix) {
             badges.push('Suffix');
         }
