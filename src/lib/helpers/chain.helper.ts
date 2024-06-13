@@ -103,7 +103,7 @@ export class ChainHelper {
      * @param address
      */
     async lookupAccountCreatedApplications(address: string): Promise<Array<any>> {
-        let limit = 1000;
+        let limit = environment.indexer_page_size;
         let key = 'applications';
         let applications = [];
 
@@ -121,7 +121,7 @@ export class ChainHelper {
      * @param address
      */
     async lookupAccountCreatedAssets(address: string): Promise<Array<any>> {
-        let limit = 1000;
+        let limit = environment.indexer_page_size;
         let key = 'assets';
         let assets = [];
 
@@ -139,7 +139,7 @@ export class ChainHelper {
      * @param address
      */
     async lookupAssetTransactions(id: number): Promise<Array<any>> {
-        let limit = 1000;
+        let limit = environment.indexer_page_size;
         let key = 'transactions';
         let transactions = [];
 
@@ -157,7 +157,7 @@ export class ChainHelper {
      * @param from
      */
     async lookupPaymentTransactions(from: string): Promise<Array<any>> {
-        let limit = 1000;
+        let limit = environment.indexer_page_size;
         let key = 'transactions';
         let transactions = [];
 
@@ -175,7 +175,7 @@ export class ChainHelper {
      * @param from
      */
     async lookupAssetTransferTransactions(from: string, id: number): Promise<Array<any>> {
-        let limit = 1000;
+        let limit = environment.indexer_page_size;
         let key = 'transactions';
         let transactions = [];
 

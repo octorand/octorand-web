@@ -46,7 +46,7 @@ export class CoreBrowseTwoPage implements OnInit, OnDestroy {
   /**
    * Number of results per page
    */
-  resultsPerPage: number = 100;
+  resultsPerPage: number = environment.display_page_size;
 
   /**
    * Total number of results

@@ -4,103 +4,112 @@ export const environment = {
   algo_indexer: 'https://testnet-idx.algonode.cloud',
   algo_explorer: 'https://testnet.explorer.perawallet.app',
   analytics_code: '',
-  admin_address: '',
+  admin_address: 'EQ6CG4M4TT7AKK2E3L6GPCJQREBUTL272SGBKIG7DP3RCKIN3AJNPD27HU',
+  indexer_page_size: 10,
+  display_page_size: 10,
   platform: {
-    asset_id: 677109608,
-    manager: 'L44U7STO4ZDBT5ASU5JI4XUZYL2MD7BAF7LH75WWEHFL26DXDWZVXZ327Y',
-    reserve: 'L44U7STO4ZDBT5ASU5JI4XUZYL2MD7BAF7LH75WWEHFL26DXDWZVXZ327Y'
+    asset_id: 680649213,
+    manager: 'EQ6CG4M4TT7AKK2E3L6GPCJQREBUTL272SGBKIG7DP3RCKIN3AJNPD27HU',
+    reserve: 'EQ6CG4M4TT7AKK2E3L6GPCJQREBUTL272SGBKIG7DP3RCKIN3AJNPD27HU'
   },
   gen1: {
-    manager_address: 'CMT5VJ7JICLKNWFXFJZQI6XPV4B4E4AXAWGLBARGH5SVUSHV47VPXZ37XE',
+    manager_address: '5VOHHIR344ZYOVOL6BKKVOTB27ZDLLQMVACB3MUVM3ZX2PEMNYU2DUW6GQ',
     contracts: {
       prime: {
         buy: {
-          application_id: 677328169,
-          application_address: '3DXSSKE4KW5L7XOKFDQYQUOC43NF2KKV4HLSP5AESKRSFB4Z7JE6G7QBRQ'
+          application_id: 680782792,
+          application_address: 'SUUHVCGJLR2ITUJMENTYEPB7Z2KPMXLMQ3KNLMHM5WJKKNMG5HJ4NN7GGU',
+        },
+        claim: {
+          application_id: 680782805,
+          application_address: 'WRXNO6KGB5Q76IVWRFHYCO65BFHRJISWS2RP7CCXVBGYR5ZANMYADLCJII',
         },
         list: {
-          application_id: 677328204,
-          application_address: 'KKL3OJSIPWEVSRPNMI4HIZZKBYEBTY4AKTMX7AVBWSK2ZW5LMVCPIC45J4'
+          application_id: 680782809,
+          application_address: 'CTZUTU2CWSGZXRQFTB2VVN7TIN55XYOGQNHQO6PYNVTBQRM6YBE73EW2DQ',
         },
         mint: {
-          application_id: 677328219,
-          application_address: 'QBLKHYNBY2G75MGADTXE32V4WMCTYFDTGAYRPJ7HOLM34PV5LT5EETIASM'
+          application_id: 680782813,
+          application_address: 'YQ637CZAOZB5RCZXLQAU3LNNAWCPX5H5AEM4LZJSYLAWQM4IW65IMEP74I',
         },
         optin: {
-          application_id: 677328276,
-          application_address: 'B6YG7P2IBR7GFLYX6LUKPH3NJ3FIXABXW7BSZ3OQ3GCPTQ3RBET3LN6GWE'
+          application_id: 680782904,
+          application_address: 'GPPLSVBDAVFP352W6DDUMX3FY7PGTKBUHIH6J4J4EWXUHHU5BPD7GT737Q',
         },
         optout: {
-          application_id: 677328283,
-          application_address: 'WF6VBESJC3RYJJLMWEQXLVZMX63C6FWGXPKEJW5GCOCVPYSY5ESA5VU3IY'
+          application_id: 680782990,
+          application_address: 'K4S5WO5H3K5SQM3UJHFZABZ67EHPIFXVRTPZLLXU6MZRZJDG4XOCIKCXFY',
         },
         rename: {
-          application_id: 677328431,
-          application_address: 'BZINNHVRX6XRP2W6JU2K43IN45PJHNGGPQ2QBLRK5YQXLAL5PR44PSOTNU'
+          application_id: 680782993,
+          application_address: 'NFIHW6PVR7E6QE23YPHU2UDWC3PBDVZ2Y2BX3FJLQALR6T36AOLJ53WV64',
         },
         repaint: {
-          application_id: 677328439,
-          application_address: 'IL2UTTBCQBRCVOMRMNINMUIHFFPMW2HJY67E35AAL3MP7UCWN4L4YEU4RY'
+          application_id: 680783006,
+          application_address: 'RBK6RTEBVDBDGR654H3DYOQ6UUTMVGVOKQJMMT3UJCGFKVPOVIWVGIORYE',
         },
         unlist: {
-          application_id: 677328499,
-          application_address: 'YY6SAI7USS6F7AO7MBVQIFG4OBIIEJ4I4HBUBCARRSLBUZXV5KRPOCPOF4'
+          application_id: 680783038,
+          application_address: 'XHSKP7CETXC6CA2JBYEIW5IILYLO2NQUPAX2KRUF3P7QEO5X64M7P3EI5Q',
         },
         upgrade: {
-          application_id: 677328546,
-          application_address: 'O2JU6X2HIJ3EEPVPCFK3PEUGRK74TCJLFUUAFD67MPHKSC7VJBCOA7EMNQ'
+          application_id: 680783094,
+          application_address: 'TNKCC5EH2DFMPAPYMEOAL774CM3ZLVRHZN2PHMU7B7KQT4MIQ5AKK3TQZQ',
         },
         withdraw: {
-          application_id: 677328636,
-          application_address: 'JCB5AIIDINWZ3JPPORZL2WADGYTLOT2KQ5WSR4NDGUNIORZUJAZVQBO5OM'
+          application_id: 680783160,
+          application_address: 'J24Q23D6AZWTJR3XKTEWAVTLRUYLFV6URYNHSVCFNBPVDKELWXZECGDB3A',
         }
       }
     }
   },
   gen2: {
-    manager_address: 'UJCTJKWSHYYIOPTAGHHHOESGYRW635P35CEL2WNLXHRKDNGNDJ35TTLYRY',
+    manager_address: 'KHN4MN3BGPOMNEVWZPKSY7IEUBNDCFGLFWMR4XVAUWWCEDU337JVQSLSLA',
     contracts: {
       prime: {
         buy: {
-          application_id: 677719724,
-          application_address: 'HCASL3PABFETFDHAXLQAK452I6ODU6CMG7LH7WIMFNFINYVMN5TT3WXTTY'
+          application_id: 0,
+          application_address: ''
+        },
+        claim: {
+          application_id: 0,
+          application_address: ''
         },
         list: {
-          application_id: 677719815,
-          application_address: 'UB27VNZEZ5UD5VBNR7OQVJKZKLN5ITI2ZTEHFML6A5MLNWM5QFEUPBQBFM'
+          application_id: 0,
+          application_address: ''
         },
         mint: {
-          application_id: 677719836,
-          application_address: 'JFL5QVPBJHH2HRLFHGPZ4OLW7JSDDZHIR6DETK3BU4Q3FVIUAPCCHP2SJ4'
+          application_id: 0,
+          application_address: ''
         },
         optin: {
-          application_id: 677719899,
-          application_address: 'FIMUEZPGYQ5QP7HBQQSIBD2I3VK4VTXLU5ALVZDM7TMDL4XWAUW6AYT4BU'
+          application_id: 0,
+          application_address: ''
         },
         optout: {
-          application_id: 677720011,
-          application_address: 'LGORSELAKQHTPMDMGBFCY5KYOXWSQZ4JNSOT3ZPS4VQ4N3NN4WVA7POMJU'
+          application_id: 0,
+          application_address: ''
         },
         rename: {
-          application_id: 677720055,
-          application_address: '2AVVPAHRQQJY52V2TXVTURX3QWM4IW7WKODI7HURQZX7RVBD7UJ6RUQPO4'
-
+          application_id: 0,
+          application_address: ''
         },
         repaint: {
-          application_id: 677720064,
-          application_address: 'D4E4JQH3TTIWLMQ4ZDG3RZY5PTPH4AV5YLHCB4OGQ5DIZK7SJNZX3SKICI'
+          application_id: 0,
+          application_address: ''
         },
         unlist: {
-          application_id: 677720103,
-          application_address: 'WF4FVYCRDP7GWFZVFUIBZQT3NXLH36YMHJBJID7ZHRHMCRUMG4THOMULVE'
+          application_id: 0,
+          application_address: ''
         },
         upgrade: {
-          application_id: 677720200,
-          application_address: 'H3Y22L7ATXBMYFGY3IMCQGQ36N5SDPEEQKSHRB6X5NXMRBANXBBJ6ZTDGU'
+          application_id: 0,
+          application_address: ''
         },
         withdraw: {
-          application_id: 677720208,
-          application_address: 'P4B23JLTW3UM35BO2PD2VJ5MKTTHE55SJCB4MWFDO3577MAKVQVZ3FEH44',
+          application_id: 0,
+          application_address: ''
         }
       }
     }

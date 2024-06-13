@@ -5,6 +5,8 @@ export const environment = {
   algo_explorer: 'https://explorer.perawallet.app',
   analytics_code: '',
   admin_address: '',
+  indexer_page_size: 1000,
+  display_page_size: 100,
   platform: {
     asset_id: 559219992,
     manager: 'NP5K3WA5H6SBM36DJDZDMPFDVQPRIX6RAXNZ3H6EIC32K6C75YNAMM6Z44',
@@ -15,6 +17,10 @@ export const environment = {
     contracts: {
       prime: {
         buy: {
+          application_id: 0,
+          application_address: ''
+        },
+        claim: {
           application_id: 0,
           application_address: ''
         },
@@ -62,6 +68,10 @@ export const environment = {
     contracts: {
       prime: {
         buy: {
+          application_id: 0,
+          application_address: ''
+        },
+        claim: {
           application_id: 0,
           application_address: ''
         },
