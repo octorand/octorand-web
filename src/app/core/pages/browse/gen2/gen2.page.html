@@ -75,7 +75,8 @@
                                 {{prime.badges}}
                             </p>
                             <p class="text-muted mb-0">
-                                {{prime.rewards}}
+                                <span innerHTML="{{prime.rewards | amount:prime.platform_asset_id | async}}">
+                                </span>
                             </p>
                         </div>
                     </div>
