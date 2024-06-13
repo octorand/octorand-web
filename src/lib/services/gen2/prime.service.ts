@@ -53,7 +53,7 @@ export class GenTwoPrimeService {
             let value = Buffer.from(params.value['bytes'], 'base64');
 
             switch (key) {
-                case 'Prime':
+                case 'P1':
                     model.id = algosdk.decodeUint64(value.subarray(0, 8));
                     model.platform_asset_id = algosdk.decodeUint64(value.subarray(8, 16));
                     model.prime_asset_id = algosdk.decodeUint64(value.subarray(16, 24));
@@ -73,6 +73,11 @@ export class GenTwoPrimeService {
                     model.transforms = algosdk.decodeUint64(value.subarray(100, 102));
                     model.vaults = algosdk.decodeUint64(value.subarray(102, 104));
                     model.name = value.subarray(104, 120).toString('utf-8').trim();
+                    break;
+                case 'P2':
+                    model.owner = algosdk.encodeAddress(value.subarray(0, 32));
+                    model.rewards = algosdk.decodeUint64(value.subarray(32, 40));
+                    model.royalties = algosdk.decodeUint64(value.subarray(40, 48));
                     break;
             }
         }
@@ -110,6 +115,10 @@ export class GenTwoPrimeService {
 
         if (model.drains == 0) {
             badges.push('Bountiful');
+        }
+
+        if (model.rewards == 0) {
+            badges.push('Drained');
         }
 
         if (model.transforms >= 100) {
