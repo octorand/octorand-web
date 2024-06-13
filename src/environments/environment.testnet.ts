@@ -68,48 +68,49 @@ export const environment = {
     contracts: {
       prime: {
         buy: {
-          application_id: 0,
-          application_address: ''
+          application_id: 680795007,
+          application_address: 'YIDMETVMEER5Y4XJAW5C2DMZ4L3ZFXV4HLNBOSA4IPXLGHBYJQOVQL443Q',
         },
         claim: {
-          application_id: 0,
-          application_address: ''
+          application_id: 680795010,
+          application_address: 'XP6XTIZGEAGY4JCTAC5CXYXSF3FAR3YYDCQFOCXTS2YALSZL7HBPMYBKA4',
         },
         list: {
-          application_id: 0,
-          application_address: ''
+          application_id: 680795023,
+          application_address: 'VBQQVJYW2CMF6RHAPAOM3MHNQ2QVNAGUX25CWKOMVD54KUIO7MFPULVMNM',
         },
         mint: {
-          application_id: 0,
-          application_address: ''
+          application_id: 680795111,
+          application_address: 'EO2ECJN4XVGZSXYRAW7D3Q52IQHLHEJ2U255TMSA2ZN2AX6KEMKJWJPHCE',
         },
         optin: {
-          application_id: 0,
-          application_address: ''
+          application_id: 680795193,
+          application_address: 'JPT4PBZJBMDYRWZUNBRC4GTWKBPK7UPADRV2Y2IKJNH7BWBZF2WR3I4UOM',
+          application_version: 0
         },
         optout: {
-          application_id: 0,
-          application_address: ''
+          application_id: 680795232,
+          application_address: '7UDZ666HICEVMKXC5ARTTS7B5UDABN5VYDNEWM3DJLAUSOXTA33HCSDZQU',
         },
         rename: {
-          application_id: 0,
-          application_address: ''
+          application_id: 680795236,
+          application_address: 'PWWIJBIQFV522Y45CEI7CFDTQOXSQKCPYGWJCDRUGX2Q6ZHQOLR2KGBDB4',
         },
         repaint: {
-          application_id: 0,
-          application_address: ''
+          application_id: 680795240,
+          application_address: 'XN2HWQEG6TPMS5CEXEY6WODUB6WD3W5ZZ6GA62YKBHD37KPBGIXIQ53B5M',
         },
         unlist: {
-          application_id: 0,
-          application_address: ''
+          application_id: 680795284,
+          application_address: 'KUQQI3WBLTA3NRNYRFQPHIRGR6HOCAUSRJIIRXXAMQ2DWU6R2YS4RNXEWI',
         },
         upgrade: {
-          application_id: 0,
-          application_address: ''
+          application_id: 680795340,
+          application_address: 'W74SJDEX2ATLAM2OXHIY3BCP5ETO2ZC6IFTIY6AUADWHBNKKOZMCULIAHM',
         },
         withdraw: {
-          application_id: 0,
-          application_address: ''
+          application_id: 680795410,
+          application_address: 'R4SEHILROAJGR53FCAELJVFXTOMKQCUAZHIYK4KBSCWDJZH2YW42NIZHRY',
         }
       }
     }
