@@ -75,6 +75,10 @@
                                 {{prime.badges}}
                             </p>
                             <p class="text-muted mb-0">
+                                <span innerHTML="{{prime.owner | identity | async}}">
+                                </span>
+                            </p>
+                            <p class="text-muted mb-0">
                                 <span innerHTML="{{prime.rewards | amount:prime.platform_asset_id | async}}">
                                 </span>
                             </p>

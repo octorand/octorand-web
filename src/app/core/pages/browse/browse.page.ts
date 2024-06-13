@@ -41,12 +41,22 @@ export class CoreBrowsePage implements OnInit, OnDestroy {
   /**
    * Gen one primes total
    */
-  genOneTotal: number = 0
+  genOneTotal: number = 0;
 
   /**
    * Gen two primes total
    */
-  genTwoTotal: number = 0
+  genTwoTotal: number = 0;
+
+  /**
+   * Gen one prime owners total
+   */
+  genOneOwners: number = 0;
+
+  /**
+   * Gen two prime owners total
+   */
+  genTwoOwners: number = 0;
 
   /**
    * Construct component
@@ -136,6 +146,22 @@ export class CoreBrowsePage implements OnInit, OnDestroy {
     if (this.data) {
       this.genOneTotal = this.data.genOnePrimes.length;
       this.genTwoTotal = this.data.genTwoPrimes.length;
+
+      let genOneOwners: Array<string> = [];
+      for (let i = 0; i < this.data.genOnePrimes.length; i++) {
+        if (!genOneOwners.includes(this.data.genOnePrimes[i].owner)) {
+          genOneOwners.push(this.data.genOnePrimes[i].owner);
+        }
+      }
+      this.genOneOwners = genOneOwners.length;
+
+      let genTwoOwners: Array<string> = [];
+      for (let i = 0; i < this.data.genTwoPrimes.length; i++) {
+        if (!genTwoOwners.includes(this.data.genTwoPrimes[i].owner)) {
+          genTwoOwners.push(this.data.genTwoPrimes[i].owner);
+        }
+      }
+      this.genTwoOwners = genTwoOwners.length;
     }
   }
 
