@@ -180,7 +180,7 @@ export class CoreBrowseTwoPage implements OnInit, OnDestroy {
    */
   refreshView() {
     if (this.data) {
-      let allResults = this.data.genTwoPrimes;
+      let allResults = this.data.gen_two_primes;
 
       if (this.selectedBadges.length > 0) {
         allResults = allResults.filter(x => this.selectedBadges.every(b => x.badges.includes(b)))

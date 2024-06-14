@@ -129,21 +129,21 @@ export class CoreBrowsePage implements OnInit, OnDestroy {
    */
   refreshView() {
     if (this.data) {
-      this.genOneTotal = this.data.genOnePrimes.length;
-      this.genTwoTotal = this.data.genTwoPrimes.length;
+      this.genOneTotal = this.data.gen_one_primes.length;
+      this.genTwoTotal = this.data.gen_two_primes.length;
 
       let genOneOwners: Array<string> = [];
-      for (let i = 0; i < this.data.genOnePrimes.length; i++) {
-        if (!genOneOwners.includes(this.data.genOnePrimes[i].owner)) {
-          genOneOwners.push(this.data.genOnePrimes[i].owner);
+      for (let i = 0; i < this.data.gen_one_primes.length; i++) {
+        if (!genOneOwners.includes(this.data.gen_one_primes[i].owner)) {
+          genOneOwners.push(this.data.gen_one_primes[i].owner);
         }
       }
       this.genOneOwners = genOneOwners.length;
 
       let genTwoOwners: Array<string> = [];
-      for (let i = 0; i < this.data.genTwoPrimes.length; i++) {
-        if (!genTwoOwners.includes(this.data.genTwoPrimes[i].owner)) {
-          genTwoOwners.push(this.data.genTwoPrimes[i].owner);
+      for (let i = 0; i < this.data.gen_two_primes.length; i++) {
+        if (!genTwoOwners.includes(this.data.gen_two_primes[i].owner)) {
+          genTwoOwners.push(this.data.gen_two_primes[i].owner);
         }
       }
       this.genTwoOwners = genTwoOwners.length;

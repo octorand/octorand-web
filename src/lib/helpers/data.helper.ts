@@ -28,8 +28,8 @@ export class DataHelper {
 
         this.state = {
             initialised: false,
-            genOnePrimes: [],
-            genTwoPrimes: [],
+            gen_one_primes: [],
+            gen_two_primes: [],
         };
 
         this.state.initialised = true;
@@ -72,8 +72,8 @@ export class DataHelper {
                 }
             }
 
-            this.state.genOnePrimes = genOnePrimes;
-            this.state.genTwoPrimes = genTwoPrimes;
+            this.state.gen_one_primes = genOnePrimes;
+            this.state.gen_two_primes = genTwoPrimes;
 
             this.data.next({ ...this.state });
         });

@@ -180,7 +180,7 @@ export class CoreBrowseOnePage implements OnInit, OnDestroy {
    */
   refreshView() {
     if (this.data) {
-      let allResults = this.data.genOnePrimes;
+      let allResults = this.data.gen_one_primes;
 
       if (this.selectedBadges.length > 0) {
         allResults = allResults.filter(x => this.selectedBadges.every(b => x.badges.includes(b)))
