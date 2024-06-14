@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppHelper, DataHelper } from '@lib/helpers';
+import { AppHelper, DataHelper, StoreHelper } from '@lib/helpers';
 import { AppModel, DataModel, GenOnePrimeModel } from '@lib/models';
 import { Subscription } from 'rxjs';
 import { environment } from '@environment';
@@ -113,11 +113,13 @@ export class CoreBrowseOnePage implements OnInit, OnDestroy {
    * @param router
    * @param appHelper
    * @param dataHelper
+   * @param storeHelper
    */
   constructor(
     private router: Router,
     private appHelper: AppHelper,
-    private dataHelper: DataHelper
+    private dataHelper: DataHelper,
+    private storeHelper: StoreHelper
   ) { }
 
   /**
@@ -126,6 +128,7 @@ export class CoreBrowseOnePage implements OnInit, OnDestroy {
   ngOnInit() {
     this.initApp();
     this.initData();
+    this.initStore();
     this.initTasks();
     this.refreshView();
   }
@@ -158,6 +161,15 @@ export class CoreBrowseOnePage implements OnInit, OnDestroy {
       this.data = value;
       this.refreshView();
     });
+  }
+
+  /**
+   * Initialize store
+   */
+  initStore() {
+    let store = this.storeHelper.getDefaultState();
+    this.selectedBadges = store.browse_badges;
+    this.selectedSort = store.browse_sort;
   }
 
   /**
@@ -230,6 +242,7 @@ export class CoreBrowseOnePage implements OnInit, OnDestroy {
     this.selectedSort = sort;
     this.currentPage = 1;
     this.refreshView();
+    this.storeHelper.setBrowseSort(this.selectedSort);
   }
 
   /**
@@ -245,6 +258,7 @@ export class CoreBrowseOnePage implements OnInit, OnDestroy {
     }
     this.currentPage = 1;
     this.refreshView();
+    this.storeHelper.setBrowseBadges(this.selectedBadges);
   }
 
   /**

@@ -1,11 +1,8 @@
 ﻿import { Injectable } from '@angular/core';
 import { StoreModel } from '@lib/models';
-import { Subject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class StoreHelper {
-
-    store: Subject<any>;
 
     state: StoreModel;
 
@@ -13,8 +10,6 @@ export class StoreHelper {
      * Construct component
      */
     constructor() {
-        this.store = new Subject<any>();
-
         this.state = {
             initialised: false,
             browse_badges: [],
@@ -38,7 +33,6 @@ export class StoreHelper {
      */
     setBrowseBadges(badges: Array<string>) {
         this.state.browse_badges = badges;
-        this.store.next({ ...this.state });
     }
 
     /**
@@ -48,6 +42,5 @@ export class StoreHelper {
      */
     setBrowseSort(sort: string) {
         this.state.browse_sort = sort;
-        this.store.next({ ...this.state });
     }
 }
