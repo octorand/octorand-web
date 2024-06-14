@@ -21,13 +21,12 @@ export class GenOnePrimeModel {
     transforms: number = 0;
     vaults: number = 0;
     name: string = '';
-    parent_id: number = 0;
     owner: string = '';
     rewards: number = 0;
     royalties: number = 0;
     application_id: number = 0;
     application_address: string = '';
     rank: number = 0;
-    children: Array<GenTwoPrimeModel> = [];
+    children: Array<any> = [];
     badges: Array<string> = [];
 }

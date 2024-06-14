@@ -48,6 +48,26 @@ export class DataHelper {
             let genOnePrimes = this.listGenOne(values[0]);
             let genTwoPrimes = this.listGenTwo(values[1]);
 
+            for (let i = 0; i < genOnePrimes.length; i++) {
+                genOnePrimes[i].children = genTwoPrimes.filter(p => { p.parent_application_id == genOnePrimes[i].application_id }).map(p => { return { id: p.id, owner: p.owner } });
+                if (genOnePrimes[i].children.filter(c => c.owner == genOnePrimes[i].owner).length == 8) {
+                    genOnePrimes[i].badges.push('Family');
+                }
+            }
+
+            for (let i = 0; i < genTwoPrimes.length; i++) {
+                let parent = genOnePrimes.find(p => genTwoPrimes[i].parent_application_id == p.application_id);
+                if (parent) {
+                    genTwoPrimes[i].parent = { id: parent.id, owner: parent.owner };
+                    if (parent.badges.includes('Family')) {
+                        genTwoPrimes[i].badges.push('Family');
+                    }
+                }
+            }
+
+            console.log(genOnePrimes);
+            console.log(genTwoPrimes);
+
             this.state.genOnePrimes = genOnePrimes;
             this.state.genTwoPrimes = genTwoPrimes;
 
