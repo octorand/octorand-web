@@ -61,7 +61,7 @@
                         </lib-tags-pager>
                     </div>
                     <div class="cards">
-                        <div class="card m-0 h-full" *ngFor="let prime of currentPageResults">
+                        <div class="card m-0 pt-0 h-full" *ngFor="let prime of currentPageResults">
                             <lib-tags-gen1-skins-arms [prime]="prime"></lib-tags-gen1-skins-arms>
                             <lib-tags-gen1-boxes [prime]="prime"></lib-tags-gen1-boxes>
                             <p class="mb-0 text-primary" innerHTML="{{prime.owner | identity | async}}"></p>
