@@ -1,0 +1,32 @@
+.image {
+    min-width: 225px;
+    max-width: 225px;
+    min-height: 225px;
+    max-height: 225px;
+    border-radius: 5px;
+    padding: 20px;
+    border: 1px solid #dddddd;
+}
+
+.layers {
+    position: relative;
+}
+
+.layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.spin {
+    animation: spin 12s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
