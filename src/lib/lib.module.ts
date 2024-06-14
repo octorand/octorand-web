@@ -12,6 +12,9 @@ import * as Pipes from '@lib/pipes';
   declarations: [
     Tags.PagerTag,
     Tags.GenOneBoxesTag,
+    Tags.GenOneInfoTag,
+    Tags.GenTwoBoxesTag,
+    Tags.GenTwoInfoTag,
     Pipes.AmountPipe,
     Pipes.AssetPipe,
     Pipes.IdentityPipe,
@@ -21,6 +24,9 @@ import * as Pipes from '@lib/pipes';
   exports: [
     Tags.PagerTag,
     Tags.GenOneBoxesTag,
+    Tags.GenOneInfoTag,
+    Tags.GenTwoBoxesTag,
+    Tags.GenTwoInfoTag,
     Pipes.AmountPipe,
     Pipes.AssetPipe,
     Pipes.IdentityPipe,

@@ -1,23 +1,28 @@
 import { Component, Input, OnInit, OnChanges, SimpleChanges, SimpleChange } from '@angular/core';
 import { ColorHelper } from '@lib/helpers';
-import { GenOnePrimeModel } from '@lib/models';
+import { GenTwoPrimeModel } from '@lib/models';
 
 @Component({
-  selector: 'lib-tags-gen1-boxes',
+  selector: 'lib-tags-gen2-boxes',
   templateUrl: './boxes.tag.html',
   styleUrls: ['./boxes.tag.scss'],
 })
-export class GenOneBoxesTag implements OnInit, OnChanges {
+export class GenTwoBoxesTag implements OnInit, OnChanges {
 
   /**
-   * List of name boxes
+   * First row of name boxes
    */
-  boxes: Array<any> = [];
+  boxesOne: Array<any> = [];
+
+  /**
+   * Second row of name boxes
+   */
+  boxesTwo: Array<any> = [];
 
   /**
   * The prime parameters
   */
-  @Input() prime: GenOnePrimeModel = new GenOnePrimeModel();
+  @Input() prime: GenTwoPrimeModel = new GenTwoPrimeModel();
 
   constructor(
     private colorHelper: ColorHelper
@@ -60,10 +65,19 @@ export class GenOneBoxesTag implements OnInit, OnChanges {
       params.push(alphabet.indexOf(this.prime.name.charAt(j)));
     }
 
-    this.boxes = [];
+    this.boxesOne = [];
     for (let i = 0; i < 8; i++) {
       let color = this.colorHelper.findColor(params[i]);
-      this.boxes.push({
+      this.boxesOne.push({
+        value: this.prime.name.charAt(i),
+        color: color
+      });
+    }
+
+    this.boxesTwo = [];
+    for (let i = 8; i < 16; i++) {
+      let color = this.colorHelper.findColor(params[i]);
+      this.boxesTwo.push({
         value: this.prime.name.charAt(i),
         color: color
       });

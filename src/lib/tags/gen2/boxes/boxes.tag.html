@@ -1,0 +1,16 @@
+<div class="boxes">
+    <div class="row">
+        <div *ngFor="let box of boxesOne" class="col">
+            <div class="square" [ngStyle]="{'background': box.color}">
+                {{box.value}}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div *ngFor="let box of boxesTwo" class="col">
+            <div class="square" [ngStyle]="{'background': box.color}">
+                {{box.value}}
+            </div>
+        </div>
+    </div>
+</div>
