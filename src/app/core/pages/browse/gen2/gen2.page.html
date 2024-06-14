@@ -61,26 +61,42 @@
                         </lib-tags-pager>
                     </div>
                     <div class="cards">
-                        <div class="card m-0 h-full" *ngFor="let prime of currentPageResults"
-                            (click)="navigateToPage('prime/gen1/{{prime.id}}')">
-                            <h2 class="content-title text-success">{{prime.id}}</h2>
-                            <p class="text-muted mb-0">
-                                {{prime.name}}
-                            </p>
-                            <p class="text-muted mb-0">
-                                {{prime.rank}}
-                            </p>
-                            <p class="text-muted mb-0">
-                                {{prime.badges}}
-                            </p>
-                            <p class="text-muted mb-0">
-                                <span innerHTML="{{prime.owner | identity | async}}">
-                                </span>
-                            </p>
-                            <p class="text-muted mb-0">
-                                <span innerHTML="{{prime.rewards | amount:prime.platform_asset_id | async}}">
-                                </span>
-                            </p>
+                        <div class="card m-0 h-full" *ngFor="let prime of currentPageResults">
+                            <h2 class="content-title text-success">{{prime.name}}</h2>
+                            <p innerHTML="{{prime.owner | identity | async}}"></p>
+                            <div class="table-responsive">
+                                <table class="table table-no-outer-padding">
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-secondary">Id</td>
+                                            <td class="text-right">{{prime.id_text}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-secondary">Score</td>
+                                            <td class="text-right">{{prime.score}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-secondary">Rank</td>
+                                            <td class="text-right">{{prime.rank}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-secondary">Price</td>
+                                            <td class="text-right" innerHTML="{{prime.price | amount:0 | async}}">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-secondary">Reward</td>
+                                            <td class="text-right"
+                                                innerHTML="{{prime.rewards | amount:prime.platform_asset_id | async}}">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <button class="btn btn-success btn-block mt-20"
+                                (click)="navigateToPage('prime/gen2/{{prime.id}}')">
+                                View
+                            </button>
                         </div>
                     </div>
                     <div class="mt-20">

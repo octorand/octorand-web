@@ -9,7 +9,7 @@ export class IdentityPipe implements PipeTransform {
 
     constructor(private identityHelper: IdentityHelper) { }
 
-    transform(id: string, info: boolean = true, wrap: boolean = true): Observable<string> {
+    transform(id: string, info: boolean = false, wrap: boolean = true): Observable<string> {
         return timer(0, 3000).pipe(
             map(() => {
                 if (!id) {

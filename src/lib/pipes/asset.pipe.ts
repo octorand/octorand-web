@@ -9,7 +9,7 @@ export class AssetPipe implements PipeTransform {
 
     constructor(private assetHelper: AssetHelper) { }
 
-    transform(id: number, info: boolean = true): Observable<string> {
+    transform(id: number, info: boolean = false): Observable<string> {
         return timer(0, 3000).pipe(
             map(() => {
                 let details = this.assetHelper.get(id);

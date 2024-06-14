@@ -29,4 +29,5 @@ export class GenTwoPrimeModel {
     rank: number = 0;
     parent: any = null;
     badges: Array<string> = [];
+    id_text: string = '';
 }

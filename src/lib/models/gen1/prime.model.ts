@@ -29,4 +29,5 @@ export class GenOnePrimeModel {
     rank: number = 0;
     children: Array<any> = [];
     badges: Array<string> = [];
+    id_text: string = '';
 }
