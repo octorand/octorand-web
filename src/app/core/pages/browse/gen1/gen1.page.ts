@@ -1,8 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppHelper, ChainHelper, DataHelper } from '@lib/helpers';
+import { AppHelper, DataHelper } from '@lib/helpers';
 import { AppModel, DataModel, GenOnePrimeModel } from '@lib/models';
-import { GenOnePrimeService } from '@lib/services';
 import { Subscription } from 'rxjs';
 import { environment } from '@environment';
 
@@ -113,16 +112,12 @@ export class CoreBrowseOnePage implements OnInit, OnDestroy {
    *
    * @param router
    * @param appHelper
-   * @param chainHelper
    * @param dataHelper
-   * @param genOnePrimeService
    */
   constructor(
     private router: Router,
     private appHelper: AppHelper,
-    private chainHelper: ChainHelper,
-    private dataHelper: DataHelper,
-    private genOnePrimeService: GenOnePrimeService
+    private dataHelper: DataHelper
   ) { }
 
   /**
@@ -177,10 +172,7 @@ export class CoreBrowseOnePage implements OnInit, OnDestroy {
    * Load prime details
    */
   loadPrimeDetails() {
-    this.chainHelper.lookupAccountCreatedApplications(environment.gen1.manager_address).then((applications: any) => {
-      let primes = this.genOnePrimeService.list(applications);
-      this.dataHelper.setGenOnePrimes(primes);
-    });
+    this.dataHelper.loadPrimes();
   }
 
   /**

@@ -11,6 +11,11 @@ export class IdentityHelper {
     key: string = 'identities-1';
     values: Array<any> = [];
 
+    /**
+     * Construct component
+     *
+     * @param httpClient
+     */
     constructor(private httpClient: HttpClient) {
         this.initData();
     }

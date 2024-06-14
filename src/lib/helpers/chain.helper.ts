@@ -13,6 +13,15 @@ export class ChainHelper {
     private algodClient: any;
     private indexerClient: any;
 
+    /**
+     * Construct component
+     *
+     * @param appHelper
+     * @param exodusWallet
+     * @param peraWalletWallet
+     * @param deflyWalletWallet
+     * @param walletConnectWallet
+     */
     constructor(
         private appHelper: AppHelper,
         private exodusWallet: ExodusWallet,

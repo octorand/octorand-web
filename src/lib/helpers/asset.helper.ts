@@ -7,6 +7,11 @@ export class AssetHelper {
     key: string = 'assets-1';
     values: Array<any> = [];
 
+    /**
+     * Construct component
+     *
+     * @param chainHelper
+     */
     constructor(private chainHelper: ChainHelper) {
         this.initData();
     }

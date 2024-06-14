@@ -11,6 +11,9 @@ export class AppHelper {
 
     state: AppModel;
 
+    /**
+     * Construct component
+     */
     constructor() {
         this.app = new Subject<any>();
 
