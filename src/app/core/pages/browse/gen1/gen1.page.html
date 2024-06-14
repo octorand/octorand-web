@@ -66,10 +66,17 @@
                             <lib-tags-gen1-boxes [prime]="prime"></lib-tags-gen1-boxes>
                             <p class="mb-0 text-primary" innerHTML="{{prime.owner | identity | async}}"></p>
                             <lib-tags-gen1-info [prime]="prime"></lib-tags-gen1-info>
-                            <button class="btn btn-success btn-block mt-20"
-                                (click)="navigateToPage('prime/gen1/{{prime.id}}')">
-                                View
-                            </button>
+                            <div class="btn-group mt-20 btn-block" role="group">
+                                <button class="btn btn-danger btn-block" type="button"
+                                    (click)="navigateToPage('prime/gen1/{{prime.id}}')">
+                                    View
+                                </button>
+                                <button class="btn btn-danger btn-square" type="button">
+                                    <a class="text-white" href="prime/gen1/{{prime.id}}" target="_blank">
+                                        <i class="fas fa-external-link-alt"></i>
+                                    </a>
+                                </button>
+                            </div>
                         </div>
                     </div>
                     <div class="mt-20">
