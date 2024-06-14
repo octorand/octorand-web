@@ -63,7 +63,7 @@
                     <div class="cards">
                         <div class="card m-0 h-full" *ngFor="let prime of currentPageResults">
                             <lib-tags-gen1-boxes [prime]="prime"></lib-tags-gen1-boxes>
-                            <p innerHTML="{{prime.owner | identity | async}}"></p>
+                            <p class="mb-0 text-primary" innerHTML="{{prime.owner | identity | async}}"></p>
                             <lib-tags-gen1-info [prime]="prime"></lib-tags-gen1-info>
                             <button class="btn btn-success btn-block mt-20"
                                 (click)="navigateToPage('prime/gen1/{{prime.id}}')">
