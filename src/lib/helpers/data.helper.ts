@@ -36,6 +36,13 @@ export class DataHelper {
     }
 
     /**
+     * Get default state
+     */
+    getDefaultState(): DataModel {
+        return this.state;
+    }
+
+    /**
      * Load primes
      */
     loadPrimes() {
@@ -70,13 +77,6 @@ export class DataHelper {
 
             this.data.next({ ...this.state });
         });
-    }
-
-    /**
-     * Get default state
-     */
-    getDefaultState(): DataModel {
-        return this.state;
     }
 
     /**
