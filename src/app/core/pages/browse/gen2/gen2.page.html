@@ -79,10 +79,14 @@
                                             <td class="text-secondary">Rank</td>
                                             <td class="text-right">{{prime.rank}}</td>
                                         </tr>
-                                        <tr>
+                                        <tr *ngIf="prime.price > 0">
                                             <td class="text-secondary">Price</td>
                                             <td class="text-right" innerHTML="{{prime.price | amount:0 | async}}">
                                             </td>
+                                        </tr>
+                                        <tr *ngIf="prime.price == 0">
+                                            <td class="text-secondary">Price</td>
+                                            <td class="text-right">Not for sale</td>
                                         </tr>
                                         <tr>
                                             <td class="text-secondary">Reward</td>
