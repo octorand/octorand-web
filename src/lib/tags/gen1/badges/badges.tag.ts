@@ -62,7 +62,7 @@ export class GenOneBadgesTag implements OnInit, OnChanges {
 
     this.badgesOne = [];
     for (let i = 0; i < 10; i++) {
-      let background = this.prime.badges.includes(badges[i].name) ? '#1890ff' : '#000000';
+      let background = this.prime.badges.includes(badges[i].name) ? '#1890ff' : '#25282c';
       let color = this.prime.badges.includes(badges[i].name) ? '#ffffff' : '#333333';
 
       this.badgesOne.push({
@@ -76,7 +76,7 @@ export class GenOneBadgesTag implements OnInit, OnChanges {
 
     this.badgesTwo = [];
     for (let i = 10; i < 20; i++) {
-      let background = this.prime.badges.includes(badges[i].name) ? '#1890ff' : '#000000';
+      let background = this.prime.badges.includes(badges[i].name) ? '#1890ff' : '#25282c';
       let color = this.prime.badges.includes(badges[i].name) ? '#ffffff' : '#333333';
 
       this.badgesTwo.push({
