@@ -11,6 +11,7 @@ import * as Pipes from '@lib/pipes';
   ],
   declarations: [
     Tags.PagerTag,
+    Tags.GenOneBadgesTag,
     Tags.GenOneBoxesTag,
     Tags.GenOneInfoTag,
     Tags.GenOneSkinsArmsTag,
@@ -24,6 +25,7 @@ import * as Pipes from '@lib/pipes';
   ],
   exports: [
     Tags.PagerTag,
+    Tags.GenOneBadgesTag,
     Tags.GenOneBoxesTag,
     Tags.GenOneInfoTag,
     Tags.GenOneSkinsArmsTag,

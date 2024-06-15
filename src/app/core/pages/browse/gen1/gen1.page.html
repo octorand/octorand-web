@@ -67,6 +67,7 @@
                             <lib-tags-gen1-boxes [prime]="prime"></lib-tags-gen1-boxes>
                             <p class="mb-0 text-primary" innerHTML="{{prime.owner | identity | async}}"></p>
                             <lib-tags-gen1-info [prime]="prime"></lib-tags-gen1-info>
+                            <lib-tags-gen1-badges [prime]="prime"></lib-tags-gen1-badges>
                             <div class="btn-group mt-20 btn-block" role="group">
                                 <button class="btn btn-danger btn-block" type="button"
                                     (click)="navigateToPage('prime/gen1/{{prime.id}}')">

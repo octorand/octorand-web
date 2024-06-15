@@ -47,7 +47,7 @@ export class BadgeHelper {
         {
             id: 'explorer',
             name: 'Explorer',
-            icon: 'fas fa-space-shuttle',
+            icon: 'fas fa-rocket',
         },
         {
             id: 'family',
