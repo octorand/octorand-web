@@ -1,6 +1,13 @@
 <div>
     <div class="row">
-        <div *ngFor="let box of boxes" class="col p-0">
+        <div *ngFor="let box of boxesOne" class="col p-0">
+            <div class="square" [ngStyle]="{'background': box.color}">
+                {{box.value}}
+            </div>
+        </div>
+    </div>
+    <div class="row" *ngIf="boxesTwo.length > 0">
+        <div *ngFor="let box of boxesTwo" class="col p-0">
             <div class="square" [ngStyle]="{'background': box.color}">
                 {{box.value}}
             </div>

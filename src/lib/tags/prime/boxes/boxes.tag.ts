@@ -10,9 +10,14 @@ import { PrimeModel } from '@lib/models';
 export class PrimeBoxesTag implements OnInit, OnChanges {
 
   /**
-   * List of name boxes
+   * List of first row name boxes
    */
-  boxes: Array<any> = [];
+  boxesOne: Array<any> = [];
+
+  /**
+   * List of second row name boxes
+   */
+  boxesTwo: Array<any> = [];
 
   /**
   * The prime parameters
@@ -60,13 +65,24 @@ export class PrimeBoxesTag implements OnInit, OnChanges {
       params.push(alphabet.indexOf(this.prime.name.charAt(j)));
     }
 
-    this.boxes = [];
+    this.boxesOne = [];
     for (let i = 0; i < 8; i++) {
       let color = this.colorHelper.findColor(params[i]);
-      this.boxes.push({
+      this.boxesOne.push({
         value: this.prime.name.charAt(i),
         color: color
       });
+    }
+
+    this.boxesTwo = [];
+    if (this.prime.gen == 2) {
+      for (let i = 8; i < 16; i++) {
+        let color = this.colorHelper.findColor(params[i]);
+        this.boxesTwo.push({
+          value: this.prime.name.charAt(i),
+          color: color
+        });
+      }
     }
   }
 }
