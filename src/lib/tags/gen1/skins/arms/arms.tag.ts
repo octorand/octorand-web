@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, OnChanges, SimpleChanges, SimpleChange } from '@angular/core';
 import { ColorHelper } from '@lib/helpers';
-import { GenOnePrimeModel } from '@lib/models';
+import { PrimeModel } from '@lib/models';
 
 @Component({
   selector: 'lib-tags-gen1-skins-arms',
@@ -18,7 +18,7 @@ export class GenOneSkinsArmsTag implements OnInit, OnChanges {
   /**
   * The prime parameters
   */
-  @Input() prime: GenOnePrimeModel = new GenOnePrimeModel();
+  @Input() prime: PrimeModel = new PrimeModel();
 
   constructor(
     private colorHelper: ColorHelper

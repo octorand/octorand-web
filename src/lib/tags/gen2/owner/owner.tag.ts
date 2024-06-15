@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { GenTwoPrimeModel } from '@lib/models';
+import { PrimeModel } from '@lib/models';
 
 @Component({
   selector: 'lib-tags-gen2-owner',
@@ -11,5 +11,5 @@ export class GenTwoOwnerTag {
   /**
   * The prime parameters
   */
-  @Input() prime: GenTwoPrimeModel = new GenTwoPrimeModel();
+  @Input() prime: PrimeModel = new PrimeModel();
 }

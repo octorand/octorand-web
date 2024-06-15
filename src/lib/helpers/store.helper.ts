@@ -12,8 +12,9 @@ export class StoreHelper {
     constructor() {
         this.state = {
             initialised: false,
-            browse_badges: [],
+            browse_gen: 1,
             browse_sort: 'Id',
+            browse_badges: [],
         };
 
         this.state.initialised = true;
@@ -27,12 +28,12 @@ export class StoreHelper {
     }
 
     /**
-     * Set currently selected browse badges
+     * Set currently selected browse generation
      *
-     * @param badges
+     * @param gen
      */
-    setBrowseBadges(badges: Array<string>) {
-        this.state.browse_badges = badges;
+    setBrowseGen(gen: number) {
+        this.state.browse_gen = gen;
     }
 
     /**
@@ -42,5 +43,14 @@ export class StoreHelper {
      */
     setBrowseSort(sort: string) {
         this.state.browse_sort = sort;
+    }
+
+    /**
+     * Set currently selected browse badges
+     *
+     * @param badges
+     */
+    setBrowseBadges(badges: Array<string>) {
+        this.state.browse_badges = badges;
     }
 }

@@ -19,14 +19,6 @@ const routes: Routes = [
         path: 'browse',
         component: Pages.CoreBrowsePage
       },
-      {
-        path: 'browse/gen1',
-        component: Pages.CoreBrowseOnePage
-      },
-      {
-        path: 'browse/gen2',
-        component: Pages.CoreBrowseTwoPage
-      }
     ]
   }
 ];
@@ -36,8 +28,6 @@ const routes: Routes = [
     CoreContainer,
     Pages.CoreHomePage,
     Pages.CoreBrowsePage,
-    Pages.CoreBrowseOnePage,
-    Pages.CoreBrowseTwoPage,
   ],
   imports: [
     CommonModule,

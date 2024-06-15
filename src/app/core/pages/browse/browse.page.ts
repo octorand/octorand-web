@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppHelper, DataHelper } from '@lib/helpers';
-import { AppModel, DataModel } from '@lib/models';
+import { AppHelper, BadgeHelper, DataHelper, StoreHelper } from '@lib/helpers';
+import { AppModel, DataModel, PrimeModel } from '@lib/models';
 import { Subscription } from 'rxjs';
+import { environment } from '@environment';
 
 @Component({
   selector: 'app-core-browse',
@@ -37,36 +38,74 @@ export class CoreBrowsePage implements OnInit, OnDestroy {
   primeDetailsLoadTask: any = null;
 
   /**
-   * Gen one primes total
+   * Current page number
    */
-  genOneTotal: number = 0;
+  currentPage: number = 1;
 
   /**
-   * Gen two primes total
+   * Number of results per page
    */
-  genTwoTotal: number = 0;
+  resultsPerPage: number = environment.display_page_size;
 
   /**
-   * Gen one prime owners total
+   * Total number of results
    */
-  genOneOwners: number = 0;
+  totalResults: number = 0;
 
   /**
-   * Gen two prime owners total
+   * Total number of pages
    */
-  genTwoOwners: number = 0;
+  pagesCount: number = 0;
+
+  /**
+   * Results of current page
+   */
+  currentPageResults: Array<PrimeModel> = [];
+
+  /**
+   * Sort generation
+   */
+  selectedGen: number = 1;
+
+  /**
+   * Sort sort
+   */
+  selectedSort: string = 'Id';
+
+  /**
+   * Selected list of badges
+   */
+  selectedBadges: Array<string> = [];
+
+  /**
+   * Keys for sorting
+   */
+  sorts: Array<string> = [
+    'Id',
+    'Name',
+    'Rank',
+  ];
+
+  /**
+   * List of badges
+   */
+  badges: Array<any> = [];
 
   /**
    * Construct component
    *
    * @param router
    * @param appHelper
+   * @param badgeHelper
    * @param dataHelper
+   * @param storeHelper
    */
   constructor(
     private router: Router,
     private appHelper: AppHelper,
-    private dataHelper: DataHelper
+    private badgeHelper: BadgeHelper,
+    private dataHelper: DataHelper,
+    private storeHelper: StoreHelper
   ) { }
 
   /**
@@ -75,6 +114,8 @@ export class CoreBrowsePage implements OnInit, OnDestroy {
   ngOnInit() {
     this.initApp();
     this.initData();
+    this.initStore();
+    this.initBadges();
     this.initTasks();
     this.refreshView();
   }
@@ -110,6 +151,23 @@ export class CoreBrowsePage implements OnInit, OnDestroy {
   }
 
   /**
+   * Initialize store
+   */
+  initStore() {
+    let store = this.storeHelper.getDefaultState();
+    this.selectedGen = store.browse_gen;
+    this.selectedSort = store.browse_sort;
+    this.selectedBadges = store.browse_badges;
+  }
+
+  /**
+   * Initialize badges
+   */
+  initBadges() {
+    this.badges = this.badgeHelper.list();
+  }
+
+  /**
    * Initialize tasks
    */
   initTasks() {
@@ -129,25 +187,90 @@ export class CoreBrowsePage implements OnInit, OnDestroy {
    */
   refreshView() {
     if (this.data) {
-      this.genOneTotal = this.data.gen_one_primes.length;
-      this.genTwoTotal = this.data.gen_two_primes.length;
-
-      let genOneOwners: Array<string> = [];
-      for (let i = 0; i < this.data.gen_one_primes.length; i++) {
-        if (!genOneOwners.includes(this.data.gen_one_primes[i].owner)) {
-          genOneOwners.push(this.data.gen_one_primes[i].owner);
-        }
+      let allResults = [];
+      if (this.selectedGen == 1) {
+        allResults = this.data.gen_one_primes;
+      } else {
+        allResults = this.data.gen_two_primes;
       }
-      this.genOneOwners = genOneOwners.length;
 
-      let genTwoOwners: Array<string> = [];
-      for (let i = 0; i < this.data.gen_two_primes.length; i++) {
-        if (!genTwoOwners.includes(this.data.gen_two_primes[i].owner)) {
-          genTwoOwners.push(this.data.gen_two_primes[i].owner);
-        }
+      if (this.selectedBadges.length > 0) {
+        allResults = allResults.filter(x => this.selectedBadges.every(b => x.badges.includes(b)))
       }
-      this.genTwoOwners = genTwoOwners.length;
+
+      switch (this.selectedSort) {
+        case 'Id':
+          allResults.sort((first, second) => first.id - second.id);
+          break;
+        case 'Name':
+          allResults.sort((first, second) => first.name.localeCompare(second.name));
+          break;
+        case 'Rank':
+          allResults.sort((first, second) => first.rank - second.rank);
+          break;
+      }
+
+      let totalResults = allResults.length;
+      let pagesCount = Math.ceil(totalResults / this.resultsPerPage);
+
+      let start = this.resultsPerPage * (this.currentPage - 1);
+      let end = start + this.resultsPerPage;
+      let currentPageResults = allResults.slice(start, end);
+
+      this.totalResults = totalResults;
+      this.pagesCount = pagesCount;
+      this.currentPageResults = currentPageResults;
     }
+  }
+
+  /**
+   * When page is changed
+   *
+   * @param page
+   */
+  changePage(page: any) {
+    this.currentPage = page;
+    this.refreshView();
+  }
+
+  /**
+   * When gen is changed
+   *
+   * @param gen
+   */
+  changeGen(gen: number) {
+    this.selectedGen = gen;
+    this.currentPage = 1;
+    this.refreshView();
+    this.storeHelper.setBrowseGen(this.selectedGen);
+  }
+
+  /**
+   * When sort is changed
+   *
+   * @param sort
+   */
+  changeSort(sort: string) {
+    this.selectedSort = sort;
+    this.currentPage = 1;
+    this.refreshView();
+    this.storeHelper.setBrowseSort(this.selectedSort);
+  }
+
+  /**
+   * When badge is changed
+   *
+   * @param badge
+   */
+  changeBadge(badge: string) {
+    if (this.selectedBadges.includes(badge)) {
+      this.selectedBadges = this.selectedBadges.filter(b => b != badge);
+    } else {
+      this.selectedBadges.push(badge);
+    }
+    this.currentPage = 1;
+    this.refreshView();
+    this.storeHelper.setBrowseBadges(this.selectedBadges);
   }
 
   /**

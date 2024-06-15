@@ -1,5 +1,5 @@
 ﻿import { Injectable } from '@angular/core';
-import { DataModel, GenOnePrimeModel, GenTwoPrimeModel } from '@lib/models';
+import { DataModel, PrimeModel } from '@lib/models';
 import { ChainHelper } from './chain.helper';
 import { WordHelper } from './word.helper';
 import { Subject } from 'rxjs';
@@ -84,11 +84,11 @@ export class DataHelper {
      *
      * @param applications
      */
-    private listGenOne(applications: Array<any>): Array<GenOnePrimeModel> {
+    private listGenOne(applications: Array<any>): Array<PrimeModel> {
         let models = [];
 
         for (let i = 0; i < applications.length; i++) {
-            let model = new GenOnePrimeModel();
+            let model = new PrimeModel();
             model = this.loadGenOneValues(model, applications[i]);
             model = this.calculateGenOneBadges(model);
             models.push(model);
@@ -104,11 +104,11 @@ export class DataHelper {
      *
      * @param applications
      */
-    private listGenTwo(applications: Array<any>): Array<GenTwoPrimeModel> {
+    private listGenTwo(applications: Array<any>): Array<PrimeModel> {
         let models = [];
 
         for (let i = 0; i < applications.length; i++) {
-            let model = new GenTwoPrimeModel();
+            let model = new PrimeModel();
             model = this.loadGenTwoValues(model, applications[i]);
             model = this.calculateGenTwoBadges(model);
             models.push(model);
@@ -125,7 +125,7 @@ export class DataHelper {
      * @param model
      * @param application
      */
-    private loadGenOneValues(model: GenOnePrimeModel, application: any): GenOnePrimeModel {
+    private loadGenOneValues(model: PrimeModel, application: any): PrimeModel {
         model.application_id = application['id'];
         model.application_address = algosdk.getApplicationAddress(model.application_id);
 
@@ -176,7 +176,7 @@ export class DataHelper {
      * @param model
      * @param application
      */
-    private loadGenTwoValues(model: GenTwoPrimeModel, application: any): GenTwoPrimeModel {
+    private loadGenTwoValues(model: PrimeModel, application: any): PrimeModel {
         model.application_id = application['id'];
         model.application_address = algosdk.getApplicationAddress(model.application_id);
 
@@ -226,7 +226,7 @@ export class DataHelper {
      *
      * @param model
      */
-    private calculateGenOneBadges(model: GenOnePrimeModel): GenOnePrimeModel {
+    private calculateGenOneBadges(model: PrimeModel): PrimeModel {
         let badges: Array<string> = [];
 
         if (model.is_founder) {
@@ -343,7 +343,7 @@ export class DataHelper {
      *
      * @param model
      */
-    private calculateGenTwoBadges(model: GenTwoPrimeModel): GenTwoPrimeModel {
+    private calculateGenTwoBadges(model: PrimeModel): PrimeModel {
         let badges: Array<string> = [];
 
         if (model.is_founder) {
@@ -482,7 +482,7 @@ export class DataHelper {
      *
      * @param models
      */
-    private calculateGenOneRank(models: Array<GenOnePrimeModel>): Array<GenOnePrimeModel> {
+    private calculateGenOneRank(models: Array<PrimeModel>): Array<PrimeModel> {
         var rank = 1;
         models.sort((first, second) => second.score - first.score);
         for (let i = 0; i < models.length; i++) {
@@ -501,7 +501,7 @@ export class DataHelper {
      *
      * @param models
      */
-    private calculateGenTwoRank(models: Array<GenTwoPrimeModel>): Array<GenTwoPrimeModel> {
+    private calculateGenTwoRank(models: Array<PrimeModel>): Array<PrimeModel> {
         var rank = 1;
         models.sort((first, second) => second.score - first.score);
         for (let i = 0; i < models.length; i++) {

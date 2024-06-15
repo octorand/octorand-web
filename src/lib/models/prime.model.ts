@@ -1,6 +1,4 @@
-import { GenOnePrimeModel } from "../gen1/prime.model";
-
-export class GenTwoPrimeModel {
+export class PrimeModel {
 
     id: number = 0;
     platform_asset_id: number = 0;
@@ -27,7 +25,8 @@ export class GenTwoPrimeModel {
     application_id: number = 0;
     application_address: string = '';
     rank: number = 0;
-    parent: any = null;
     badges: Array<string> = [];
     id_text: string = '';
+    parent: any = null;
+    children: Array<any> = [];
 }
