@@ -62,13 +62,15 @@
                         </lib-tags-pager>
                     </div>
                     <div class="cards">
-                        <div class="card m-0 h-full" *ngFor="let prime of currentPageResults">
+                        <div class="card m-0 pt-0 h-full" *ngFor="let prime of currentPageResults">
+                            <lib-tags-gen2-skins [prime]="prime"></lib-tags-gen2-skins>
                             <lib-tags-gen2-boxes [prime]="prime"></lib-tags-gen2-boxes>
-                            <p class="mb-0 text-primary" innerHTML="{{prime.owner | identity | async}}"></p>
+                            <lib-tags-gen2-owner [prime]="prime"></lib-tags-gen2-owner>
                             <lib-tags-gen2-info [prime]="prime"></lib-tags-gen2-info>
+                            <lib-tags-gen2-badges [prime]="prime"></lib-tags-gen2-badges>
                             <div class="btn-group mt-20 btn-block" role="group">
                                 <button class="btn btn-danger btn-block" type="button"
-                                    (click)="navigateToPage('prime/gen2/{{prime.id}}')">
+                                    (click)="navigateToPage('prime/gen1/{{prime.id}}')">
                                     View
                                 </button>
                                 <button class="btn btn-danger btn-square" type="button">

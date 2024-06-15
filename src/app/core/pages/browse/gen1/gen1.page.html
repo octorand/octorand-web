@@ -63,9 +63,9 @@
                     </div>
                     <div class="cards">
                         <div class="card m-0 pt-0 h-full" *ngFor="let prime of currentPageResults">
-                            <lib-tags-gen1-skins-arms [prime]="prime"></lib-tags-gen1-skins-arms>
+                            <lib-tags-gen1-skins [prime]="prime"></lib-tags-gen1-skins>
                             <lib-tags-gen1-boxes [prime]="prime"></lib-tags-gen1-boxes>
-                            <p class="mb-0 text-primary" innerHTML="{{prime.owner | identity | async}}"></p>
+                            <lib-tags-gen1-owner [prime]="prime"></lib-tags-gen1-owner>
                             <lib-tags-gen1-info [prime]="prime"></lib-tags-gen1-info>
                             <lib-tags-gen1-badges [prime]="prime"></lib-tags-gen1-badges>
                             <div class="btn-group mt-20 btn-block" role="group">
