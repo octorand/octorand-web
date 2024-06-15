@@ -3,11 +3,11 @@ import { BadgeHelper } from '@lib/helpers';
 import { PrimeModel } from '@lib/models';
 
 @Component({
-  selector: 'lib-tags-gen1-badges',
+  selector: 'lib-tags-prime-badges',
   templateUrl: './badges.tag.html',
   styleUrls: ['./badges.tag.scss'],
 })
-export class GenOneBadgesTag implements OnInit, OnChanges {
+export class PrimeBadgesTag implements OnInit, OnChanges {
 
   /**
    * First row of badges

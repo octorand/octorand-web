@@ -165,6 +165,7 @@ export class DataHelper {
             }
         }
 
+        model.gen = 1;
         model.id_text = String(model.id).padStart(3, '0');
 
         return model;
@@ -216,6 +217,7 @@ export class DataHelper {
             }
         }
 
+        model.gen = 2;
         model.id_text = String(model.id).padStart(4, '0');
 
         return model;

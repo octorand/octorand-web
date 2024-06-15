@@ -3,11 +3,11 @@ import { ColorHelper } from '@lib/helpers';
 import { PrimeModel } from '@lib/models';
 
 @Component({
-  selector: 'lib-tags-gen2-skins-arms',
+  selector: 'lib-tags-prime-skins-gen2-arms',
   templateUrl: './arms.tag.html',
   styleUrls: ['./arms.tag.scss'],
 })
-export class GenTwoSkinsArmsTag implements OnInit, OnChanges {
+export class PrimeSkinsGenTwoArmsTag implements OnInit, OnChanges {
 
   traitColor: string = '';
   shades: Array<any> = [];

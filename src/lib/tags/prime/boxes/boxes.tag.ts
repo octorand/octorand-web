@@ -3,11 +3,11 @@ import { ColorHelper } from '@lib/helpers';
 import { PrimeModel } from '@lib/models';
 
 @Component({
-  selector: 'lib-tags-gen1-boxes',
+  selector: 'lib-tags-prime-boxes',
   templateUrl: './boxes.tag.html',
   styleUrls: ['./boxes.tag.scss'],
 })
-export class GenOneBoxesTag implements OnInit, OnChanges {
+export class PrimeBoxesTag implements OnInit, OnChanges {
 
   /**
    * List of name boxes

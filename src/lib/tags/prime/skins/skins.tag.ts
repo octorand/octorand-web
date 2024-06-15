@@ -2,11 +2,11 @@ import { Component, Input } from '@angular/core';
 import { PrimeModel } from '@lib/models';
 
 @Component({
-  selector: 'lib-tags-gen2-owner',
-  templateUrl: './owner.tag.html',
-  styleUrls: ['./owner.tag.scss'],
+  selector: 'lib-tags-prime-skins',
+  templateUrl: './skins.tag.html',
+  styleUrls: ['./skins.tag.scss'],
 })
-export class GenTwoOwnerTag {
+export class PrimeSkinsTag {
 
   /**
   * The prime parameters

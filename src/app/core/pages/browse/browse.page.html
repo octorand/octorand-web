@@ -63,40 +63,20 @@
                             (onPageChange)="changePage($event)">
                         </lib-tags-pager>
                     </div>
-                    <div *ngIf="selectedGen == 1" class="cards">
+                    <div class="cards">
                         <div class="card m-0 pt-0 h-full" *ngFor="let prime of currentPageResults">
-                            <lib-tags-gen1-skins [prime]="prime"></lib-tags-gen1-skins>
-                            <lib-tags-gen1-boxes [prime]="prime"></lib-tags-gen1-boxes>
-                            <lib-tags-gen1-owner [prime]="prime"></lib-tags-gen1-owner>
-                            <lib-tags-gen1-info [prime]="prime"></lib-tags-gen1-info>
-                            <lib-tags-gen1-badges [prime]="prime"></lib-tags-gen1-badges>
+                            <lib-tags-prime-skins [prime]="prime"></lib-tags-prime-skins>
+                            <lib-tags-prime-boxes [prime]="prime"></lib-tags-prime-boxes>
+                            <lib-tags-prime-owner [prime]="prime"></lib-tags-prime-owner>
+                            <lib-tags-prime-info [prime]="prime"></lib-tags-prime-info>
+                            <lib-tags-prime-badges [prime]="prime"></lib-tags-prime-badges>
                             <div class="btn-group mt-20 btn-block" role="group">
                                 <button class="btn btn-danger btn-block" type="button"
-                                    (click)="navigateToPage('prime/gen1/{{prime.id}}')">
+                                    (click)="navigateToPage('prime/gen{{prime.gen}}/{{prime.id}}')">
                                     View
                                 </button>
                                 <button class="btn btn-danger btn-square" type="button">
-                                    <a class="text-white" href="prime/gen1/{{prime.id}}" target="_blank">
-                                        <i class="fas fa-external-link-alt"></i>
-                                    </a>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div *ngIf="selectedGen == 2" class="cards">
-                        <div class="card m-0 pt-0 h-full" *ngFor="let prime of currentPageResults">
-                            <lib-tags-gen2-skins [prime]="prime"></lib-tags-gen2-skins>
-                            <lib-tags-gen2-boxes [prime]="prime"></lib-tags-gen2-boxes>
-                            <lib-tags-gen2-owner [prime]="prime"></lib-tags-gen2-owner>
-                            <lib-tags-gen2-info [prime]="prime"></lib-tags-gen2-info>
-                            <lib-tags-gen2-badges [prime]="prime"></lib-tags-gen2-badges>
-                            <div class="btn-group mt-20 btn-block" role="group">
-                                <button class="btn btn-danger btn-block" type="button"
-                                    (click)="navigateToPage('prime/gen2/{{prime.id}}')">
-                                    View
-                                </button>
-                                <button class="btn btn-danger btn-square" type="button">
-                                    <a class="text-white" href="prime/gen2/{{prime.id}}" target="_blank">
+                                    <a class="text-white" href="prime/gen{{prime.gen}}/{{prime.id}}" target="_blank">
                                         <i class="fas fa-external-link-alt"></i>
                                     </a>
                                 </button>
