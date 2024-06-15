@@ -1,5 +1,6 @@
 ﻿export * from './app.helper';
 export * from './asset.helper';
+export * from './badge.helper';
 export * from './chain.helper';
 export * from './color.helper';
 export * from './data.helper';
