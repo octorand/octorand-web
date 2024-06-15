@@ -1,15 +1,27 @@
 <div class="mt-15">
     <div class="row">
-        <div *ngFor="let badge of badgesOne" class="col p-0">
-            <div class="square" [ngStyle]="{'background': badge.background, 'color': badge.color}">
+        <div *ngFor="let badge of badgesOne" class="col p-0 dropdown dropup with-arrow">
+            <div data-toggle="dropdown" id="popover-toggle" aria-haspopup="true" aria-expanded="false" class="square"
+                [ngClass]="{'bg-primary text-white': badge.active, 'bg-dark-light text-muted': !badge.active}">
                 <i class="{{badge.icon}}"></i>
+            </div>
+            <div class="dropdown-menu dropdown-menu-center" aria-labelledby="popover-toggle">
+                <div class="dropdown-item" [ngClass]="{'text-primary': badge.active}">
+                    <i class="mr-10 {{badge.icon}}"></i>{{badge.name}}
+                </div>
             </div>
         </div>
     </div>
     <div class="row">
-        <div *ngFor="let badge of badgesTwo" class="col p-0">
-            <div class="square" [ngStyle]="{'background': badge.background, 'color': badge.color}">
+        <div *ngFor="let badge of badgesTwo" class="col p-0 dropdown dropup with-arrow">
+            <div data-toggle="dropdown" id="popover-toggle" aria-haspopup="true" aria-expanded="false" class="square"
+                [ngClass]="{'bg-primary text-white': badge.active, 'bg-dark-light text-muted': !badge.active}">
                 <i class="{{badge.icon}}"></i>
+            </div>
+            <div class="dropdown-menu dropdown-menu-center" aria-labelledby="popover-toggle">
+                <div class="dropdown-item" [ngClass]="{'text-primary': badge.active}">
+                    <i class="mr-10 {{badge.icon}}"></i>{{badge.name}}
+                </div>
             </div>
         </div>
     </div>
