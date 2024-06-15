@@ -62,21 +62,38 @@ export class GenTwoBadgesTag implements OnInit, OnChanges {
 
     this.badgesOne = [];
     for (let i = 0; i < 10; i++) {
+      let alignment = 'center';
+      if (i % 10 < 3) {
+        alignment = 'left';
+      } else if (i % 10 > 6) {
+        alignment = 'right';
+      }
+
       this.badgesOne.push({
         id: badges[i].id,
         name: badges[i].name,
         icon: badges[i].icon,
-        active: this.prime.badges.includes(badges[i].name)
+        active: this.prime.badges.includes(badges[i].name),
+        alignment: alignment
       });
     }
 
     this.badgesTwo = [];
     for (let i = 10; i < 20; i++) {
+      let alignment = 'center';
+      if (i % 10 < 3) {
+        alignment = 'left';
+      } else if (i % 10 > 6) {
+        alignment = 'right';
+      }
+
       this.badgesTwo.push({
+        key: i,
         id: badges[i].id,
         name: badges[i].name,
         icon: badges[i].icon,
-        active: this.prime.badges.includes(badges[i].name)
+        active: this.prime.badges.includes(badges[i].name),
+        alignment: alignment
       });
     }
   }

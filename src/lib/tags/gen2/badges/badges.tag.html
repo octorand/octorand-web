@@ -5,8 +5,8 @@
                 [ngClass]="{'bg-primary text-white': badge.active, 'bg-dark-light text-muted': !badge.active}">
                 <i class="{{badge.icon}}"></i>
             </div>
-            <div class="dropdown-menu dropdown-menu-center" aria-labelledby="popover-toggle">
-                <div class="dropdown-item" [ngClass]="{'text-primary': badge.active}">
+            <div class="dropdown-menu dropdown-menu-{{badge.alignment}}" aria-labelledby="popover-toggle">
+                <div class="dropdown-item" [ngClass]="{'text-primary': badge.active, 'text-muted': !badge.active}">
                     <i class="mr-10 {{badge.icon}}"></i>{{badge.name}}
                 </div>
             </div>
@@ -18,8 +18,8 @@
                 [ngClass]="{'bg-primary text-white': badge.active, 'bg-dark-light text-muted': !badge.active}">
                 <i class="{{badge.icon}}"></i>
             </div>
-            <div class="dropdown-menu dropdown-menu-center" aria-labelledby="popover-toggle">
-                <div class="dropdown-item" [ngClass]="{'text-primary': badge.active}">
+            <div class="dropdown-menu dropdown-menu-{{badge.alignment}}" aria-labelledby="popover-toggle">
+                <div class="dropdown-item" [ngClass]="{'text-primary': badge.active, 'text-muted': !badge.active}">
                     <i class="mr-10 {{badge.icon}}"></i>{{badge.name}}
                 </div>
             </div>
