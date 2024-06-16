@@ -23,6 +23,10 @@ const routes: Routes = [
         path: 'market',
         component: Pages.CoreMarketPage
       },
+      {
+        path: 'account',
+        component: Pages.CoreAccountPage
+      },
     ]
   }
 ];
@@ -33,6 +37,7 @@ const routes: Routes = [
     Pages.CoreHomePage,
     Pages.CoreBrowsePage,
     Pages.CoreMarketPage,
+    Pages.CoreAccountPage,
   ],
   imports: [
     CommonModule,

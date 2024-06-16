@@ -12,6 +12,9 @@ export class StoreHelper {
     constructor() {
         this.state = {
             initialised: false,
+            account_gen: 1,
+            account_sort: 'Id',
+            account_badges: [],
             browse_gen: 1,
             browse_sort: 'Id',
             browse_badges: [],
@@ -28,6 +31,33 @@ export class StoreHelper {
      */
     getDefaultState(): StoreModel {
         return this.state;
+    }
+
+    /**
+     * Set currently selected account generation
+     *
+     * @param gen
+     */
+    setAccountGen(gen: number) {
+        this.state.account_gen = gen;
+    }
+
+    /**
+     * Set currently selected account sort
+     *
+     * @param sort
+     */
+    setAccountSort(sort: string) {
+        this.state.account_sort = sort;
+    }
+
+    /**
+     * Set currently selected account badges
+     *
+     * @param badges
+     */
+    setAccountBadges(badges: Array<string>) {
+        this.state.account_badges = badges;
     }
 
     /**
