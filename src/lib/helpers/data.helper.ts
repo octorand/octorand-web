@@ -1,4 +1,4 @@
-﻿import { Injectable } from '@angular/core';
+﻿import { Injectable, OnDestroy } from '@angular/core';
 import { DataModel, PrimeModel } from '@lib/models';
 import { ChainHelper } from './chain.helper';
 import { WordHelper } from './word.helper';
@@ -8,11 +8,16 @@ import { environment } from '@environment';
 declare var algosdk: any;
 
 @Injectable({ providedIn: 'root' })
-export class DataHelper {
+export class DataHelper implements OnDestroy {
 
     data: Subject<any>;
 
     state: DataModel;
+
+    /**
+   * Track prime details loading task
+   */
+    primeDetailsLoadTask: any = null;
 
     /**
      * Construct component
@@ -33,6 +38,15 @@ export class DataHelper {
         };
 
         this.state.initialised = true;
+
+        this.initTasks();
+    }
+
+    /**
+     * Destroy component
+     */
+    ngOnDestroy() {
+        clearInterval(this.primeDetailsLoadTask);
     }
 
     /**
@@ -43,9 +57,17 @@ export class DataHelper {
     }
 
     /**
+     * Initialize tasks
+     */
+    initTasks() {
+        this.loadPrimeDetails();
+        this.primeDetailsLoadTask = setInterval(() => { this.loadPrimeDetails() }, 30000);
+    }
+
+    /**
      * Load primes
      */
-    loadPrimes() {
+    loadPrimeDetails() {
         let promises = [
             this.chainHelper.lookupAccountCreatedApplications(environment.gen1.manager_address),
             this.chainHelper.lookupAccountCreatedApplications(environment.gen2.manager_address),

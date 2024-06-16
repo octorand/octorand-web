@@ -32,11 +32,6 @@ export class CoreHomePage implements OnInit, OnDestroy {
   dataSubscription: Subscription = new Subscription();
 
   /**
-   * Track prime details loading task
-   */
-  primeDetailsLoadTask: any = null;
-
-  /**
    * Construct component
    *
    * @param router
@@ -55,7 +50,6 @@ export class CoreHomePage implements OnInit, OnDestroy {
   ngOnInit() {
     this.initApp();
     this.initData();
-    this.initTasks();
   }
 
   /**
@@ -64,7 +58,6 @@ export class CoreHomePage implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.appSubscription.unsubscribe();
     this.dataSubscription.unsubscribe();
-    clearInterval(this.primeDetailsLoadTask);
   }
 
   /**
@@ -85,21 +78,6 @@ export class CoreHomePage implements OnInit, OnDestroy {
     this.dataSubscription = this.dataHelper.data.subscribe((value: DataModel) => {
       this.data = value;
     });
-  }
-
-  /**
-   * Initialize tasks
-   */
-  initTasks() {
-    this.loadPrimeDetails();
-    this.primeDetailsLoadTask = setInterval(() => { this.loadPrimeDetails() }, 30000);
-  }
-
-  /**
-   * Load prime details
-   */
-  loadPrimeDetails() {
-    this.dataHelper.loadPrimes();
   }
 
   /**

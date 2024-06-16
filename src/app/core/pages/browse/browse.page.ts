@@ -33,11 +33,6 @@ export class CoreBrowsePage implements OnInit, OnDestroy {
   dataSubscription: Subscription = new Subscription();
 
   /**
-   * Track prime details loading task
-   */
-  primeDetailsLoadTask: any = null;
-
-  /**
    * Current page number
    */
   currentPage: number = 1;
@@ -116,7 +111,6 @@ export class CoreBrowsePage implements OnInit, OnDestroy {
     this.initData();
     this.initStore();
     this.initBadges();
-    this.initTasks();
     this.refreshView();
   }
 
@@ -126,7 +120,6 @@ export class CoreBrowsePage implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.appSubscription.unsubscribe();
     this.dataSubscription.unsubscribe();
-    clearInterval(this.primeDetailsLoadTask);
   }
 
   /**
@@ -165,21 +158,6 @@ export class CoreBrowsePage implements OnInit, OnDestroy {
    */
   initBadges() {
     this.badges = this.badgeHelper.list();
-  }
-
-  /**
-   * Initialize tasks
-   */
-  initTasks() {
-    this.loadPrimeDetails();
-    this.primeDetailsLoadTask = setInterval(() => { this.loadPrimeDetails() }, 30000);
-  }
-
-  /**
-   * Load prime details
-   */
-  loadPrimeDetails() {
-    this.dataHelper.loadPrimes();
   }
 
   /**
