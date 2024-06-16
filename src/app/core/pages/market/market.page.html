@@ -55,9 +55,9 @@
                 </div>
             </div>
         </div>
-        <div class="row align-items-center">
+        <div class="row align-items-center" *ngIf="ready">
             <div class="col">
-                <div class="mx-auto text-center">
+                <div class="mx-auto text-center" *ngIf="currentPageResults.length > 0">
                     <div class="my-20">
                         <lib-tags-pager [totalPages]="pagesCount" [currentPage]="currentPage"
                             (onPageChange)="changePage($event)">
@@ -87,6 +87,11 @@
                         <lib-tags-pager [totalPages]="pagesCount" [currentPage]="currentPage"
                             (onPageChange)="changePage($event)">
                         </lib-tags-pager>
+                    </div>
+                </div>
+                <div class="mx-auto text-center" *ngIf="currentPageResults.length == 0">
+                    <div class="alert alert-secondary description mt-20 mx-auto" role="alert">
+                        There aren't any primes available in the market that matches your selection criteria
                     </div>
                 </div>
             </div>

@@ -58,6 +58,11 @@ export class CoreBrowsePage implements OnInit, OnDestroy {
   currentPageResults: Array<PrimeModel> = [];
 
   /**
+   * Whether the page is ready to be rendered
+   */
+  ready: boolean = false;
+
+  /**
    * Sort generation
    */
   selectedGen: number = 1;
@@ -164,7 +169,7 @@ export class CoreBrowsePage implements OnInit, OnDestroy {
    * Refresh view state
    */
   refreshView() {
-    if (this.data) {
+    if (this.data && this.data.initialised) {
       let allResults = [];
       if (this.selectedGen == 1) {
         allResults = this.data.gen_one_primes;
@@ -198,6 +203,7 @@ export class CoreBrowsePage implements OnInit, OnDestroy {
       this.totalResults = totalResults;
       this.pagesCount = pagesCount;
       this.currentPageResults = currentPageResults;
+      this.ready = true;
     }
   }
 

@@ -37,8 +37,6 @@ export class DataHelper implements OnDestroy {
             gen_two_primes: [],
         };
 
-        this.state.initialised = true;
-
         this.initTasks();
     }
 
@@ -96,6 +94,7 @@ export class DataHelper implements OnDestroy {
 
             this.state.gen_one_primes = genOnePrimes;
             this.state.gen_two_primes = genTwoPrimes;
+            this.state.initialised = true;
 
             this.data.next({ ...this.state });
         });
