@@ -72,8 +72,8 @@ export class PrimeSkinsGenTwoArmsTag implements OnInit, OnChanges {
    */
   calculateLineParams() {
     this.lines = [];
-    for (let i = 0; i < 8; i++) {
-      let angle = (i + 1) * 360 / 8;
+    for (let i = 0; i < this.prime.name.length; i++) {
+      let angle = (i + 1) * 360 / this.prime.name.length;
       let slope = angle * Math.PI / 180;
       let radius = 60 + (25 * 5);
 
@@ -99,8 +99,8 @@ export class PrimeSkinsGenTwoArmsTag implements OnInit, OnChanges {
     }
 
     this.arms = [];
-    for (let i = 0; i < 8; i++) {
-      let angle = (i + 1) * 360 / params.length;
+    for (let i = 0; i < this.prime.name.length; i++) {
+      let angle = (i + 1) * 360 / this.prime.name.length;
       let slope = angle * Math.PI / 180;
       let radius = 60 + params[i] * 5;
 
@@ -126,7 +126,7 @@ export class PrimeSkinsGenTwoArmsTag implements OnInit, OnChanges {
     for (let j = 0; j < this.prime.name.length; j++) {
       value = value + alphabet.indexOf(this.prime.name.charAt(j));
     }
-    value = Math.floor(value / 8);
+    value = Math.floor(value / this.prime.name.length);
 
     this.shades = this.colorHelper.findShades(this.prime.theme);
     this.traitColor = this.colorHelper.findColor(value);
