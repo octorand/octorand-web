@@ -15,6 +15,9 @@ export class StoreHelper {
             browse_gen: 1,
             browse_sort: 'Id',
             browse_badges: [],
+            market_gen: 1,
+            market_sort: 'Id',
+            market_badges: [],
         };
 
         this.state.initialised = true;
@@ -52,5 +55,32 @@ export class StoreHelper {
      */
     setBrowseBadges(badges: Array<string>) {
         this.state.browse_badges = badges;
+    }
+
+    /**
+     * Set currently selected market generation
+     *
+     * @param gen
+     */
+    setMarketGen(gen: number) {
+        this.state.market_gen = gen;
+    }
+
+    /**
+     * Set currently selected market sort
+     *
+     * @param sort
+     */
+    setMarketSort(sort: string) {
+        this.state.market_sort = sort;
+    }
+
+    /**
+     * Set currently selected market badges
+     *
+     * @param badges
+     */
+    setMarketBadges(badges: Array<string>) {
+        this.state.market_badges = badges;
     }
 }

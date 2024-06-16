@@ -19,6 +19,10 @@ const routes: Routes = [
         path: 'browse',
         component: Pages.CoreBrowsePage
       },
+      {
+        path: 'market',
+        component: Pages.CoreMarketPage
+      },
     ]
   }
 ];
@@ -28,6 +32,7 @@ const routes: Routes = [
     CoreContainer,
     Pages.CoreHomePage,
     Pages.CoreBrowsePage,
+    Pages.CoreMarketPage,
   ],
   imports: [
     CommonModule,
