@@ -179,7 +179,7 @@ export class CoreAccountPage implements OnInit, OnDestroy {
           allResults = this.data.gen_two_primes;
         }
 
-        let assets = this.app.assets.filter(a => a.amount > 0);
+        let assets = this.app.assets.filter(a => a.amount > 0).map(a => a.id);
         allResults = allResults.filter(x => assets.includes(x.legacy_asset_id) || assets.includes(x.prime_asset_id));
 
         if (this.selectedBadges.length > 0) {
