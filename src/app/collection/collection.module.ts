@@ -27,6 +27,10 @@ const routes: Routes = [
         path: 'account',
         component: Pages.CollectionAccountPage
       },
+      {
+        path: 'prime/:gen/:id',
+        component: Pages.CollectionPrimePage
+      },
     ]
   }
 ];
@@ -38,6 +42,7 @@ const routes: Routes = [
     Pages.CollectionBrowsePage,
     Pages.CollectionMarketPage,
     Pages.CollectionAccountPage,
+    Pages.CollectionPrimePage,
   ],
   imports: [
     CommonModule,

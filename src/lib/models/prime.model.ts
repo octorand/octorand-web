@@ -30,4 +30,5 @@ export class PrimeModel {
     gen: number = 0;
     parent: any = null;
     children: Array<any> = [];
+    url: string = '';
 }

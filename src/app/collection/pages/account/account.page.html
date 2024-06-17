@@ -72,11 +72,11 @@
                             <lib-tags-prime-badges [prime]="prime"></lib-tags-prime-badges>
                             <div class="btn-group mt-20 btn-block" role="group">
                                 <button class="btn btn-danger btn-block" type="button"
-                                    (click)="navigateToPage('prime/gen{{prime.gen}}/{{prime.id}}')">
-                                    View
+                                    (click)="navigateToPage(prime.url)">
+                                    Manage
                                 </button>
                                 <button class="btn btn-danger btn-square" type="button">
-                                    <a class="text-white" href="prime/gen{{prime.gen}}/{{prime.id}}" target="_blank">
+                                    <a class="text-white" href="{{prime.url}}" target="_blank">
                                         <i class="fas fa-external-link-alt"></i>
                                     </a>
                                 </button>
