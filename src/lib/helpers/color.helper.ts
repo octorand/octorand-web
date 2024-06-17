@@ -6,7 +6,7 @@ export class ColorHelper {
     /**
      * List of alphabet colors
      */
-    colors = [
+    private colors = [
         '#EC4899',
         '#059669',
         '#EAB308',
@@ -38,7 +38,7 @@ export class ColorHelper {
     /**
      * List of color shades
      */
-    shades = [
+    private shades = [
         {
             id: 0,
             name: 'Red',

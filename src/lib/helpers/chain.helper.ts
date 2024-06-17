@@ -9,8 +9,19 @@ declare var algosdk: any;
 @Injectable({ providedIn: 'root' })
 export class ChainHelper {
 
+    /**
+     * Algorand api client
+     */
     private baseClient: any;
+
+    /**
+     * Algorand execution client
+     */
     private algodClient: any;
+
+    /**
+     * Algorand indexer client
+     */
     private indexerClient: any;
 
     /**

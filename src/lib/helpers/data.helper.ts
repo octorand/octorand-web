@@ -10,14 +10,20 @@ declare var algosdk: any;
 @Injectable({ providedIn: 'root' })
 export class DataHelper implements OnDestroy {
 
+    /**
+     * Observable subject
+     */
     data: Subject<any>;
 
-    state: DataModel;
+    /**
+     * State of model
+     */
+    private state: DataModel;
 
     /**
-   * Track prime details loading task
-   */
-    primeDetailsLoadTask: any = null;
+     * Track prime details loading task
+     */
+    private primeDetailsLoadTask: any = null;
 
     /**
      * Construct component

@@ -6,10 +6,20 @@ import * as moment from 'moment';
 @Injectable({ providedIn: 'root' })
 export class IdentityHelper {
 
-    lookupUrl = 'https://api.nf.domains/nfd/lookup?address=';
+    /**
+     * Name service lookup url
+     */
+    private lookupUrl = 'https://api.nf.domains/nfd/lookup?address=';
 
-    key: string = 'identities-1';
-    values: Array<any> = [];
+    /**
+     * Local storage key
+     */
+    private key: string = 'identities-1';
+
+    /**
+     * List of saved identities
+     */
+    private values: Array<any> = [];
 
     /**
      * Construct component

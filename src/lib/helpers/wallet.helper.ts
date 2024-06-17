@@ -4,7 +4,10 @@ import { environment } from '@environment';
 @Injectable({ providedIn: 'root' })
 export class WalletHelper {
 
-    wallets = [
+    /**
+     * List of wallets
+     */
+    private wallets = [
         {
             id: 'exodus',
             name: 'Exodus',

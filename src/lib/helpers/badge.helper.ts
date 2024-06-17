@@ -3,7 +3,10 @@
 @Injectable({ providedIn: 'root' })
 export class BadgeHelper {
 
-    badges = [
+    /**
+     * List of badges
+     */
+    private badges = [
         {
             id: 'artifact',
             name: 'Artifact',

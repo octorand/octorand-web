@@ -4,8 +4,15 @@ import { ChainHelper } from './chain.helper';
 @Injectable({ providedIn: 'root' })
 export class AssetHelper {
 
-    key: string = 'assets-1';
-    values: Array<any> = [];
+    /**
+     * Local storage key
+     */
+    private key: string = 'assets-1';
+
+    /**
+     * Saved asset values
+     */
+    private values: Array<any> = [];
 
     /**
      * Construct component

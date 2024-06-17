@@ -1,20 +1,36 @@
-﻿import { Injectable } from '@angular/core';
+﻿import { Injectable, OnDestroy } from '@angular/core';
 import { AppModel } from '../models/app.model';
+import { ChainHelper } from './chain.helper';
 import { Subject } from 'rxjs';
 
 declare var halfmoon: any;
 
 @Injectable({ providedIn: 'root' })
-export class AppHelper {
+export class AppHelper implements OnDestroy {
 
+    /**
+     * Observable subject
+     */
     app: Subject<any>;
 
-    state: AppModel;
+    /**
+     * State of model
+     */
+    private state: AppModel;
+
+    /**
+     * Track account details loading task
+     */
+    private accountDetailsLoadTask: any = null;
 
     /**
      * Construct component
+     *
+     * @param chainHelper
      */
-    constructor() {
+    constructor(
+        private chainHelper: ChainHelper
+    ) {
         this.app = new Subject<any>();
 
         this.state = {
@@ -22,10 +38,52 @@ export class AppHelper {
             account: null,
             wallet: null,
             addresses: [],
+            assets: [],
         };
 
         this.initCurrentUser();
-        this.state.initialised = true;
+        this.initTasks();
+    }
+
+    /**
+     * Destroy component
+     */
+    ngOnDestroy() {
+        clearInterval(this.accountDetailsLoadTask);
+    }
+
+    /**
+     * Get default state
+     */
+    getDefaultState(): AppModel {
+        return this.state;
+    }
+
+    /**
+     * Initialize tasks
+     */
+    initTasks() {
+        this.loadAccountDetails();
+        this.accountDetailsLoadTask = setInterval(() => { this.loadAccountDetails() }, 30000);
+    }
+
+    /**
+     * Load account
+     */
+    loadAccountDetails() {
+        if (this.state.account) {
+            let promises = [
+                this.chainHelper.lookupAccount(this.state.account),
+            ];
+
+            Promise.all(promises).then(values => {
+                console.log(values);
+
+                this.app.next({ ...this.state });
+            });
+        } else {
+
+        }
     }
 
     /**
@@ -73,13 +131,6 @@ export class AppHelper {
      */
     getWallet(): string | null {
         return this.state.wallet;
-    }
-
-    /**
-     * Get default state
-     */
-    getDefaultState(): AppModel {
-        return this.state;
     }
 
     /**
@@ -134,6 +185,8 @@ export class AppHelper {
         } else {
             this.state.addresses = [];
         }
+
+        this.state.initialised = true;
 
         this.app.next({ ...this.state });
     }

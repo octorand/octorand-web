@@ -7,22 +7,22 @@ export class WordHelper {
     /**
      * List of cultures
      */
-    cultures: Array<string> = [];
+    private cultures: Array<string> = [];
 
     /**
      * List of fictions
      */
-    fictions: Array<string> = [];
+    private fictions: Array<string> = [];
 
     /**
      * List of phrases
      */
-    phrases: Array<string> = [];
+    private phrases: Array<string> = [];
 
     /**
      * List of dictionary words
      */
-    smiths: Array<any> = [];
+    private smiths: Array<any> = [];
 
     /**
      * Construct component

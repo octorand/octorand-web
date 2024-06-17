@@ -4,6 +4,9 @@ import { StoreModel } from '@lib/models';
 @Injectable({ providedIn: 'root' })
 export class StoreHelper {
 
+    /**
+     * State of model
+     */
     state: StoreModel;
 
     /**

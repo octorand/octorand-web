@@ -3,7 +3,10 @@
 @Injectable({ providedIn: 'root' })
 export class SidebarHelper {
 
-    sidebar = [
+    /**
+     * Sidebar configuration
+     */
+    private sidebar = [
         {
             id: 'collection',
             name: 'Collection',

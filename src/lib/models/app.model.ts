@@ -4,4 +4,5 @@ export class AppModel {
     account: string | null = null;
     wallet: string | null = null;
     addresses: Array<string> = [];
+    assets: Array<any> = [];
 }

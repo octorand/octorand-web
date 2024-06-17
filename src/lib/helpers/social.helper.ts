@@ -3,7 +3,10 @@
 @Injectable({ providedIn: 'root' })
 export class SocialHelper {
 
-    socials = [
+    /**
+     * List of socials
+     */
+    private socials = [
         {
             id: 'discord',
             name: 'Discord',
