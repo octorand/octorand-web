@@ -22,5 +22,13 @@
                 </div>
             </div>
         </div>
+        <div class="row align-items-center">
+            <div class="col">
+                <app-collection-prime-overview *ngIf="selectedFeature == 'Overview'" [app]="app" [prime]="prime">
+                </app-collection-prime-overview>
+                <app-collection-prime-listing *ngIf="selectedFeature == 'Listing'" [app]="app" [prime]="prime">
+                </app-collection-prime-listing>
+            </div>
+        </div>
     </div>
 </div>
