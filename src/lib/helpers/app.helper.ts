@@ -92,7 +92,8 @@ export class AppHelper implements OnDestroy {
                 this.app.next({ ...this.state });
             });
         } else {
-
+            this.state.assets = [];
+            this.app.next({ ...this.state });
         }
     }
 
