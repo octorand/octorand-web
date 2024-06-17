@@ -1,7 +1,7 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppHelper, DataHelper } from '@lib/helpers';
-import { AppModel, DataModel } from '@lib/models';
+import { AppModel, DataModel, PrimeModel } from '@lib/models';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -32,19 +32,27 @@ export class CollectionPrimePage implements OnInit, OnDestroy {
   dataSubscription: Subscription = new Subscription();
 
   /**
-   * Prime generation
+   * Prime details
    */
-  @Input() primeGen: string = '';
-
-  /**
-   * Prime id
-   */
-  @Input() primeId: string = '';
+  prime: PrimeModel = new PrimeModel();
 
   /**
    * Whether the page is ready to be rendered
    */
   ready: boolean = false;
+
+  /**
+   * Selected feature
+   */
+  selectedFeature: string = 'Overview';
+
+  /**
+   * Keys for features
+   */
+  features: Array<string> = [
+    'Overview',
+    'Listing',
+  ];
 
   /**
    * Construct component
@@ -67,7 +75,6 @@ export class CollectionPrimePage implements OnInit, OnDestroy {
   ngOnInit() {
     this.initApp();
     this.initData();
-    this.initParams();
     this.refreshView();
   }
 
@@ -102,20 +109,38 @@ export class CollectionPrimePage implements OnInit, OnDestroy {
   }
 
   /**
-   * Initialize params
-   */
-  initParams() {
-    this.primeGen = String(this.activatedRoute.snapshot.params['gen']).toUpperCase();
-    this.primeId = this.activatedRoute.snapshot.params['id'];
-  }
-
-  /**
    * Refresh view state
    */
   refreshView() {
     if (this.data && this.data.initialised) {
-      this.ready = true;
+      let gen = Number(this.activatedRoute.snapshot.params['gen'].replace(/\D/g, ''));
+      let id = Number(this.activatedRoute.snapshot.params['id']);
+
+      if (gen == 1) {
+        let prime = this.data.gen_one_primes.find(p => p.id == id);
+        if (prime) {
+          this.prime = prime;
+        }
+      } else {
+        let prime = this.data.gen_two_primes.find(p => p.id == id);
+        if (prime) {
+          this.prime = prime;
+        }
+      }
+
+      if (this.prime) {
+        this.ready = true;
+      }
     }
+  }
+
+  /**
+   * When feature is changed
+   *
+   * @param feature
+   */
+  changeFeature(feature: string) {
+    this.selectedFeature = feature;
   }
 
   /**

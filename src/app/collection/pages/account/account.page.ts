@@ -63,12 +63,12 @@ export class CollectionAccountPage implements OnInit, OnDestroy {
   ready: boolean = false;
 
   /**
-   * Sort generation
+   * Selected generation
    */
   selectedGen: number = 1;
 
   /**
-   * Sort sort
+   * Selected sort
    */
   selectedSort: string = 'Id';
 
