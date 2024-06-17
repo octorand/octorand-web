@@ -134,6 +134,7 @@ export class CoreBrowsePage implements OnInit, OnDestroy {
     this.app = this.appHelper.getDefaultState();
     this.appSubscription = this.appHelper.app.subscribe((value: AppModel) => {
       this.app = value;
+      this.refreshView();
     });
   }
 

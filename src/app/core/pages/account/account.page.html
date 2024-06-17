@@ -90,8 +90,11 @@
                     </div>
                 </div>
                 <div class="mx-auto text-center" *ngIf="currentPageResults.length == 0">
-                    <div class="alert alert-secondary description mt-20 mx-auto" role="alert">
-                        There aren't any primes owned by you that matches your selection criteria
+                    <div *ngIf="app.account" class="alert alert-secondary description mt-20 mx-auto" role="alert">
+                        There aren't any primes owned by you that matches the selection criteria
+                    </div>
+                    <div *ngIf="!app.account" class="alert alert-secondary description mt-20 mx-auto" role="alert">
+                        Connect your wallet to see your primes here
                     </div>
                 </div>
             </div>

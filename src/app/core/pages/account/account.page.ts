@@ -134,6 +134,7 @@ export class CoreAccountPage implements OnInit, OnDestroy {
     this.app = this.appHelper.getDefaultState();
     this.appSubscription = this.appHelper.app.subscribe((value: AppModel) => {
       this.app = value;
+      this.refreshView();
     });
   }
 
@@ -170,39 +171,46 @@ export class CoreAccountPage implements OnInit, OnDestroy {
    */
   refreshView() {
     if (this.data && this.data.initialised) {
-      let allResults = [];
-      if (this.selectedGen == 1) {
-        allResults = this.data.gen_one_primes;
+      if (this.app.account) {
+        let allResults = [];
+        if (this.selectedGen == 1) {
+          allResults = this.data.gen_one_primes;
+        } else {
+          allResults = this.data.gen_two_primes;
+        }
+
+        if (this.selectedBadges.length > 0) {
+          allResults = allResults.filter(x => this.selectedBadges.every(b => x.badges.includes(b)))
+        }
+
+        switch (this.selectedSort) {
+          case 'Id':
+            allResults.sort((first, second) => first.id - second.id);
+            break;
+          case 'Name':
+            allResults.sort((first, second) => first.name.localeCompare(second.name));
+            break;
+          case 'Rank':
+            allResults.sort((first, second) => first.rank - second.rank);
+            break;
+        }
+
+        let totalResults = allResults.length;
+        let pagesCount = Math.ceil(totalResults / this.resultsPerPage);
+
+        let start = this.resultsPerPage * (this.currentPage - 1);
+        let end = start + this.resultsPerPage;
+        let currentPageResults = allResults.slice(start, end);
+
+        this.totalResults = totalResults;
+        this.pagesCount = pagesCount;
+        this.currentPageResults = currentPageResults;
       } else {
-        allResults = this.data.gen_two_primes;
+        this.totalResults = 0;
+        this.pagesCount = 0;
+        this.currentPageResults = [];
       }
 
-      if (this.selectedBadges.length > 0) {
-        allResults = allResults.filter(x => this.selectedBadges.every(b => x.badges.includes(b)))
-      }
-
-      switch (this.selectedSort) {
-        case 'Id':
-          allResults.sort((first, second) => first.id - second.id);
-          break;
-        case 'Name':
-          allResults.sort((first, second) => first.name.localeCompare(second.name));
-          break;
-        case 'Rank':
-          allResults.sort((first, second) => first.rank - second.rank);
-          break;
-      }
-
-      let totalResults = allResults.length;
-      let pagesCount = Math.ceil(totalResults / this.resultsPerPage);
-
-      let start = this.resultsPerPage * (this.currentPage - 1);
-      let end = start + this.resultsPerPage;
-      let currentPageResults = allResults.slice(start, end);
-
-      this.totalResults = totalResults;
-      this.pagesCount = pagesCount;
-      this.currentPageResults = currentPageResults;
       this.ready = true;
     }
   }
