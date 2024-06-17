@@ -1,5 +1,5 @@
 ﻿import { Injectable } from '@angular/core';
-import { ChainHelper } from './chain.helper';
+import { IndexerHelper } from './indexer.helper';
 
 @Injectable({ providedIn: 'root' })
 export class AssetHelper {
@@ -17,9 +17,11 @@ export class AssetHelper {
     /**
      * Construct component
      *
-     * @param chainHelper
+     * @param indexerHelper
      */
-    constructor(private chainHelper: ChainHelper) {
+    constructor(
+        private indexerHelper: IndexerHelper
+    ) {
         this.initData();
     }
 
@@ -32,7 +34,7 @@ export class AssetHelper {
         let asset = this.values.find(value => value.id == id);
 
         if (!asset) {
-            this.chainHelper.lookupAsset(id).then((asset) => {
+            this.indexerHelper.lookupAsset(id).then((asset) => {
                 this.values.push({
                     id: id,
                     unit: asset['params']['unit-name'],

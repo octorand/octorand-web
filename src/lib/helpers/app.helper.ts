@@ -1,6 +1,6 @@
 ﻿import { Injectable, OnDestroy } from '@angular/core';
 import { AppModel } from '../models/app.model';
-import { ChainHelper } from './chain.helper';
+import { IndexerHelper } from './indexer.helper';
 import { Subject } from 'rxjs';
 
 declare var halfmoon: any;
@@ -26,10 +26,10 @@ export class AppHelper implements OnDestroy {
     /**
      * Construct component
      *
-     * @param chainHelper
+     * @param indexerHelper
      */
     constructor(
-        private chainHelper: ChainHelper
+        private indexerHelper: IndexerHelper
     ) {
         this.app = new Subject<any>();
 
@@ -73,12 +73,22 @@ export class AppHelper implements OnDestroy {
     loadAccountDetails() {
         if (this.state.account) {
             let promises = [
-                this.chainHelper.lookupAccount(this.state.account),
+                this.indexerHelper.lookupAccount(this.state.account),
             ];
 
             Promise.all(promises).then(values => {
-                console.log(values);
+                let account = values[0];
+                let assets = [];
+                if (account['assets']) {
+                    for (let i = 0; i < account['assets'].length; i++) {
+                        assets.push({
+                            id: account['assets'][i]['asset-id'],
+                            amount: account['assets'][i]['amount']
+                        });
+                    }
+                };
 
+                this.state.assets = assets;
                 this.app.next({ ...this.state });
             });
         } else {

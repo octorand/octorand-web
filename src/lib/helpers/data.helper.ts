@@ -1,6 +1,6 @@
 ﻿import { Injectable, OnDestroy } from '@angular/core';
 import { DataModel, PrimeModel } from '@lib/models';
-import { ChainHelper } from './chain.helper';
+import { IndexerHelper } from './indexer.helper';
 import { WordHelper } from './word.helper';
 import { Subject } from 'rxjs';
 import { environment } from '@environment';
@@ -28,11 +28,11 @@ export class DataHelper implements OnDestroy {
     /**
      * Construct component
      *
-     * @param chainHelper
+     * @param indexerHelper
      * @param wordHelper
      */
     constructor(
-        private chainHelper: ChainHelper,
+        private indexerHelper: IndexerHelper,
         private wordHelper: WordHelper
     ) {
         this.data = new Subject<any>();
@@ -73,8 +73,8 @@ export class DataHelper implements OnDestroy {
      */
     loadPrimeDetails() {
         let promises = [
-            this.chainHelper.lookupAccountCreatedApplications(environment.gen1.manager_address),
-            this.chainHelper.lookupAccountCreatedApplications(environment.gen2.manager_address),
+            this.indexerHelper.lookupAccountCreatedApplications(environment.gen1.manager_address),
+            this.indexerHelper.lookupAccountCreatedApplications(environment.gen2.manager_address),
         ];
 
         Promise.all(promises).then(values => {
