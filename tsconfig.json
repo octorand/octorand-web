@@ -52,11 +52,11 @@
       "@lib/words": [
         "./src/lib/words/_index"
       ],
-      "@app/core": [
-        "./src/app/core/core.module.ts"
+      "@app/collection": [
+        "./src/app/collection/collection.module.ts"
       ],
-      "@app/core/pages": [
-        "./src/app/core/pages/_index"
+      "@app/collection/pages": [
+        "./src/app/collection/pages/_index"
       ],
     },
     "useDefineForClassFields": false

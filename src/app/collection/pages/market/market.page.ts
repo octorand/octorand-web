@@ -6,11 +6,11 @@ import { Subscription } from 'rxjs';
 import { environment } from '@environment';
 
 @Component({
-  selector: 'app-core-market',
+  selector: 'app-collection-market',
   templateUrl: './market.page.html',
   styleUrls: ['./market.page.scss'],
 })
-export class CoreMarketPage implements OnInit, OnDestroy {
+export class CollectionMarketPage implements OnInit, OnDestroy {
 
   /**
    * App state

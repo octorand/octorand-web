@@ -6,11 +6,11 @@ import { Subscription } from 'rxjs';
 import { environment } from '@environment';
 
 @Component({
-  selector: 'app-core-account',
+  selector: 'app-collection-account',
   templateUrl: './account.page.html',
   styleUrls: ['./account.page.scss'],
 })
-export class CoreAccountPage implements OnInit, OnDestroy {
+export class CollectionAccountPage implements OnInit, OnDestroy {
 
   /**
    * App state

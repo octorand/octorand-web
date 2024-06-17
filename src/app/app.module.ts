@@ -3,14 +3,14 @@ import { RouterModule, Routes } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgxGoogleAnalyticsModule, NgxGoogleAnalyticsRouterModule } from 'ngx-google-analytics';
 import { LibModule } from '@lib';
-import { CoreModule } from '@app/core';
+import { CollectionModule } from '@app/collection';
 import { AppComponent } from './app.component';
 import { environment } from '@environment';
 
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => CoreModule
+    loadChildren: () => CollectionModule
   },
   {
     path: '**',

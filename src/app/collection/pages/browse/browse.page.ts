@@ -6,11 +6,11 @@ import { Subscription } from 'rxjs';
 import { environment } from '@environment';
 
 @Component({
-  selector: 'app-core-browse',
+  selector: 'app-collection-browse',
   templateUrl: './browse.page.html',
   styleUrls: ['./browse.page.scss'],
 })
-export class CoreBrowsePage implements OnInit, OnDestroy {
+export class CollectionBrowsePage implements OnInit, OnDestroy {
 
   /**
    * App state

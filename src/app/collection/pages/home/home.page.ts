@@ -5,11 +5,11 @@ import { AppModel, DataModel } from '@lib/models';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-core-home',
+  selector: 'app-collection-home',
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
 })
-export class CoreHomePage implements OnInit, OnDestroy {
+export class CollectionHomePage implements OnInit, OnDestroy {
 
   /**
    * App state

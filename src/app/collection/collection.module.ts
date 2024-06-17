@@ -3,29 +3,29 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { LibModule } from '@lib';
-import { CoreContainer } from './core.container';
-import * as Pages from '@app/core/pages';
+import { CollectionContainer } from './collection.container';
+import * as Pages from '@app/collection/pages';
 
 const routes: Routes = [
   {
     path: '',
-    component: CoreContainer,
+    component: CollectionContainer,
     children: [
       {
         path: '',
-        component: Pages.CoreHomePage
+        component: Pages.CollectionHomePage
       },
       {
         path: 'browse',
-        component: Pages.CoreBrowsePage
+        component: Pages.CollectionBrowsePage
       },
       {
         path: 'market',
-        component: Pages.CoreMarketPage
+        component: Pages.CollectionMarketPage
       },
       {
         path: 'account',
-        component: Pages.CoreAccountPage
+        component: Pages.CollectionAccountPage
       },
     ]
   }
@@ -33,11 +33,11 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
-    CoreContainer,
-    Pages.CoreHomePage,
-    Pages.CoreBrowsePage,
-    Pages.CoreMarketPage,
-    Pages.CoreAccountPage,
+    CollectionContainer,
+    Pages.CollectionHomePage,
+    Pages.CollectionBrowsePage,
+    Pages.CollectionMarketPage,
+    Pages.CollectionAccountPage,
   ],
   imports: [
     CommonModule,
@@ -48,4 +48,4 @@ const routes: Routes = [
   providers: [],
   bootstrap: []
 })
-export class CoreModule { }
+export class CollectionModule { }
