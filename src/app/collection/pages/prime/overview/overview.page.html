@@ -1,12 +1,12 @@
 <div class="container-fluid">
     <div class="content" *ngIf="ready">
-        <div class="row align-items-center">
-            <div class="col">
-                <div class="mx-auto text-center">
-                    <h1 class="content-title text-secondary mb-20">
-                        GEN{{prime.gen}} Prime #{{prime.id_text}} Overview
-                    </h1>
-                </div>
+        <div class="d-flex flex-wrap justify-content-center">
+            <div class="card prime">
+                <lib-tags-prime-skins [prime]="prime"></lib-tags-prime-skins>
+                <lib-tags-prime-boxes [prime]="prime"></lib-tags-prime-boxes>
+                <lib-tags-prime-owner [prime]="prime"></lib-tags-prime-owner>
+                <lib-tags-prime-info [prime]="prime"></lib-tags-prime-info>
+                <lib-tags-prime-badges [prime]="prime"></lib-tags-prime-badges>
             </div>
         </div>
     </div>
