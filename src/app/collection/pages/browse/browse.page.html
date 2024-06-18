@@ -63,23 +63,25 @@
                             (onPageChange)="changePage($event)">
                         </lib-tags-pager>
                     </div>
-                    <div class="d-flex flex-wrap justify-content-center">
-                        <div class="card prime" *ngFor="let prime of currentPageResults">
-                            <lib-tags-prime-skins [prime]="prime"></lib-tags-prime-skins>
-                            <lib-tags-prime-boxes [prime]="prime"></lib-tags-prime-boxes>
-                            <lib-tags-prime-owner [prime]="prime"></lib-tags-prime-owner>
-                            <lib-tags-prime-info [prime]="prime"></lib-tags-prime-info>
-                            <lib-tags-prime-badges [prime]="prime"></lib-tags-prime-badges>
-                            <div class="btn-group mt-20 btn-block" role="group">
-                                <button class="btn btn-danger btn-block" type="button"
-                                    (click)="navigateToPage(prime.url)">
-                                    View
-                                </button>
-                                <button class="btn btn-danger btn-square" type="button">
-                                    <a class="text-white" href="{{prime.url}}" target="_blank">
-                                        <i class="fas fa-external-link-alt"></i>
-                                    </a>
-                                </button>
+                    <div class="row justify-content-center">
+                        <div class="col-12 col-md-6 col-lg-4 col-xl-3" *ngFor="let prime of currentPageResults">
+                            <div class="card">
+                                <lib-tags-prime-skins [prime]="prime"></lib-tags-prime-skins>
+                                <lib-tags-prime-boxes [prime]="prime"></lib-tags-prime-boxes>
+                                <lib-tags-prime-owner [prime]="prime"></lib-tags-prime-owner>
+                                <lib-tags-prime-info [prime]="prime"></lib-tags-prime-info>
+                                <lib-tags-prime-badges [prime]="prime"></lib-tags-prime-badges>
+                                <div class="btn-group mt-20 btn-block" role="group">
+                                    <button class="btn btn-danger btn-block" type="button"
+                                        (click)="navigateToPage(prime.url)">
+                                        View
+                                    </button>
+                                    <button class="btn btn-danger btn-square" type="button">
+                                        <a class="text-white" href="{{prime.url}}" target="_blank">
+                                            <i class="fas fa-external-link-alt"></i>
+                                        </a>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>

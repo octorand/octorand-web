@@ -15,7 +15,15 @@
         cursor: pointer;
     }
 
-    .description {
+    .card {
+        margin: 2px;
+    }
+
+    .message {
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 30px;
         max-width: 800px;
     }
 
