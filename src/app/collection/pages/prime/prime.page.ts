@@ -42,19 +42,6 @@ export class CollectionPrimePage implements OnInit, OnDestroy {
   ready: boolean = false;
 
   /**
-   * Selected feature
-   */
-  selectedFeature: string = 'Overview';
-
-  /**
-   * Keys for features
-   */
-  features: Array<string> = [
-    'Overview',
-    'Listing',
-  ];
-
-  /**
    * Construct component
    *
    * @param activatedRoute
@@ -132,15 +119,6 @@ export class CollectionPrimePage implements OnInit, OnDestroy {
         this.ready = true;
       }
     }
-  }
-
-  /**
-   * When feature is changed
-   *
-   * @param feature
-   */
-  changeFeature(feature: string) {
-    this.selectedFeature = feature;
   }
 
   /**

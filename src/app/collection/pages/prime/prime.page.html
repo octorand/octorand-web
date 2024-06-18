@@ -6,28 +6,10 @@
                     <h1 class="content-title text-secondary mb-20">
                         GEN{{prime.gen}} Prime #{{prime.id_text}}
                     </h1>
-                    <p class="text-muted mb-5">
-                        Features
-                    </p>
-                    <nav>
-                        <ul class="pagination text-center">
-                            <li class="page-item hand" *ngFor="let feature of features">
-                                <a class="page-link px-20" tabindex="-1" (click)="changeFeature(feature)"
-                                    [ngClass]="{'bg-primary': feature == selectedFeature}">
-                                    {{feature}}
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
+                    <lib-tags-prime-skins [prime]="prime"></lib-tags-prime-skins>
+                    <lib-tags-prime-boxes [prime]="prime"></lib-tags-prime-boxes>
+                    <lib-tags-prime-owner [prime]="prime"></lib-tags-prime-owner>
                 </div>
-            </div>
-        </div>
-        <div class="row align-items-center">
-            <div class="col">
-                <app-collection-prime-overview *ngIf="selectedFeature == 'Overview'" [app]="app" [prime]="prime">
-                </app-collection-prime-overview>
-                <app-collection-prime-listing *ngIf="selectedFeature == 'Listing'" [app]="app" [prime]="prime">
-                </app-collection-prime-listing>
             </div>
         </div>
     </div>
