@@ -13,23 +13,95 @@
             <div class="col">
                 <div class="row justify-content-center">
                     <div class="column col-12 col-md-6 col-lg-4 col-xl-3">
+                        <lib-tags-prime-skins [prime]="prime"></lib-tags-prime-skins>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-20">
+            <div class="col">
+                <div class="row justify-content-center">
+                    <div class="column col-12 col-md-6 col-lg-4 col-xl-3">
                         <div class="card">
                             <h2 class="card-title text-center text-secondary">
-                                PRIME
+                                INFORMATION
                             </h2>
-                            <lib-tags-prime-skins [prime]="prime"></lib-tags-prime-skins>
-                            <lib-tags-prime-boxes [prime]="prime"></lib-tags-prime-boxes>
-                            <lib-tags-prime-owner [prime]="prime"></lib-tags-prime-owner>
+                            <p class="text-muted mb-20">
+                                Primes are feature packed creatures, each ranked by their score.
+                            </p>
+                            <div class="info">
+                                <div class="table-responsive">
+                                    <table class="table table-no-outer-padding">
+                                        <tbody>
+                                            <tr>
+                                                <td class="text-secondary">Id</td>
+                                                <td class="text-right">{{prime.id_text}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-secondary">Name</td>
+                                                <td class="text-right">{{prime.name}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-secondary">Owner</td>
+                                                <td class="text-right"
+                                                    innerHTML="{{prime.owner | identity:true:true | async}}">
+                                                    {{prime.owner}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-secondary">Score</td>
+                                                <td class="text-right">{{prime.score}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-secondary">Rank</td>
+                                                <td class="text-right">{{prime.rank}}</td>
+                                            </tr>
+                                            <tr *ngIf="prime.price > 0">
+                                                <td class="text-secondary">Price</td>
+                                                <td class="text-right" innerHTML="{{prime.price | amount:0 | async}}">
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="column col-12 col-md-6 col-lg-4 col-xl-3">
                         <div class="card">
-                            <lib-tags-prime-info [prime]="prime"></lib-tags-prime-info>
-                        </div>
-                    </div>
-                    <div class="column col-12 col-md-6 col-lg-4 col-xl-3">
-                        <div class="card">
-                            <lib-tags-prime-badges [prime]="prime"></lib-tags-prime-badges>
+                            <h2 class="card-title text-center text-secondary">
+                                ASSET
+                            </h2>
+                            <p class="text-muted mb-20">
+                                Each Prime is uniquely represented by an Algorand standard asset and powered by an
+                                Algorand smart contract application.
+                            </p>
+                            <div class="info">
+                                <div class="table-responsive">
+                                    <table class="table table-no-outer-padding">
+                                        <tbody>
+                                            <tr>
+                                                <td class="text-secondary">Asset</td>
+                                                <td class="text-right"
+                                                    innerHTML="{{prime.prime_asset_id | asset:true | async}}">
+                                                    {{prime.prime_asset_id}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-secondary">Application</td>
+                                                <td class="text-right"
+                                                    innerHTML="{{prime.application_address | identity:true:true | async}}">
+                                                    {{prime.application_address}}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <button class="btn btn-danger btn-block mt-20" type="button"
+                                (click)="navigateToPage(prime.url)">
+                                Optin to Asset
+                            </button>
                         </div>
                     </div>
                 </div>

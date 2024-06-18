@@ -42,6 +42,26 @@ export class CollectionPrimePage implements OnInit, OnDestroy {
   ready: boolean = false;
 
   /**
+   * Whether a wallet is connected
+   */
+  isConnected: boolean = false;
+
+  /**
+   * Whether wallet is opted into prime asset
+   */
+  isOptedIn: boolean = false;
+
+  /**
+   * Whether wallet is the owner of prime asset
+   */
+  isPrimeOwner: boolean = false;
+
+  /**
+   * Whether wallet is the owner of legacy asset
+   */
+  isLegacyOwner: boolean = false;
+
+  /**
    * Construct component
    *
    * @param activatedRoute
@@ -116,6 +136,10 @@ export class CollectionPrimePage implements OnInit, OnDestroy {
       }
 
       if (this.prime) {
+        this.isConnected = this.app.account ? true : false;
+        this.isOptedIn = this.app.assets.includes(this.prime.prime_asset_id);
+        this.isPrimeOwner = this.app.assets.find(a => a.id == this.prime.prime_asset_id && a.amount > 0) ? true : false;
+        this.isLegacyOwner = this.app.assets.find(a => a.id == this.prime.legacy_asset_id && a.amount > 0) ? true : false;
         this.ready = true;
       }
     }

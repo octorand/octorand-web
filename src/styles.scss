@@ -7,6 +7,7 @@
     --input-padding: 0 2rem;
     --card-title-font-size: 1.6rem;
     --card-title-font-weight: 500;
+    --dm-table-border-color: #25282c;
 
     router-outlet + * {
         display: block;
