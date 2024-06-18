@@ -15,8 +15,14 @@
         cursor: pointer;
     }
 
+    .column {
+        padding: 2px;
+        min-width: 280px;
+    }
+
     .card {
-        margin: 2px;
+        margin: 0;
+        height: 100%;
     }
 
     .message {
