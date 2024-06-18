@@ -6,15 +6,6 @@
     --input-height: 3.6rem;
     --input-padding: 0 2rem;
 
-    @keyframes fade {
-        0% {
-            opacity: 0;
-        }
-        100% {
-            opacity: 1;
-        }
-    }
-
     router-outlet + * {
         display: block;
         animation: fade 1s;
@@ -24,11 +15,9 @@
         cursor: pointer;
     }
 
-    .cards {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-        grid-auto-rows: auto;
-        grid-gap: 4px;
+    .prime-card {
+        padding-top: 0;
+        width: 280px;
     }
 
     .description {
@@ -41,6 +30,15 @@
         td {
             border: none !important;
             padding: 0;
+        }
+    }
+
+    @keyframes fade {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
         }
     }
 }
