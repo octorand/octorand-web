@@ -1,14 +1,34 @@
 <div class="container-fluid">
     <div class="content" *ngIf="ready">
-        <div class="row align-items-center">
+        <div class="row">
             <div class="col">
                 <div class="mx-auto text-center">
                     <h1 class="content-title text-secondary mb-20">
                         GEN{{prime.gen}} Prime #{{prime.id_text}}
                     </h1>
-                    <lib-tags-prime-skins [prime]="prime"></lib-tags-prime-skins>
-                    <lib-tags-prime-boxes [prime]="prime"></lib-tags-prime-boxes>
-                    <lib-tags-prime-owner [prime]="prime"></lib-tags-prime-owner>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="row justify-content-center">
+                    <div class="column col-12 col-md-6 col-lg-4 col-xl-3">
+                        <div class="card">
+                            <lib-tags-prime-skins [prime]="prime"></lib-tags-prime-skins>
+                            <lib-tags-prime-boxes [prime]="prime"></lib-tags-prime-boxes>
+                            <lib-tags-prime-owner [prime]="prime"></lib-tags-prime-owner>
+                        </div>
+                    </div>
+                    <div class="column col-12 col-md-6 col-lg-4 col-xl-3">
+                        <div class="card">
+                            <lib-tags-prime-info [prime]="prime"></lib-tags-prime-info>
+                        </div>
+                    </div>
+                    <div class="column col-12 col-md-6 col-lg-4 col-xl-3">
+                        <div class="card">
+                            <lib-tags-prime-badges [prime]="prime"></lib-tags-prime-badges>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
