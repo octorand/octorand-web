@@ -66,6 +66,9 @@
                     <div class="row justify-content-center">
                         <div class="column col-12 col-md-6 col-lg-4 col-xl-3" *ngFor="let prime of currentPageResults">
                             <div class="card">
+                                <h2 class="card-title text-center text-secondary">
+                                    GEN{{prime.gen}} PRIME #{{prime.id_text}}
+                                </h2>
                                 <lib-tags-prime-skins [prime]="prime"></lib-tags-prime-skins>
                                 <lib-tags-prime-boxes [prime]="prime"></lib-tags-prime-boxes>
                                 <lib-tags-prime-owner [prime]="prime"></lib-tags-prime-owner>

@@ -5,6 +5,8 @@
     --button-padding: 0 2rem;
     --input-height: 3.6rem;
     --input-padding: 0 2rem;
+    --card-title-font-size: 1.6rem;
+    --card-title-font-weight: 500;
 
     router-outlet + * {
         display: block;
