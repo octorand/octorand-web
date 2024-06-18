@@ -15,22 +15,8 @@
         cursor: pointer;
     }
 
-    .prime-card {
-        padding-top: 0;
-        width: 280px;
-    }
-
     .description {
         max-width: 800px;
-    }
-
-    .table {
-        th,
-        tr,
-        td {
-            border: none !important;
-            padding: 0;
-        }
     }
 
     @keyframes fade {
