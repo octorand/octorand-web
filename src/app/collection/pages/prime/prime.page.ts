@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AppHelper, DataHelper } from '@lib/helpers';
+import { AppHelper, ChainHelper, DataHelper } from '@lib/helpers';
 import { AppModel, DataModel, PrimeModel } from '@lib/models';
 import { Subscription } from 'rxjs';
 
@@ -62,17 +62,26 @@ export class CollectionPrimePage implements OnInit, OnDestroy {
   isLegacyOwner: boolean = false;
 
   /**
+   * Tracking actions
+   */
+  actions = {
+    optinToAsset: false
+  };
+
+  /**
    * Construct component
    *
    * @param activatedRoute
    * @param router
    * @param appHelper
+   * @param chainHelper
    * @param dataHelper
    */
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private appHelper: AppHelper,
+    private chainHelper: ChainHelper,
     private dataHelper: DataHelper
   ) { }
 
@@ -143,6 +152,47 @@ export class CollectionPrimePage implements OnInit, OnDestroy {
         this.ready = true;
       }
     }
+  }
+
+  /**
+   * Optin to prime asset
+   */
+  optinToAsset() {
+    let baseClient = this.chainHelper.getBaseClient();
+    let algodClient = this.chainHelper.getAlgodClient();
+
+    algodClient.getTransactionParams().do().then((params: any) => {
+      let composer = new baseClient.AtomicTransactionComposer();
+
+      composer.addTransaction({
+        txn: baseClient.makeAssetTransferTxnWithSuggestedParamsFromObject({
+          from: this.app.account,
+          to: this.app.account,
+          assetIndex: this.prime.prime_asset_id,
+          amount: 0,
+          suggestedParams: {
+            ...params,
+            fee: 1000,
+            flatFee: true
+          }
+        })
+      });
+
+      let group = composer.buildGroup();
+
+      let transactions = [];
+      for (let i = 0; i < group.length; i++) {
+        transactions.push(group[i].txn);
+      }
+
+      this.actions.optinToAsset = true;
+      this.chainHelper.submitTransactions(transactions).then((response) => {
+        this.actions.optinToAsset = false;
+        if (response.success) {
+          this.appHelper.showSuccess('Opted into prime asset successfully');
+        }
+      });
+    });
   }
 
   /**

@@ -70,7 +70,7 @@
                     <div class="column col-12 col-md-6 col-lg-4 col-xl-3">
                         <div class="card">
                             <h2 class="card-title text-center text-secondary">
-                                ASSET
+                                RESOURCES
                             </h2>
                             <p class="text-muted mb-20">
                                 Each Prime is uniquely represented by an Algorand standard asset and powered by an
@@ -90,18 +90,23 @@
                                             <tr>
                                                 <td class="text-secondary">Application</td>
                                                 <td class="text-right"
-                                                    innerHTML="{{prime.application_address | identity:true:true | async}}">
-                                                    {{prime.application_address}}
+                                                    innerHTML="{{prime.application_id | application:true}}">
+                                                    {{prime.application_id}}
                                                 </td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
-                            <button class="btn btn-danger btn-block mt-20" type="button"
-                                (click)="navigateToPage(prime.url)">
-                                Optin to Asset
-                            </button>
+                            <div *ngIf="isConnected && !isOptedIn" class="mt-20">
+                                <button *ngIf="!actions.optinToAsset" class="btn btn-danger btn-block"
+                                    (click)="optinToAsset()">
+                                    Optin to Asset
+                                </button>
+                                <button *ngIf="actions.optinToAsset" class="btn btn-danger btn-block">
+                                    <i class="fas fa-cog fa-spin mx-20"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
