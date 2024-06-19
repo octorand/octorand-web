@@ -146,7 +146,7 @@ export class CollectionPrimePage implements OnInit, OnDestroy {
 
       if (this.prime) {
         this.isConnected = this.app.account ? true : false;
-        this.isOptedIn = this.app.assets.includes(this.prime.prime_asset_id);
+        this.isOptedIn = this.app.assets.find(a => a.id == this.prime.prime_asset_id) ? true : false;
         this.isPrimeOwner = this.app.assets.find(a => a.id == this.prime.prime_asset_id && a.amount > 0) ? true : false;
         this.isLegacyOwner = this.app.assets.find(a => a.id == this.prime.legacy_asset_id && a.amount > 0) ? true : false;
         this.ready = true;
@@ -189,6 +189,7 @@ export class CollectionPrimePage implements OnInit, OnDestroy {
       this.chainHelper.submitTransactions(transactions).then((response) => {
         this.actions.optinToAsset = false;
         if (response.success) {
+          this.appHelper.loadAccountDetails();
           this.appHelper.showSuccess('Opted into prime asset successfully');
         }
       });
