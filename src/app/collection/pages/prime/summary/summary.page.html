@@ -1,0 +1,43 @@
+<div class="card">
+    <h2 class="card-title text-center text-secondary">
+        SUMMARY
+    </h2>
+    <p class="text-muted mb-20">
+        Primes are feature packed creatures, each ranked by their score.
+    </p>
+    <div class="info">
+        <div class="table-responsive">
+            <table class="table table-no-outer-padding">
+                <tbody>
+                    <tr>
+                        <td class="text-secondary">Id</td>
+                        <td class="text-right">{{prime.id_text}}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-secondary">Name</td>
+                        <td class="text-right">{{prime.name}}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-secondary">Owner</td>
+                        <td class="text-right" innerHTML="{{prime.owner | identity:true:true | async}}">
+                            {{prime.owner}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-secondary">Score</td>
+                        <td class="text-right">{{prime.score}}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-secondary">Rank</td>
+                        <td class="text-right">{{prime.rank}}</td>
+                    </tr>
+                    <tr *ngIf="prime.price > 0">
+                        <td class="text-secondary">Price</td>
+                        <td class="text-right" innerHTML="{{prime.price | amount:0 | async}}">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

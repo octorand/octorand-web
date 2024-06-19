@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AppHelper, ChainHelper, DataHelper } from '@lib/helpers';
+import { ActivatedRoute } from '@angular/router';
+import { AppHelper, DataHelper } from '@lib/helpers';
 import { AppModel, DataModel, PrimeModel } from '@lib/models';
 import { Subscription } from 'rxjs';
 
@@ -42,33 +42,6 @@ export class CollectionPrimePage implements OnInit, OnDestroy {
   ready: boolean = false;
 
   /**
-   * Whether a wallet is connected
-   */
-  isConnected: boolean = false;
-
-  /**
-   * Whether wallet is opted into prime asset
-   */
-  isOptedIn: boolean = false;
-
-  /**
-   * Whether wallet is the owner of prime asset
-   */
-  isPrimeOwner: boolean = false;
-
-  /**
-   * Whether wallet is the owner of legacy asset
-   */
-  isLegacyOwner: boolean = false;
-
-  /**
-   * Tracking actions
-   */
-  actions = {
-    optinToAsset: false
-  };
-
-  /**
    * Construct component
    *
    * @param activatedRoute
@@ -79,9 +52,7 @@ export class CollectionPrimePage implements OnInit, OnDestroy {
    */
   constructor(
     private activatedRoute: ActivatedRoute,
-    private router: Router,
     private appHelper: AppHelper,
-    private chainHelper: ChainHelper,
     private dataHelper: DataHelper
   ) { }
 
@@ -145,63 +116,8 @@ export class CollectionPrimePage implements OnInit, OnDestroy {
       }
 
       if (this.prime) {
-        this.isConnected = this.app.account ? true : false;
-        this.isOptedIn = this.app.assets.find(a => a.id == this.prime.prime_asset_id) ? true : false;
-        this.isPrimeOwner = this.app.assets.find(a => a.id == this.prime.prime_asset_id && a.amount > 0) ? true : false;
-        this.isLegacyOwner = this.app.assets.find(a => a.id == this.prime.legacy_asset_id && a.amount > 0) ? true : false;
         this.ready = true;
       }
     }
-  }
-
-  /**
-   * Optin to prime asset
-   */
-  optinToAsset() {
-    let baseClient = this.chainHelper.getBaseClient();
-    let algodClient = this.chainHelper.getAlgodClient();
-
-    algodClient.getTransactionParams().do().then((params: any) => {
-      let composer = new baseClient.AtomicTransactionComposer();
-
-      composer.addTransaction({
-        txn: baseClient.makeAssetTransferTxnWithSuggestedParamsFromObject({
-          from: this.app.account,
-          to: this.app.account,
-          assetIndex: this.prime.prime_asset_id,
-          amount: 0,
-          suggestedParams: {
-            ...params,
-            fee: 1000,
-            flatFee: true
-          }
-        })
-      });
-
-      let group = composer.buildGroup();
-
-      let transactions = [];
-      for (let i = 0; i < group.length; i++) {
-        transactions.push(group[i].txn);
-      }
-
-      this.actions.optinToAsset = true;
-      this.chainHelper.submitTransactions(transactions).then((response) => {
-        this.actions.optinToAsset = false;
-        if (response.success) {
-          this.appHelper.loadAccountDetails();
-          this.appHelper.showSuccess('Opted into prime asset successfully');
-        }
-      });
-    });
-  }
-
-  /**
-   * Navigate to page
-   *
-   * @param page
-   */
-  navigateToPage(page: string) {
-    this.router.navigate([page]);
   }
 }

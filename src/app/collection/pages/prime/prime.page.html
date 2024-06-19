@@ -22,92 +22,12 @@
             <div class="col">
                 <div class="row justify-content-center">
                     <div class="column col-12 col-md-6 col-lg-4 col-xl-3">
-                        <div class="card">
-                            <h2 class="card-title text-center text-secondary">
-                                INFORMATION
-                            </h2>
-                            <p class="text-muted mb-20">
-                                Primes are feature packed creatures, each ranked by their score.
-                            </p>
-                            <div class="info">
-                                <div class="table-responsive">
-                                    <table class="table table-no-outer-padding">
-                                        <tbody>
-                                            <tr>
-                                                <td class="text-secondary">Id</td>
-                                                <td class="text-right">{{prime.id_text}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-secondary">Name</td>
-                                                <td class="text-right">{{prime.name}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-secondary">Owner</td>
-                                                <td class="text-right"
-                                                    innerHTML="{{prime.owner | identity:true:true | async}}">
-                                                    {{prime.owner}}
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-secondary">Score</td>
-                                                <td class="text-right">{{prime.score}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-secondary">Rank</td>
-                                                <td class="text-right">{{prime.rank}}</td>
-                                            </tr>
-                                            <tr *ngIf="prime.price > 0">
-                                                <td class="text-secondary">Price</td>
-                                                <td class="text-right" innerHTML="{{prime.price | amount:0 | async}}">
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
+                        <app-collection-prime-summary [app]="app" [data]="data" [prime]="prime">
+                        </app-collection-prime-summary>
                     </div>
                     <div class="column col-12 col-md-6 col-lg-4 col-xl-3">
-                        <div class="card">
-                            <h2 class="card-title text-center text-secondary">
-                                RESOURCES
-                            </h2>
-                            <p class="text-muted mb-20">
-                                Each Prime is uniquely represented by an Algorand standard asset and powered by an
-                                Algorand smart contract application.
-                            </p>
-                            <div class="info">
-                                <div class="table-responsive">
-                                    <table class="table table-no-outer-padding">
-                                        <tbody>
-                                            <tr>
-                                                <td class="text-secondary">Asset</td>
-                                                <td class="text-right"
-                                                    innerHTML="{{prime.prime_asset_id | asset:true | async}}">
-                                                    {{prime.prime_asset_id}}
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-secondary">Application</td>
-                                                <td class="text-right"
-                                                    innerHTML="{{prime.application_id | application:true}}">
-                                                    {{prime.application_id}}
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <div *ngIf="isConnected && !isOptedIn" class="mt-20">
-                                <button *ngIf="!actions.optinToAsset" class="btn btn-danger btn-block"
-                                    (click)="optinToAsset()">
-                                    Optin to Asset
-                                </button>
-                                <button *ngIf="actions.optinToAsset" class="btn btn-danger btn-block">
-                                    <i class="fas fa-cog fa-spin mx-20"></i>
-                                </button>
-                            </div>
-                        </div>
+                        <app-collection-prime-resources [app]="app" [data]="data" [prime]="prime">
+                        </app-collection-prime-resources>
                     </div>
                 </div>
             </div>
