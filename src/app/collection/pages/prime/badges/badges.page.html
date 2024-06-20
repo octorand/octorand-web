@@ -1,0 +1,21 @@
+<div class="card">
+    <h2 class="card-title text-center text-secondary">
+        BADGES
+    </h2>
+    <p class="text-muted mb-20">
+        Primes obtain badges when they meet certain qualifications.
+    </p>
+    <div class="info">
+        <nav>
+            <ul class="pagination">
+                <li class="page-item hand" *ngFor="let badge of badges">
+                    <a class="page-link px-20" tabindex="-1"
+                        [ngClass]="{'bg-primary': prime.badges.includes(badge.name)}">
+                        <i class="{{badge.icon}} mr-5"></i>
+                        {{badge.name}}
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
