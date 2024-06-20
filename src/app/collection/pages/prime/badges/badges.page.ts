@@ -44,6 +44,7 @@ export class CollectionPrimeBadgesPage implements OnInit, OnChanges {
    */
   ngOnInit() {
     this.initBadges();
+    this.refreshView();
   }
 
   /**
@@ -65,7 +66,9 @@ export class CollectionPrimeBadgesPage implements OnInit, OnChanges {
    */
   refreshView() {
     if (this.prime) {
-
+      for (let i = 0; i < this.badges.length; i++) {
+        this.badges[i].active = this.prime.badges.includes(this.badges[i].name);
+      }
     }
   }
 }
