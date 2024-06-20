@@ -18,7 +18,8 @@
                     <div class="dropdown-menu dropdown-menu-center" aria-labelledby="popover-toggle">
                         <div class="dropdown-item"
                             [ngClass]="{'text-primary': badge.active, 'text-muted': !badge.active}">
-                            <i class="mr-10 {{badge.icon}}"></i>{{badge.name}}
+                            <i class="mr-10 {{badge.icon}}"></i>
+                            {{badge.name}} - {{badge.count}}x ({{badge.percentage}}%)
                         </div>
                     </div>
                 </li>

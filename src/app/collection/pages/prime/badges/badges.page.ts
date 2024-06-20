@@ -69,6 +69,18 @@ export class CollectionPrimeBadgesPage implements OnInit, OnChanges {
       for (let i = 0; i < this.badges.length; i++) {
         this.badges[i].active = this.prime.badges.includes(this.badges[i].name);
       }
+
+      let primes = [];
+      if (this.prime.gen == 1) {
+        primes = this.data.gen_one_primes;
+      } else {
+        primes = this.data.gen_two_primes;
+      }
+
+      for (let i = 0; i < this.badges.length; i++) {
+        this.badges[i].count = primes.filter(p => p.badges.includes(this.badges[i].name)).length;
+        this.badges[i].percentage = Math.floor(this.badges[i].count * 100 / primes.length);
+      }
     }
   }
 }
