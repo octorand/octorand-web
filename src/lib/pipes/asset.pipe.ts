@@ -34,7 +34,7 @@ export class AssetPipe implements PipeTransform {
                         return `<span>${unit}</span>`;
                     }
                 } else {
-                    return '<i class="fas fa-cog text-danger fa-spin"></i>';
+                    return '<i class="fas fa-ellipsis-h text-danger"></i>';
                 }
             })
         );
