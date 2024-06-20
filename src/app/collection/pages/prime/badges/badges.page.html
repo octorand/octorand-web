@@ -10,7 +10,7 @@
             <ul class="pagination">
                 <li class="page-item dropdown dropup with-arrow" *ngFor="let badge of badges">
                     <div data-toggle="dropdown" id="popover-toggle" aria-haspopup="true" aria-expanded="false"
-                        class="page-link px-20"
+                        class="page-link hand px-20"
                         [ngClass]="{'bg-primary text-white': badge.active, 'bg-dark-light text-muted': !badge.active}">
                         <i class="{{badge.icon}} mr-5"></i>
                         {{badge.name}}
