@@ -48,7 +48,9 @@ export class CollectionPrimeListingPage implements OnInit, OnChanges {
    * Tracking actions
    */
   actions = {
-    optinToAsset: false
+    listPrime: false,
+    unlistPrime: false,
+    buyPrime: false,
   };
 
   /**
@@ -89,9 +91,9 @@ export class CollectionPrimeListingPage implements OnInit, OnChanges {
   }
 
   /**
-   * Optin to prime asset
+   * List prime
    */
-  optinToAsset() {
+  listPrime() {
     let baseClient = this.chainHelper.getBaseClient();
     let algodClient = this.chainHelper.getAlgodClient();
 
@@ -119,12 +121,96 @@ export class CollectionPrimeListingPage implements OnInit, OnChanges {
         transactions.push(group[i].txn);
       }
 
-      this.actions.optinToAsset = true;
+      this.actions.listPrime = true;
       this.chainHelper.submitTransactions(transactions).then((response) => {
-        this.actions.optinToAsset = false;
+        this.actions.listPrime = false;
         if (response.success) {
           this.appHelper.loadAccountDetails();
-          this.appHelper.showSuccess('Opted into prime asset successfully');
+          this.appHelper.showSuccess('Listed prime successfully');
+        }
+      });
+    });
+  }
+
+  /**
+   * Unlist prime
+   */
+  unlistPrime() {
+    let baseClient = this.chainHelper.getBaseClient();
+    let algodClient = this.chainHelper.getAlgodClient();
+
+    algodClient.getTransactionParams().do().then((params: any) => {
+      let composer = new baseClient.AtomicTransactionComposer();
+
+      composer.addTransaction({
+        txn: baseClient.makeAssetTransferTxnWithSuggestedParamsFromObject({
+          from: this.app.account,
+          to: this.app.account,
+          assetIndex: this.prime.prime_asset_id,
+          amount: 0,
+          suggestedParams: {
+            ...params,
+            fee: 1000,
+            flatFee: true
+          }
+        })
+      });
+
+      let group = composer.buildGroup();
+
+      let transactions = [];
+      for (let i = 0; i < group.length; i++) {
+        transactions.push(group[i].txn);
+      }
+
+      this.actions.unlistPrime = true;
+      this.chainHelper.submitTransactions(transactions).then((response) => {
+        this.actions.unlistPrime = false;
+        if (response.success) {
+          this.appHelper.loadAccountDetails();
+          this.appHelper.showSuccess('Unlisted prime successfully');
+        }
+      });
+    });
+  }
+
+  /**
+   * Buy prime
+   */
+  buyPrime() {
+    let baseClient = this.chainHelper.getBaseClient();
+    let algodClient = this.chainHelper.getAlgodClient();
+
+    algodClient.getTransactionParams().do().then((params: any) => {
+      let composer = new baseClient.AtomicTransactionComposer();
+
+      composer.addTransaction({
+        txn: baseClient.makeAssetTransferTxnWithSuggestedParamsFromObject({
+          from: this.app.account,
+          to: this.app.account,
+          assetIndex: this.prime.prime_asset_id,
+          amount: 0,
+          suggestedParams: {
+            ...params,
+            fee: 1000,
+            flatFee: true
+          }
+        })
+      });
+
+      let group = composer.buildGroup();
+
+      let transactions = [];
+      for (let i = 0; i < group.length; i++) {
+        transactions.push(group[i].txn);
+      }
+
+      this.actions.buyPrime = true;
+      this.chainHelper.submitTransactions(transactions).then((response) => {
+        this.actions.buyPrime = false;
+        if (response.success) {
+          this.appHelper.loadAccountDetails();
+          this.appHelper.showSuccess('Bought prime successfully');
         }
       });
     });

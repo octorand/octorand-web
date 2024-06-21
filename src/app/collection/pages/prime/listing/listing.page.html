@@ -2,39 +2,109 @@
     <h2 class="card-title text-center text-secondary">
         LISTING
     </h2>
-    <p class="text-muted mb-20">
-        Buy and sell primes directly through the marketplace here at Octorand.
-    </p>
-    <div class="info">
-        <div class="table-responsive">
-            <table class="table table-no-outer-padding">
-                <tbody>
-                    <tr>
-                        <td class="text-secondary">Status</td>
-                        <td class="text-right">{{prime.is_listed ? 'For Sale' : 'Not for Sale'}}</td>
-                    </tr>
-                    <tr *ngIf="!prime.is_listed">
-                        <td class="text-secondary">Owner</td>
-                        <td class="text-right" innerHTML="{{prime.owner | identity:true:true | async}}"></td>
-                    </tr>
-                    <tr *ngIf="prime.is_listed">
-                        <td class="text-secondary">Price</td>
-                        <td class="text-right" innerHTML="{{prime.price | amount:0 | async}}"></td>
-                    </tr>
-                    <tr *ngIf="prime.is_listed">
-                        <td class="text-secondary">Seller</td>
-                        <td class="text-right" innerHTML="{{prime.seller | identity | async}}"></td>
-                    </tr>
-                </tbody>
-            </table>
+    <div *ngIf="prime.is_listed">
+        <div *ngIf="isPrimeOwner">
+            <p class="text-muted mb-20">
+                You have listed this Prime for sale at the moment. Unlist it if you want to pull it off the market.
+            </p>
+            <div class="info">
+                <div class="table-responsive">
+                    <table class="table table-no-outer-padding">
+                        <tbody>
+                            <tr>
+                                <td class="text-secondary">Price</td>
+                                <td class="text-right" innerHTML="{{prime.price | amount:0 | async}}"></td>
+                            </tr>
+                            <tr>
+                                <td class="text-secondary">Seller</td>
+                                <td class="text-right" innerHTML="{{prime.seller | identity | async}}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="mt-20">
+                <button *ngIf="!actions.unlistPrime" class="btn btn-danger btn-block" (click)="unlistPrime()">
+                    Unlist Prime
+                </button>
+                <button *ngIf="actions.unlistPrime" class="btn btn-danger btn-block">
+                    <i class="fas fa-cog fa-spin mx-20"></i>
+                </button>
+            </div>
+        </div>
+        <div *ngIf="!isPrimeOwner">
+            <div *ngIf="isConnected">
+                <p class="text-muted mb-20">
+                    This Prime is currently listed for sale. Buy it by paying the asking price.
+                </p>
+                <div class="info">
+                    <div class="table-responsive">
+                        <table class="table table-no-outer-padding">
+                            <tbody>
+                                <tr>
+                                    <td class="text-secondary">Price</td>
+                                    <td class="text-right" innerHTML="{{prime.price | amount:0 | async}}"></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-secondary">Seller</td>
+                                    <td class="text-right" innerHTML="{{prime.seller | identity | async}}"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="mt-20">
+                    <button *ngIf="!actions.buyPrime" class="btn btn-danger btn-block" (click)="buyPrime()">
+                        Buy Prime
+                    </button>
+                    <button *ngIf="actions.buyPrime" class="btn btn-danger btn-block">
+                        <i class="fas fa-cog fa-spin mx-20"></i>
+                    </button>
+                </div>
+            </div>
+            <div *ngIf="!isConnected">
+                <p class="text-muted mb-20">
+                    This Prime is currently listed for sale. Connect your wallet to buy it.
+                </p>
+                <div class="info">
+                    <div class="table-responsive">
+                        <table class="table table-no-outer-padding">
+                            <tbody>
+                                <tr>
+                                    <td class="text-secondary">Price</td>
+                                    <td class="text-right" innerHTML="{{prime.price | amount:0 | async}}"></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-secondary">Seller</td>
+                                    <td class="text-right" innerHTML="{{prime.seller | identity | async}}"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <div *ngIf="isConnected && !isOptedIn" class="mt-20">
-        <button *ngIf="!actions.optinToAsset" class="btn btn-danger btn-block" (click)="optinToAsset()">
-            Optin to Asset
-        </button>
-        <button *ngIf="actions.optinToAsset" class="btn btn-danger btn-block">
-            <i class="fas fa-cog fa-spin mx-20"></i>
-        </button>
+    <div *ngIf="!prime.is_listed">
+        <div *ngIf="isPrimeOwner">
+            <p class="text-muted mb-20">
+                This Prime is not listed for sale at the moment. Since you are the owner of this Prime, you can list it
+                for sale any time you want. Listing a Prime for sale is free, but please note that the platform will
+                charge a 10% fee when a sale is made, which means you will only get 90% of the selling price.
+            </p>
+            <div class="mt-20">
+                <button *ngIf="!actions.listPrime" class="btn btn-danger btn-block" (click)="listPrime()">
+                    List Prime
+                </button>
+                <button *ngIf="actions.listPrime" class="btn btn-danger btn-block">
+                    <i class="fas fa-cog fa-spin mx-20"></i>
+                </button>
+            </div>
+        </div>
+        <div *ngIf="!isPrimeOwner">
+            <p class="text-muted mb-20">
+                This Prime is not listed for sale at the moment.
+            </p>
+        </div>
     </div>
 </div>
