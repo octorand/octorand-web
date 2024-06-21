@@ -195,6 +195,7 @@ export class DataHelper implements OnDestroy {
         model.gen = 1;
         model.id_text = String(model.id).padStart(3, '0');
         model.url = '/prime/gen' + model.gen + '/' + model.id_text;
+        model.is_listed = model.price > 0 ? true : false;
 
         return model;
     }
@@ -248,6 +249,7 @@ export class DataHelper implements OnDestroy {
         model.gen = 2;
         model.id_text = String(model.id).padStart(4, '0');
         model.url = '/prime/gen' + model.gen + '/' + model.id_text;
+        model.is_listed = model.price > 0 ? true : false;
 
         return model;
     }

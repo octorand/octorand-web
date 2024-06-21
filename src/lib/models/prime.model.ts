@@ -31,4 +31,5 @@ export class PrimeModel {
     parent: any = null;
     children: Array<any> = [];
     url: string = '';
+    is_listed: boolean = false;
 }
