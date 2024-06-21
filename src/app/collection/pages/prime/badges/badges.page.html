@@ -21,6 +21,11 @@
                             <i class="mr-10 {{badge.icon}}"></i>
                             {{badge.name}} - {{badge.count}}x ({{badge.percentage}}%)
                         </div>
+                        <div class="dropdown-divider"></div>
+                        <div class="dropdown-item"
+                            [ngClass]="{'text-primary': badge.active, 'text-muted': !badge.active}">
+                            <p class="description">{{badge.description}}</p>
+                        </div>
                     </div>
                 </li>
             </ul>
