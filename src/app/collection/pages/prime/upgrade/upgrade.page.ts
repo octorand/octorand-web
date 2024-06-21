@@ -97,8 +97,8 @@ export class CollectionPrimeUpgradePage implements OnInit, OnChanges {
     let baseClient = this.chainHelper.getBaseClient();
     let algodClient = this.chainHelper.getAlgodClient();
 
-    let appContract = null;
-    let upgradeContract = null;
+    let appContract: any = null;
+    let upgradeContract: any = null;
     let upgradeContractId = 0;
 
     if (this.prime.gen == 1) {
