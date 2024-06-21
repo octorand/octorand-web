@@ -7,5 +7,6 @@ export * from './prime/badges/badges.page';
 export * from './prime/listing/listing.page';
 export * from './prime/ownership/ownership.page';
 export * from './prime/resources/resources.page';
+export * from './prime/rewards/rewards.page';
 export * from './prime/summary/summary.page';
 export * from './prime/upgrade/upgrade.page';
