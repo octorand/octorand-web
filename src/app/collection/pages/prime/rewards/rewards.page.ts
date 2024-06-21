@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { AppHelper, ChainHelper, DataHelper } from '@lib/helpers';
-import { GenOnePrimeClaimContract, GenTwoPrimeClaimContract } from '@lib/contracts';
+import { GenOnePrimeAppContract, GenTwoPrimeAppContract } from '@lib/contracts';
 import { AppModel, DataModel, PrimeModel } from '@lib/models';
 import { environment } from '@environment';
 
@@ -37,13 +37,18 @@ export class CollectionPrimeRewardsPage implements OnInit, OnChanges {
   isPrimeOwner: boolean = false;
 
   /**
+   * Manage inputs
+   */
+  inputs = {
+    donation: 10,
+  };
+
+  /**
    * Tracking actions
    */
   actions = {
-    withdrawRewards: false,
-    withdrawRoyalties: false,
-    depositRewards: false,
-    depositRoyalties: false
+    withdrawPrime: false,
+    depositPrime: false,
   };
 
   /**
@@ -86,149 +91,53 @@ export class CollectionPrimeRewardsPage implements OnInit, OnChanges {
   /**
    * Withdraw rewards
    */
-  withdrawRewards() {
-    let baseClient = this.chainHelper.getBaseClient();
-    let algodClient = this.chainHelper.getAlgodClient();
+  withdrawPrime() {
 
-    let claimContract: any = null;
-    let claimContractId = 0;
-
-    if (this.prime.gen == 1) {
-      claimContract = new baseClient.ABIContract(GenOnePrimeClaimContract);
-      claimContractId = environment.gen1.contracts.prime.claim.application_id;
-    } else {
-      claimContract = new baseClient.ABIContract(GenTwoPrimeClaimContract);
-      claimContractId = environment.gen2.contracts.prime.claim.application_id;
-    }
-
-    algodClient.getTransactionParams().do().then((params: any) => {
-      let composer = new baseClient.AtomicTransactionComposer();
-
-      composer.addMethodCall({
-        sender: this.app.account,
-        appID: claimContractId,
-        method: this.chainHelper.getMethod(claimContract, 'claim'),
-        methodArgs: [
-          this.prime.application_id,
-        ],
-        appForeignAssets: [
-          this.prime.prime_asset_id,
-        ],
-        suggestedParams: {
-          ...params,
-          fee: 2000,
-          flatFee: true
-        }
-      });
-
-      let group = composer.buildGroup();
-
-      let transactions = [];
-      for (let i = 0; i < group.length; i++) {
-        transactions.push(group[i].txn);
-      }
-
-      this.actions.withdrawRewards = true;
-      this.chainHelper.submitTransactions(transactions).then((response) => {
-        this.actions.withdrawRewards = false;
-        if (response.success) {
-          this.dataHelper.loadPrimeDetails();
-          this.appHelper.showSuccess('Rewards withdrawn successfully');
-        }
-      });
-    });
-  }
-
-  /**
-   * Withdraw royalties
-   */
-  withdrawRoyalties() {
-    let baseClient = this.chainHelper.getBaseClient();
-    let algodClient = this.chainHelper.getAlgodClient();
-
-    let claimContract: any = null;
-    let claimContractId = 0;
-
-    if (this.prime.gen == 1) {
-      claimContract = new baseClient.ABIContract(GenOnePrimeClaimContract);
-      claimContractId = environment.gen1.contracts.prime.claim.application_id;
-    } else {
-      claimContract = new baseClient.ABIContract(GenTwoPrimeClaimContract);
-      claimContractId = environment.gen2.contracts.prime.claim.application_id;
-    }
-
-    algodClient.getTransactionParams().do().then((params: any) => {
-      let composer = new baseClient.AtomicTransactionComposer();
-
-      composer.addMethodCall({
-        sender: this.app.account,
-        appID: claimContractId,
-        method: this.chainHelper.getMethod(claimContract, 'claim'),
-        methodArgs: [
-          this.prime.application_id,
-        ],
-        appForeignAssets: [
-          this.prime.prime_asset_id,
-        ],
-        suggestedParams: {
-          ...params,
-          fee: 2000,
-          flatFee: true
-        }
-      });
-
-      let group = composer.buildGroup();
-
-      let transactions = [];
-      for (let i = 0; i < group.length; i++) {
-        transactions.push(group[i].txn);
-      }
-
-      this.actions.withdrawRoyalties = true;
-      this.chainHelper.submitTransactions(transactions).then((response) => {
-        this.actions.withdrawRoyalties = false;
-        if (response.success) {
-          this.dataHelper.loadPrimeDetails();
-          this.appHelper.showSuccess('Royalties withdrawn successfully');
-        }
-      });
-    });
   }
 
   /**
    * Deposit rewards
    */
-  depositRewards() {
+  depositPrime() {
     let baseClient = this.chainHelper.getBaseClient();
     let algodClient = this.chainHelper.getAlgodClient();
 
-    let claimContract: any = null;
-    let claimContractId = 0;
+    let appContract: any = null;
 
     if (this.prime.gen == 1) {
-      claimContract = new baseClient.ABIContract(GenOnePrimeClaimContract);
-      claimContractId = environment.gen1.contracts.prime.claim.application_id;
+      appContract = new baseClient.ABIContract(GenOnePrimeAppContract);
     } else {
-      claimContract = new baseClient.ABIContract(GenTwoPrimeClaimContract);
-      claimContractId = environment.gen2.contracts.prime.claim.application_id;
+      appContract = new baseClient.ABIContract(GenTwoPrimeAppContract);
     }
 
     algodClient.getTransactionParams().do().then((params: any) => {
       let composer = new baseClient.AtomicTransactionComposer();
 
+      composer.addTransaction({
+        txn: baseClient.makeAssetTransferTxnWithSuggestedParamsFromObject({
+          from: this.app.account,
+          to: this.prime.application_address,
+          assetIndex: this.prime.platform_asset_id,
+          amount: Number(this.inputs.donation) * Math.pow(10, 6),
+          suggestedParams: {
+            ...params,
+            fee: 1000,
+            flatFee: true
+          }
+        })
+      });
+
       composer.addMethodCall({
         sender: this.app.account,
-        appID: claimContractId,
-        method: this.chainHelper.getMethod(claimContract, 'claim'),
-        methodArgs: [
-          this.prime.application_id,
-        ],
+        appID: this.prime.application_id,
+        method: this.chainHelper.getMethod(appContract, 'refresh'),
+        methodArgs: [],
         appForeignAssets: [
-          this.prime.prime_asset_id,
+          this.prime.platform_asset_id,
         ],
         suggestedParams: {
           ...params,
-          fee: 2000,
+          fee: 1000,
           flatFee: true
         }
       });
@@ -240,68 +149,12 @@ export class CollectionPrimeRewardsPage implements OnInit, OnChanges {
         transactions.push(group[i].txn);
       }
 
-      this.actions.depositRewards = true;
+      this.actions.depositPrime = true;
       this.chainHelper.submitTransactions(transactions).then((response) => {
-        this.actions.depositRewards = false;
+        this.actions.depositPrime = false;
         if (response.success) {
           this.dataHelper.loadPrimeDetails();
           this.appHelper.showSuccess('Rewards deposited successfully');
-        }
-      });
-    });
-  }
-
-  /**
-   * Deposit royalties
-   */
-  depositRoyalties() {
-    let baseClient = this.chainHelper.getBaseClient();
-    let algodClient = this.chainHelper.getAlgodClient();
-
-    let claimContract: any = null;
-    let claimContractId = 0;
-
-    if (this.prime.gen == 1) {
-      claimContract = new baseClient.ABIContract(GenOnePrimeClaimContract);
-      claimContractId = environment.gen1.contracts.prime.claim.application_id;
-    } else {
-      claimContract = new baseClient.ABIContract(GenTwoPrimeClaimContract);
-      claimContractId = environment.gen2.contracts.prime.claim.application_id;
-    }
-
-    algodClient.getTransactionParams().do().then((params: any) => {
-      let composer = new baseClient.AtomicTransactionComposer();
-
-      composer.addMethodCall({
-        sender: this.app.account,
-        appID: claimContractId,
-        method: this.chainHelper.getMethod(claimContract, 'claim'),
-        methodArgs: [
-          this.prime.application_id,
-        ],
-        appForeignAssets: [
-          this.prime.prime_asset_id,
-        ],
-        suggestedParams: {
-          ...params,
-          fee: 2000,
-          flatFee: true
-        }
-      });
-
-      let group = composer.buildGroup();
-
-      let transactions = [];
-      for (let i = 0; i < group.length; i++) {
-        transactions.push(group[i].txn);
-      }
-
-      this.actions.depositRoyalties = true;
-      this.chainHelper.submitTransactions(transactions).then((response) => {
-        this.actions.depositRoyalties = false;
-        if (response.success) {
-          this.dataHelper.loadPrimeDetails();
-          this.appHelper.showSuccess('Royalties deposited successfully');
         }
       });
     });

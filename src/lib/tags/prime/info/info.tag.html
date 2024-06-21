@@ -20,7 +20,7 @@
                     <td *ngIf="!prime.is_listed" class="text-right">Not for Sale</td>
                 </tr>
                 <tr>
-                    <td class="text-secondary">Reward</td>
+                    <td class="text-secondary">Rewards</td>
                     <td class="text-right" innerHTML="{{prime.rewards | amount:prime.platform_asset_id | async}}">
                     </td>
                 </tr>

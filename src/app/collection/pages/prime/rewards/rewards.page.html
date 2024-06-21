@@ -2,45 +2,50 @@
     <h2 class="card-title text-center text-secondary">
         REWARDS
     </h2>
-    <div *ngIf="isPrimeOwner">
-        <div *ngIf="isClaimable">
-            <p class="text-muted mb-20">
-                As the holder of prime asset, you can claim its ownership.
-            </p>
-            <div class="info">
-                <div class="table-responsive">
-                    <table class="table table-no-outer-padding">
-                        <tbody>
-                            <tr>
-                                <td class="text-secondary">Prime Asset</td>
-                                <td class="text-right" innerHTML="{{prime.prime_asset_id | asset:true | async}}"></td>
-                            </tr>
-                            <tr>
-                                <td class="text-secondary">Current Owner</td>
-                                <td class="text-right" innerHTML="{{prime.owner | identity:true:true | async}}"></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="mt-20">
-                <button *ngIf="!actions.claimPrime" class="btn btn-danger btn-block" (click)="claimPrime()">
-                    Claim Ownership
-                </button>
-                <button *ngIf="actions.claimPrime" class="btn btn-danger btn-block">
-                    <i class="fas fa-cog fa-spin mx-20"></i>
-                </button>
-            </div>
-        </div>
-        <div *ngIf="!isClaimable">
-            <p class="text-muted mb-20">
-                This prime is already under your ownership.
-            </p>
+    <p class="text-muted mb-20">
+        Each Prime started with a OCTO rewards bundle burried inside them. Only the owner of Prime asset, can claim its
+        remaining rewards. However, anyone can donate to the rewards bundle of Primes if they feel like it.
+    </p>
+    <div class="info">
+        <div class="table-responsive">
+            <table class="table table-no-outer-padding">
+                <tbody>
+                    <tr>
+                        <td class="text-secondary">Rewards</td>
+                        <td class="text-right" innerHTML="{{prime.rewards | amount:prime.platform_asset_id | async}}">
+                    </tr>
+                    <tr>
+                        <td class="text-secondary">Donation</td>
+                        <td>
+                            <div class="input-group">
+                                <input [(ngModel)]="inputs.donation" class="form-control" type="number"
+                                    placeholder="Donation">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">OCTO</span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
-    <div *ngIf="!isPrimeOwner">
-        <p class="text-muted mb-20">
-            You don't own the asset of this prime to claim it.
-        </p>
+    <div class="mt-20">
+        <button *ngIf="!actions.depositPrime" class="btn btn-danger btn-block" (click)="depositPrime()">
+            Make a Donation
+        </button>
+        <button *ngIf="actions.depositPrime" class="btn btn-danger btn-block">
+            <i class="fas fa-cog fa-spin mx-20"></i>
+        </button>
+    </div>
+    <div *ngIf="isPrimeOwner">
+        <div *ngIf="prime.rewards > 0" class="mt-20">
+            <button *ngIf="!actions.withdrawPrime" class="btn btn-danger btn-block" (click)="withdrawPrime()">
+                Withdraw Rewards
+            </button>
+            <button *ngIf="actions.withdrawPrime" class="btn btn-danger btn-block">
+                <i class="fas fa-cog fa-spin mx-20"></i>
+            </button>
+        </div>
     </div>
 </div>
