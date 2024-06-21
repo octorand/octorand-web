@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { AppHelper, ChainHelper, DataHelper } from '@lib/helpers';
-import { GenOnePrimeListContract, GenTwoPrimeListContract } from '@lib/contracts';
+import { GenOnePrimeBuyContract, GenOnePrimeListContract, GenOnePrimeUnlistContract, GenTwoPrimeBuyContract, GenTwoPrimeListContract, GenTwoPrimeUnlistContract } from '@lib/contracts';
 import { AppModel, DataModel, PrimeModel } from '@lib/models';
 import { environment } from '@environment';
 
@@ -42,9 +42,9 @@ export class CollectionPrimeListingPage implements OnInit, OnChanges {
   isPrimeOwner: boolean = false;
 
   /**
-   * Whether legacy asset is owned by current wallet
+   * Whether prime is listed by current wallet
    */
-  isLegacyOwner: boolean = false;
+  isSeller: boolean = false;
 
   /**
    * Manage inputs
@@ -97,7 +97,7 @@ export class CollectionPrimeListingPage implements OnInit, OnChanges {
       this.isConnected = this.app.account ? true : false;
       this.isOptedIn = this.app.assets.find(a => a.id == this.prime.prime_asset_id) ? true : false;
       this.isPrimeOwner = this.app.assets.find(a => a.id == this.prime.prime_asset_id && a.amount > 0) ? true : false;
-      this.isLegacyOwner = this.app.assets.find(a => a.id == this.prime.legacy_asset_id && a.amount > 0) ? true : false;
+      this.isSeller = this.prime.seller == this.app.account ? true : false;
     }
   }
 
@@ -113,10 +113,10 @@ export class CollectionPrimeListingPage implements OnInit, OnChanges {
 
     if (this.prime.gen == 1) {
       listContract = new baseClient.ABIContract(GenOnePrimeListContract);
-      listContractId = environment.gen1.contracts.prime.claim.application_id;
+      listContractId = environment.gen1.contracts.prime.list.application_id;
     } else {
       listContract = new baseClient.ABIContract(GenTwoPrimeListContract);
-      listContractId = environment.gen2.contracts.prime.claim.application_id;
+      listContractId = environment.gen2.contracts.prime.list.application_id;
     }
 
     algodClient.getTransactionParams().do().then((params: any) => {
@@ -141,7 +141,7 @@ export class CollectionPrimeListingPage implements OnInit, OnChanges {
         txn: baseClient.makeAssetTransferTxnWithSuggestedParamsFromObject({
           from: this.app.account,
           to: this.prime.application_address,
-          assetIndex: this.prime.legacy_asset_id,
+          assetIndex: this.prime.prime_asset_id,
           amount: 1,
           suggestedParams: {
             ...params,
@@ -176,21 +176,51 @@ export class CollectionPrimeListingPage implements OnInit, OnChanges {
     let baseClient = this.chainHelper.getBaseClient();
     let algodClient = this.chainHelper.getAlgodClient();
 
+    let unlistContract: any = null;
+    let unlistContractId = 0;
+
+    if (this.prime.gen == 1) {
+      unlistContract = new baseClient.ABIContract(GenOnePrimeUnlistContract);
+      unlistContractId = environment.gen1.contracts.prime.unlist.application_id;
+    } else {
+      unlistContract = new baseClient.ABIContract(GenTwoPrimeUnlistContract);
+      unlistContractId = environment.gen2.contracts.prime.unlist.application_id;
+    }
+
     algodClient.getTransactionParams().do().then((params: any) => {
       let composer = new baseClient.AtomicTransactionComposer();
 
-      composer.addTransaction({
-        txn: baseClient.makeAssetTransferTxnWithSuggestedParamsFromObject({
-          from: this.app.account,
-          to: this.app.account,
-          assetIndex: this.prime.prime_asset_id,
-          amount: 0,
-          suggestedParams: {
-            ...params,
-            fee: 1000,
-            flatFee: true
-          }
-        })
+      if (!this.isOptedIn) {
+        composer.addTransaction({
+          txn: baseClient.makeAssetTransferTxnWithSuggestedParamsFromObject({
+            from: this.app.account,
+            to: this.app.account,
+            assetIndex: this.prime.prime_asset_id,
+            amount: 0,
+            suggestedParams: {
+              ...params,
+              fee: 1000,
+              flatFee: true
+            }
+          })
+        });
+      }
+
+      composer.addMethodCall({
+        sender: this.app.account,
+        appID: unlistContractId,
+        method: this.chainHelper.getMethod(unlistContract, 'unlist'),
+        methodArgs: [
+          this.prime.application_id,
+        ],
+        appForeignAssets: [
+          this.prime.prime_asset_id
+        ],
+        suggestedParams: {
+          ...params,
+          fee: 3000,
+          flatFee: true
+        }
       });
 
       let group = composer.buildGroup();
@@ -218,15 +248,58 @@ export class CollectionPrimeListingPage implements OnInit, OnChanges {
     let baseClient = this.chainHelper.getBaseClient();
     let algodClient = this.chainHelper.getAlgodClient();
 
+    let buyContract: any = null;
+    let buyContractId = 0;
+
+    if (this.prime.gen == 1) {
+      buyContract = new baseClient.ABIContract(GenOnePrimeBuyContract);
+      buyContractId = environment.gen1.contracts.prime.buy.application_id;
+    } else {
+      buyContract = new baseClient.ABIContract(GenTwoPrimeBuyContract);
+      buyContractId = environment.gen2.contracts.prime.buy.application_id;
+    }
+
     algodClient.getTransactionParams().do().then((params: any) => {
       let composer = new baseClient.AtomicTransactionComposer();
 
+      if (!this.isOptedIn) {
+        composer.addTransaction({
+          txn: baseClient.makeAssetTransferTxnWithSuggestedParamsFromObject({
+            from: this.app.account,
+            to: this.app.account,
+            assetIndex: this.prime.prime_asset_id,
+            amount: 0,
+            suggestedParams: {
+              ...params,
+              fee: 1000,
+              flatFee: true
+            }
+          })
+        });
+      }
+
+      composer.addMethodCall({
+        sender: this.app.account,
+        appID: buyContractId,
+        method: this.chainHelper.getMethod(buyContract, 'buy'),
+        methodArgs: [
+          this.prime.application_id,
+        ],
+        appForeignAssets: [
+          this.prime.prime_asset_id
+        ],
+        suggestedParams: {
+          ...params,
+          fee: 3000,
+          flatFee: true
+        }
+      });
+
       composer.addTransaction({
-        txn: baseClient.makeAssetTransferTxnWithSuggestedParamsFromObject({
+        txn: baseClient.makePaymentTxnWithSuggestedParamsFromObject({
           from: this.app.account,
-          to: this.app.account,
-          assetIndex: this.prime.prime_asset_id,
-          amount: 0,
+          to: this.prime.seller,
+          amount: Math.floor(this.prime.price * 0.9),
           suggestedParams: {
             ...params,
             fee: 1000,
@@ -234,6 +307,47 @@ export class CollectionPrimeListingPage implements OnInit, OnChanges {
           }
         })
       });
+
+      if (this.prime.gen == 1) {
+        composer.addTransaction({
+          txn: baseClient.makePaymentTxnWithSuggestedParamsFromObject({
+            from: this.app.account,
+            to: environment.admin_address,
+            amount: Math.floor(this.prime.price * 0.1),
+            suggestedParams: {
+              ...params,
+              fee: 1000,
+              flatFee: true
+            }
+          })
+        });
+      } else {
+        composer.addTransaction({
+          txn: baseClient.makePaymentTxnWithSuggestedParamsFromObject({
+            from: this.app.account,
+            to: environment.admin_address,
+            amount: Math.floor(this.prime.price * 0.05),
+            suggestedParams: {
+              ...params,
+              fee: 1000,
+              flatFee: true
+            }
+          })
+        });
+
+        composer.addTransaction({
+          txn: baseClient.makePaymentTxnWithSuggestedParamsFromObject({
+            from: this.app.account,
+            to: this.prime.parent_application_address,
+            amount: Math.floor(this.prime.price * 0.05),
+            suggestedParams: {
+              ...params,
+              fee: 1000,
+              flatFee: true
+            }
+          })
+        });
+      }
 
       let group = composer.buildGroup();
 

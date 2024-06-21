@@ -177,7 +177,7 @@ export class DataHelper implements OnDestroy {
                     model.is_explorer = algosdk.decodeUint64(value.subarray(47, 48));
                     model.score = algosdk.decodeUint64(value.subarray(48, 56));
                     model.price = algosdk.decodeUint64(value.subarray(56, 64));
-                    model.seller = algosdk.encodeAddress(value.subarray(64, 96));
+                    model.seller = algosdk.encodeAddress(value.subarray(64, 96)).toUpperCase();
                     model.sales = algosdk.decodeUint64(value.subarray(96, 98));
                     model.drains = algosdk.decodeUint64(value.subarray(98, 100));
                     model.transforms = algosdk.decodeUint64(value.subarray(100, 102));
@@ -185,7 +185,7 @@ export class DataHelper implements OnDestroy {
                     model.name = value.subarray(104, 112).toString('utf-8').trim();
                     break;
                 case 'P2':
-                    model.owner = algosdk.encodeAddress(value.subarray(0, 32));
+                    model.owner = algosdk.encodeAddress(value.subarray(0, 32)).toUpperCase();
                     model.rewards = algosdk.decodeUint64(value.subarray(32, 40));
                     model.royalties = algosdk.decodeUint64(value.subarray(40, 48));
                     break;
@@ -196,6 +196,7 @@ export class DataHelper implements OnDestroy {
         model.id_text = String(model.id).padStart(3, '0');
         model.url = '/prime/gen' + model.gen + '/' + model.id_text;
         model.is_listed = model.price > 0 ? true : false;
+        model.parent_application_address = algosdk.getApplicationAddress(model.parent_application_id);
 
         return model;
     }
@@ -231,7 +232,7 @@ export class DataHelper implements OnDestroy {
                     model.is_explorer = algosdk.decodeUint64(value.subarray(47, 48));
                     model.score = algosdk.decodeUint64(value.subarray(48, 56));
                     model.price = algosdk.decodeUint64(value.subarray(56, 64));
-                    model.seller = algosdk.encodeAddress(value.subarray(64, 96));
+                    model.seller = algosdk.encodeAddress(value.subarray(64, 96)).toUpperCase();
                     model.sales = algosdk.decodeUint64(value.subarray(96, 98));
                     model.drains = algosdk.decodeUint64(value.subarray(98, 100));
                     model.transforms = algosdk.decodeUint64(value.subarray(100, 102));
@@ -239,7 +240,7 @@ export class DataHelper implements OnDestroy {
                     model.name = value.subarray(104, 120).toString('utf-8').trim();
                     break;
                 case 'P2':
-                    model.owner = algosdk.encodeAddress(value.subarray(0, 32));
+                    model.owner = algosdk.encodeAddress(value.subarray(0, 32)).toUpperCase();
                     model.rewards = algosdk.decodeUint64(value.subarray(32, 40));
                     model.royalties = algosdk.decodeUint64(value.subarray(40, 48));
                     break;
@@ -250,6 +251,7 @@ export class DataHelper implements OnDestroy {
         model.id_text = String(model.id).padStart(4, '0');
         model.url = '/prime/gen' + model.gen + '/' + model.id_text;
         model.is_listed = model.price > 0 ? true : false;
+        model.parent_application_address = algosdk.getApplicationAddress(model.parent_application_id);
 
         return model;
     }

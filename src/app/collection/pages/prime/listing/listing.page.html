@@ -3,7 +3,7 @@
         LISTING
     </h2>
     <div *ngIf="prime.is_listed">
-        <div *ngIf="isPrimeOwner">
+        <div *ngIf="isSeller">
             <p class="text-muted mb-20">
                 You have listed this Prime for sale at the moment. Unlist it if you want to pull it off the market.
             </p>
@@ -32,7 +32,7 @@
                 </button>
             </div>
         </div>
-        <div *ngIf="!isPrimeOwner">
+        <div *ngIf="!isSeller">
             <div *ngIf="isConnected">
                 <p class="text-muted mb-20">
                     This Prime is currently listed for sale. Buy it by paying the asking price.

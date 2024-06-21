@@ -103,7 +103,7 @@ export class AppHelper implements OnDestroy {
      * @param account
      */
     setAccount(account: string) {
-        localStorage.setItem('account', account);
+        localStorage.setItem('account', account.toUpperCase());
         this.state.account = account;
         this.app.next({ ...this.state });
     }
@@ -125,6 +125,10 @@ export class AppHelper implements OnDestroy {
      * @param wallet
      */
     setAddresses(addresses: Array<string>) {
+        for (let i = 0; i < addresses.length; i++) {
+            addresses[i] = addresses[i].toUpperCase();
+        }
+
         localStorage.setItem('addresses', addresses.join(','));
         this.state.addresses = addresses;
         this.app.next({ ...this.state });
