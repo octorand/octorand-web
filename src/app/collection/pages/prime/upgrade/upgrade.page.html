@@ -1,0 +1,46 @@
+<div class="card">
+    <h2 class="card-title text-center text-secondary">
+        UPGRADE
+    </h2>
+    <div *ngIf="isLegacyOwner">
+        <div *ngIf="isUpgradable">
+            <p class="text-muted mb-20">
+                As the owner of legacy prime asset, you can upgrade it to the latest version.
+            </p>
+            <div class="info">
+                <div class="table-responsive">
+                    <table class="table table-no-outer-padding">
+                        <tbody>
+                            <tr>
+                                <td class="text-secondary">Legacy Asset</td>
+                                <td class="text-right" innerHTML="{{prime.legacy_asset_id | asset:true | async}}"></td>
+                            </tr>
+                            <tr>
+                                <td class="text-secondary">Upgraded Asset</td>
+                                <td class="text-right" innerHTML="{{prime.prime_asset_id | asset:true | async}}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="mt-20">
+                <button *ngIf="!actions.upgradePrime" class="btn btn-danger btn-block" (click)="upgradePrime()">
+                    Upgrade Prime
+                </button>
+                <button *ngIf="actions.upgradePrime" class="btn btn-danger btn-block">
+                    <i class="fas fa-cog fa-spin mx-20"></i>
+                </button>
+            </div>
+        </div>
+        <div *ngIf="!isUpgradable">
+            <p class="text-muted mb-20">
+                This prime is already upgraded to the latest version.
+            </p>
+        </div>
+    </div>
+    <div *ngIf="!isLegacyOwner">
+        <p class="text-muted mb-20">
+            You don't have required permissions to upgrade this prime.
+        </p>
+    </div>
+</div>

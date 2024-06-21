@@ -47,6 +47,7 @@ const routes: Routes = [
     Pages.CollectionPrimeListingPage,
     Pages.CollectionPrimeResourcesPage,
     Pages.CollectionPrimeSummaryPage,
+    Pages.CollectionPrimeUpgradePage,
   ],
   imports: [
     CommonModule,

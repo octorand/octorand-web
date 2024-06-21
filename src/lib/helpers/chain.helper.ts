@@ -53,6 +53,16 @@ export class ChainHelper {
     }
 
     /**
+     * Get contract method
+     *
+     * @param contract
+     * @param method
+     */
+    getMethod(contract: any, method: string) {
+        return contract.methods.find((m: any) => { return m.name == method });
+    }
+
+    /**
      * Submit transactions to blockchain
      *
      * @param transactions
