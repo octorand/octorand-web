@@ -1,5 +1,6 @@
 ﻿export { default as GenOnePrimeAppContract } from "./gen1/prime/app/contract.json";
 export { default as GenOnePrimeBuyContract } from "./gen1/prime/buy/contract.json";
+export { default as GenOnePrimeClaimContract } from "./gen1/prime/claim/contract.json";
 export { default as GenOnePrimeListContract } from "./gen1/prime/list/contract.json";
 export { default as GenOnePrimeMintContract } from "./gen1/prime/mint/contract.json";
 export { default as GenOnePrimeOptinContract } from "./gen1/prime/optin/contract.json";
@@ -12,6 +13,7 @@ export { default as GenOnePrimeWithdrawContract } from "./gen1/prime/withdraw/co
 
 export { default as GenTwoPrimeAppContract } from "./gen2/prime/app/contract.json";
 export { default as GenTwoPrimeBuyContract } from "./gen2/prime/buy/contract.json";
+export { default as GenTwoPrimeClaimContract } from "./gen2/prime/claim/contract.json";
 export { default as GenTwoPrimeListContract } from "./gen2/prime/list/contract.json";
 export { default as GenTwoPrimeMintContract } from "./gen2/prime/mint/contract.json";
 export { default as GenTwoPrimeOptinContract } from "./gen2/prime/optin/contract.json";
