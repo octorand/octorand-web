@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { AppHelper, ChainHelper } from '@lib/helpers';
-import { GenOnePrimeAppContract, GenOnePrimeUpgradeContract, GenTwoPrimeAppContract, GenTwoPrimeUpgradeContract } from '@lib/contracts';
+import { GenOnePrimeUpgradeContract, GenTwoPrimeUpgradeContract } from '@lib/contracts';
 import { AppModel, DataModel, PrimeModel } from '@lib/models';
 import { environment } from '@environment';
 
@@ -97,16 +97,13 @@ export class CollectionPrimeUpgradePage implements OnInit, OnChanges {
     let baseClient = this.chainHelper.getBaseClient();
     let algodClient = this.chainHelper.getAlgodClient();
 
-    let appContract: any = null;
     let upgradeContract: any = null;
     let upgradeContractId = 0;
 
     if (this.prime.gen == 1) {
-      appContract = new baseClient.ABIContract(GenOnePrimeAppContract);
       upgradeContract = new baseClient.ABIContract(GenOnePrimeUpgradeContract);
       upgradeContractId = environment.gen1.contracts.prime.upgrade.application_id;
     } else {
-      appContract = new baseClient.ABIContract(GenTwoPrimeAppContract);
       upgradeContract = new baseClient.ABIContract(GenTwoPrimeUpgradeContract);
       upgradeContractId = environment.gen2.contracts.prime.upgrade.application_id;
     }

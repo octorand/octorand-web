@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { AppHelper, ChainHelper, DataHelper } from '@lib/helpers';
-import { GenOnePrimeAppContract, GenOnePrimeClaimContract, GenTwoPrimeAppContract, GenTwoPrimeClaimContract } from '@lib/contracts';
+import { GenOnePrimeClaimContract, GenTwoPrimeClaimContract } from '@lib/contracts';
 import { AppModel, DataModel, PrimeModel } from '@lib/models';
 import { environment } from '@environment';
 
@@ -93,16 +93,13 @@ export class CollectionPrimeOwnershipPage implements OnInit, OnChanges {
     let baseClient = this.chainHelper.getBaseClient();
     let algodClient = this.chainHelper.getAlgodClient();
 
-    let appContract: any = null;
     let claimContract: any = null;
     let claimContractId = 0;
 
     if (this.prime.gen == 1) {
-      appContract = new baseClient.ABIContract(GenOnePrimeAppContract);
       claimContract = new baseClient.ABIContract(GenOnePrimeClaimContract);
       claimContractId = environment.gen1.contracts.prime.claim.application_id;
     } else {
-      appContract = new baseClient.ABIContract(GenTwoPrimeAppContract);
       claimContract = new baseClient.ABIContract(GenTwoPrimeClaimContract);
       claimContractId = environment.gen2.contracts.prime.claim.application_id;
     }

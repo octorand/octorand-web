@@ -92,6 +92,31 @@
                 for sale any time you want. Listing a Prime for sale is free, but please note that the platform will
                 charge a 10% fee when a sale is made, which means you will only get 90% of the selling price.
             </p>
+            <div class="info">
+                <div class="table-responsive">
+                    <table class="table table-no-outer-padding">
+                        <tbody>
+                            <tr>
+                                <td class="text-secondary">Asking Price</td>
+                                <td>
+                                    <div class="input-group">
+                                        <input [(ngModel)]="inputs.price" class="form-control" type="number"
+                                            placeholder="Price">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">ALGO</span>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-secondary">Your Profit</td>
+                                <td class="text-right" innerHTML="{{inputs.price * 0.9 * 1000000 | amount:0 | async}}">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
             <div class="mt-20">
                 <button *ngIf="!actions.listPrime" class="btn btn-danger btn-block" (click)="listPrime()">
                     List Prime
