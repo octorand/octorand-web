@@ -9,14 +9,22 @@
     <p class="text-secondary">
         Deposit Asset
     </p>
-    <div class="row">
-        <div class="column col-12 col-lg-6">
-            <input [(ngModel)]="inputs.asset" class="form-control" type="number" placeholder="Asset Id">
+    <div *ngIf="depositableAssets.length > 0" class="row">
+        <div class="col-12 col-lg-6">
+            <div class="dropdown with-arrow select hand select-asset-dropdown">
+                <input value="{{selectedAssetName}}" class="form-control" type="text" data-toggle="dropdown"
+                    id="popover-toggle" aria-haspopup="true" aria-expanded="false" readonly>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="popover-toggle">
+                    <div *ngFor="let asset of depositableAssets" class="dropdown-item" (click)="selectAsset(asset)">
+                        <span innerHTML="{{asset.id | asset:false | async}}"></span>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="column col-12 col-lg-6">
-            <input [(ngModel)]="inputs.amount" class="form-control" type="number" placeholder="Asset Amount">
+        <div class="col-12 col-lg-6">
+            <input [(ngModel)]="inputs.amount" class="form-control" type="number" placeholder="Deposit Amount">
         </div>
-        <div class="column col-12">
+        <div class="col-12">
             <div class="my-10">
                 <button *ngIf="!actions.depositPrime" class="btn btn-danger" (click)="depositPrime()">
                     Deposit
@@ -26,6 +34,14 @@
                 </button>
             </div>
         </div>
+    </div>
+    <div *ngIf="depositableAssets.length == 0" class="row">
+        <p *ngIf="!isConnected" class="text-muted">
+            Connect your wallet to deposit assets.
+        </p>
+        <p *ngIf="isConnected" class="text-muted">
+            We could not find any assets in your wallet that can be deposited.
+        </p>
     </div>
     <hr class="my-20">
     <p class="text-secondary">
