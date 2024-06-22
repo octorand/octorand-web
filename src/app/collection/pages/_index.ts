@@ -11,3 +11,4 @@ export * from './prime/rewards/rewards.page';
 export * from './prime/royalties/royalties.page';
 export * from './prime/summary/summary.page';
 export * from './prime/upgrade/upgrade.page';
+export * from './prime/vault/vault.page';
