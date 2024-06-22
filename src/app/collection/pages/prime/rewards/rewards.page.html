@@ -3,8 +3,8 @@
         REWARDS
     </h2>
     <p class="text-muted mb-20">
-        Each Prime started with a OCTO rewards bundle burried inside them. Only the owner of Prime asset, can claim its
-        remaining rewards. However, anyone can donate to the rewards bundle of Primes if they feel like it.
+        Each Prime started with a OCTO rewards bundle burried inside them. Only the owner of Prime asset, can withdraw
+        its remaining rewards. However, anyone can deposit to the rewards bundle of Primes if they feel like it.
     </p>
     <div class="info">
         <div class="table-responsive">
@@ -15,37 +15,51 @@
                         <td class="text-right" innerHTML="{{prime.rewards | amount:prime.platform_asset_id | async}}">
                     </tr>
                     <tr>
-                        <td class="text-secondary">Donation</td>
                         <td>
                             <div class="input-group">
-                                <input [(ngModel)]="inputs.donation" class="form-control" type="number"
-                                    placeholder="Donation">
+                                <input [(ngModel)]="inputs.deposit" class="form-control" type="number"
+                                    placeholder="Amount">
                                 <div class="input-group-append">
                                     <span class="input-group-text">OCTO</span>
                                 </div>
                             </div>
                         </td>
+                        <td class="text-right">
+                            <div>
+                                <button *ngIf="!actions.depositPrime" class="btn btn-danger btn-block"
+                                    (click)="depositPrime()">
+                                    Deposit
+                                </button>
+                                <button *ngIf="actions.depositPrime" class="btn btn-danger btn-block">
+                                    <i class="fas fa-cog fa-spin mx-20"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr *ngIf="isPrimeOwner && prime.rewards > 0">
+                        <td>
+                            <div class="input-group">
+                                <input [(ngModel)]="inputs.withdraw" class="form-control" type="number"
+                                    placeholder="Amount">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">OCTO</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="text-right">
+                            <div>
+                                <button *ngIf="!actions.withdrawPrime" class="btn btn-danger btn-block"
+                                    (click)="withdrawPrime()">
+                                    Withdraw
+                                </button>
+                                <button *ngIf="actions.withdrawPrime" class="btn btn-danger btn-block">
+                                    <i class="fas fa-cog fa-spin mx-20"></i>
+                                </button>
+                            </div>
+                        </td>
                     </tr>
                 </tbody>
             </table>
-        </div>
-    </div>
-    <div class="mt-20">
-        <button *ngIf="!actions.depositPrime" class="btn btn-danger btn-block" (click)="depositPrime()">
-            Make a Donation
-        </button>
-        <button *ngIf="actions.depositPrime" class="btn btn-danger btn-block">
-            <i class="fas fa-cog fa-spin mx-20"></i>
-        </button>
-    </div>
-    <div *ngIf="isPrimeOwner">
-        <div *ngIf="prime.rewards > 0" class="mt-20">
-            <button *ngIf="!actions.withdrawPrime" class="btn btn-danger btn-block" (click)="withdrawPrime()">
-                Withdraw Rewards
-            </button>
-            <button *ngIf="actions.withdrawPrime" class="btn btn-danger btn-block">
-                <i class="fas fa-cog fa-spin mx-20"></i>
-            </button>
         </div>
     </div>
 </div>
