@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { AppHelper, AssetHelper, ChainHelper, DataHelper, IndexerHelper } from '@lib/helpers';
-import { GenOnePrimeAppContract, GenOnePrimeMintContract, GenOnePrimeOptinContract, GenTwoPrimeAppContract, GenTwoPrimeMintContract, GenTwoPrimeOptinContract } from '@lib/contracts';
+import { GenOnePrimeAppContract, GenOnePrimeMintContract, GenOnePrimeOptinContract, GenOnePrimeOptoutContract, GenTwoPrimeAppContract, GenTwoPrimeMintContract, GenTwoPrimeOptinContract, GenTwoPrimeOptoutContract } from '@lib/contracts';
 import { AppModel, DataModel, PrimeModel } from '@lib/models';
 import { environment } from '@environment';
 
@@ -66,8 +66,6 @@ export class CollectionPrimeVaultPage implements OnInit, OnChanges, OnDestroy {
    */
   inputs = {
     amount: null,
-    deposit: 10,
-    withdraw: 0,
   };
 
   /**
@@ -135,24 +133,26 @@ export class CollectionPrimeVaultPage implements OnInit, OnChanges, OnDestroy {
    * Load vault
    */
   loadVaultDetails() {
-    let promises = [
-      this.indexerHelper.lookupAccount(this.prime.application_address),
-    ];
+    if (this.prime.application_address) {
+      let promises = [
+        this.indexerHelper.lookupAccount(this.prime.application_address),
+      ];
 
-    Promise.all(promises).then(values => {
-      let account = values[0];
-      let assets = [];
-      if (account['assets']) {
-        for (let i = 0; i < account['assets'].length; i++) {
-          assets.push({
-            id: account['assets'][i]['asset-id'],
-            amount: account['assets'][i]['amount']
-          });
-        }
-      };
+      Promise.all(promises).then(values => {
+        let account = values[0];
+        let assets = [];
+        if (account['assets']) {
+          for (let i = 0; i < account['assets'].length; i++) {
+            assets.push({
+              id: account['assets'][i]['asset-id'],
+              amount: account['assets'][i]['amount']
+            });
+          }
+        };
 
-      this.vaultedAssets = assets.filter(a => ![this.prime.platform_asset_id, this.prime.legacy_asset_id, this.prime.prime_asset_id].includes(a.id));
-    });
+        this.vaultedAssets = assets.filter(a => ![this.prime.platform_asset_id, this.prime.legacy_asset_id, this.prime.prime_asset_id].includes(a.id));
+      });
+    }
   }
 
   /**
@@ -195,36 +195,49 @@ export class CollectionPrimeVaultPage implements OnInit, OnChanges, OnDestroy {
 
   /**
    * Withdraw rewards
+   *
+   * @param asset
    */
-  withdrawPrime() {
-    if (this.inputs.withdraw * Math.pow(10, 6) > this.prime.rewards) {
-      this.appHelper.showError('Cannot withdraw more than the available rewards');
-      return;
-    }
-
+  withdrawPrime(asset: number) {
     let baseClient = this.chainHelper.getBaseClient();
     let algodClient = this.chainHelper.getAlgodClient();
 
-    let mintContract: any = null;
-    let mintContractId = 0;
+    let optoutContract: any = null;
+    let optoutContractId = 0;
 
     if (this.prime.gen == 1) {
-      mintContract = new baseClient.ABIContract(GenOnePrimeMintContract);
-      mintContractId = environment.gen1.contracts.prime.mint.application_id;
+      optoutContract = new baseClient.ABIContract(GenOnePrimeOptoutContract);
+      optoutContractId = environment.gen1.contracts.prime.optout.application_id;
     } else {
-      mintContract = new baseClient.ABIContract(GenTwoPrimeMintContract);
-      mintContractId = environment.gen2.contracts.prime.mint.application_id;
+      optoutContract = new baseClient.ABIContract(GenTwoPrimeOptoutContract);
+      optoutContractId = environment.gen2.contracts.prime.optout.application_id;
     }
 
     algodClient.getTransactionParams().do().then((params: any) => {
       let composer = new baseClient.AtomicTransactionComposer();
 
+      if (!this.app.assets.find(a => a.id == asset)) {
+        composer.addTransaction({
+          txn: baseClient.makeAssetTransferTxnWithSuggestedParamsFromObject({
+            from: this.app.account,
+            to: this.app.account,
+            assetIndex: asset,
+            amount: 0,
+            suggestedParams: {
+              ...params,
+              fee: 1000,
+              flatFee: true
+            }
+          })
+        });
+      }
+
       composer.addMethodCall({
         sender: this.app.account,
-        appID: mintContractId,
-        method: this.chainHelper.getMethod(mintContract, 'mint'),
+        appID: optoutContractId,
+        method: this.chainHelper.getMethod(optoutContract, 'optout'),
         methodArgs: [
-          Number(this.inputs.withdraw) * Math.pow(10, 6),
+          asset,
           this.prime.application_id,
         ],
         appForeignAssets: [
@@ -250,7 +263,7 @@ export class CollectionPrimeVaultPage implements OnInit, OnChanges, OnDestroy {
         this.actions.withdrawPrime = false;
         if (response.success) {
           this.dataHelper.loadPrimeDetails();
-          this.appHelper.showSuccess('Rewards withdrawn successfully');
+          this.appHelper.showSuccess('Asset withdrawn successfully');
         }
       });
     });
@@ -301,36 +314,38 @@ export class CollectionPrimeVaultPage implements OnInit, OnChanges, OnDestroy {
     algodClient.getTransactionParams().do().then((params: any) => {
       let composer = new baseClient.AtomicTransactionComposer();
 
-      composer.addMethodCall({
-        sender: this.app.account,
-        appID: optinContractId,
-        method: this.chainHelper.getMethod(optinContract, 'optin'),
-        methodArgs: [
-          this.selectedAssetId,
-          this.prime.application_id,
-        ],
-        appForeignAssets: [
-          this.prime.platform_asset_id
-        ],
-        suggestedParams: {
-          ...params,
-          fee: 3000,
-          flatFee: true
-        }
-      });
+      if (!this.vaultedAssets.find(a => a.id == this.selectedAssetId)) {
+        composer.addTransaction({
+          txn: baseClient.makePaymentTxnWithSuggestedParamsFromObject({
+            from: this.app.account,
+            to: this.prime.application_address,
+            amount: 100000,
+            suggestedParams: {
+              ...params,
+              fee: 1000,
+              flatFee: true
+            }
+          })
+        });
 
-      composer.addTransaction({
-        txn: baseClient.makePaymentTxnWithSuggestedParamsFromObject({
-          from: this.app.account,
-          to: this.prime.application_address,
-          amount: 100000,
+        composer.addMethodCall({
+          sender: this.app.account,
+          appID: optinContractId,
+          method: this.chainHelper.getMethod(optinContract, 'optin'),
+          methodArgs: [
+            this.selectedAssetId,
+            this.prime.application_id,
+          ],
+          appForeignAssets: [
+            this.prime.platform_asset_id
+          ],
           suggestedParams: {
             ...params,
-            fee: 1000,
+            fee: 3000,
             flatFee: true
           }
-        })
-      });
+        });
+      }
 
       composer.addTransaction({
         txn: baseClient.makeAssetTransferTxnWithSuggestedParamsFromObject({
@@ -359,6 +374,10 @@ export class CollectionPrimeVaultPage implements OnInit, OnChanges, OnDestroy {
         if (response.success) {
           this.dataHelper.loadPrimeDetails();
           this.appHelper.showSuccess('Asset deposited successfully');
+          this.selectedAssetId = 0;
+          this.selectedAssetName = 'Select Asset';
+          this.selectedAssetDecimals = 0;
+          this.inputs.amount = null;
         }
       });
     });

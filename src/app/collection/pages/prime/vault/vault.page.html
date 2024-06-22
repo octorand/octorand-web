@@ -47,4 +47,24 @@
     <p class="text-secondary">
         Stored Assets
     </p>
+    <div *ngIf="vaultedAssets.length > 0">
+        <div *ngFor="let asset of vaultedAssets" class="row">
+            <div class="col">
+                <span class="mb-5" innerHTML="{{asset.amount | amount:asset.id | async}}"></span>
+            </div>
+            <div *ngIf="isPrimeOwner" class="col-auto">
+                <button *ngIf="!actions.withdrawPrime" class="btn btn-danger" (click)="withdrawPrime(asset.id)">
+                    Withdraw
+                </button>
+                <button *ngIf="actions.withdrawPrime" class="btn btn-danger">
+                    <i class="fas fa-cog fa-spin mx-20"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="vaultedAssets.length == 0" class="row">
+        <p class="text-muted">
+            No assets found in the vault.
+        </p>
+    </div>
 </div>
