@@ -126,7 +126,7 @@ export class CollectionPrimeVaultPage implements OnInit, OnChanges, OnDestroy {
    */
   initTasks() {
     this.loadVaultDetails();
-    this.vaultDetailsLoadTask = setInterval(() => { this.loadVaultDetails() }, 5000);
+    this.vaultDetailsLoadTask = setInterval(() => { this.loadVaultDetails() }, 2000);
   }
 
   /**
