@@ -1,0 +1,192 @@
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { AppHelper, ChainHelper, DataHelper } from '@lib/helpers';
+import { GenOnePrimeRepaintContract, GenTwoPrimeRepaintContract } from '@lib/contracts';
+import { AppModel, DataModel, PrimeModel } from '@lib/models';
+import { environment } from '@environment';
+
+@Component({
+  selector: 'app-collection-prime-artwork',
+  templateUrl: './artwork.page.html',
+  styleUrls: ['./artwork.page.scss'],
+})
+export class CollectionPrimeArtworkPage implements OnInit, OnChanges {
+
+  /**
+   * App state
+   */
+  @Input() app: AppModel = new AppModel();
+
+  /**
+   * Data state
+   */
+  @Input() data: DataModel = new DataModel();
+
+  /**
+   * Prime details
+   */
+  @Input() prime: PrimeModel = new PrimeModel();
+
+  /**
+   * Whether a wallet is connected
+   */
+  isConnected: boolean = false;
+
+  /**
+   * Whether prime asset is owned by current wallet
+   */
+  isPrimeOwner: boolean = false;
+
+  /**
+   * Manage inputs
+   */
+  inputs = {
+    theme: null,
+    skin: null
+  };
+
+  /**
+   * Tracking actions
+   */
+  actions = {
+    repaintPrime: false,
+  };
+
+  /**
+   * Construct component
+   *
+   * @param appHelper
+   * @param chainHelper
+   * @param dataHelper
+   */
+  constructor(
+    private appHelper: AppHelper,
+    private chainHelper: ChainHelper,
+    private dataHelper: DataHelper
+  ) { }
+
+  /**
+   * Initialize component
+   */
+  ngOnInit() {
+    this.refreshView();
+  }
+
+  /**
+   * Component parameters changed
+   */
+  ngOnChanges() {
+    this.refreshView();
+  }
+
+  /**
+   * Refresh view state
+   */
+  refreshView() {
+    if (this.prime) {
+      this.isConnected = this.app.account ? true : false;
+      this.isPrimeOwner = this.app.assets.find(a => a.id == this.prime.prime_asset_id && a.amount > 0) ? true : false;
+    }
+  }
+
+  /**
+   * Repaint prime
+   */
+  repaintPrime() {
+    if (!this.inputs.theme) {
+      this.appHelper.showError('Please enter the theme');
+      return;
+    }
+
+    if (Number.isNaN(this.inputs.theme)) {
+      this.appHelper.showError('Please enter the theme');
+      return;
+    }
+
+    if (!this.inputs.skin) {
+      this.appHelper.showError('Please enter the skin');
+      return;
+    }
+
+    if (Number.isNaN(this.inputs.skin)) {
+      this.appHelper.showError('Please enter the skin');
+      return;
+    }
+
+    let baseClient = this.chainHelper.getBaseClient();
+    let algodClient = this.chainHelper.getAlgodClient();
+
+    let repaintContract: any = null;
+    let repaintContractId: number = 0;
+    let repaintCost: number = 0;
+    let repaintTransactionFee: number = 0;
+    let repaintForeignApps: Array<number> = [];
+
+    if (this.prime.gen == 1) {
+      repaintContract = new baseClient.ABIContract(GenOnePrimeRepaintContract);
+      repaintContractId = environment.gen1.contracts.prime.repaint.application_id;
+      repaintCost = 10000000;
+      repaintTransactionFee = 3000;
+      repaintForeignApps = [];
+    } else {
+      repaintContract = new baseClient.ABIContract(GenTwoPrimeRepaintContract);
+      repaintContractId = environment.gen2.contracts.prime.repaint.application_id;
+      repaintCost = 1000000;
+      repaintTransactionFee = 4000;
+      repaintForeignApps = [this.prime.parent_application_id];
+    }
+
+    algodClient.getTransactionParams().do().then((params: any) => {
+      let composer = new baseClient.AtomicTransactionComposer();
+
+      composer.addMethodCall({
+        sender: this.app.account,
+        appID: repaintContractId,
+        method: this.chainHelper.getMethod(repaintContract, 'repaint'),
+        methodArgs: [
+          Number(this.inputs.theme),
+          Number(this.inputs.skin),
+          this.prime.application_id,
+        ],
+        appForeignAssets: [
+          this.prime.prime_asset_id,
+        ],
+        appForeignApps: repaintForeignApps,
+        suggestedParams: {
+          ...params,
+          fee: repaintTransactionFee,
+          flatFee: true
+        }
+      });
+
+      composer.addTransaction({
+        txn: baseClient.makeAssetTransferTxnWithSuggestedParamsFromObject({
+          from: this.app.account,
+          to: this.prime.application_address,
+          assetIndex: this.prime.platform_asset_id,
+          amount: repaintCost,
+          suggestedParams: {
+            ...params,
+            fee: 1000,
+            flatFee: true
+          }
+        })
+      });
+
+      let group = composer.buildGroup();
+
+      let transactions = [];
+      for (let i = 0; i < group.length; i++) {
+        transactions.push(group[i].txn);
+      }
+
+      this.actions.repaintPrime = true;
+      this.chainHelper.submitTransactions(transactions).then((response) => {
+        this.actions.repaintPrime = false;
+        if (response.success) {
+          this.dataHelper.loadPrimeDetails();
+          this.appHelper.showSuccess('Artwork updated successfully');
+        }
+      });
+    });
+  }
+}

@@ -3,6 +3,7 @@ export * from './account/account.page';
 export * from './browse/browse.page';
 export * from './market/market.page';
 export * from './prime/prime.page';
+export * from './prime/artwork/artwork.page';
 export * from './prime/badges/badges.page';
 export * from './prime/listing/listing.page';
 export * from './prime/ownership/ownership.page';

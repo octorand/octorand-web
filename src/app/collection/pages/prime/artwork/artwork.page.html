@@ -1,0 +1,50 @@
+<div class="card">
+    <h2 class="card-title text-center text-secondary">
+        ARTWORK
+    </h2>
+    <p class="text-muted mb-20">
+        Primes can change their appearence by switching their theme and skin.
+    </p>
+    <div class="info">
+        <div class="table-responsive">
+            <table class="table table-no-outer-padding">
+                <tbody>
+                    <tr>
+                        <td class="text-secondary">Theme</td>
+                        <td class="text-right">{{prime.theme}}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-secondary">Skin</td>
+                        <td class="text-right">{{prime.skin}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div *ngIf="isPrimeOwner">
+        <p class="text-muted mb-20">
+            As the holder of prime asset, you can update its artwork.
+        </p>
+        <p class="text-secondary">
+            Update Artwork
+        </p>
+        <div class="row">
+            <div class="col-12 col-lg-6">
+                <input [(ngModel)]="inputs.theme" class="form-control" type="number" placeholder="Theme">
+            </div>
+            <div class="col-12 col-lg-6">
+                <input [(ngModel)]="inputs.skin" class="form-control" type="number" placeholder="Skin">
+            </div>
+            <div class="col-12">
+                <div class="my-10">
+                    <button *ngIf="!actions.repaintPrime" class="btn btn-danger" (click)="repaintPrime()">
+                        Update
+                    </button>
+                    <button *ngIf="actions.repaintPrime" class="btn btn-danger">
+                        <i class="fas fa-cog fa-spin mx-20"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

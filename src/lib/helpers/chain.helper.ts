@@ -86,6 +86,7 @@ export class ChainHelper {
                 this.appHelper.showSuccess('Transaction executed successfully.');
                 success = true;
             } catch (error) {
+                console.log(error);
                 this.appHelper.showError('Unexpected error occurred.');
             }
         } else {
