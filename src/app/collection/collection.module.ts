@@ -47,6 +47,7 @@ const routes: Routes = [
     Pages.CollectionPrimeBadgesPage,
     Pages.CollectionPrimeListingPage,
     Pages.CollectionPrimeOwnershipPage,
+    Pages.CollectionPrimeRenamePage,
     Pages.CollectionPrimeResourcesPage,
     Pages.CollectionPrimeRewardsPage,
     Pages.CollectionPrimeRoyaltiesPage,

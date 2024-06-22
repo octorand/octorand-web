@@ -1,0 +1,46 @@
+<div class="card">
+    <h2 class="card-title text-center text-secondary">
+        RENAME
+    </h2>
+    <p class="text-muted mb-20">
+        Primes can change their name.
+    </p>
+    <div class="info">
+        <div class="table-responsive">
+            <table class="table table-no-outer-padding">
+                <tbody>
+                    <tr>
+                        <td class="text-secondary">Name</td>
+                        <td class="text-right">{{prime.name}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div *ngIf="isPrimeOwner">
+        <p class="text-muted mb-20">
+            As the holder of prime asset, you can update its name.
+        </p>
+        <p class="text-secondary">
+            Update Name
+        </p>
+        <div class="row">
+            <div class="col-12 col-lg-6">
+                <input [(ngModel)]="inputs.index" class="form-control" type="number" placeholder="Index">
+            </div>
+            <div class="col-12 col-lg-6">
+                <input [(ngModel)]="inputs.letter" class="form-control" type="text" placeholder="Letter">
+            </div>
+            <div class="col-12">
+                <div class="my-10">
+                    <button *ngIf="!actions.renamePrime" class="btn btn-danger" (click)="renamePrime()">
+                        Update
+                    </button>
+                    <button *ngIf="actions.renamePrime" class="btn btn-danger">
+                        <i class="fas fa-cog fa-spin mx-20"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
