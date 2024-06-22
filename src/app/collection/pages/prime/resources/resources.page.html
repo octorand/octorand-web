@@ -23,10 +23,10 @@
         </div>
     </div>
     <div *ngIf="isConnected && !isOptedIn" class="mt-20">
-        <button *ngIf="!actions.optinToAsset" class="btn btn-danger btn-block" (click)="optinToAsset()">
+        <button *ngIf="!actions.optinToAsset" class="btn btn-primary btn-block" (click)="optinToAsset()">
             Optin to Asset
         </button>
-        <button *ngIf="actions.optinToAsset" class="btn btn-danger btn-block">
+        <button *ngIf="actions.optinToAsset" class="btn btn-primary btn-block">
             <i class="fas fa-cog fa-spin mx-20"></i>
         </button>
     </div>

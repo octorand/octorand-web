@@ -26,10 +26,10 @@
         </div>
         <div class="col-12">
             <div class="my-10">
-                <button *ngIf="!actions.depositPrime" class="btn btn-danger" (click)="depositPrime()">
+                <button *ngIf="!actions.depositPrime" class="btn btn-primary" (click)="depositPrime()">
                     Deposit
                 </button>
-                <button *ngIf="actions.depositPrime" class="btn btn-danger">
+                <button *ngIf="actions.depositPrime" class="btn btn-primary">
                     <i class="fas fa-cog fa-spin mx-20"></i>
                 </button>
             </div>
@@ -53,10 +53,10 @@
                 <span class="mb-5" innerHTML="{{asset.amount | amount:asset.id | async}}"></span>
             </div>
             <div *ngIf="isPrimeOwner" class="col-auto">
-                <button *ngIf="!actions.withdrawPrime" class="btn btn-danger" (click)="withdrawPrime(asset.id)">
+                <button *ngIf="!actions.withdrawPrime" class="btn btn-primary" (click)="withdrawPrime(asset.id)">
                     Withdraw
                 </button>
-                <button *ngIf="actions.withdrawPrime" class="btn btn-danger">
+                <button *ngIf="actions.withdrawPrime" class="btn btn-primary">
                     <i class="fas fa-cog fa-spin mx-20"></i>
                 </button>
             </div>
