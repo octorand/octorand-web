@@ -1,0 +1,65 @@
+<div class="card">
+    <h2 class="card-title text-center text-secondary">
+        ROYALTIES
+    </h2>
+    <p class="text-muted mb-20">
+        Each Prime receive ALGO royaltis through their children. Only the owner of Prime asset, can withdraw
+        its royalties. However, anyone can deposit extra ALGO to increase the royalties of Primes if they feel like it.
+    </p>
+    <div class="info">
+        <div class="table-responsive">
+            <table class="table table-no-outer-padding">
+                <tbody>
+                    <tr>
+                        <td class="text-secondary">Royalties</td>
+                        <td class="text-right" innerHTML="{{prime.royalties | amount:0 | async}}">
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="input-group">
+                                <input [(ngModel)]="inputs.deposit" class="form-control" type="number"
+                                    placeholder="Amount">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">ALGO</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="text-right">
+                            <div>
+                                <button *ngIf="!actions.depositPrime" class="btn btn-danger btn-block"
+                                    (click)="depositPrime()">
+                                    Deposit
+                                </button>
+                                <button *ngIf="actions.depositPrime" class="btn btn-danger btn-block">
+                                    <i class="fas fa-cog fa-spin mx-20"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr *ngIf="isPrimeOwner && prime.royalties > 0">
+                        <td>
+                            <div class="input-group">
+                                <input [(ngModel)]="inputs.withdraw" class="form-control" type="number"
+                                    placeholder="Amount">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">ALGO</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="text-right">
+                            <div>
+                                <button *ngIf="!actions.withdrawPrime" class="btn btn-danger btn-block"
+                                    (click)="withdrawPrime()">
+                                    Withdraw
+                                </button>
+                                <button *ngIf="actions.withdrawPrime" class="btn btn-danger btn-block">
+                                    <i class="fas fa-cog fa-spin mx-20"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
