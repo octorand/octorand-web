@@ -161,7 +161,7 @@ export class CollectionPrimeArtworkPage implements OnInit, OnChanges {
       composer.addTransaction({
         txn: baseClient.makeAssetTransferTxnWithSuggestedParamsFromObject({
           from: this.app.account,
-          to: this.prime.application_address,
+          to: environment.platform.reserve,
           assetIndex: this.prime.platform_asset_id,
           amount: repaintCost,
           suggestedParams: {
