@@ -83,11 +83,27 @@
             </ul>
         </nav>
     </div>
-    <div *ngIf="isConnected && !isOptedIn" class="text-center mt-20">
-        <button *ngIf="!actions.optinToAsset" class="btn btn-primary" (click)="optinToAsset()">
+    <div *ngIf="isOptinable" class="text-center mt-20">
+        <button *ngIf="!actions.optinPrime" class="btn btn-primary" (click)="optinPrime()">
             Optin to Asset
         </button>
-        <button *ngIf="actions.optinToAsset" class="btn btn-primary">
+        <button *ngIf="actions.optinPrime" class="btn btn-primary">
+            <i class="fas fa-cog fa-spin mx-20"></i>
+        </button>
+    </div>
+    <div *ngIf="isClaimable" class="text-center mt-20">
+        <button *ngIf="!actions.claimPrime" class="btn btn-primary" (click)="claimPrime()">
+            Claim Ownership
+        </button>
+        <button *ngIf="actions.claimPrime" class="btn btn-primary">
+            <i class="fas fa-cog fa-spin mx-20"></i>
+        </button>
+    </div>
+    <div *ngIf="isOptinable" class="text-center mt-20">
+        <button *ngIf="!actions.upgradePrime" class="btn btn-primary" (click)="upgradePrime()">
+            Upgrade Version
+        </button>
+        <button *ngIf="actions.upgradePrime" class="btn btn-primary">
             <i class="fas fa-cog fa-spin mx-20"></i>
         </button>
     </div>
