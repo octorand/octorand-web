@@ -1,10 +1,9 @@
-<div class="input-group">
-  <div class="input-group-prepend">
-    <span class="input-group-text text-secondary chip">{{key}}</span>
+<div class="row">
+  <div class="col-auto bg-dark-light text-secondary px-15">
+    {{key}}
   </div>
-  <div class="input-group-append">
-    <span class="input-group-text chip">
-      <ng-content></ng-content>
-    </span>
+  <div class="col-auto bg-dark divider"></div>
+  <div class="col-auto bg-dark-light text-white px-15">
+    <ng-content></ng-content>
   </div>
 </div>
