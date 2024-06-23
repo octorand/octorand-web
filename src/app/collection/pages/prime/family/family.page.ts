@@ -68,7 +68,7 @@ export class CollectionPrimeFamilyPage implements OnInit, OnChanges {
         this.children = this.data.gen_two_primes.filter(p => childrenIds.includes(p.id));
       } else {
         this.parent = this.data.gen_one_primes.filter(p => p.id == this.prime.parent.id)[0];
-        let siblingIds = this.parent.children.map(c => c.id);
+        let siblingIds = this.parent.children.filter(c => c.id != this.prime.id).map(c => c.id);
         this.siblings = this.data.gen_two_primes.filter(p => siblingIds.includes(p.id));
       }
     }

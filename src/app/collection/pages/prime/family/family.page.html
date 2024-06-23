@@ -24,13 +24,11 @@
                                 <lib-tags-prime-boxes [prime]="child"></lib-tags-prime-boxes>
                                 <lib-tags-prime-owner [prime]="child"></lib-tags-prime-owner>
                                 <lib-tags-prime-info [prime]="child"></lib-tags-prime-info>
-                                <div class="btn-group mt-20 btn-block" role="group">
-                                    <button class="btn btn-primary btn-square" type="button">
-                                        <a class="text-white" href="{{child.url}}" target="_blank">
-                                            View <i class="fas fa-external-link-alt ml-5"></i>
-                                        </a>
-                                    </button>
-                                </div>
+                                <button class="btn btn-primary btn-block mt-10 p-0" type="button">
+                                    <a class="text-white d-block" href="{{child.url}}" target="_blank">
+                                        View <i class="fas fa-external-link-alt ml-5"></i>
+                                    </a>
+                                </button>
                             </div>
                         </div>
                     </li>
@@ -60,13 +58,11 @@
                                 <lib-tags-prime-boxes [prime]="parent"></lib-tags-prime-boxes>
                                 <lib-tags-prime-owner [prime]="parent"></lib-tags-prime-owner>
                                 <lib-tags-prime-info [prime]="parent"></lib-tags-prime-info>
-                                <div class="btn-group mt-20 btn-block" role="group">
-                                    <button class="btn btn-primary btn-square" type="button">
-                                        <a class="text-white" href="{{parent.url}}" target="_blank">
-                                            View <i class="fas fa-external-link-alt ml-5"></i>
-                                        </a>
-                                    </button>
-                                </div>
+                                <button class="btn btn-primary btn-block mt-10 p-0" type="button">
+                                    <a class="text-white d-block" href="{{parent.url}}" target="_blank">
+                                        View <i class="fas fa-external-link-alt ml-5"></i>
+                                    </a>
+                                </button>
                             </div>
                         </div>
                     </li>
@@ -77,7 +73,7 @@
             Siblings
         </p>
         <p class="text-muted text-center m-0">
-            Each GEN2 Prime have eight GEN2 siblings.
+            Each GEN2 Prime have seven other GEN2 siblings.
         </p>
         <div class="info mt-20">
             <nav>
@@ -94,18 +90,19 @@
                                 <lib-tags-prime-boxes [prime]="sibling"></lib-tags-prime-boxes>
                                 <lib-tags-prime-owner [prime]="sibling"></lib-tags-prime-owner>
                                 <lib-tags-prime-info [prime]="sibling"></lib-tags-prime-info>
-                                <div class="btn-group mt-20 btn-block" role="group">
-                                    <button class="btn btn-primary btn-square" type="button">
-                                        <a class="text-white" href="{{sibling.url}}" target="_blank">
-                                            View <i class="fas fa-external-link-alt ml-5"></i>
-                                        </a>
-                                    </button>
-                                </div>
+                                <button class="btn btn-primary btn-block mt-10 p-0" type="button">
+                                    <a class="text-white d-block" href="{{sibling.url}}" target="_blank">
+                                        View <i class="fas fa-external-link-alt ml-5"></i>
+                                    </a>
+                                </button>
                             </div>
                         </div>
                     </li>
                 </ul>
             </nav>
         </div>
+        <p class="text-muted text-center m-0">
+            Collect all the Primes in family to receive the rare Family badge.
+        </p>
     </div>
 </div>
