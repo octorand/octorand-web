@@ -1,0 +1,33 @@
+<div class="card">
+    <h2 class="card-title text-center text-secondary">
+        FAMILY
+    </h2>
+    <div *ngIf="prime.gen == 1">
+        <p class="text-muted mb-20">
+            Each GEN1 Prime is a parent of 8 GEN2 children.
+        </p>
+    </div>
+    <div *ngIf="prime.gen == 2">
+        <p class="text-muted mb-20">
+            Each GEN2 Prime is a child of a GEN1 parent.
+        </p>
+    </div>
+
+
+    <div class="info">
+        <div class="table-responsive">
+            <table class="table table-no-outer-padding">
+                <tbody>
+                    <tr>
+                        <td class="text-secondary">Asset</td>
+                        <td class="text-right" innerHTML="{{prime.prime_asset_id | asset:true | async}}"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-secondary">Application</td>
+                        <td class="text-right" innerHTML="{{prime.application_id | application:true}}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
