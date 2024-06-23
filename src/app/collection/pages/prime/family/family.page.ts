@@ -24,6 +24,21 @@ export class CollectionPrimeFamilyPage implements OnInit, OnChanges {
   @Input() prime: PrimeModel = new PrimeModel();
 
   /**
+   * Prime parent
+   */
+  parent: PrimeModel = new PrimeModel();
+
+  /**
+   * List of prime children
+   */
+  children: Array<PrimeModel> = [];
+
+  /**
+   * List of prime siblings
+   */
+  siblings: Array<PrimeModel> = [];
+
+  /**
    * Construct component
    */
   constructor(
@@ -48,7 +63,14 @@ export class CollectionPrimeFamilyPage implements OnInit, OnChanges {
    */
   refreshView() {
     if (this.prime) {
-
+      if (this.prime.gen == 1) {
+        let childrenIds = this.prime.children.map(c => c.id);
+        this.children = this.data.gen_two_primes.filter(p => childrenIds.includes(p.id));
+      } else {
+        this.parent = this.data.gen_one_primes.filter(p => p.id == this.prime.parent.id)[0];
+        let siblingIds = this.parent.children.map(c => c.id);
+        this.siblings = this.data.gen_two_primes.filter(p => siblingIds.includes(p.id));
+      }
     }
   }
 }
