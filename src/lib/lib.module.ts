@@ -10,6 +10,7 @@ import * as Pipes from '@lib/pipes';
     HttpClientModule,
   ],
   declarations: [
+    Tags.ChipTag,
     Tags.PagerTag,
     Tags.PrimeBadgesTag,
     Tags.PrimeBoxesTag,
@@ -26,6 +27,7 @@ import * as Pipes from '@lib/pipes';
     Pipes.TruncatePipe,
   ],
   exports: [
+    Tags.ChipTag,
     Tags.PagerTag,
     Tags.PrimeBadgesTag,
     Tags.PrimeBoxesTag,

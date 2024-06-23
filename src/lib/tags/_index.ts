@@ -1,4 +1,5 @@
-﻿export * from './pager/pager.tag';
+﻿export * from './chip/chip.tag';
+export * from './pager/pager.tag';
 export * from './prime/badges/badges.tag';
 export * from './prime/boxes/boxes.tag';
 export * from './prime/info/info.tag';
