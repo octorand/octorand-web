@@ -3,15 +3,15 @@
         FAMILY
     </h2>
     <div *ngIf="prime.gen == 1">
-        <p class="text-secondary mb-20">
+        <p class="text-success text-center m-0">
             Children
         </p>
-        <p class="text-muted mb-20">
+        <p class="text-muted text-center m-0">
             Each GEN1 Prime is a parent of eight GEN2 children.
         </p>
-        <div class="info">
+        <div class="info mt-20">
             <nav>
-                <ul class="pagination">
+                <ul class="pagination text-center">
                     <li class="page-item dropdown dropup with-arrow" *ngFor="let child of children">
                         <div data-toggle="dropdown" id="popover-toggle" aria-haspopup="true" aria-expanded="false"
                             class="page-link hand px-20"
@@ -24,6 +24,13 @@
                                 <lib-tags-prime-boxes [prime]="child"></lib-tags-prime-boxes>
                                 <lib-tags-prime-owner [prime]="child"></lib-tags-prime-owner>
                                 <lib-tags-prime-info [prime]="child"></lib-tags-prime-info>
+                                <div class="btn-group mt-20 btn-block" role="group">
+                                    <button class="btn btn-primary btn-square" type="button">
+                                        <a class="text-white" href="{{child.url}}" target="_blank">
+                                            View <i class="fas fa-external-link-alt ml-5"></i>
+                                        </a>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </li>
@@ -32,15 +39,15 @@
         </div>
     </div>
     <div *ngIf="prime.gen == 2">
-        <p class="text-secondary mb-20">
+        <p class="text-success text-center m-0">
             Parent
         </p>
-        <p class="text-muted mb-20">
+        <p class="text-muted text-center m-0">
             Each GEN2 Prime is a child of a GEN1 parent.
         </p>
-        <div class="info">
+        <div class="info mt-20">
             <nav>
-                <ul class="pagination">
+                <ul class="pagination text-center">
                     <li class="page-item dropdown dropup with-arrow">
                         <div data-toggle="dropdown" id="popover-toggle" aria-haspopup="true" aria-expanded="false"
                             class="page-link hand px-20"
@@ -53,21 +60,28 @@
                                 <lib-tags-prime-boxes [prime]="parent"></lib-tags-prime-boxes>
                                 <lib-tags-prime-owner [prime]="parent"></lib-tags-prime-owner>
                                 <lib-tags-prime-info [prime]="parent"></lib-tags-prime-info>
+                                <div class="btn-group mt-20 btn-block" role="group">
+                                    <button class="btn btn-primary btn-square" type="button">
+                                        <a class="text-white" href="{{parent.url}}" target="_blank">
+                                            View <i class="fas fa-external-link-alt ml-5"></i>
+                                        </a>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </li>
                 </ul>
             </nav>
         </div>
-        <p class="text-secondary mb-20">
+        <p class="text-success text-center m-0">
             Siblings
         </p>
-        <p class="text-muted mb-20">
+        <p class="text-muted text-center m-0">
             Each GEN2 Prime have eight GEN2 siblings.
         </p>
-        <div class="info">
+        <div class="info mt-20">
             <nav>
-                <ul class="pagination">
+                <ul class="pagination text-center">
                     <li class="page-item dropdown dropup with-arrow" *ngFor="let sibling of siblings">
                         <div data-toggle="dropdown" id="popover-toggle" aria-haspopup="true" aria-expanded="false"
                             class="page-link hand px-20"
@@ -80,6 +94,13 @@
                                 <lib-tags-prime-boxes [prime]="sibling"></lib-tags-prime-boxes>
                                 <lib-tags-prime-owner [prime]="sibling"></lib-tags-prime-owner>
                                 <lib-tags-prime-info [prime]="sibling"></lib-tags-prime-info>
+                                <div class="btn-group mt-20 btn-block" role="group">
+                                    <button class="btn btn-primary btn-square" type="button">
+                                        <a class="text-white" href="{{sibling.url}}" target="_blank">
+                                            View <i class="fas fa-external-link-alt ml-5"></i>
+                                        </a>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </li>

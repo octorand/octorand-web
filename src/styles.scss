@@ -9,6 +9,13 @@
     --card-title-font-weight: 500;
     --dm-table-border-color: #25282c;
 
+    a:link,
+    a:visited,
+    a:hover,
+    a:active {
+        text-decoration: none;
+    }
+
     router-outlet + * {
         display: block;
         animation: fade 1s;
