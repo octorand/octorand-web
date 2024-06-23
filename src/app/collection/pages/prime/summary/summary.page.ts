@@ -108,7 +108,7 @@ export class CollectionPrimeSummaryPage implements OnInit, OnChanges {
       this.isLegacyOwner = this.app.assets.find(a => a.id == this.prime.legacy_asset_id && a.amount > 0) ? true : false;
       this.isOptinable = (this.isConnected && !this.isOptedIn) ? true : false;
       this.isClaimable = (this.isPrimeOwner && this.prime.owner != this.app.account) ? true : false;
-      this.isUpgradable = this.prime.badges.includes('Explorer') ? false : true;
+      this.isUpgradable = (this.isLegacyOwner && !this.prime.badges.includes('Explorer')) ? true : false;
     }
   }
 
