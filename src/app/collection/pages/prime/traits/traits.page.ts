@@ -3,11 +3,11 @@ import { BadgeHelper } from '@lib/helpers';
 import { AppModel, DataModel, PrimeModel } from '@lib/models';
 
 @Component({
-  selector: 'app-collection-prime-badges',
-  templateUrl: './badges.page.html',
-  styleUrls: ['./badges.page.scss'],
+  selector: 'app-collection-prime-traits',
+  templateUrl: './traits.page.html',
+  styleUrls: ['./traits.page.scss'],
 })
-export class CollectionPrimeBadgesPage implements OnInit, OnChanges {
+export class CollectionPrimeTraitsPage implements OnInit, OnChanges {
 
   /**
    * App state

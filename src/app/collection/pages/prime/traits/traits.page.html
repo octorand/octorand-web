@@ -1,29 +1,30 @@
 <div class="card">
     <h2 class="card-title text-center text-secondary">
-        BADGES
+        TRAITS
     </h2>
-    <p class="text-muted mb-20">
+    <p class="text-success text-center m-0">
+        Badges
+    </p>
+    <p class="text-muted text-center m-0">
         Primes obtain badges when they meet certain qualifications.
     </p>
-    <div class="info">
+    <div class="info my-20">
         <nav>
-            <ul class="pagination">
+            <ul class="pagination text-center">
                 <li class="page-item dropdown dropup with-arrow" *ngFor="let badge of badges">
                     <div data-toggle="dropdown" id="popover-toggle" aria-haspopup="true" aria-expanded="false"
-                        class="page-link hand px-20"
-                        [ngClass]="{'bg-primary text-white': badge.active, 'bg-dark-light text-muted': !badge.active}">
+                        class="page-link text-white hand px-20"
+                        [ngClass]="{'bg-primary': badge.active, 'bg-dark-light': !badge.active}">
                         <i class="{{badge.icon}} mr-5"></i>
                         {{badge.name}}
                     </div>
                     <div class="dropdown-menu dropdown-menu-center" aria-labelledby="popover-toggle">
-                        <div class="dropdown-item"
-                            [ngClass]="{'text-primary': badge.active, 'text-muted': !badge.active}">
+                        <div class="dropdown-item">
                             <i class="mr-10 {{badge.icon}}"></i>
                             {{badge.name}} - {{badge.count}}x ({{badge.percentage}}%)
                         </div>
                         <div class="dropdown-divider"></div>
-                        <div class="dropdown-item"
-                            [ngClass]="{'text-primary': badge.active, 'text-muted': !badge.active}">
+                        <div class="dropdown-item">
                             <p class="description">{{badge.description}}</p>
                         </div>
                     </div>
