@@ -20,7 +20,10 @@
                         </div>
                         <div class="dropdown-menu dropdown-menu-center" aria-labelledby="popover-toggle">
                             <div class="dropdown-item">
-                                GEN{{child.gen}} Prime #{{child.id_text}}
+                                <lib-tags-prime-skins [prime]="child"></lib-tags-prime-skins>
+                                <lib-tags-prime-boxes [prime]="child"></lib-tags-prime-boxes>
+                                <lib-tags-prime-owner [prime]="child"></lib-tags-prime-owner>
+                                <lib-tags-prime-info [prime]="child"></lib-tags-prime-info>
                             </div>
                         </div>
                     </li>
@@ -46,7 +49,10 @@
                         </div>
                         <div class="dropdown-menu dropdown-menu-center" aria-labelledby="popover-toggle">
                             <div class="dropdown-item">
-                                GEN{{parent.gen}} Prime #{{parent.id_text}}
+                                <lib-tags-prime-skins [prime]="parent"></lib-tags-prime-skins>
+                                <lib-tags-prime-boxes [prime]="parent"></lib-tags-prime-boxes>
+                                <lib-tags-prime-owner [prime]="parent"></lib-tags-prime-owner>
+                                <lib-tags-prime-info [prime]="parent"></lib-tags-prime-info>
                             </div>
                         </div>
                     </li>
@@ -70,7 +76,10 @@
                         </div>
                         <div class="dropdown-menu dropdown-menu-center" aria-labelledby="popover-toggle">
                             <div class="dropdown-item">
-                                GEN{{sibling.gen}} Prime #{{sibling.id_text}}
+                                <lib-tags-prime-skins [prime]="sibling"></lib-tags-prime-skins>
+                                <lib-tags-prime-boxes [prime]="sibling"></lib-tags-prime-boxes>
+                                <lib-tags-prime-owner [prime]="sibling"></lib-tags-prime-owner>
+                                <lib-tags-prime-info [prime]="sibling"></lib-tags-prime-info>
                             </div>
                         </div>
                     </li>
