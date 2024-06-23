@@ -5,11 +5,11 @@ import { AppModel, DataModel, PrimeModel } from '@lib/models';
 import { environment } from '@environment';
 
 @Component({
-  selector: 'app-collection-prime-listing',
-  templateUrl: './listing.page.html',
-  styleUrls: ['./listing.page.scss'],
+  selector: 'app-collection-prime-market',
+  templateUrl: './market.page.html',
+  styleUrls: ['./market.page.scss'],
 })
-export class CollectionPrimeListingPage implements OnInit, OnChanges {
+export class CollectionPrimeMarketPage implements OnInit, OnChanges {
 
   /**
    * App state

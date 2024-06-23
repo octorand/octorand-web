@@ -6,7 +6,7 @@ export * from './prime/prime.page';
 export * from './prime/artwork/artwork.page';
 export * from './prime/traits/traits.page';
 export * from './prime/family/family.page';
-export * from './prime/listing/listing.page';
+export * from './prime/market/market.page';
 export * from './prime/rename/rename.page';
 export * from './prime/rewards/rewards.page';
 export * from './prime/royalties/royalties.page';

@@ -45,7 +45,7 @@ const routes: Routes = [
     Pages.CollectionPrimePage,
     Pages.CollectionPrimeArtworkPage,
     Pages.CollectionPrimeFamilyPage,
-    Pages.CollectionPrimeListingPage,
+    Pages.CollectionPrimeMarketPage,
     Pages.CollectionPrimeRenamePage,
     Pages.CollectionPrimeRewardsPage,
     Pages.CollectionPrimeRoyaltiesPage,
