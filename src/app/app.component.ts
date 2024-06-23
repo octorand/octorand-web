@@ -365,6 +365,7 @@ export class AppComponent implements OnInit, OnDestroy {
    */
   selectAddress(address: string) {
     this.appHelper.setAccount(address);
+    this.appHelper.loadAccountDetails();
     this.hideConnectDropdown();
   }
 
