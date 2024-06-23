@@ -14,8 +14,8 @@
                 <ul class="pagination text-center">
                     <li class="page-item dropdown dropup with-arrow" *ngFor="let child of children">
                         <div data-toggle="dropdown" id="popover-toggle" aria-haspopup="true" aria-expanded="false"
-                            class="page-link hand px-20"
-                            [ngClass]="{'bg-primary text-white': child.owner == prime.owner, 'bg-dark-light text-muted': child.owner != prime.owner}">
+                            class="page-link text-white hand px-20"
+                            [ngClass]="{'bg-primary': child.owner == prime.owner, 'bg-dark-light': child.owner != prime.owner}">
                             GEN{{child.gen}} Prime #{{child.id_text}}
                         </div>
                         <div class="dropdown-menu dropdown-menu-center" aria-labelledby="popover-toggle">
@@ -48,8 +48,8 @@
                 <ul class="pagination text-center">
                     <li class="page-item dropdown dropup with-arrow">
                         <div data-toggle="dropdown" id="popover-toggle" aria-haspopup="true" aria-expanded="false"
-                            class="page-link hand px-20"
-                            [ngClass]="{'bg-primary text-white': parent.owner == prime.owner, 'bg-dark-light text-muted': parent.owner != prime.owner}">
+                            class="page-link text-white hand px-20"
+                            [ngClass]="{'bg-primary': parent.owner == prime.owner, 'bg-dark-light': parent.owner != prime.owner}">
                             GEN{{parent.gen}} Prime #{{parent.id_text}}
                         </div>
                         <div class="dropdown-menu dropdown-menu-center" aria-labelledby="popover-toggle">
@@ -80,8 +80,8 @@
                 <ul class="pagination text-center">
                     <li class="page-item dropdown dropup with-arrow" *ngFor="let sibling of siblings">
                         <div data-toggle="dropdown" id="popover-toggle" aria-haspopup="true" aria-expanded="false"
-                            class="page-link hand px-20"
-                            [ngClass]="{'bg-primary text-white': sibling.owner == prime.owner, 'bg-dark-light text-muted': sibling.owner != prime.owner}">
+                            class="page-link text-white hand px-20"
+                            [ngClass]="{'bg-primary': sibling.owner == prime.owner, 'bg-dark-light': sibling.owner != prime.owner}">
                             GEN{{sibling.gen}} Prime #{{sibling.id_text}}
                         </div>
                         <div class="dropdown-menu dropdown-menu-center" aria-labelledby="popover-toggle">
