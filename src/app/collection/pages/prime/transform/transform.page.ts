@@ -44,7 +44,7 @@ export class CollectionPrimeTransformPage implements OnInit, OnChanges {
   /**
    * Index of selected name letter
    */
-  selectedNameIndex: number = 0;
+  selectedNameIndex: number = -1;
 
   /**
    * Index of selected alphabet letter
@@ -130,6 +130,8 @@ export class CollectionPrimeTransformPage implements OnInit, OnChanges {
 
       if (!this.isInitialised) {
         this.updatedName = this.prime.name;
+        this.selectNameIndex(0);
+        this.renameDifference = 0;
         this.isInitialised = true;
       }
     }
@@ -252,6 +254,7 @@ export class CollectionPrimeTransformPage implements OnInit, OnChanges {
         this.actions.renamePrime = false;
         if (response.success) {
           this.dataHelper.loadPrimeDetails();
+          this.isInitialised = false;
           this.appHelper.showSuccess('Name updated successfully');
         }
       });
