@@ -26,15 +26,66 @@
     </p>
     <div *ngIf="isPrimeOwner">
         <div class="info mt-20">
-            <nav>
-                <ul class="pagination text-center">
-                    <li class="page-item">
-                        <div class="page-link">
+            <div class="name">
+                <div class="row">
+                    <div *ngFor="let number of [0, 1, 2, 3, 4, 5, 6, 7]" class="col">
+                        <div class="letter">
+                            <div class="box" (click)="upLetterIndex(number)">
 
+                            </div>
                         </div>
-                    </li>
-                </ul>
-            </nav>
+                    </div>
+                </div>
+                <div class="row">
+                    <div *ngFor="let number of [0, 1, 2, 3, 4, 5, 6, 7]" class="col">
+                        <div class="letter">
+                            <div class="box hand text-center" (click)="selectNameIndex(number)"
+                                [ngClass]="{'bg-dark-light': number != selectedNameIndex, 'bg-primary': number == selectedNameIndex}">
+                                {{updatedName[number]}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div *ngFor="let number of [0, 1, 2, 3, 4, 5, 6, 7]" class="col">
+                        <div class="letter">
+                            <div class="box" (click)="downLetterIndex(number)">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="prime.gen > 1" class="name">
+                <div class="row">
+                    <div *ngFor="let number of [8, 9, 10, 11, 12, 13, 14, 15]" class="col">
+                        <div class="letter">
+                            <div class="box" (click)="upLetterIndex(number)">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div *ngFor="let number of [8, 9, 10, 11, 12, 13, 14, 15]" class="col">
+                        <div class="letter">
+                            <div class="box hand text-center" (click)="selectNameIndex(number)"
+                                [ngClass]="{'bg-dark-light': number != selectedNameIndex, 'bg-primary': number == selectedNameIndex}">
+                                {{updatedName[number]}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div *ngFor="let number of [8, 9, 10, 11, 12, 13, 14, 15]" class="col">
+                        <div class="letter">
+                            <div class="box" (click)="downLetterIndex(number)">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div *ngIf="renameDifference > 0" class="text-center my-20">
                 <button *ngIf="!actions.renamePrime" class="btn btn-primary" (click)="renamePrime()">
                     Update Letter

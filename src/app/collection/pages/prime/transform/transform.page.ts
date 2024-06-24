@@ -27,6 +27,11 @@ export class CollectionPrimeTransformPage implements OnInit, OnChanges {
   @Input() prime: PrimeModel = new PrimeModel();
 
   /**
+   * Whether details are initialised
+   */
+  isInitialised: boolean = false;
+
+  /**
    * Whether a wallet is connected
    */
   isConnected: boolean = false;
@@ -60,6 +65,11 @@ export class CollectionPrimeTransformPage implements OnInit, OnChanges {
    * Difference between letters when renaming
    */
   renameDifference: number = 0;
+
+  /**
+   * Updated prime name
+   */
+  updatedName: string = '';
 
   /**
    * Tracking actions
@@ -110,7 +120,56 @@ export class CollectionPrimeTransformPage implements OnInit, OnChanges {
         this.renamePrice = environment.gen2.rename_price;
         this.renameScore = environment.gen2.rename_score;
       }
+
+      if (!this.isInitialised) {
+        this.updatedName = this.prime.name;
+        this.isInitialised = true;
+      }
     }
+  }
+
+  /**
+   * Select name index
+   *
+   * @param index
+   */
+  selectNameIndex(index: number) {
+    if (this.selectedNameIndex != index) {
+      this.updatedName = this.prime.name;
+      this.selectedNameIndex = index;
+      this.selectedLetterIndex = this.prime.name.charCodeAt(index);
+      this.renameDifference = 0;
+    }
+  }
+
+  /**
+   * Roll up letter index
+   *
+   * @param index
+   */
+  upLetterIndex(index: number) {
+    this.selectNameIndex(index);
+    if (this.selectedLetterIndex > 65) {
+      this.selectedLetterIndex = this.selectedLetterIndex - 1;
+      this.updatedName = this.updatedName.substring(0, index) + String.fromCharCode(this.selectedLetterIndex) + this.updatedName.substring(index + 1);
+    }
+
+    this.renameDifference = Math.abs(this.prime.name.charCodeAt(index) - this.updatedName.charCodeAt(index));
+  }
+
+  /**
+   * Roll down letter index
+   *
+   * @param index
+   */
+  downLetterIndex(index: number) {
+    this.selectNameIndex(index);
+    if (this.selectedLetterIndex < 90) {
+      this.selectedLetterIndex = this.selectedLetterIndex + 1;
+      this.updatedName = this.updatedName.substring(0, index) + String.fromCharCode(this.selectedLetterIndex) + this.updatedName.substring(index + 1);
+    }
+
+    this.renameDifference = Math.abs(this.prime.name.charCodeAt(index) - this.updatedName.charCodeAt(index));
   }
 
   /**
