@@ -82,6 +82,11 @@ export class CollectionPrimeArtworkPage implements OnInit, OnChanges {
   repaintScore: number = 0;
 
   /**
+   * Score gained by parent
+   */
+  parentScore: number = 0;
+
+  /**
    * Tracking actions
    */
   actions = {
@@ -154,9 +159,11 @@ export class CollectionPrimeArtworkPage implements OnInit, OnChanges {
       if (this.prime.gen == 1) {
         this.repaintPrice = environment.gen1.repaint_price;
         this.repaintScore = environment.gen1.repaint_score;
+        this.parentScore = 0;
       } else {
         this.repaintPrice = environment.gen2.repaint_price;
         this.repaintScore = environment.gen2.repaint_score;
+        this.parentScore = this.repaintScore / environment.gen2.parent_score_share;
       }
     }
   }

@@ -78,7 +78,10 @@
             <p class="text-muted text-center m-0">
                 Updating appearance costs
                 <span innerHTML="{{repaintPrice | amount:prime.platform_asset_id | async}}"></span>.
-                In return it increases the score of Prime by {{repaintScore}} points.
+                In return it increases the score of this Prime by {{repaintScore}} points.
+                <span *ngIf="parentScore > 0">
+                    GEN1 parent of this Prime will also receive a {{parentScore}} points score boost.
+                </span>
             </p>
         </div>
     </div>

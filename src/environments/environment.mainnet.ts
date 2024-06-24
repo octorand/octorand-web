@@ -80,6 +80,7 @@ export const environment = {
     optin_price: 100000,
     rename_score: 100,
     repaint_score: 100,
+    parent_score_share: 10,
     contracts: {
       prime: {
         buy: {
