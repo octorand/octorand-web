@@ -37,6 +37,11 @@ export class CollectionPrimeArtworkPage implements OnInit, OnChanges {
   themes: Array<any> = [];
 
   /**
+   * Whether details are initialised
+   */
+  isInitialised: boolean = false;
+
+  /**
    * Whether a wallet is connected
    */
   isConnected: boolean = false;
@@ -47,12 +52,24 @@ export class CollectionPrimeArtworkPage implements OnInit, OnChanges {
   isPrimeOwner: boolean = false;
 
   /**
-   * Manage inputs
+   * Id of selected theme
    */
-  inputs = {
-    theme: null,
-    skin: null
-  };
+  selectedThemeId: number = 0;
+
+  /**
+   * Name of selected theme
+   */
+  selectedThemeName: string = 'Select Theme';
+
+  /**
+   * Id of selected skin
+   */
+  selectedSkinId: number = 0;
+
+  /**
+   * Name of selected skin
+   */
+  selectedSkinName: string = 'Select Skin';
 
   /**
    * Tracking actions
@@ -115,6 +132,51 @@ export class CollectionPrimeArtworkPage implements OnInit, OnChanges {
     if (this.prime) {
       this.isConnected = this.app.account ? true : false;
       this.isPrimeOwner = this.app.assets.find(a => a.id == this.prime.prime_asset_id && a.amount > 0) ? true : false;
+
+      if (!this.isInitialised) {
+        this.selectedThemeId = this.prime.theme;
+        this.selectedThemeName = this.prime.theme_text;
+        this.selectedSkinId = this.prime.skin;
+        this.selectedSkinName = this.prime.skin_text;
+        this.isInitialised = true;
+      }
+    }
+  }
+
+  /**
+   * Select theme
+   *
+   * @param theme
+   */
+  selectTheme(theme: any) {
+    this.selectedThemeId = theme.id;
+    this.selectedThemeName = theme.name;
+    this.hideDropdown('.select-theme-dropdown');
+  }
+
+  /**
+   * Select skin
+   *
+   * @param skin
+   */
+  selectSkin(skin: any) {
+    this.selectedSkinId = skin.id;
+    this.selectedSkinName = skin.name;
+    this.hideDropdown('.select-skin-dropdown');
+  }
+
+  /**
+   * Hide dropdown
+   */
+  hideDropdown(css: string) {
+    let dropdown = document.querySelector(css);
+    if (dropdown) {
+      dropdown.classList.remove('show');
+
+      let button = dropdown.querySelector('.btn');
+      if (button) {
+        button.classList.remove('active');
+      }
     }
   }
 
@@ -122,26 +184,6 @@ export class CollectionPrimeArtworkPage implements OnInit, OnChanges {
    * Repaint prime
    */
   repaintPrime() {
-    if (!this.inputs.theme) {
-      this.appHelper.showError('Please enter the theme');
-      return;
-    }
-
-    if (Number.isNaN(this.inputs.theme)) {
-      this.appHelper.showError('Please enter the theme');
-      return;
-    }
-
-    if (!this.inputs.skin) {
-      this.appHelper.showError('Please enter the skin');
-      return;
-    }
-
-    if (Number.isNaN(this.inputs.skin)) {
-      this.appHelper.showError('Please enter the skin');
-      return;
-    }
-
     let baseClient = this.chainHelper.getBaseClient();
     let algodClient = this.chainHelper.getAlgodClient();
 
@@ -173,8 +215,8 @@ export class CollectionPrimeArtworkPage implements OnInit, OnChanges {
         appID: repaintContractId,
         method: this.chainHelper.getMethod(repaintContract, 'repaint'),
         methodArgs: [
-          Number(this.inputs.theme),
-          Number(this.inputs.skin),
+          this.selectedThemeId,
+          this.selectedSkinId,
           this.prime.application_id,
         ],
         appForeignAssets: [

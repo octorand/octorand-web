@@ -37,23 +37,31 @@
                 <ul class="pagination text-center">
                     <li class="page-item">
                         <div class="page-link">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text text-secondary px-15">Theme</span>
+                            <div class="dropdown with-arrow select hand select-theme-dropdown">
+                                <input value="{{selectedThemeName}}" class="form-control" type="text"
+                                    data-toggle="dropdown" id="popover-toggle" aria-haspopup="true"
+                                    aria-expanded="false" readonly>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="popover-toggle">
+                                    <div *ngFor="let theme of themes" class="dropdown-item py-0"
+                                        (click)="selectTheme(theme)">
+                                        {{theme.name}}
+                                    </div>
                                 </div>
-                                <input [(ngModel)]="inputs.theme" class="form-control w-100" type="number"
-                                    placeholder="Theme">
                             </div>
                         </div>
                     </li>
                     <li class="page-item">
                         <div class="page-link">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text text-secondary px-15">Skin</span>
+                            <div class="dropdown with-arrow select hand select-skin-dropdown">
+                                <input value="{{selectedSkinName}}" class="form-control" type="text"
+                                    data-toggle="dropdown" id="popover-toggle" aria-haspopup="true"
+                                    aria-expanded="false" readonly>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="popover-toggle">
+                                    <div *ngFor="let skin of skins" class="dropdown-item py-0"
+                                        (click)="selectSkin(skin)">
+                                        {{skin.name}}
+                                    </div>
                                 </div>
-                                <input [(ngModel)]="inputs.skin" class="form-control w-100" type="number"
-                                    placeholder="Skin">
                             </div>
                         </div>
                     </li>
