@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import { AppHelper, ChainHelper, DataHelper } from '@lib/helpers';
+import { AppHelper, ChainHelper, DataHelper, SkinHelper, ThemeHelper } from '@lib/helpers';
 import { GenOnePrimeRepaintContract, GenTwoPrimeRepaintContract } from '@lib/contracts';
 import { AppModel, DataModel, PrimeModel } from '@lib/models';
 import { environment } from '@environment';
@@ -25,6 +25,16 @@ export class CollectionPrimeArtworkPage implements OnInit, OnChanges {
    * Prime details
    */
   @Input() prime: PrimeModel = new PrimeModel();
+
+  /**
+   * List of skins
+   */
+  skins: Array<any> = [];
+
+  /**
+   * List of themes
+   */
+  themes: Array<any> = [];
 
   /**
    * Whether a wallet is connected
@@ -57,17 +67,23 @@ export class CollectionPrimeArtworkPage implements OnInit, OnChanges {
    * @param appHelper
    * @param chainHelper
    * @param dataHelper
+   * @param skinHelper
+   * @param themeHelper
    */
   constructor(
     private appHelper: AppHelper,
     private chainHelper: ChainHelper,
-    private dataHelper: DataHelper
+    private dataHelper: DataHelper,
+    private skinHelper: SkinHelper,
+    private themeHelper: ThemeHelper
   ) { }
 
   /**
    * Initialize component
    */
   ngOnInit() {
+    this.initSkins();
+    this.initThemes();
     this.refreshView();
   }
 
@@ -76,6 +92,20 @@ export class CollectionPrimeArtworkPage implements OnInit, OnChanges {
    */
   ngOnChanges() {
     this.refreshView();
+  }
+
+  /**
+   * Initialize skins
+   */
+  initSkins() {
+    this.skins = this.skinHelper.list();
+  }
+
+  /**
+   * Initialize themes
+   */
+  initThemes() {
+    this.themes = this.themeHelper.list();
   }
 
   /**

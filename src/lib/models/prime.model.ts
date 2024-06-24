@@ -27,6 +27,8 @@ export class PrimeModel {
     rank: number = 0;
     badges: Array<string> = [];
     id_text: string = '';
+    skin_text: string = '';
+    theme_text: string = '';
     gen: number = 0;
     parent: any = null;
     children: Array<any> = [];

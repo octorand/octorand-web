@@ -1,6 +1,8 @@
 ﻿import { Injectable, OnDestroy } from '@angular/core';
 import { DataModel, PrimeModel } from '@lib/models';
 import { IndexerHelper } from './indexer.helper';
+import { SkinHelper } from './skin.helper';
+import { ThemeHelper } from './theme.helper';
 import { WordHelper } from './word.helper';
 import { Subject } from 'rxjs';
 import { environment } from '@environment';
@@ -29,10 +31,14 @@ export class DataHelper implements OnDestroy {
      * Construct component
      *
      * @param indexerHelper
+     * @param skinHelper
+     * @param themeHelper
      * @param wordHelper
      */
     constructor(
         private indexerHelper: IndexerHelper,
+        private skinHelper: SkinHelper,
+        private themeHelper: ThemeHelper,
         private wordHelper: WordHelper
     ) {
         this.data = new Subject<any>();
@@ -197,6 +203,8 @@ export class DataHelper implements OnDestroy {
         model.url = '/prime/gen' + model.gen + '/' + model.id_text;
         model.is_listed = model.price > 0 ? true : false;
         model.parent_application_address = algosdk.getApplicationAddress(model.parent_application_id);
+        model.skin_text = this.skinHelper.find(model.skin).name;
+        model.theme_text = this.themeHelper.find(model.theme).name;
 
         return model;
     }
@@ -252,6 +260,8 @@ export class DataHelper implements OnDestroy {
         model.url = '/prime/gen' + model.gen + '/' + model.id_text;
         model.is_listed = model.price > 0 ? true : false;
         model.parent_application_address = algosdk.getApplicationAddress(model.parent_application_id);
+        model.skin_text = this.skinHelper.find(model.skin).name;
+        model.theme_text = this.themeHelper.find(model.theme).name;
 
         return model;
     }

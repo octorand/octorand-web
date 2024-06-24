@@ -79,4 +79,13 @@ export class ThemeHelper {
     list() {
         return this.themes;
     }
+
+    /**
+     * Find skin
+     *
+     * @param index
+     */
+    find(index: number): any {
+        return this.themes.find(t => t.id == index) ? this.themes.find(t => t.id == index) : this.themes[0];
+    }
 }
