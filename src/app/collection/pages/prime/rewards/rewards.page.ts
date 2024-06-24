@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { AppHelper, ChainHelper, DataHelper } from '@lib/helpers';
-import { GenOnePrimeAppContract, GenOnePrimeMintContract, GenTwoPrimeAppContract, GenTwoPrimeMintContract } from '@lib/contracts';
+import { GenOnePrimeAppContract, GenOnePrimeMintContract, GenOnePrimeWithdrawContract, GenTwoPrimeAppContract, GenTwoPrimeMintContract, GenTwoPrimeWithdrawContract } from '@lib/contracts';
 import { AppModel, DataModel, PrimeModel } from '@lib/models';
 import { environment } from '@environment';
 
@@ -45,16 +45,20 @@ export class CollectionPrimeRewardsPage implements OnInit, OnChanges {
    * Manage inputs
    */
   inputs = {
-    deposit: 10,
-    withdraw: 0,
+    depositALGO: 10,
+    depositOCTO: 10,
+    withdrawALGO: 0,
+    withdrawOCTO: 0,
   };
 
   /**
    * Tracking actions
    */
   actions = {
-    withdrawPrime: false,
-    depositPrime: false,
+    depositALGO: false,
+    depositOCTO: false,
+    withdrawALGO: false,
+    withdrawOCTO: false,
   };
 
   /**
@@ -96,10 +100,139 @@ export class CollectionPrimeRewardsPage implements OnInit, OnChanges {
   }
 
   /**
-   * Withdraw rewards
+   * Deposit OCTO
    */
-  withdrawPrime() {
-    if (this.inputs.withdraw * Math.pow(10, 6) > this.prime.rewards) {
+  depositOCTO() {
+    let baseClient = this.chainHelper.getBaseClient();
+    let algodClient = this.chainHelper.getAlgodClient();
+
+    let appContract: any = null;
+
+    if (this.prime.gen == 1) {
+      appContract = new baseClient.ABIContract(GenOnePrimeAppContract);
+    } else {
+      appContract = new baseClient.ABIContract(GenTwoPrimeAppContract);
+    }
+
+    algodClient.getTransactionParams().do().then((params: any) => {
+      let composer = new baseClient.AtomicTransactionComposer();
+
+      composer.addTransaction({
+        txn: baseClient.makeAssetTransferTxnWithSuggestedParamsFromObject({
+          from: this.app.account,
+          to: this.prime.application_address,
+          assetIndex: this.prime.platform_asset_id,
+          amount: Number(this.inputs.depositOCTO) * Math.pow(10, 6),
+          suggestedParams: {
+            ...params,
+            fee: 1000,
+            flatFee: true
+          }
+        })
+      });
+
+      composer.addMethodCall({
+        sender: this.app.account,
+        appID: this.prime.application_id,
+        method: this.chainHelper.getMethod(appContract, 'refresh'),
+        methodArgs: [],
+        appForeignAssets: [
+          this.prime.platform_asset_id,
+        ],
+        suggestedParams: {
+          ...params,
+          fee: 1000,
+          flatFee: true
+        }
+      });
+
+      let group = composer.buildGroup();
+
+      let transactions = [];
+      for (let i = 0; i < group.length; i++) {
+        transactions.push(group[i].txn);
+      }
+
+      this.actions.depositOCTO = true;
+      this.chainHelper.submitTransactions(transactions).then((response) => {
+        this.actions.depositOCTO = false;
+        if (response.success) {
+          this.dataHelper.loadPrimeDetails();
+          this.appHelper.showSuccess('Rewards deposited successfully');
+        }
+      });
+    });
+  }
+
+  /**
+   * Deposit ALGO
+   */
+  depositALGO() {
+    let baseClient = this.chainHelper.getBaseClient();
+    let algodClient = this.chainHelper.getAlgodClient();
+
+    let appContract: any = null;
+
+    if (this.prime.gen == 1) {
+      appContract = new baseClient.ABIContract(GenOnePrimeAppContract);
+    } else {
+      appContract = new baseClient.ABIContract(GenTwoPrimeAppContract);
+    }
+
+    algodClient.getTransactionParams().do().then((params: any) => {
+      let composer = new baseClient.AtomicTransactionComposer();
+
+      composer.addTransaction({
+        txn: baseClient.makePaymentTxnWithSuggestedParamsFromObject({
+          from: this.app.account,
+          to: this.prime.application_address,
+          amount: Number(this.inputs.depositALGO) * Math.pow(10, 6),
+          suggestedParams: {
+            ...params,
+            fee: 1000,
+            flatFee: true
+          }
+        })
+      });
+
+      composer.addMethodCall({
+        sender: this.app.account,
+        appID: this.prime.application_id,
+        method: this.chainHelper.getMethod(appContract, 'refresh'),
+        methodArgs: [],
+        appForeignAssets: [
+          this.prime.platform_asset_id,
+        ],
+        suggestedParams: {
+          ...params,
+          fee: 1000,
+          flatFee: true
+        }
+      });
+
+      let group = composer.buildGroup();
+
+      let transactions = [];
+      for (let i = 0; i < group.length; i++) {
+        transactions.push(group[i].txn);
+      }
+
+      this.actions.depositALGO = true;
+      this.chainHelper.submitTransactions(transactions).then((response) => {
+        this.actions.depositALGO = false;
+        if (response.success) {
+          this.dataHelper.loadPrimeDetails();
+          this.appHelper.showSuccess('Royalties deposited successfully');
+        }
+      });
+    });
+  }
+
+  /**
+   * Withdraw OCTO
+   */
+  withdrawOCTO() {
+    if (this.inputs.withdrawOCTO * Math.pow(10, 6) > this.prime.rewards) {
       this.appHelper.showError('Cannot withdraw more than the available rewards');
       return;
     }
@@ -142,7 +275,7 @@ export class CollectionPrimeRewardsPage implements OnInit, OnChanges {
         appID: mintContractId,
         method: this.chainHelper.getMethod(mintContract, 'mint'),
         methodArgs: [
-          Number(this.inputs.withdraw) * Math.pow(10, 6),
+          Number(this.inputs.withdrawOCTO) * Math.pow(10, 6),
           this.prime.application_id,
         ],
         appForeignAssets: [
@@ -163,9 +296,9 @@ export class CollectionPrimeRewardsPage implements OnInit, OnChanges {
         transactions.push(group[i].txn);
       }
 
-      this.actions.withdrawPrime = true;
+      this.actions.withdrawOCTO = true;
       this.chainHelper.submitTransactions(transactions).then((response) => {
-        this.actions.withdrawPrime = false;
+        this.actions.withdrawOCTO = false;
         if (response.success) {
           this.dataHelper.loadPrimeDetails();
           this.appHelper.showSuccess('Rewards withdrawn successfully');
@@ -175,48 +308,46 @@ export class CollectionPrimeRewardsPage implements OnInit, OnChanges {
   }
 
   /**
-   * Deposit rewards
+   * Withdraw ALGO
    */
-  depositPrime() {
+  withdrawALGO() {
+    if (this.inputs.withdrawALGO * Math.pow(10, 6) > this.prime.royalties) {
+      this.appHelper.showError('Cannot withdraw more than the available royalties');
+      return;
+    }
+
     let baseClient = this.chainHelper.getBaseClient();
     let algodClient = this.chainHelper.getAlgodClient();
 
-    let appContract: any = null;
+    let withdrawContract: any = null;
+    let withdrawContractId = 0;
 
     if (this.prime.gen == 1) {
-      appContract = new baseClient.ABIContract(GenOnePrimeAppContract);
+      withdrawContract = new baseClient.ABIContract(GenOnePrimeWithdrawContract);
+      withdrawContractId = environment.gen1.contracts.prime.withdraw.application_id;
     } else {
-      appContract = new baseClient.ABIContract(GenTwoPrimeAppContract);
+      withdrawContract = new baseClient.ABIContract(GenTwoPrimeWithdrawContract);
+      withdrawContractId = environment.gen2.contracts.prime.withdraw.application_id;
     }
 
     algodClient.getTransactionParams().do().then((params: any) => {
       let composer = new baseClient.AtomicTransactionComposer();
 
-      composer.addTransaction({
-        txn: baseClient.makeAssetTransferTxnWithSuggestedParamsFromObject({
-          from: this.app.account,
-          to: this.prime.application_address,
-          assetIndex: this.prime.platform_asset_id,
-          amount: Number(this.inputs.deposit) * Math.pow(10, 6),
-          suggestedParams: {
-            ...params,
-            fee: 1000,
-            flatFee: true
-          }
-        })
-      });
-
       composer.addMethodCall({
         sender: this.app.account,
-        appID: this.prime.application_id,
-        method: this.chainHelper.getMethod(appContract, 'refresh'),
-        methodArgs: [],
+        appID: withdrawContractId,
+        method: this.chainHelper.getMethod(withdrawContract, 'withdraw'),
+        methodArgs: [
+          Number(this.inputs.withdrawALGO) * Math.pow(10, 6),
+          this.prime.application_id,
+        ],
         appForeignAssets: [
-          this.prime.platform_asset_id,
+          this.prime.prime_asset_id,
+          this.prime.platform_asset_id
         ],
         suggestedParams: {
           ...params,
-          fee: 1000,
+          fee: 3000,
           flatFee: true
         }
       });
@@ -228,12 +359,12 @@ export class CollectionPrimeRewardsPage implements OnInit, OnChanges {
         transactions.push(group[i].txn);
       }
 
-      this.actions.depositPrime = true;
+      this.actions.withdrawALGO = true;
       this.chainHelper.submitTransactions(transactions).then((response) => {
-        this.actions.depositPrime = false;
+        this.actions.withdrawALGO = false;
         if (response.success) {
           this.dataHelper.loadPrimeDetails();
-          this.appHelper.showSuccess('Rewards deposited successfully');
+          this.appHelper.showSuccess('Royalties withdrawn successfully');
         }
       });
     });
