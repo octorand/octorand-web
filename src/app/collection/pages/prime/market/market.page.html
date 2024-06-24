@@ -11,22 +11,26 @@
                 You have listed this Prime for sale at the moment. Unlist it if you want to pull it off the market.
             </p>
             <div class="info mt-20">
-                <div class="table-responsive">
-                    <table class="table table-no-outer-padding">
-                        <tbody>
-                            <tr>
-                                <td class="text-secondary">Price</td>
-                                <td class="text-right" innerHTML="{{prime.price | amount:0 | async}}"></td>
-                            </tr>
-                            <tr>
-                                <td class="text-secondary">Seller</td>
-                                <td class="text-right" innerHTML="{{prime.seller | identity | async}}"></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                <nav>
+                    <ul class="pagination text-center">
+                        <li class="page-item">
+                            <div class="page-link">
+                                <lib-tags-chip key="Price">
+                                    <span innerHTML="{{prime.price | amount:0 | async}}"></span>
+                                </lib-tags-chip>
+                            </div>
+                        </li>
+                        <li class="page-item">
+                            <div class="page-link">
+                                <lib-tags-chip key="Seller">
+                                    <span innerHTML="{{prime.seller | identity:true:true | async}}"></span>
+                                </lib-tags-chip>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
             </div>
-            <div class="mt-20">
+            <div class="text-center mt-20">
                 <button *ngIf="!actions.unlistPrime" class="btn btn-primary" (click)="unlistPrime()">
                     Unlist Prime
                 </button>
@@ -41,22 +45,26 @@
                     This Prime is currently listed for sale. Buy it by paying the asking price.
                 </p>
                 <div class="info mt-20">
-                    <div class="table-responsive">
-                        <table class="table table-no-outer-padding">
-                            <tbody>
-                                <tr>
-                                    <td class="text-secondary">Price</td>
-                                    <td class="text-right" innerHTML="{{prime.price | amount:0 | async}}"></td>
-                                </tr>
-                                <tr>
-                                    <td class="text-secondary">Seller</td>
-                                    <td class="text-right" innerHTML="{{prime.seller | identity | async}}"></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    <nav>
+                        <ul class="pagination text-center">
+                            <li class="page-item">
+                                <div class="page-link">
+                                    <lib-tags-chip key="Price">
+                                        <span innerHTML="{{prime.price | amount:0 | async}}"></span>
+                                    </lib-tags-chip>
+                                </div>
+                            </li>
+                            <li class="page-item">
+                                <div class="page-link">
+                                    <lib-tags-chip key="Seller">
+                                        <span innerHTML="{{prime.seller | identity:true:true | async}}"></span>
+                                    </lib-tags-chip>
+                                </div>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
-                <div class="mt-20">
+                <div class="text-center mt-20">
                     <button *ngIf="!actions.buyPrime" class="btn btn-primary" (click)="buyPrime()">
                         Buy Prime
                     </button>
@@ -70,20 +78,24 @@
                     This Prime is currently listed for sale. Connect your wallet to buy it.
                 </p>
                 <div class="info mt-20">
-                    <div class="table-responsive">
-                        <table class="table table-no-outer-padding">
-                            <tbody>
-                                <tr>
-                                    <td class="text-secondary">Price</td>
-                                    <td class="text-right" innerHTML="{{prime.price | amount:0 | async}}"></td>
-                                </tr>
-                                <tr>
-                                    <td class="text-secondary">Seller</td>
-                                    <td class="text-right" innerHTML="{{prime.seller | identity | async}}"></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    <nav>
+                        <ul class="pagination text-center">
+                            <li class="page-item">
+                                <div class="page-link">
+                                    <lib-tags-chip key="Price">
+                                        <span innerHTML="{{prime.price | amount:0 | async}}"></span>
+                                    </lib-tags-chip>
+                                </div>
+                            </li>
+                            <li class="page-item">
+                                <div class="page-link">
+                                    <lib-tags-chip key="Seller">
+                                        <span innerHTML="{{prime.seller | identity:true:true | async}}"></span>
+                                    </lib-tags-chip>
+                                </div>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </div>
