@@ -29,9 +29,11 @@
             <div class="name">
                 <div class="row">
                     <div *ngFor="let number of [0, 1, 2, 3, 4, 5, 6, 7]" class="col">
-                        <div class="letter">
-                            <div class="box" (click)="upLetterIndex(number)">
-
+                        <div class="action">
+                            <div class="hand text-center text-primary" (click)="upLetterIndex(number)">
+                                <span *ngIf="number == selectedNameIndex">
+                                    <i class="fas fa-chevron-up"></i>
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -39,7 +41,7 @@
                 <div class="row">
                     <div *ngFor="let number of [0, 1, 2, 3, 4, 5, 6, 7]" class="col">
                         <div class="letter">
-                            <div class="box hand text-center" (click)="selectNameIndex(number)"
+                            <div class="hand text-center" (click)="selectNameIndex(number)"
                                 [ngClass]="{'bg-dark-light': number != selectedNameIndex, 'bg-primary': number == selectedNameIndex}">
                                 {{updatedName[number]}}
                             </div>
@@ -48,9 +50,11 @@
                 </div>
                 <div class="row">
                     <div *ngFor="let number of [0, 1, 2, 3, 4, 5, 6, 7]" class="col">
-                        <div class="letter">
-                            <div class="box" (click)="downLetterIndex(number)">
-
+                        <div class="action">
+                            <div class="hand text-center text-primary" (click)="downLetterIndex(number)">
+                                <span *ngIf="number == selectedNameIndex">
+                                    <i class="fas fa-chevron-down"></i>
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -59,9 +63,11 @@
             <div *ngIf="prime.gen > 1" class="name">
                 <div class="row">
                     <div *ngFor="let number of [8, 9, 10, 11, 12, 13, 14, 15]" class="col">
-                        <div class="letter">
-                            <div class="box" (click)="upLetterIndex(number)">
-
+                        <div class="action">
+                            <div class="hand text-center text-primary" (click)="upLetterIndex(number)">
+                                <span *ngIf="number == selectedNameIndex">
+                                    <i class="fas fa-chevron-up"></i>
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -69,7 +75,7 @@
                 <div class="row">
                     <div *ngFor="let number of [8, 9, 10, 11, 12, 13, 14, 15]" class="col">
                         <div class="letter">
-                            <div class="box hand text-center" (click)="selectNameIndex(number)"
+                            <div class="hand text-center" (click)="selectNameIndex(number)"
                                 [ngClass]="{'bg-dark-light': number != selectedNameIndex, 'bg-primary': number == selectedNameIndex}">
                                 {{updatedName[number]}}
                             </div>
@@ -78,9 +84,11 @@
                 </div>
                 <div class="row">
                     <div *ngFor="let number of [8, 9, 10, 11, 12, 13, 14, 15]" class="col">
-                        <div class="letter">
-                            <div class="box" (click)="downLetterIndex(number)">
-
+                        <div class="action">
+                            <div class="hand text-center text-primary" (click)="downLetterIndex(number)">
+                                <span *ngIf="number == selectedNameIndex">
+                                    <i class="fas fa-chevron-down"></i>
+                                </span>
                             </div>
                         </div>
                     </div>
