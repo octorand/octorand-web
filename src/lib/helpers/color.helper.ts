@@ -122,29 +122,12 @@ export class ColorHelper {
     ];
 
     /**
-     * Get all the shades
-     */
-    getShades(): Array<any> {
-        return this.shades;
-    }
-
-    /**
      * Find color shades
      *
      * @param id
      */
     findShades(id: number): Array<string> {
         return this.shades.filter(s => s.id == id)[0].colors;
-    }
-
-    /**
-     * Find color shade
-     *
-     * @param id
-     * @param depth
-     */
-    findShade(id: number, depth: number): string {
-        return this.shades.filter(s => s.id == id)[0].colors[depth];
     }
 
     /**
