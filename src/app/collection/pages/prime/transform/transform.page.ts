@@ -62,6 +62,11 @@ export class CollectionPrimeTransformPage implements OnInit, OnChanges {
   renameScore: number = 0;
 
   /**
+   * Score gained by parent
+   */
+  parentScore: number = 0;
+
+  /**
    * Difference between letters when renaming
    */
   renameDifference: number = 0;
@@ -116,9 +121,11 @@ export class CollectionPrimeTransformPage implements OnInit, OnChanges {
       if (this.prime.gen == 1) {
         this.renamePrice = environment.gen1.rename_price;
         this.renameScore = environment.gen1.rename_score;
+        this.parentScore = 0;
       } else {
         this.renamePrice = environment.gen2.rename_price;
         this.renameScore = environment.gen2.rename_score;
+        this.parentScore = this.renameScore / environment.gen2.parent_score_share;
       }
 
       if (!this.isInitialised) {
