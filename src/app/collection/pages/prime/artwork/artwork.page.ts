@@ -72,6 +72,16 @@ export class CollectionPrimeArtworkPage implements OnInit, OnChanges {
   selectedSkinName: string = 'Select Skin';
 
   /**
+   * Price of repainting
+   */
+  repaintPrice: number = 0;
+
+  /**
+   * Score gained by repainting
+   */
+  repaintScore: number = 0;
+
+  /**
    * Tracking actions
    */
   actions = {
@@ -140,6 +150,14 @@ export class CollectionPrimeArtworkPage implements OnInit, OnChanges {
         this.selectedSkinName = this.prime.skin_text;
         this.isInitialised = true;
       }
+
+      if (this.prime.gen == 1) {
+        this.repaintPrice = environment.gen1.repaint_price;
+        this.repaintScore = environment.gen1.repaint_score;
+      } else {
+        this.repaintPrice = environment.gen2.repaint_price;
+        this.repaintScore = environment.gen2.repaint_score;
+      }
     }
   }
 
@@ -189,20 +207,17 @@ export class CollectionPrimeArtworkPage implements OnInit, OnChanges {
 
     let repaintContract: any = null;
     let repaintContractId: number = 0;
-    let repaintCost: number = 0;
     let repaintTransactionFee: number = 0;
     let repaintForeignApps: Array<number> = [];
 
     if (this.prime.gen == 1) {
       repaintContract = new baseClient.ABIContract(GenOnePrimeRepaintContract);
       repaintContractId = environment.gen1.contracts.prime.repaint.application_id;
-      repaintCost = 10000000;
       repaintTransactionFee = 3000;
       repaintForeignApps = [];
     } else {
       repaintContract = new baseClient.ABIContract(GenTwoPrimeRepaintContract);
       repaintContractId = environment.gen2.contracts.prime.repaint.application_id;
-      repaintCost = 1000000;
       repaintTransactionFee = 4000;
       repaintForeignApps = [this.prime.parent_application_id];
     }
@@ -235,7 +250,7 @@ export class CollectionPrimeArtworkPage implements OnInit, OnChanges {
           from: this.app.account,
           to: environment.platform.reserve,
           assetIndex: this.prime.platform_asset_id,
-          amount: repaintCost,
+          amount: this.repaintPrice,
           suggestedParams: {
             ...params,
             fee: 1000,

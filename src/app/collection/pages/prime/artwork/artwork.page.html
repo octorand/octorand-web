@@ -75,6 +75,11 @@
                     <i class="fas fa-cog fa-spin mx-20"></i>
                 </button>
             </div>
+            <p class="text-muted text-center m-0">
+                Updating appearance costs
+                <span innerHTML="{{repaintPrice | amount:prime.platform_asset_id | async}}"></span>.
+                In return it increases the score of Prime by {{repaintScore}} points.
+            </p>
         </div>
     </div>
 </div>
