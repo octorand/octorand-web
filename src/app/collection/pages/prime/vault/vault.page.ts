@@ -72,7 +72,7 @@ export class CollectionPrimeVaultPage implements OnInit, OnChanges, OnDestroy {
    * Tracking actions
    */
   actions = {
-    withdrawPrime: false,
+    withdrawPrime: 0,
     depositPrime: false,
   };
 
@@ -258,9 +258,9 @@ export class CollectionPrimeVaultPage implements OnInit, OnChanges, OnDestroy {
         transactions.push(group[i].txn);
       }
 
-      this.actions.withdrawPrime = true;
+      this.actions.withdrawPrime = asset;
       this.chainHelper.submitTransactions(transactions).then((response) => {
-        this.actions.withdrawPrime = false;
+        this.actions.withdrawPrime = 0;
         if (response.success) {
           this.dataHelper.loadPrimeDetails();
           this.appHelper.showSuccess('Asset withdrawn successfully');

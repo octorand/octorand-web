@@ -68,15 +68,15 @@
                     <div class="page-link">
                         <div class="input-group">
                             <div class="input-group-prepend">
-                                <span class="input-group-text text-secondary px-15"
+                                <span class="input-group-text px-15"
                                     innerHTML="{{asset.amount | amount:asset.id | async}}">Amount</span>
                             </div>
                             <div *ngIf="isPrimeOwner" class="input-group-append">
-                                <button *ngIf="!actions.withdrawPrime" class="btn btn-primary"
+                                <button *ngIf="actions.withdrawPrime != asset.id" class="btn btn-primary"
                                     (click)="withdrawPrime(asset.id)">
                                     Withdraw
                                 </button>
-                                <button *ngIf="actions.withdrawPrime" class="btn btn-primary">
+                                <button *ngIf="actions.withdrawPrime == asset.id" class="btn btn-primary">
                                     <i class="fas fa-cog fa-spin mx-20"></i>
                                 </button>
                             </div>
