@@ -14,6 +14,13 @@ export const environment = {
   },
   gen1: {
     manager_address: '',
+    seller_market_share: 0,
+    admin_market_share: 0,
+    rename_price: 0,
+    repaint_price: 0,
+    optin_price: 0,
+    rename_score: 0,
+    repaint_score: 0,
     contracts: {
       prime: {
         buy: {
@@ -65,6 +72,14 @@ export const environment = {
   },
   gen2: {
     manager_address: '',
+    seller_market_share: 0,
+    parent_market_share: 0,
+    admin_market_share: 0,
+    rename_price: 0,
+    repaint_price: 0,
+    optin_price: 0,
+    rename_score: 0,
+    repaint_score: 0,
     contracts: {
       prime: {
         buy: {

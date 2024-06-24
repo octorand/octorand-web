@@ -315,18 +315,33 @@ export class CollectionPrimeVaultPage implements OnInit, OnChanges, OnDestroy {
       let composer = new baseClient.AtomicTransactionComposer();
 
       if (!this.vaultedAssets.find(a => a.id == this.selectedAssetId)) {
-        composer.addTransaction({
-          txn: baseClient.makePaymentTxnWithSuggestedParamsFromObject({
-            from: this.app.account,
-            to: this.prime.application_address,
-            amount: 100000,
-            suggestedParams: {
-              ...params,
-              fee: 1000,
-              flatFee: true
-            }
-          })
-        });
+        if (this.prime.gen == 1) {
+          composer.addTransaction({
+            txn: baseClient.makePaymentTxnWithSuggestedParamsFromObject({
+              from: this.app.account,
+              to: this.prime.application_address,
+              amount: environment.gen1.optin_price,
+              suggestedParams: {
+                ...params,
+                fee: 1000,
+                flatFee: true
+              }
+            })
+          });
+        } else {
+          composer.addTransaction({
+            txn: baseClient.makePaymentTxnWithSuggestedParamsFromObject({
+              from: this.app.account,
+              to: this.prime.application_address,
+              amount: environment.gen2.optin_price,
+              suggestedParams: {
+                ...params,
+                fee: 1000,
+                flatFee: true
+              }
+            })
+          });
+        }
 
         composer.addMethodCall({
           sender: this.app.account,
