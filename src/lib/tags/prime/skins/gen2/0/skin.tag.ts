@@ -9,7 +9,6 @@ import { PrimeModel } from '@lib/models';
 })
 export class PrimeSkinsGenTwoZeroTag implements OnInit, OnChanges {
 
-  traitColor: string = '';
   shades: Array<any> = [];
   circles: Array<any> = [];
   lines: Array<any> = [];
@@ -120,15 +119,6 @@ export class PrimeSkinsGenTwoZeroTag implements OnInit, OnChanges {
    * Generate the image params for this prime
    */
   calculateImageParams() {
-    let alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-
-    let value = 0;
-    for (let j = 0; j < this.prime.name.length; j++) {
-      value = value + alphabet.indexOf(this.prime.name.charAt(j));
-    }
-    value = Math.floor(value / this.prime.name.length);
-
     this.shades = this.colorHelper.findShades(this.prime.theme);
-    this.traitColor = this.colorHelper.findColor(value);
   }
 }
