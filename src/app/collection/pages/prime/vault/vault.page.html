@@ -2,69 +2,93 @@
     <h2 class="card-title text-center text-secondary">
         VAULT
     </h2>
-    <p class="text-muted mb-20">
-        Primes can act as a storage of value. Anyone can send any asset to be stored inside a Prime. Received assets can
-        be withdrawn by the prime owner anytime.
+    <p class="text-success text-center m-0">
+        Deposit
     </p>
-    <p class="text-secondary">
-        Deposit Asset
+    <p class="text-muted text-center m-0">
+        Primes can act as a storage of value. Anyone can send any third party asset to be stored inside a Prime.
     </p>
-    <div *ngIf="depositableAssets.length > 0" class="row">
-        <div class="col-12 col-lg-6">
-            <div class="dropdown with-arrow select hand select-asset-dropdown">
-                <input value="{{selectedAssetName}}" class="form-control" type="text" data-toggle="dropdown"
-                    id="popover-toggle" aria-haspopup="true" aria-expanded="false" readonly>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="popover-toggle">
-                    <div *ngFor="let asset of depositableAssets" class="dropdown-item" (click)="selectAsset(asset)">
-                        <span innerHTML="{{asset.id | asset:false | async}}"></span>
+    <div class="info mt-20">
+        <nav *ngIf="depositableAssets.length > 0">
+            <ul class="pagination text-center">
+                <li class="page-item">
+                    <div class="page-link">
+                        <div class="dropdown with-arrow select hand select-asset-dropdown">
+                            <input value="{{selectedAssetName}}" class="form-control" type="text" data-toggle="dropdown"
+                                id="popover-toggle" aria-haspopup="true" aria-expanded="false" readonly>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="popover-toggle">
+                                <div *ngFor="let asset of depositableAssets" class="dropdown-item py-0"
+                                    (click)="selectAsset(asset)">
+                                    <span innerHTML="{{asset.id | asset:false | async}}"></span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
+                </li>
+                <li class="page-item">
+                    <div class="page-link">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text text-secondary px-15">Amount</span>
+                            </div>
+                            <input [(ngModel)]="inputs.amount" class="form-control w-100" type="number"
+                                placeholder="Amount">
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+        <div *ngIf="depositableAssets.length > 0" class="text-center my-20">
+            <button *ngIf="!actions.depositPrime" class="btn btn-primary" (click)="depositPrime()">
+                Deposit
+            </button>
+            <button *ngIf="actions.depositPrime" class="btn btn-primary">
+                <i class="fas fa-cog fa-spin mx-20"></i>
+            </button>
         </div>
-        <div class="col-12 col-lg-6">
-            <input [(ngModel)]="inputs.amount" class="form-control" type="number" placeholder="Deposit Amount">
-        </div>
-        <div class="col-12">
-            <div class="my-10">
-                <button *ngIf="!actions.depositPrime" class="btn btn-primary" (click)="depositPrime()">
-                    Deposit
-                </button>
-                <button *ngIf="actions.depositPrime" class="btn btn-primary">
-                    <i class="fas fa-cog fa-spin mx-20"></i>
-                </button>
-            </div>
+        <div *ngIf="depositableAssets.length == 0">
+            <p *ngIf="!isConnected" class="text-muted text-center">
+                Connect your wallet to deposit assets.
+            </p>
+            <p *ngIf="isConnected" class="text-muted text-center">
+                We could not find any assets in your wallet that can be deposited.
+            </p>
         </div>
     </div>
-    <div *ngIf="depositableAssets.length == 0" class="row">
-        <p *ngIf="!isConnected" class="text-muted">
-            Connect your wallet to deposit assets.
-        </p>
-        <p *ngIf="isConnected" class="text-muted">
-            We could not find any assets in your wallet that can be deposited.
-        </p>
-    </div>
-    <hr class="my-20">
-    <p class="text-secondary">
-        Stored Assets
+    <p class="text-success text-center m-0">
+        Storage
     </p>
-    <div *ngIf="vaultedAssets.length > 0">
-        <div *ngFor="let asset of vaultedAssets" class="row">
-            <div class="col">
-                <span class="mb-5" innerHTML="{{asset.amount | amount:asset.id | async}}"></span>
-            </div>
-            <div *ngIf="isPrimeOwner" class="col-auto">
-                <button *ngIf="!actions.withdrawPrime" class="btn btn-primary" (click)="withdrawPrime(asset.id)">
-                    Withdraw
-                </button>
-                <button *ngIf="actions.withdrawPrime" class="btn btn-primary">
-                    <i class="fas fa-cog fa-spin mx-20"></i>
-                </button>
-            </div>
+    <p class="text-muted text-center m-0">
+        Stored assets can be withdrawn by the holder of Prime asset.
+    </p>
+    <div class="info mt-20">
+        <nav *ngIf="vaultedAssets.length > 0">
+            <ul class="pagination text-center">
+                <li class="page-item" *ngFor="let asset of vaultedAssets">
+                    <div class="page-link">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text text-secondary px-15"
+                                    innerHTML="{{asset.amount | amount:asset.id | async}}">Amount</span>
+                            </div>
+                            <div *ngIf="isPrimeOwner" class="input-group-append">
+                                <button *ngIf="!actions.withdrawPrime" class="btn btn-primary"
+                                    (click)="withdrawPrime(asset.id)">
+                                    Withdraw
+                                </button>
+                                <button *ngIf="actions.withdrawPrime" class="btn btn-primary">
+                                    <i class="fas fa-cog fa-spin mx-20"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+        <div *ngIf="vaultedAssets.length == 0">
+            <p class="text-muted text-center">
+                No assets found in the vault.
+            </p>
         </div>
-    </div>
-    <div *ngIf="vaultedAssets.length == 0" class="row">
-        <p class="text-muted">
-            No assets found in the vault.
-        </p>
     </div>
 </div>

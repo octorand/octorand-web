@@ -173,7 +173,7 @@ export class CollectionPrimeVaultPage implements OnInit, OnChanges, OnDestroy {
    */
   selectAsset(asset: any) {
     this.selectedAssetId = asset.id;
-    this.selectedAssetName = this.assetHelper.get(asset.id).name;
+    this.selectedAssetName = this.assetHelper.get(asset.id).unit;
     this.selectedAssetDecimals = this.assetHelper.get(asset.id).decimals;
     this.hideDropdown('.select-asset-dropdown');
   }
