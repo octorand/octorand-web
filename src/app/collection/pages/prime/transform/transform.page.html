@@ -1,0 +1,53 @@
+<div class="card">
+    <h2 class="card-title text-center text-secondary">
+        TRANSFORM
+    </h2>
+    <p class="text-success text-center m-0">
+        Rename
+    </p>
+    <p class="text-muted text-center m-0">
+        Primes can transform themselves by changing their name.
+    </p>
+    <div class="info my-20">
+        <nav>
+            <ul class="pagination text-center">
+                <li class="page-item">
+                    <div class="page-link">
+                        <lib-tags-chip key="Name">
+                            {{prime.name}}
+                        </lib-tags-chip>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <p class="text-muted text-center m-0">
+        Owner of Prime asset can change the name.
+    </p>
+    <div *ngIf="isPrimeOwner">
+        <div class="info mt-20">
+            <nav>
+                <ul class="pagination text-center">
+                    <li class="page-item">
+                        <div class="page-link">
+
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            <div *ngIf="renameDifference > 0" class="text-center my-20">
+                <button *ngIf="!actions.renamePrime" class="btn btn-primary" (click)="renamePrime()">
+                    Update Letter
+                </button>
+                <button *ngIf="actions.renamePrime" class="btn btn-primary">
+                    <i class="fas fa-cog fa-spin mx-20"></i>
+                </button>
+            </div>
+            <p *ngIf="renameDifference > 0" class="text-muted text-center m-0">
+                Updating letter costs
+                <span innerHTML="{{renamePrice * renameDifference | amount:prime.platform_asset_id | async}}"></span>.
+                In return it increases the score of Prime by {{renameScore * renameDifference}} points.
+            </p>
+        </div>
+    </div>
+</div>

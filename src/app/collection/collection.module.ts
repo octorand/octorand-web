@@ -46,10 +46,10 @@ const routes: Routes = [
     Pages.CollectionPrimeArtworkPage,
     Pages.CollectionPrimeFamilyPage,
     Pages.CollectionPrimeMarketPage,
-    Pages.CollectionPrimeRenamePage,
     Pages.CollectionPrimeRewardsPage,
     Pages.CollectionPrimeSummaryPage,
     Pages.CollectionPrimeTraitsPage,
+    Pages.CollectionPrimeTransformPage,
     Pages.CollectionPrimeVaultPage,
   ],
   imports: [

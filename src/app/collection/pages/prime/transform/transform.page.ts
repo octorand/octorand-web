@@ -5,11 +5,11 @@ import { AppModel, DataModel, PrimeModel } from '@lib/models';
 import { environment } from '@environment';
 
 @Component({
-  selector: 'app-collection-prime-rename',
-  templateUrl: './rename.page.html',
-  styleUrls: ['./rename.page.scss'],
+  selector: 'app-collection-prime-transform',
+  templateUrl: './transform.page.html',
+  styleUrls: ['./transform.page.scss'],
 })
-export class CollectionPrimeRenamePage implements OnInit, OnChanges {
+export class CollectionPrimeTransformPage implements OnInit, OnChanges {
 
   /**
    * App state
@@ -37,12 +37,29 @@ export class CollectionPrimeRenamePage implements OnInit, OnChanges {
   isPrimeOwner: boolean = false;
 
   /**
-   * Manage inputs
+   * Index of selected name letter
    */
-  inputs = {
-    index: null,
-    letter: null
-  };
+  selectedNameIndex: number = 0;
+
+  /**
+   * Index of selected alphabet letter
+   */
+  selectedLetterIndex: number = 0;
+
+  /**
+   * Price of renaming
+   */
+  renamePrice: number = 0;
+
+  /**
+   * Score gained by renaming
+   */
+  renameScore: number = 0;
+
+  /**
+   * Difference between letters when renaming
+   */
+  renameDifference: number = 0;
 
   /**
    * Tracking actions
@@ -85,6 +102,14 @@ export class CollectionPrimeRenamePage implements OnInit, OnChanges {
     if (this.prime) {
       this.isConnected = this.app.account ? true : false;
       this.isPrimeOwner = this.app.assets.find(a => a.id == this.prime.prime_asset_id && a.amount > 0) ? true : false;
+
+      if (this.prime.gen == 1) {
+        this.renamePrice = environment.gen1.rename_price;
+        this.renameScore = environment.gen1.rename_score;
+      } else {
+        this.renamePrice = environment.gen2.rename_price;
+        this.renameScore = environment.gen2.rename_score;
+      }
     }
   }
 
@@ -92,41 +117,22 @@ export class CollectionPrimeRenamePage implements OnInit, OnChanges {
    * Rename prime
    */
   renamePrime() {
-    if (!this.inputs.index) {
-      this.appHelper.showError('Please enter the index');
-      return;
-    }
-
-    if (Number.isNaN(this.inputs.index)) {
-      this.appHelper.showError('Please enter the index');
-      return;
-    }
-
-    if (!this.inputs.letter) {
-      this.appHelper.showError('Please enter the letter');
-      return;
-    }
-
     let baseClient = this.chainHelper.getBaseClient();
     let algodClient = this.chainHelper.getAlgodClient();
 
     let renameContract: any = null;
     let renameContractId: number = 0;
-    let renameCost: number = 0;
     let renameTransactionFee: number = 0;
     let renameForeignApps: Array<number> = [];
-    let renameDiff = Math.abs(this.prime.name.charCodeAt(this.inputs.index - 1) - String(this.inputs.letter).charCodeAt(0));
 
     if (this.prime.gen == 1) {
       renameContract = new baseClient.ABIContract(GenOnePrimeRenameContract);
       renameContractId = environment.gen1.contracts.prime.rename.application_id;
-      renameCost = 10000000 * renameDiff;
       renameTransactionFee = 3000;
       renameForeignApps = [];
     } else {
       renameContract = new baseClient.ABIContract(GenTwoPrimeRenameContract);
       renameContractId = environment.gen2.contracts.prime.rename.application_id;
-      renameCost = 1000000 * renameDiff;
       renameTransactionFee = 4000;
       renameForeignApps = [this.prime.parent_application_id];
     }
@@ -139,8 +145,8 @@ export class CollectionPrimeRenamePage implements OnInit, OnChanges {
         appID: renameContractId,
         method: this.chainHelper.getMethod(renameContract, 'rename'),
         methodArgs: [
-          Number(this.inputs.index) - 1,
-          String(this.inputs.letter).charCodeAt(0),
+          this.selectedNameIndex,
+          this.selectedLetterIndex,
           this.prime.application_id,
         ],
         appForeignAssets: [
@@ -159,7 +165,7 @@ export class CollectionPrimeRenamePage implements OnInit, OnChanges {
           from: this.app.account,
           to: environment.platform.reserve,
           assetIndex: this.prime.platform_asset_id,
-          amount: renameCost,
+          amount: this.renamePrice * this.renameDifference,
           suggestedParams: {
             ...params,
             fee: 1000,
