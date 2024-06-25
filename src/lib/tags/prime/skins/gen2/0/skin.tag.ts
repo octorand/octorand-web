@@ -10,7 +10,6 @@ import { PrimeModel } from '@lib/models';
 export class PrimeSkinsGenTwoTag0 implements OnInit, OnChanges {
 
   shades: Array<any> = [];
-  circles: Array<any> = [];
   lines: Array<any> = [];
   arms: Array<any> = [];
 
@@ -46,24 +45,9 @@ export class PrimeSkinsGenTwoTag0 implements OnInit, OnChanges {
    * Calculate rendering parameters
    */
   calculate() {
-    this.calculateCircleParams();
     this.calculateLineParams();
     this.calculateArmParams();
     this.calculateImageParams();
-  }
-
-  /**
-   * Generate the image circle params for this prime
-   */
-  calculateCircleParams() {
-    this.circles = [];
-    for (let i = 0; i < 26; i++) {
-      let radius = 60 + (i * 5);
-
-      this.circles.push({
-        radius: radius
-      });
-    }
   }
 
   /**
@@ -74,7 +58,7 @@ export class PrimeSkinsGenTwoTag0 implements OnInit, OnChanges {
     for (let i = 0; i < this.prime.name.length; i++) {
       let angle = (i + 1) * 360 / this.prime.name.length;
       let slope = angle * Math.PI / 180;
-      let radius = 60 + (25 * 5);
+      let radius = 256;
 
       let nx = Math.cos(slope) * radius + 256;
       let ny = Math.sin(slope) * radius + 256;

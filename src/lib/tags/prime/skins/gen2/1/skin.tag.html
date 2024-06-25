@@ -10,16 +10,13 @@
         <svg class="layer spin" xmlns="http://www.w3.org/2000/svg" version="1.1"
             xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs" viewBox="0 0 512 512">
             <g>
-                <circle *ngFor="let circle of circles" [attr.r]="circle.radius" cx="256" cy="256" stroke-width="1"
-                    [attr.stroke]="shades[4]" fill="transparent">
-                </circle>
                 <line *ngFor="let line of lines" [attr.x2]="line.x" [attr.y2]="line.y" x1="256" y1="256"
                     stroke-width="1" [attr.stroke]="shades[4]"></line>
                 <g *ngFor="let arm of arms">
                     <line [attr.x2]="arm.x" [attr.y2]="arm.y" x1="256" y1="256" stroke-width="5"
                         [attr.stroke]="shades[9]">
                     </line>
-                    <circle [attr.cx]="arm.x" [attr.cy]="arm.y" r="16" [attr.fill]="arm.color" stroke-width="5"
+                    <circle [attr.cx]="arm.x" [attr.cy]="arm.y" r="20" [attr.fill]="arm.color" stroke-width="5"
                         [attr.stroke]="shades[9]">
                     </circle>
                 </g>
