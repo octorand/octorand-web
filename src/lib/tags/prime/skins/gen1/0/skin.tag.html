@@ -6,7 +6,7 @@
         <circle *ngFor="let circle of circles" [attr.r]="circle.radius" cx="256" cy="256" stroke-width="1"
             [attr.stroke]="shades[4]" fill="transparent">
         </circle>
-        <path *ngFor="let arc of arcs" [attr.d]="arc.curve" stroke-width="20" [attr.stroke]="arc.color" fill="none">
+        <path *ngFor="let arc of arcs" [attr.d]="arc.curve" stroke-width="30" [attr.stroke]="arc.color" fill="none">
         </path>
         <line *ngFor="let line of lines" [attr.x2]="line.x" [attr.y2]="line.y" x1="256" y1="256" stroke-width="4"
             [attr.stroke]="shades[9]">
@@ -16,7 +16,7 @@
         </circle>
         <circle [attr.fill]="shades[6]" r="30" cx="256" cy="256" stroke-width="4" [attr.stroke]="shades[9]">
         </circle>
-        <circle r="236" cx="256" cy="256" stroke-width="40" [attr.stroke]="shades[8]" fill="none">
+        <circle r="246" cx="256" cy="256" stroke-width="20" [attr.stroke]="shades[8]" fill="none">
         </circle>
     </svg>
 </div>

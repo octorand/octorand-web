@@ -88,7 +88,7 @@ export class PrimeSkinsGenOneTag1 implements OnInit, OnChanges {
 
     this.arcs = [];
     for (let i = 0; i < this.prime.name.length; i++) {
-      let radius = 200;
+      let radius = 211;
 
       let sangle = (i + 1) * 360 / this.prime.name.length;
       let sslope = sangle * Math.PI / 180;
