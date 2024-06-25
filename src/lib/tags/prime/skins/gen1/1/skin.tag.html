@@ -6,6 +6,8 @@
         <circle *ngFor="let circle of circles" [attr.r]="circle.radius" cx="256" cy="256" stroke-width="1"
             [attr.stroke]="shades[4]" fill="transparent">
         </circle>
+        <path *ngFor="let arc of arcs" [attr.d]="arc.curve" stroke-width="20" [attr.stroke]="arc.color" fill="none">
+        </path>
         <path *ngFor="let pie of pies" [attr.d]="pie.path" [attr.fill]="pie.color">
         </path>
         <path *ngFor="let pie of pies" [attr.d]="pie.curve" stroke-width="4" [attr.stroke]="shades[9]" fill="none">
