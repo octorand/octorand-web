@@ -12,7 +12,7 @@ export class PrimeSkinsGenOneTag2 implements OnInit, OnChanges {
   shades: Array<any> = [];
   circles: Array<any> = [];
   lines: Array<any> = [];
-  arms: Array<any> = [];
+  twirls: Array<any> = [];
 
   /**
   * The prime parameters
@@ -49,7 +49,7 @@ export class PrimeSkinsGenOneTag2 implements OnInit, OnChanges {
     this.calculateImageParams();
     this.calculateCircleParams();
     this.calculateLineParams();
-    this.calculateArmParams();
+    this.calculateTwirlParams();
   }
 
   /**
@@ -94,9 +94,9 @@ export class PrimeSkinsGenOneTag2 implements OnInit, OnChanges {
   }
 
   /**
-   * Generate the arm params for this prime
+   * Generate the twirl params for this prime
    */
-  calculateArmParams() {
+  calculateTwirlParams() {
     let alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
     let params = [];
@@ -104,21 +104,17 @@ export class PrimeSkinsGenOneTag2 implements OnInit, OnChanges {
       params.push(alphabet.indexOf(this.prime.name.charAt(j)));
     }
 
-    this.arms = [];
+    this.twirls = [];
     for (let i = 0; i < this.prime.name.length; i++) {
-      let angle = (i + 1) * 360 / this.prime.name.length;
-      let slope = angle * Math.PI / 180;
       let radius = 60 + params[i] * 5;
-
-      let nx = Math.cos(slope) * radius + 256;
-      let ny = Math.sin(slope) * radius + 256;
       let color = this.colorHelper.findColor(params[i]);
 
-      this.arms.push({
-        x: nx,
-        y: ny,
+      this.twirls.push({
+        radius: radius,
         color: color
       });
+
+      this.twirls.sort((first, second) => second.radius - first.radius);
     }
   }
 }

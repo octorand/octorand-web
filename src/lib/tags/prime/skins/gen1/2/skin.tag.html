@@ -6,12 +6,11 @@
         <circle *ngFor="let circle of circles" [attr.r]="circle.radius" cx="256" cy="256" stroke-width="1"
             [attr.stroke]="shades[4]" fill="transparent">
         </circle>
+        <circle *ngFor="let twirl of twirls" [attr.r]="twirl.radius" cx="256" cy="256" [attr.fill]="twirl.color">
+        </circle>
         <line *ngFor="let line of lines" [attr.x2]="line.x" [attr.y2]="line.y" x1="256" y1="256" stroke-width="4"
             [attr.stroke]="shades[9]">
         </line>
-        <circle *ngFor="let arm of arms" [attr.cx]="arm.x" [attr.cy]="arm.y" r="20" [attr.fill]="arm.color"
-            stroke-width="4" [attr.stroke]="shades[9]">
-        </circle>
         <circle [attr.fill]="shades[6]" r="30" cx="256" cy="256" stroke-width="4" [attr.stroke]="shades[9]">
         </circle>
         <circle r="236" cx="256" cy="256" stroke-width="40" [attr.stroke]="shades[8]" fill="none">
