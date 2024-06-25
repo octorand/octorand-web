@@ -7,7 +7,7 @@ import { PrimeModel } from '@lib/models';
   templateUrl: './skin.tag.html',
   styleUrls: ['./skin.tag.scss'],
 })
-export class PrimeSkinsGenTwoZeroTag implements OnInit, OnChanges {
+export class PrimeSkinsGenTwoTag0 implements OnInit, OnChanges {
 
   shades: Array<any> = [];
   circles: Array<any> = [];

@@ -9,7 +9,15 @@ export class SkinHelper {
     private skins = [
         {
             id: 0,
-            name: 'Starlegis',
+            name: 'Starlegs',
+        },
+        {
+            id: 1,
+            name: 'Wedgeral',
+        },
+        {
+            id: 2,
+            name: 'Twistery',
         },
     ];
 

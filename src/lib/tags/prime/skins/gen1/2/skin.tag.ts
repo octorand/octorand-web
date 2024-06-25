@@ -3,11 +3,11 @@ import { ColorHelper } from '@lib/helpers';
 import { PrimeModel } from '@lib/models';
 
 @Component({
-  selector: 'lib-tags-prime-skins-gen1-0',
+  selector: 'lib-tags-prime-skins-gen1-2',
   templateUrl: './skin.tag.html',
   styleUrls: ['./skin.tag.scss'],
 })
-export class PrimeSkinsGenOneTag0 implements OnInit, OnChanges {
+export class PrimeSkinsGenOneTag2 implements OnInit, OnChanges {
 
   shades: Array<any> = [];
   circles: Array<any> = [];
