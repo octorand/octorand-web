@@ -1,32 +1,24 @@
-<div class="image">
-    <div id="prime-{{prime.id_text}}" class="layers">
-        <svg class="layer" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
-            xmlns:svgjs="http://svgjs.dev/svgjs" viewBox="0 0 512 512">
-            <g>
-                <circle r="250" cx="256" cy="256" stroke-width="0" [attr.fill]="shades[2]">
-                </circle>
+<div class="image" id="prime-{{prime.id}}">
+    <svg class="layer" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
+        xmlns:svgjs="http://svgjs.dev/svgjs" viewBox="0 0 512 512">
+        <g>
+            <circle r="250" cx="256" cy="256" stroke-width="0" [attr.fill]="shades[2]">
+            </circle>
+        </g>
+        <g>
+            <g *ngFor="let pie of pies">
+                <path [attr.d]="pie.path" [attr.fill]="pie.color"></path>
+                <path [attr.d]="pie.curve" stroke-width="4" [attr.stroke]="shades[9]" fill="none"></path>
             </g>
-        </svg>
-        <svg class="layer spin" xmlns="http://www.w3.org/2000/svg" version="1.1"
-            xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs" viewBox="0 0 512 512">
-            <g>
-                <g *ngFor="let pie of pies">
-                    <path [attr.d]="pie.path" [attr.fill]="pie.color"></path>
-                    <path [attr.d]="pie.curve" stroke-width="4" [attr.stroke]="shades[9]" fill="none"></path>
-                </g>
-                <line *ngFor="let line of lines" [attr.x2]="line.x" [attr.y2]="line.y" x1="256" y1="256"
-                    stroke-width="4" [attr.stroke]="shades[9]">
-                </line>
-                <circle [attr.fill]="shades[6]" r="30" cx="256" cy="256" stroke-width="4" [attr.stroke]="shades[9]">
-                </circle>
-            </g>
-        </svg>
-        <svg class="layer" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
-            xmlns:svgjs="http://svgjs.dev/svgjs" viewBox="0 0 512 512">
-            <g>
-                <circle r="236" cx="256" cy="256" stroke-width="40" [attr.stroke]="shades[8]" fill="none">
-                </circle>
-            </g>
-        </svg>
-    </div>
+            <line *ngFor="let line of lines" [attr.x2]="line.x" [attr.y2]="line.y" x1="256" y1="256" stroke-width="4"
+                [attr.stroke]="shades[9]">
+            </line>
+            <circle [attr.fill]="shades[6]" r="30" cx="256" cy="256" stroke-width="4" [attr.stroke]="shades[9]">
+            </circle>
+        </g>
+        <g>
+            <circle r="236" cx="256" cy="256" stroke-width="40" [attr.stroke]="shades[8]" fill="none">
+            </circle>
+        </g>
+    </svg>
 </div>

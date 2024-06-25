@@ -45,9 +45,16 @@ export class PrimeSkinsGenOneTag2 implements OnInit, OnChanges {
    * Calculate rendering parameters
    */
   calculate() {
+    this.calculateImageParams();
     this.calculateLineParams();
     this.calculateArmParams();
-    this.calculateImageParams();
+  }
+
+  /**
+   * Generate the image params for this prime
+   */
+  calculateImageParams() {
+    this.shades = this.colorHelper.findShades(this.prime.theme);
   }
 
   /**
@@ -97,12 +104,5 @@ export class PrimeSkinsGenOneTag2 implements OnInit, OnChanges {
         color: color
       });
     }
-  }
-
-  /**
-   * Generate the image params for this prime
-   */
-  calculateImageParams() {
-    this.shades = this.colorHelper.findShades(this.prime.theme);
   }
 }
