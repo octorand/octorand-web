@@ -10,12 +10,12 @@
         </path>
         <path *ngFor="let pie of pies" [attr.d]="pie.path" [attr.fill]="pie.color">
         </path>
-        <path *ngFor="let pie of pies" [attr.d]="pie.curve" stroke-width="4" [attr.stroke]="shades[9]" fill="none">
+        <path *ngFor="let pie of pies" [attr.d]="pie.curve" stroke-width="4" [attr.stroke]="shades[8]" fill="none">
         </path>
         <line *ngFor="let line of lines" [attr.x2]="line.x" [attr.y2]="line.y" x1="256" y1="256" stroke-width="4"
-            [attr.stroke]="shades[9]">
+            [attr.stroke]="shades[8]">
         </line>
-        <circle [attr.fill]="shades[6]" r="30" cx="256" cy="256" stroke-width="4" [attr.stroke]="shades[9]">
+        <circle [attr.fill]="shades[6]" r="30" cx="256" cy="256" stroke-width="4" [attr.stroke]="shades[8]">
         </circle>
         <circle r="246" cx="256" cy="256" stroke-width="20" [attr.stroke]="shades[8]" fill="none">
         </circle>

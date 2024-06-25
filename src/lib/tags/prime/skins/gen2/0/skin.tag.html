@@ -1,25 +1,26 @@
 <div class="image" id="prime-{{prime.id}}">
     <svg class="layer" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
         xmlns:svgjs="http://svgjs.dev/svgjs" viewBox="0 0 512 512">
-        <g>
-            <circle r="250" cx="256" cy="256" stroke-width="0" [attr.fill]="shades[2]">
-            </circle>
-        </g>
-        <g>
-            <line *ngFor="let line of lines" [attr.x2]="line.x" [attr.y2]="line.y" x1="256" y1="256" stroke-width="4"
-                [attr.stroke]="shades[9]">
-            </line>
-            <g *ngFor="let arm of arms">
-                <circle [attr.cx]="arm.x" [attr.cy]="arm.y" r="15" [attr.fill]="arm.color" stroke-width="4"
-                    [attr.stroke]="shades[9]">
-                </circle>
-            </g>
-            <circle [attr.fill]="shades[6]" r="30" cx="256" cy="256" stroke-width="4" [attr.stroke]="shades[9]">
-            </circle>
-        </g>
-        <g>
-            <circle r="236" cx="256" cy="256" stroke-width="40" [attr.stroke]="shades[8]" fill="none">
-            </circle>
-        </g>
+        <rect x="0" y="0" rx="10" ry="10" width="512" height="512" [attr.fill]="shades[8]">
+        </rect>
+        <rect x="20" y="20" rx="8" ry="8" width="472" height="472" [attr.fill]="shades[2]">
+        </rect>
+
+
+        <circle *ngFor="let circle of circles" [attr.r]="circle.radius" cx="256" cy="256" stroke-width="1"
+            [attr.stroke]="shades[4]" fill="transparent">
+        </circle>
+        <path *ngFor="let arc of arcs" [attr.d]="arc.curve" stroke-width="30" [attr.stroke]="arc.color" fill="none">
+        </path>
+        <line *ngFor="let line of lines" [attr.x2]="line.x" [attr.y2]="line.y" x1="256" y1="256" stroke-width="4"
+            [attr.stroke]="shades[8]">
+        </line>
+        <circle *ngFor="let arm of arms" [attr.cx]="arm.x" [attr.cy]="arm.y" r="20" [attr.fill]="arm.color"
+            stroke-width="4" [attr.stroke]="shades[8]">
+        </circle>
+        <circle [attr.fill]="shades[6]" r="30" cx="256" cy="256" stroke-width="4" [attr.stroke]="shades[8]">
+        </circle>
+
+
     </svg>
 </div>

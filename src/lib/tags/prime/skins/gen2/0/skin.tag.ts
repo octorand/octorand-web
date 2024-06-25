@@ -10,6 +10,8 @@ import { PrimeModel } from '@lib/models';
 export class PrimeSkinsGenTwoTag0 implements OnInit, OnChanges {
 
   shades: Array<any> = [];
+  circles: Array<any> = [];
+  arcs: Array<any> = [];
   lines: Array<any> = [];
   arms: Array<any> = [];
 
@@ -46,6 +48,8 @@ export class PrimeSkinsGenTwoTag0 implements OnInit, OnChanges {
    */
   calculate() {
     this.calculateImageParams();
+    this.calculateCircleParams();
+    this.calculateArcParams();
     this.calculateLineParams();
     this.calculateArmParams();
   }
@@ -59,6 +63,58 @@ export class PrimeSkinsGenTwoTag0 implements OnInit, OnChanges {
 
   /**
    * Generate the image circle params for this prime
+   */
+  calculateCircleParams() {
+    this.circles = [];
+    for (let i = 0; i < 26; i++) {
+      let radius = 60 + (i * 5);
+
+      this.circles.push({
+        radius: radius
+      });
+    }
+  }
+
+  /**
+   * Generate the image arc params for this prime
+   */
+  calculateArcParams() {
+    let alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+    let params = [];
+    for (let j = 0; j < this.prime.name.length; j++) {
+      params.push(alphabet.indexOf(this.prime.name.charAt(j)));
+    }
+
+    this.arcs = [];
+    for (let i = 0; i < this.prime.name.length; i++) {
+      let radius = 211;
+
+      let sangle = (i + 1) * 360 / this.prime.name.length;
+      let sslope = sangle * Math.PI / 180;
+      let sx = Math.cos(sslope) * radius + 256;
+      let sy = Math.sin(sslope) * radius + 256;
+
+      let eangle = (i + 2) * 360 / this.prime.name.length;
+      let eslope = eangle * Math.PI / 180;
+      let ex = Math.cos(eslope) * radius + 256;
+      let ey = Math.sin(eslope) * radius + 256;
+
+      let move = 'M ' + sx + ' ' + sy;
+      let arc = 'A ' + radius + ' ' + radius + ' 0 0 1 ' + ex + ' ' + ey;
+      let curve = move + ' ' + arc;
+
+      let color = this.colorHelper.findColor(params[i]);
+
+      this.arcs.push({
+        curve: curve,
+        color: color
+      });
+    }
+  }
+
+  /**
+   * Generate the image line params for this prime
    */
   calculateLineParams() {
     this.lines = [];
