@@ -95,15 +95,16 @@ export class PrimeSkinsGenOneTag1 implements OnInit, OnChanges {
       let ex = Math.cos(eslope) * radius + 256;
       let ey = Math.sin(eslope) * radius + 256;
 
-      let move = 'M 256 256';
-      let lines = 'L ' + sx + ' ' + sy;
+      let move = 'M ' + sx + ' ' + sy;
       let arc = 'A ' + radius + ' ' + radius + ' 0 0 1 ' + ex + ' ' + ey;
-      let linee = 'L 256 256';
-      let path = move + ' ' + lines + ' ' + arc + ' ' + linee;
+      let line = 'L 256 256';
+      let curve = move + ' ' + arc;
+      let path = curve + ' ' + line;
 
       let color = this.colorHelper.findColor(params[i]);
 
       this.pies.push({
+        curve: curve,
         path: path,
         color: color
       });
