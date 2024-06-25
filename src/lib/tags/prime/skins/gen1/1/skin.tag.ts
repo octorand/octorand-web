@@ -11,7 +11,7 @@ export class PrimeSkinsGenOneTag1 implements OnInit, OnChanges {
 
   shades: Array<any> = [];
   lines: Array<any> = [];
-  arms: Array<any> = [];
+  pies: Array<any> = [];
 
   /**
   * The prime parameters
@@ -46,7 +46,7 @@ export class PrimeSkinsGenOneTag1 implements OnInit, OnChanges {
    */
   calculate() {
     this.calculateLineParams();
-    this.calculateArmParams();
+    this.calculatePieParams();
     this.calculateImageParams();
   }
 
@@ -71,9 +71,9 @@ export class PrimeSkinsGenOneTag1 implements OnInit, OnChanges {
   }
 
   /**
-   * Generate the arm params for this prime
+   * Generate the pie params for this prime
    */
-  calculateArmParams() {
+  calculatePieParams() {
     let alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
     let params = [];
@@ -81,19 +81,30 @@ export class PrimeSkinsGenOneTag1 implements OnInit, OnChanges {
       params.push(alphabet.indexOf(this.prime.name.charAt(j)));
     }
 
-    this.arms = [];
+    this.pies = [];
     for (let i = 0; i < this.prime.name.length; i++) {
-      let angle = (i + 1) * 360 / this.prime.name.length;
-      let slope = angle * Math.PI / 180;
       let radius = 60 + params[i] * 5;
 
-      let nx = Math.cos(slope) * radius + 256;
-      let ny = Math.sin(slope) * radius + 256;
+      let sangle = (i + 1) * 360 / this.prime.name.length;
+      let sslope = sangle * Math.PI / 180;
+      let sx = Math.cos(sslope) * radius + 256;
+      let sy = Math.sin(sslope) * radius + 256;
+
+      let eangle = (i + 2) * 360 / this.prime.name.length;
+      let eslope = eangle * Math.PI / 180;
+      let ex = Math.cos(eslope) * radius + 256;
+      let ey = Math.sin(eslope) * radius + 256;
+
+      let move = 'M 256 256';
+      let lines = 'L ' + sx + ' ' + sy;
+      let arc = 'A ' + radius + ' ' + radius + ' 0 0 1 ' + ex + ' ' + ey;
+      let linee = 'L 256 256';
+      let path = move + ' ' + lines + ' ' + arc + ' ' + linee;
+
       let color = this.colorHelper.findColor(params[i]);
 
-      this.arms.push({
-        x: nx,
-        y: ny,
+      this.pies.push({
+        path: path,
         color: color
       });
     }
