@@ -11,7 +11,7 @@ export class PrimeSkinsGenOneTag2 implements OnInit, OnChanges {
 
   shades: Array<any> = [];
   circles: Array<any> = [];
-  arcs: Array<any> = [];
+  blocks: Array<any> = [];
   lines: Array<any> = [];
   twirls: Array<any> = [];
 
@@ -49,7 +49,7 @@ export class PrimeSkinsGenOneTag2 implements OnInit, OnChanges {
   calculate() {
     this.calculateImageParams();
     this.calculateCircleParams();
-    this.calculateArcParams();
+    this.calculateBlockParams();
     this.calculateLineParams();
     this.calculateTwirlParams();
   }
@@ -76,9 +76,9 @@ export class PrimeSkinsGenOneTag2 implements OnInit, OnChanges {
   }
 
   /**
-   * Generate the image arc params for this prime
+   * Generate the image block params for this prime
    */
-  calculateArcParams() {
+  calculateBlockParams() {
     let alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
     let params = [];
@@ -86,7 +86,7 @@ export class PrimeSkinsGenOneTag2 implements OnInit, OnChanges {
       params.push(alphabet.indexOf(this.prime.name.charAt(j)));
     }
 
-    this.arcs = [];
+    this.blocks = [];
     for (let i = 0; i < this.prime.name.length; i++) {
       let radius = 211;
 
@@ -106,7 +106,7 @@ export class PrimeSkinsGenOneTag2 implements OnInit, OnChanges {
 
       let color = this.colorHelper.findColor(params[i]);
 
-      this.arcs.push({
+      this.blocks.push({
         curve: curve,
         color: color
       });
