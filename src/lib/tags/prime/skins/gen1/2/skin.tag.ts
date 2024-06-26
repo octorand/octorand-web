@@ -14,6 +14,7 @@ export class PrimeSkinsGenOneTag2 implements OnInit, OnChanges {
   arcs: Array<any> = [];
   slices: Array<any> = [];
   twirls: Array<any> = [];
+  borders: Array<any> = [];
 
   /**
   * The prime parameters
@@ -165,8 +166,12 @@ export class PrimeSkinsGenOneTag2 implements OnInit, OnChanges {
         radius: radius,
         color: color
       });
-
-      this.twirls.sort((first, second) => second.radius - first.radius);
     }
+
+    this.twirls.sort((first, second) => second.radius - first.radius);
+
+    this.borders = [
+      { radius: Math.max(...this.twirls.slice(0, 16).map(t => t.radius)) }
+    ];
   }
 }

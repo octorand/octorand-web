@@ -15,6 +15,7 @@ export class PrimeSkinsGenTwoTag2 implements OnInit, OnChanges {
   slices: Array<any> = [];
   crosses: Array<any> = [];
   twirls: Array<any> = [];
+  borders: Array<any> = [];
 
   /**
   * The prime parameters
@@ -179,7 +180,7 @@ export class PrimeSkinsGenTwoTag2 implements OnInit, OnChanges {
       params.push(alphabet.indexOf(this.prime.name.charAt(j)));
     }
 
-    this.twirls = [];
+    let twirls = [];
     for (let i = 0; i < this.prime.name.length; i++) {
       let radius = 40 + params[i] * 2;
 
@@ -196,14 +197,26 @@ export class PrimeSkinsGenTwoTag2 implements OnInit, OnChanges {
 
       let color = this.colorHelper.findColor(params[i]);
 
-      this.twirls.push({
+      twirls.push({
         x: center.x,
         y: center.y,
         radius: radius,
         color: color
       });
-
-      this.twirls.sort((first, second) => second.radius - first.radius);
     }
+
+    this.twirls = [
+      ...twirls.slice(0, 4).sort((first, second) => second.radius - first.radius),
+      ...twirls.slice(4, 8).sort((first, second) => second.radius - first.radius),
+      ...twirls.slice(8, 12).sort((first, second) => second.radius - first.radius),
+      ...twirls.slice(12, 16).sort((first, second) => second.radius - first.radius),
+    ];
+
+    this.borders = [
+      { x: this.crosses[0].x, y: this.crosses[0].y, radius: Math.max(...twirls.slice(0, 4).map(t => t.radius)) },
+      { x: this.crosses[1].x, y: this.crosses[1].y, radius: Math.max(...twirls.slice(4, 8).map(t => t.radius)) },
+      { x: this.crosses[2].x, y: this.crosses[2].y, radius: Math.max(...twirls.slice(8, 12).map(t => t.radius)) },
+      { x: this.crosses[3].x, y: this.crosses[3].y, radius: Math.max(...twirls.slice(12, 16).map(t => t.radius)) }
+    ];
   }
 }

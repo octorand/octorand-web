@@ -18,6 +18,9 @@
         </line>
         <circle *ngFor="let twirl of twirls" [attr.r]="twirl.radius" cx="256" cy="256" [attr.fill]="twirl.color">
         </circle>
+        <circle *ngFor="let border of borders" [attr.r]="border.radius" cx="256" cy="256" stroke-width="4"
+            stroke="#25282c" fill="none">
+        </circle>
         <circle [attr.fill]="shades[6]" r="30" cx="256" cy="256" stroke-width="4" stroke="#25282c">
         </circle>
     </svg>
