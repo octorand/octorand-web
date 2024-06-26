@@ -12,6 +12,7 @@ export class PrimeSkinsGenTwoTag0 implements OnInit, OnChanges {
   shades: Array<any> = [];
   blocks: Array<any> = [];
   arcs: Array<any> = [];
+  slices: Array<any> = [];
   arms: Array<any> = [];
 
   /**
@@ -49,6 +50,7 @@ export class PrimeSkinsGenTwoTag0 implements OnInit, OnChanges {
     this.calculateImageParams();
     this.calculateBlockParams();
     this.calculateArcParams();
+    this.calculateSliceParams();
     this.calculateArmParams();
   }
 
@@ -131,6 +133,22 @@ export class PrimeSkinsGenTwoTag0 implements OnInit, OnChanges {
     ];
 
     this.arcs = arcs;
+  }
+
+  /**
+   * Generate the slice params for this prime
+   */
+  calculateSliceParams() {
+    let slices = [
+      { x1: 50, y1: 50, x2: 462, y2: 462 },
+      { x1: 50, y1: 462, x2: 462, y2: 50 },
+      { x1: 50, y1: 256, x2: 256, y2: 50 },
+      { x1: 256, y1: 462, x2: 462, y2: 256 },
+      { x1: 50, y1: 256, x2: 256, y2: 462 },
+      { x1: 256, y1: 50, x2: 462, y2: 256 },
+    ];
+
+    this.slices = slices;
   }
 
   /**

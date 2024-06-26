@@ -129,13 +129,6 @@ export class PrimeSkinsGenOneTag0 implements OnInit, OnChanges {
    * Generate the slice params for this prime
    */
   calculateSliceParams() {
-    let alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-
-    let params = [];
-    for (let j = 0; j < this.prime.name.length; j++) {
-      params.push(alphabet.indexOf(this.prime.name.charAt(j)));
-    }
-
     this.slices = [];
     for (let i = 0; i < this.prime.name.length; i++) {
       let angle = (i + 1) * 360 / this.prime.name.length;
