@@ -10,7 +10,7 @@ import { PrimeModel } from '@lib/models';
 export class PrimeSkinsGenTwoTag1 implements OnInit, OnChanges {
 
   shades: Array<any> = [];
-  lines: Array<any> = [];
+  blocks: Array<any> = [];
   pies: Array<any> = [];
 
   /**
@@ -46,7 +46,7 @@ export class PrimeSkinsGenTwoTag1 implements OnInit, OnChanges {
    */
   calculate() {
     this.calculateImageParams();
-    this.calculateLineParams();
+    this.calculateBlockParams();
     this.calculatePieParams();
   }
 
@@ -58,21 +58,39 @@ export class PrimeSkinsGenTwoTag1 implements OnInit, OnChanges {
   }
 
   /**
-   * Generate the image circle params for this prime
+   * Generate the image block params for this prime
    */
-  calculateLineParams() {
-    this.lines = [];
+  calculateBlockParams() {
+    let alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+    let params = [];
+    for (let j = 0; j < this.prime.name.length; j++) {
+      params.push(alphabet.indexOf(this.prime.name.charAt(j)));
+    }
+
+    this.blocks = [];
     for (let i = 0; i < this.prime.name.length; i++) {
-      let angle = (i + 1) * 360 / this.prime.name.length;
-      let slope = angle * Math.PI / 180;
-      let radius = 256;
+      let radius = 210;
 
-      let nx = Math.cos(slope) * radius + 256;
-      let ny = Math.sin(slope) * radius + 256;
+      let sangle = (i + 1) * 360 / this.prime.name.length;
+      let sslope = sangle * Math.PI / 180;
+      let sx = Math.cos(sslope) * radius + 256;
+      let sy = Math.sin(sslope) * radius + 256;
 
-      this.lines.push({
-        x: nx,
-        y: ny
+      let eangle = (i + 2) * 360 / this.prime.name.length;
+      let eslope = eangle * Math.PI / 180;
+      let ex = Math.cos(eslope) * radius + 256;
+      let ey = Math.sin(eslope) * radius + 256;
+
+      let move = 'M ' + sx + ' ' + sy;
+      let arc = 'A ' + radius + ' ' + radius + ' 0 0 1 ' + ex + ' ' + ey;
+      let curve = move + ' ' + arc;
+
+      let color = this.colorHelper.findColor(params[i]);
+
+      this.blocks.push({
+        curve: curve,
+        color: color
       });
     }
   }
@@ -111,7 +129,6 @@ export class PrimeSkinsGenTwoTag1 implements OnInit, OnChanges {
       let color = this.colorHelper.findColor(params[i]);
 
       this.pies.push({
-        curve: curve,
         path: path,
         color: color
       });

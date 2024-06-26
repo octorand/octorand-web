@@ -3,6 +3,8 @@
         xmlns:svgjs="http://svgjs.dev/svgjs" viewBox="0 0 512 512">
         <circle r="250" cx="256" cy="256" stroke-width="0" [attr.fill]="shades[2]">
         </circle>
+        <circle r="246" cx="256" cy="256" stroke-width="20" [attr.stroke]="shades[8]" fill="none">
+        </circle>
         <path *ngFor="let block of blocks" [attr.d]="block.curve" stroke-width="30" [attr.stroke]="block.color"
             fill="none">
         </path>
@@ -12,8 +14,6 @@
         <circle *ngFor="let arm of arms" [attr.cx]="arm.x" [attr.cy]="arm.y" r="20" [attr.fill]="arm.color">
         </circle>
         <circle [attr.fill]="shades[6]" r="30" cx="256" cy="256">
-        </circle>
-        <circle r="246" cx="256" cy="256" stroke-width="20" [attr.stroke]="shades[8]" fill="none">
         </circle>
     </svg>
 </div>

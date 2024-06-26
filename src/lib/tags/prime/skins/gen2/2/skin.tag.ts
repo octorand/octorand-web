@@ -10,8 +10,8 @@ import { PrimeModel } from '@lib/models';
 export class PrimeSkinsGenTwoTag2 implements OnInit, OnChanges {
 
   shades: Array<any> = [];
-  lines: Array<any> = [];
-  arms: Array<any> = [];
+  blocks: Array<any> = [];
+  twirls: Array<any> = [];
 
   /**
   * The prime parameters
@@ -46,8 +46,8 @@ export class PrimeSkinsGenTwoTag2 implements OnInit, OnChanges {
    */
   calculate() {
     this.calculateImageParams();
-    this.calculateLineParams();
-    this.calculateArmParams();
+    this.calculateBlockParams();
+    this.calculateTwirlParams();
   }
 
   /**
@@ -58,29 +58,9 @@ export class PrimeSkinsGenTwoTag2 implements OnInit, OnChanges {
   }
 
   /**
-   * Generate the image circle params for this prime
+   * Generate the image block params for this prime
    */
-  calculateLineParams() {
-    this.lines = [];
-    for (let i = 0; i < this.prime.name.length; i++) {
-      let angle = (i + 1) * 360 / this.prime.name.length;
-      let slope = angle * Math.PI / 180;
-      let radius = 256;
-
-      let nx = Math.cos(slope) * radius + 256;
-      let ny = Math.sin(slope) * radius + 256;
-
-      this.lines.push({
-        x: nx,
-        y: ny
-      });
-    }
-  }
-
-  /**
-   * Generate the arm params for this prime
-   */
-  calculateArmParams() {
+  calculateBlockParams() {
     let alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
     let params = [];
@@ -88,21 +68,55 @@ export class PrimeSkinsGenTwoTag2 implements OnInit, OnChanges {
       params.push(alphabet.indexOf(this.prime.name.charAt(j)));
     }
 
-    this.arms = [];
+    this.blocks = [];
     for (let i = 0; i < this.prime.name.length; i++) {
-      let angle = (i + 1) * 360 / this.prime.name.length;
-      let slope = angle * Math.PI / 180;
-      let radius = 50 + params[i] * 5;
+      let radius = 210;
 
-      let nx = Math.cos(slope) * radius + 256;
-      let ny = Math.sin(slope) * radius + 256;
+      let sangle = (i + 1) * 360 / this.prime.name.length;
+      let sslope = sangle * Math.PI / 180;
+      let sx = Math.cos(sslope) * radius + 256;
+      let sy = Math.sin(sslope) * radius + 256;
+
+      let eangle = (i + 2) * 360 / this.prime.name.length;
+      let eslope = eangle * Math.PI / 180;
+      let ex = Math.cos(eslope) * radius + 256;
+      let ey = Math.sin(eslope) * radius + 256;
+
+      let move = 'M ' + sx + ' ' + sy;
+      let arc = 'A ' + radius + ' ' + radius + ' 0 0 1 ' + ex + ' ' + ey;
+      let curve = move + ' ' + arc;
+
       let color = this.colorHelper.findColor(params[i]);
 
-      this.arms.push({
-        x: nx,
-        y: ny,
+      this.blocks.push({
+        curve: curve,
         color: color
       });
+    }
+  }
+
+  /**
+   * Generate the twirl params for this prime
+   */
+  calculateTwirlParams() {
+    let alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+    let params = [];
+    for (let j = 0; j < this.prime.name.length; j++) {
+      params.push(alphabet.indexOf(this.prime.name.charAt(j)));
+    }
+
+    this.twirls = [];
+    for (let i = 0; i < this.prime.name.length; i++) {
+      let radius = 50 + params[i] * 5;
+      let color = this.colorHelper.findColor(params[i]);
+
+      this.twirls.push({
+        radius: radius,
+        color: color
+      });
+
+      this.twirls.sort((first, second) => second.radius - first.radius);
     }
   }
 }
