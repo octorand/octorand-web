@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgxGoogleAnalyticsModule, NgxGoogleAnalyticsRouterModule } from 'ngx-google-analytics';
 import { LibModule } from '@lib';
 import { CollectionModule } from '@app/collection';
+import { PlatformModule } from '@app/platform';
 import { AppComponent } from './app.component';
 import { environment } from '@environment';
 
@@ -11,6 +12,10 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => CollectionModule
+  },
+  {
+    path: 'platform',
+    loadChildren: () => PlatformModule
   },
   {
     path: '**',

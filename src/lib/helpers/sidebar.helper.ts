@@ -43,14 +43,14 @@ export class SidebarHelper {
                     name: 'Tokenomics',
                     icon: 'fas fa-coins',
                     color: '#9b59b6',
-                    route: 'tokenomics',
+                    route: 'platform/tokenomics',
                 },
                 {
                     id: 'statistics',
                     name: 'Statistics',
                     icon: 'fas fa-signal',
                     color: '#2ecc71',
-                    route: 'statistics',
+                    route: 'platform/statistics',
                 },
             ]
         },

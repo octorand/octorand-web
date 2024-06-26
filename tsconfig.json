@@ -58,6 +58,12 @@
       "@app/collection/pages": [
         "./src/app/collection/pages/_index"
       ],
+      "@app/platform": [
+        "./src/app/platform/platform.module.ts"
+      ],
+      "@app/platform/pages": [
+        "./src/app/platform/pages/_index"
+      ],
     },
     "useDefineForClassFields": false
   },

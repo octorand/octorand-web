@@ -1,0 +1,105 @@
+<div class="container-fluid">
+    <div class="content">
+        <div class="row">
+            <div class="col">
+                <div class="mx-auto text-center">
+                    <h1 class="content-title text-secondary mb-20">
+                        Tokenomics
+                    </h1>
+                    <p class="text-muted mb-5">
+                        Generation
+                    </p>
+                    <nav>
+                        <ul class="pagination text-center">
+                            <li class="page-item hand">
+                                <a class="page-link px-20" tabindex="-1" (click)="changeGen(1)"
+                                    [ngClass]="{'bg-primary': selectedGen == 1}">
+                                    GEN1
+                                </a>
+                            </li>
+                            <li class="page-item hand">
+                                <a class="page-link px-20" tabindex="-1" (click)="changeGen(2)"
+                                    [ngClass]="{'bg-primary': selectedGen == 2}">
+                                    GEN2
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <p class="text-muted mb-5">
+                        Sort
+                    </p>
+                    <nav>
+                        <ul class="pagination text-center">
+                            <li class="page-item hand" *ngFor="let sort of sorts">
+                                <a class="page-link px-20" tabindex="-1" (click)="changeSort(sort)"
+                                    [ngClass]="{'bg-primary': sort == selectedSort}">
+                                    {{sort}}
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <p class="text-muted mb-5">
+                        Badges
+                    </p>
+                    <nav>
+                        <ul class="pagination text-center">
+                            <li class="page-item hand" *ngFor="let badge of badges">
+                                <a class="page-link px-20" tabindex="-1" (click)="changeBadge(badge.name)"
+                                    [ngClass]="{'bg-primary': selectedBadges.includes(badge.name)}">
+                                    <i class="{{badge.icon}} mr-5"></i>
+                                    {{badge.name}}
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="ready">
+            <div class="col">
+                <div *ngIf="currentPageResults.length > 0">
+                    <div class="my-20">
+                        <lib-tags-pager [totalPages]="pagesCount" [currentPage]="currentPage"
+                            (onPageChange)="changePage($event)">
+                        </lib-tags-pager>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="column col-12 col-md-6 col-lg-4 col-xl-3" *ngFor="let prime of currentPageResults">
+                            <div class="card">
+                                <h2 class="card-title text-center text-secondary">
+                                    GEN{{prime.gen}} PRIME #{{prime.id_text}}
+                                </h2>
+                                <lib-tags-prime-skins [prime]="prime"></lib-tags-prime-skins>
+                                <lib-tags-prime-boxes [prime]="prime"></lib-tags-prime-boxes>
+                                <lib-tags-prime-owner [prime]="prime"></lib-tags-prime-owner>
+                                <lib-tags-prime-info [prime]="prime"></lib-tags-prime-info>
+                                <lib-tags-prime-badges [prime]="prime" [data]="data"></lib-tags-prime-badges>
+                                <div class="btn-group mt-20 btn-block" role="group">
+                                    <button class="btn btn-primary btn-block" type="button"
+                                        (click)="navigateToPage(prime.url)">
+                                        View
+                                    </button>
+                                    <button class="btn btn-primary btn-square" type="button">
+                                        <a class="text-white" href="{{prime.url}}" target="_blank">
+                                            <i class="fas fa-external-link-alt"></i>
+                                        </a>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-20">
+                        <lib-tags-pager [totalPages]="pagesCount" [currentPage]="currentPage"
+                            (onPageChange)="changePage($event)">
+                        </lib-tags-pager>
+                    </div>
+                </div>
+                <div *ngIf="currentPageResults.length == 0">
+                    <div class="alert alert-secondary message" role="alert">
+                        There aren't any primes that matches your selection criteria
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
