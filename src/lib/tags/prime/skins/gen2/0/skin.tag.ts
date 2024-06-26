@@ -13,6 +13,7 @@ export class PrimeSkinsGenTwoTag0 implements OnInit, OnChanges {
   blocks: Array<any> = [];
   arcs: Array<any> = [];
   slices: Array<any> = [];
+  crosses: Array<any> = [];
   arms: Array<any> = [];
 
   /**
@@ -51,6 +52,7 @@ export class PrimeSkinsGenTwoTag0 implements OnInit, OnChanges {
     this.calculateBlockParams();
     this.calculateArcParams();
     this.calculateSliceParams();
+    this.calculateCrossParams();
     this.calculateArmParams();
   }
 
@@ -152,6 +154,20 @@ export class PrimeSkinsGenTwoTag0 implements OnInit, OnChanges {
   }
 
   /**
+   * Generate the cross params for this prime
+   */
+  calculateCrossParams() {
+    let crosses = [
+      { x: 153, y: 153 },
+      { x: 359, y: 153 },
+      { x: 359, y: 359 },
+      { x: 153, y: 359 },
+    ];
+
+    this.crosses = crosses;
+  }
+
+  /**
    * Generate the arm params for this prime
    */
   calculateArmParams() {
@@ -162,28 +178,21 @@ export class PrimeSkinsGenTwoTag0 implements OnInit, OnChanges {
       params.push(alphabet.indexOf(this.prime.name.charAt(j)));
     }
 
-    let centers = [
-      { x: 153, y: 153 },
-      { x: 359, y: 153 },
-      { x: 359, y: 359 },
-      { x: 153, y: 359 },
-    ]
-
     this.arms = [];
     for (let i = 0; i < this.prime.name.length; i++) {
       let angle = (((i % 4) + 1) * 360 / 4) - 135;
       let slope = angle * Math.PI / 180;
       let radius = 50 + params[i] * 2;
 
-      let center = centers[0];
+      let center = this.crosses[0];
       if (i < 4) {
-        center = centers[0];
+        center = this.crosses[0];
       } else if (i < 8) {
-        center = centers[1];
+        center = this.crosses[1];
       } else if (i < 12) {
-        center = centers[2];
+        center = this.crosses[2];
       } else {
-        center = centers[3];
+        center = this.crosses[3];
       }
 
       let nx = Math.cos(slope) * radius + center.x;
