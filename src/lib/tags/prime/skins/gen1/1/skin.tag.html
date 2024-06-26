@@ -3,20 +3,12 @@
         xmlns:svgjs="http://svgjs.dev/svgjs" viewBox="0 0 512 512">
         <circle r="250" cx="256" cy="256" stroke-width="0" [attr.fill]="shades[2]">
         </circle>
-        <circle *ngFor="let circle of circles" [attr.r]="circle.radius" cx="256" cy="256" stroke-width="1"
-            [attr.stroke]="shades[4]" fill="transparent">
-        </circle>
         <path *ngFor="let block of blocks" [attr.d]="block.curve" stroke-width="30" [attr.stroke]="block.color"
             fill="none">
         </path>
         <path *ngFor="let pie of pies" [attr.d]="pie.path" [attr.fill]="pie.color">
         </path>
-        <path *ngFor="let pie of pies" [attr.d]="pie.curve" stroke-width="4" [attr.stroke]="shades[8]" fill="none">
-        </path>
-        <line *ngFor="let line of lines" [attr.x2]="line.x" [attr.y2]="line.y" x1="256" y1="256" stroke-width="4"
-            [attr.stroke]="shades[8]">
-        </line>
-        <circle [attr.fill]="shades[6]" r="30" cx="256" cy="256" stroke-width="4" [attr.stroke]="shades[8]">
+        <circle [attr.fill]="shades[6]" r="30" cx="256" cy="256">
         </circle>
         <circle r="246" cx="256" cy="256" stroke-width="20" [attr.stroke]="shades[8]" fill="none">
         </circle>

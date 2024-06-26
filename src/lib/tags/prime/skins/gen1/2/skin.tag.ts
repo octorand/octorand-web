@@ -10,9 +10,7 @@ import { PrimeModel } from '@lib/models';
 export class PrimeSkinsGenOneTag2 implements OnInit, OnChanges {
 
   shades: Array<any> = [];
-  circles: Array<any> = [];
   blocks: Array<any> = [];
-  lines: Array<any> = [];
   twirls: Array<any> = [];
 
   /**
@@ -48,9 +46,7 @@ export class PrimeSkinsGenOneTag2 implements OnInit, OnChanges {
    */
   calculate() {
     this.calculateImageParams();
-    this.calculateCircleParams();
     this.calculateBlockParams();
-    this.calculateLineParams();
     this.calculateTwirlParams();
   }
 
@@ -59,20 +55,6 @@ export class PrimeSkinsGenOneTag2 implements OnInit, OnChanges {
    */
   calculateImageParams() {
     this.shades = this.colorHelper.findShades(this.prime.theme);
-  }
-
-  /**
-   * Generate the image circle params for this prime
-   */
-  calculateCircleParams() {
-    this.circles = [];
-    for (let i = 0; i < 26; i++) {
-      let radius = 60 + (i * 5);
-
-      this.circles.push({
-        radius: radius
-      });
-    }
   }
 
   /**
@@ -109,26 +91,6 @@ export class PrimeSkinsGenOneTag2 implements OnInit, OnChanges {
       this.blocks.push({
         curve: curve,
         color: color
-      });
-    }
-  }
-
-  /**
-   * Generate the image line params for this prime
-   */
-  calculateLineParams() {
-    this.lines = [];
-    for (let i = 0; i < this.prime.name.length; i++) {
-      let angle = (i + 1) * 360 / this.prime.name.length;
-      let slope = angle * Math.PI / 180;
-      let radius = 256;
-
-      let nx = Math.cos(slope) * radius + 256;
-      let ny = Math.sin(slope) * radius + 256;
-
-      this.lines.push({
-        x: nx,
-        y: ny
       });
     }
   }
