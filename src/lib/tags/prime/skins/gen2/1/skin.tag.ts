@@ -12,6 +12,8 @@ export class PrimeSkinsGenTwoTag1 implements OnInit, OnChanges {
   shades: Array<any> = [];
   blocks: Array<any> = [];
   arcs: Array<any> = [];
+  slices: Array<any> = [];
+  crosses: Array<any> = [];
   pies: Array<any> = [];
 
   /**
@@ -49,6 +51,8 @@ export class PrimeSkinsGenTwoTag1 implements OnInit, OnChanges {
     this.calculateImageParams();
     this.calculateBlockParams();
     this.calculateArcParams();
+    this.calculateSliceParams();
+    this.calculateCrossParams();
     this.calculatePieParams();
   }
 
@@ -134,6 +138,36 @@ export class PrimeSkinsGenTwoTag1 implements OnInit, OnChanges {
   }
 
   /**
+   * Generate the slice params for this prime
+   */
+  calculateSliceParams() {
+    let slices = [
+      { x1: 50, y1: 50, x2: 462, y2: 462 },
+      { x1: 50, y1: 462, x2: 462, y2: 50 },
+      { x1: 50, y1: 256, x2: 256, y2: 50 },
+      { x1: 256, y1: 462, x2: 462, y2: 256 },
+      { x1: 50, y1: 256, x2: 256, y2: 462 },
+      { x1: 256, y1: 50, x2: 462, y2: 256 },
+    ];
+
+    this.slices = slices;
+  }
+
+  /**
+   * Generate the cross params for this prime
+   */
+  calculateCrossParams() {
+    let crosses = [
+      { x: 153, y: 153 },
+      { x: 359, y: 153 },
+      { x: 359, y: 359 },
+      { x: 153, y: 359 },
+    ];
+
+    this.crosses = crosses;
+  }
+
+  /**
    * Generate the pie params for this prime
    */
   calculatePieParams() {
@@ -146,27 +180,39 @@ export class PrimeSkinsGenTwoTag1 implements OnInit, OnChanges {
 
     this.pies = [];
     for (let i = 0; i < this.prime.name.length; i++) {
-      let radius = 50 + params[i] * 5;
+      let radius = 40 + params[i] * 2;
 
-      let sangle = (i + 1) * 360 / this.prime.name.length;
+      let center = this.crosses[0];
+      if (i < 4) {
+        center = this.crosses[0];
+      } else if (i < 8) {
+        center = this.crosses[1];
+      } else if (i < 12) {
+        center = this.crosses[2];
+      } else {
+        center = this.crosses[3];
+      }
+
+      let sangle = (((i % 4) + 1) * 360 / 4) - 135;
       let sslope = sangle * Math.PI / 180;
-      let sx = Math.cos(sslope) * radius + 256;
-      let sy = Math.sin(sslope) * radius + 256;
+      let sx = Math.cos(sslope) * radius + center.x;
+      let sy = Math.sin(sslope) * radius + center.y;
 
-      let eangle = (i + 2) * 360 / this.prime.name.length;
+      let eangle = (((i % 4) + 2) * 360 / 4) - 135;
       let eslope = eangle * Math.PI / 180;
-      let ex = Math.cos(eslope) * radius + 256;
-      let ey = Math.sin(eslope) * radius + 256;
+      let ex = Math.cos(eslope) * radius + center.x;
+      let ey = Math.sin(eslope) * radius + center.y;
 
       let move = 'M ' + sx + ' ' + sy;
       let arc = 'A ' + radius + ' ' + radius + ' 0 0 1 ' + ex + ' ' + ey;
-      let line = 'L 256 256';
+      let line = 'L ' + center.x + ' ' + center.y;
       let curve = move + ' ' + arc;
       let path = curve + ' ' + line;
 
       let color = this.colorHelper.findColor(params[i]);
 
       this.pies.push({
+        curve: curve,
         path: path,
         color: color
       });

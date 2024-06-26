@@ -180,9 +180,7 @@ export class PrimeSkinsGenTwoTag0 implements OnInit, OnChanges {
 
     this.arms = [];
     for (let i = 0; i < this.prime.name.length; i++) {
-      let angle = (((i % 4) + 1) * 360 / 4) - 135;
-      let slope = angle * Math.PI / 180;
-      let radius = 50 + params[i] * 2;
+      let radius = 40 + params[i] * 2;
 
       let center = this.crosses[0];
       if (i < 4) {
@@ -194,6 +192,9 @@ export class PrimeSkinsGenTwoTag0 implements OnInit, OnChanges {
       } else {
         center = this.crosses[3];
       }
+
+      let angle = (((i % 4) + 1) * 360 / 4) - 135;
+      let slope = angle * Math.PI / 180;
 
       let nx = Math.cos(slope) * radius + center.x;
       let ny = Math.sin(slope) * radius + center.y;
