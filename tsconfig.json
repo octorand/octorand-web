@@ -52,17 +52,17 @@
       "@lib/words": [
         "./src/lib/words/_index"
       ],
-      "@app/collection": [
-        "./src/app/collection/collection.module.ts"
+      "@app/pages": [
+        "./src/app/pages/_index"
       ],
-      "@app/collection/pages": [
-        "./src/app/collection/pages/_index"
+      "@app/modules": [
+        "./src/app/modules/_index"
       ],
-      "@app/platform": [
-        "./src/app/platform/platform.module.ts"
+      "@app/modules/collection/pages": [
+        "./src/app/modules/collection/pages/_index"
       ],
-      "@app/platform/pages": [
-        "./src/app/platform/pages/_index"
+      "@app/modules/platform/pages": [
+        "./src/app/modules/platform/pages/_index"
       ],
     },
     "useDefineForClassFields": false

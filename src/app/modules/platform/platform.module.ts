@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { LibModule } from '@lib';
 import { PlatformContainer } from './platform.container';
-import * as Pages from '@app/platform/pages';
+import * as Pages from '@app/modules/platform/pages';
 
 const routes: Routes = [
   {

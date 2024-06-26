@@ -4,17 +4,13 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { LibModule } from '@lib';
 import { CollectionContainer } from './collection.container';
-import * as Pages from '@app/collection/pages';
+import * as Pages from '@app/modules/collection/pages';
 
 const routes: Routes = [
   {
     path: '',
     component: CollectionContainer,
     children: [
-      {
-        path: '',
-        component: Pages.CollectionHomePage
-      },
       {
         path: 'browse',
         component: Pages.CollectionBrowsePage
@@ -38,7 +34,6 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     CollectionContainer,
-    Pages.CollectionHomePage,
     Pages.CollectionBrowsePage,
     Pages.CollectionMarketPage,
     Pages.CollectionAccountPage,
