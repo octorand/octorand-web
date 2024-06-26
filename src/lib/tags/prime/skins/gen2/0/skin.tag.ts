@@ -162,6 +162,7 @@ export class PrimeSkinsGenTwoTag0 implements OnInit, OnChanges {
       { x: 359, y: 153 },
       { x: 359, y: 359 },
       { x: 153, y: 359 },
+      { x: 256, y: 256 },
     ];
 
     this.crosses = crosses;

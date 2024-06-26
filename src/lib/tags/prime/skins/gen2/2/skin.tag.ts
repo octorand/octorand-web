@@ -12,6 +12,8 @@ export class PrimeSkinsGenTwoTag2 implements OnInit, OnChanges {
   shades: Array<any> = [];
   blocks: Array<any> = [];
   arcs: Array<any> = [];
+  slices: Array<any> = [];
+  crosses: Array<any> = [];
   twirls: Array<any> = [];
 
   /**
@@ -49,6 +51,8 @@ export class PrimeSkinsGenTwoTag2 implements OnInit, OnChanges {
     this.calculateImageParams();
     this.calculateBlockParams();
     this.calculateArcParams();
+    this.calculateSliceParams();
+    this.calculateCrossParams();
     this.calculateTwirlParams();
   }
 
@@ -134,6 +138,37 @@ export class PrimeSkinsGenTwoTag2 implements OnInit, OnChanges {
   }
 
   /**
+   * Generate the slice params for this prime
+   */
+  calculateSliceParams() {
+    let slices = [
+      { x1: 50, y1: 50, x2: 462, y2: 462 },
+      { x1: 50, y1: 462, x2: 462, y2: 50 },
+      { x1: 50, y1: 256, x2: 256, y2: 50 },
+      { x1: 256, y1: 462, x2: 462, y2: 256 },
+      { x1: 50, y1: 256, x2: 256, y2: 462 },
+      { x1: 256, y1: 50, x2: 462, y2: 256 },
+    ];
+
+    this.slices = slices;
+  }
+
+  /**
+   * Generate the cross params for this prime
+   */
+  calculateCrossParams() {
+    let crosses = [
+      { x: 153, y: 153 },
+      { x: 359, y: 153 },
+      { x: 359, y: 359 },
+      { x: 153, y: 359 },
+      { x: 256, y: 256 },
+    ];
+
+    this.crosses = crosses;
+  }
+
+  /**
    * Generate the twirl params for this prime
    */
   calculateTwirlParams() {
@@ -146,10 +181,24 @@ export class PrimeSkinsGenTwoTag2 implements OnInit, OnChanges {
 
     this.twirls = [];
     for (let i = 0; i < this.prime.name.length; i++) {
-      let radius = 50 + params[i] * 5;
+      let radius = 40 + params[i] * 2;
+
+      let center = this.crosses[0];
+      if (i < 4) {
+        center = this.crosses[0];
+      } else if (i < 8) {
+        center = this.crosses[1];
+      } else if (i < 12) {
+        center = this.crosses[2];
+      } else {
+        center = this.crosses[3];
+      }
+
       let color = this.colorHelper.findColor(params[i]);
 
       this.twirls.push({
+        x: center.x,
+        y: center.y,
         radius: radius,
         color: color
       });
