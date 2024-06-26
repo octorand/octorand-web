@@ -70,14 +70,14 @@ export class PrimeSkinsGenOneTag0 implements OnInit, OnChanges {
 
     this.blocks = [];
     for (let i = 0; i < this.prime.name.length; i++) {
-      let radius = 211;
+      let radius = 210;
 
-      let sangle = (i + 1) * 360 / this.prime.name.length;
+      let sangle = ((i + 1) * 360 / this.prime.name.length) - 22.5;
       let sslope = sangle * Math.PI / 180;
       let sx = Math.cos(sslope) * radius + 256;
       let sy = Math.sin(sslope) * radius + 256;
 
-      let eangle = (i + 2) * 360 / this.prime.name.length;
+      let eangle = ((i + 2) * 360 / this.prime.name.length) - 22.5;
       let eslope = eangle * Math.PI / 180;
       let ex = Math.cos(eslope) * radius + 256;
       let ey = Math.sin(eslope) * radius + 256;
@@ -110,7 +110,7 @@ export class PrimeSkinsGenOneTag0 implements OnInit, OnChanges {
     for (let i = 0; i < this.prime.name.length; i++) {
       let angle = (i + 1) * 360 / this.prime.name.length;
       let slope = angle * Math.PI / 180;
-      let radius = 60 + params[i] * 5;
+      let radius = 50 + params[i] * 5;
 
       let nx = Math.cos(slope) * radius + 256;
       let ny = Math.sin(slope) * radius + 256;

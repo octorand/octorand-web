@@ -90,7 +90,7 @@ export class PrimeSkinsGenTwoTag1 implements OnInit, OnChanges {
 
     this.pies = [];
     for (let i = 0; i < this.prime.name.length; i++) {
-      let radius = 60 + params[i] * 5;
+      let radius = 50 + params[i] * 5;
 
       let sangle = (i + 1) * 360 / this.prime.name.length;
       let sslope = sangle * Math.PI / 180;
