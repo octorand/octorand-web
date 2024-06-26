@@ -3,11 +3,11 @@
         xmlns:svgjs="http://svgjs.dev/svgjs" viewBox="0 0 512 512">
         <circle r="250" cx="256" cy="256" stroke-width="0" [attr.fill]="shades[2]">
         </circle>
-        <circle r="246" cx="256" cy="256" stroke-width="20" [attr.stroke]="shades[8]" fill="none">
-        </circle>
-        <path *ngFor="let block of blocks" [attr.d]="block.curve" stroke-width="30" [attr.stroke]="block.color"
+        <path *ngFor="let block of blocks" [attr.d]="block.curve" stroke-width="50" [attr.stroke]="block.color"
             fill="none">
         </path>
+        <circle r="246" cx="256" cy="256" stroke-width="20" [attr.stroke]="shades[8]" fill="none">
+        </circle>
         <line *ngFor="let arm of arms" [attr.x2]="arm.x" [attr.y2]="arm.y" x1="256" y1="256" stroke-width="4"
             [attr.stroke]="arm.color">
         </line>

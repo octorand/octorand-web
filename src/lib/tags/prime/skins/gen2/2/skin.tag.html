@@ -1,13 +1,13 @@
 <div class="image" id="prime-{{prime.id}}">
     <svg class="layer" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
         xmlns:svgjs="http://svgjs.dev/svgjs" viewBox="0 0 512 512">
-        <rect x="0" y="0" rx="10" ry="10" width="512" height="512" [attr.fill]="shades[8]">
+        <rect x="0" y="0" width="512" height="512" [attr.fill]="shades[2]">
         </rect>
-        <rect x="20" y="20" rx="8" ry="8" width="472" height="472" [attr.fill]="shades[2]">
-        </rect>
-        <path *ngFor="let block of blocks" [attr.d]="block.curve" stroke-width="30" [attr.stroke]="block.color"
+        <path *ngFor="let block of blocks" [attr.d]="block.curve" stroke-width="50" [attr.stroke]="block.color"
             fill="none">
         </path>
+        <rect x="10" y="10" width="492" height="492" stroke-width="20" [attr.stroke]="shades[8]" fill="none">
+        </rect>
         <circle *ngFor="let twirl of twirls" [attr.r]="twirl.radius" cx="256" cy="256" [attr.fill]="twirl.color">
         </circle>
         <circle [attr.fill]="shades[6]" r="30" cx="256" cy="256">

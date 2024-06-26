@@ -63,33 +63,39 @@ export class PrimeSkinsGenTwoTag0 implements OnInit, OnChanges {
   calculateBlockParams() {
     let alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
+    let full = 115.5;
+    let half = 57.75;
+    let gap = 25;
+
+    let paths = [
+      `M ${half + gap} ${gap} L ${half + gap + full * 1} ${gap}`,
+      `M ${half + gap + full * 1} ${gap} L ${half + gap + full * 2} ${gap}`,
+      `M ${half + gap + full * 2} ${gap} L ${half + gap + full * 3} ${gap}`,
+      `M ${half + gap + full * 3} ${gap} L ${half * 2 + gap + full * 3} ${gap} L ${half * 2 + gap + full * 3} ${half + gap}`,
+      `M ${half * 2 + gap + full * 3} ${half + gap} L ${half * 2 + gap + full * 3} ${half + gap + full * 1}`,
+      `M ${half * 2 + gap + full * 3} ${half + gap + full * 1} L ${half * 2 + gap + full * 3} ${half + gap + full * 2}`,
+      `M ${half * 2 + gap + full * 3} ${half + gap + full * 2} L ${half * 2 + gap + full * 3} ${half + gap + full * 3}`,
+      `M ${half * 2 + gap + full * 3} ${half + gap + full * 3} L ${half * 2 + gap + full * 3} ${half * 2 + gap + full * 3} L ${half + gap + full * 3} ${half * 2 + gap + full * 3}`,
+      `M ${half + gap + full * 3} ${half * 2 + gap + full * 3} L ${half + gap + full * 2} ${half * 2 + gap + full * 3}`,
+      `M ${half + gap + full * 2} ${half * 2 + gap + full * 3} L ${half + gap + full * 1} ${half * 2 + gap + full * 3}`,
+      `M ${half + gap + full * 1} ${half * 2 + gap + full * 3} L ${half + gap} ${half * 2 + gap + full * 3}`,
+      `M ${half + gap} ${half * 2 + gap + full * 3} L ${gap} ${half * 2 + gap + full * 3} L ${gap} ${half + gap + full * 3}`,
+      `M ${gap} ${half + gap + full * 3} L ${gap} ${half + gap + full * 2}`,
+      `M ${gap} ${half + gap + full * 2} L ${gap} ${half + gap + full * 1}`,
+      `M ${gap} ${half + gap + full * 1} L ${gap} ${half + gap}`,
+      `M ${gap} ${half + gap} L ${gap} ${gap} L ${half + gap} ${gap}`,
+    ];
+
     let params = [];
     for (let j = 0; j < this.prime.name.length; j++) {
       params.push(alphabet.indexOf(this.prime.name.charAt(j)));
     }
 
     this.blocks = [];
-    for (let i = 0; i < this.prime.name.length; i++) {
-      let radius = 210;
-
-      let sangle = ((i + 1) * 360 / this.prime.name.length) - 22.5;
-      let sslope = sangle * Math.PI / 180;
-      let sx = Math.cos(sslope) * radius + 256;
-      let sy = Math.sin(sslope) * radius + 256;
-
-      let eangle = ((i + 2) * 360 / this.prime.name.length) - 22.5;
-      let eslope = eangle * Math.PI / 180;
-      let ex = Math.cos(eslope) * radius + 256;
-      let ey = Math.sin(eslope) * radius + 256;
-
-      let move = 'M ' + sx + ' ' + sy;
-      let arc = 'A ' + radius + ' ' + radius + ' 0 0 1 ' + ex + ' ' + ey;
-      let curve = move + ' ' + arc;
-
+    for (let i = 0; i < paths.length; i++) {
       let color = this.colorHelper.findColor(params[i]);
-
       this.blocks.push({
-        curve: curve,
+        curve: paths[i],
         color: color
       });
     }
