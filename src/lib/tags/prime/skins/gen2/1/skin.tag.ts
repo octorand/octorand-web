@@ -11,6 +11,7 @@ export class PrimeSkinsGenTwoTag1 implements OnInit, OnChanges {
 
   shades: Array<any> = [];
   blocks: Array<any> = [];
+  arcs: Array<any> = [];
   pies: Array<any> = [];
 
   /**
@@ -47,6 +48,7 @@ export class PrimeSkinsGenTwoTag1 implements OnInit, OnChanges {
   calculate() {
     this.calculateImageParams();
     this.calculateBlockParams();
+    this.calculateArcParams();
     this.calculatePieParams();
   }
 
@@ -99,6 +101,36 @@ export class PrimeSkinsGenTwoTag1 implements OnInit, OnChanges {
         color: color
       });
     }
+  }
+
+  /**
+   * Generate the image arc params for this prime
+   */
+  calculateArcParams() {
+    let full = 115.5;
+    let half = 57.75;
+    let gap = 25;
+
+    let arcs = [
+      { x1: half + gap, y1: 0, x2: half + gap, y2: gap * 2 },
+      { x1: half + gap + full * 1, y1: 0, x2: half + gap + full * 1, y2: gap * 2 },
+      { x1: half + gap + full * 2, y1: 0, x2: half + gap + full * 2, y2: gap * 2 },
+      { x1: half + gap + full * 3, y1: 0, x2: half + gap + full * 3, y2: gap * 2 },
+      { x1: half + gap, y1: full * 4, x2: half + gap, y2: full * 4 + gap * 2 },
+      { x1: half + gap + full * 1, y1: full * 4, x2: half + gap + full * 1, y2: full * 4 + gap * 2 },
+      { x1: half + gap + full * 2, y1: full * 4, x2: half + gap + full * 2, y2: full * 4 + gap * 2 },
+      { x1: half + gap + full * 3, y1: full * 4, x2: half + gap + full * 3, y2: full * 4 + gap * 2 },
+      { x1: 0, y1: half + gap, x2: gap * 2, y2: half + gap },
+      { x1: 0, y1: half + gap + full * 1, x2: gap * 2, y2: half + gap + full * 1 },
+      { x1: 0, y1: half + gap + full * 2, x2: gap * 2, y2: half + gap + full * 2 },
+      { x1: 0, y1: half + gap + full * 3, x2: gap * 2, y2: half + gap + full * 3 },
+      { x1: full * 4, y1: half + gap, x2: full * 4 + gap * 2, y2: half + gap },
+      { x1: full * 4, y1: half + gap + full * 1, x2: full * 4 + gap * 2, y2: half + gap + full * 1 },
+      { x1: full * 4, y1: half + gap + full * 2, x2: full * 4 + gap * 2, y2: half + gap + full * 2 },
+      { x1: full * 4, y1: half + gap + full * 3, x2: full * 4 + gap * 2, y2: half + gap + full * 3 },
+    ];
+
+    this.arcs = arcs;
   }
 
   /**

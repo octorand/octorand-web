@@ -6,8 +6,14 @@
         <path *ngFor="let block of blocks" [attr.d]="block.curve" stroke-width="50" [attr.stroke]="block.color"
             fill="none">
         </path>
-        <rect x="10" y="10" width="492" height="492" stroke-width="20" [attr.stroke]="shades[8]" fill="none">
+        <line *ngFor="let arc of arcs" [attr.x1]="arc.x1" [attr.y1]="arc.y1" [attr.x2]="arc.x2" [attr.y2]="arc.y2"
+            stroke-width="4" [attr.stroke]="shades[8]">
+        </line>
+        <rect x="2" y="2" width="508" height="508" stroke-width="4" [attr.stroke]="shades[8]" fill="none">
         </rect>
+        <rect x="50" y="50" width="412" height="412" stroke-width="4" [attr.stroke]="shades[8]" fill="none">
+        </rect>
+
         <circle *ngFor="let twirl of twirls" [attr.r]="twirl.radius" cx="256" cy="256" [attr.fill]="twirl.color">
         </circle>
         <circle [attr.fill]="shades[6]" r="30" cx="256" cy="256">
