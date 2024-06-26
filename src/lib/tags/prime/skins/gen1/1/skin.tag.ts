@@ -11,6 +11,7 @@ export class PrimeSkinsGenOneTag1 implements OnInit, OnChanges {
 
   shades: Array<any> = [];
   blocks: Array<any> = [];
+  arcs: Array<any> = [];
   pies: Array<any> = [];
 
   /**
@@ -47,6 +48,7 @@ export class PrimeSkinsGenOneTag1 implements OnInit, OnChanges {
   calculate() {
     this.calculateImageParams();
     this.calculateBlockParams();
+    this.calculateArcParams();
     this.calculatePieParams();
   }
 
@@ -91,6 +93,32 @@ export class PrimeSkinsGenOneTag1 implements OnInit, OnChanges {
       this.blocks.push({
         curve: curve,
         color: color
+      });
+    }
+  }
+
+  /**
+   * Generate the arc params for this prime
+   */
+  calculateArcParams() {
+    this.arcs = [];
+    for (let i = 0; i < this.prime.name.length; i++) {
+      let angle = ((i + 1) * 360 / this.prime.name.length);
+      let slope = angle * Math.PI / 180;
+
+      let radius1 = 254;
+      let x1 = Math.cos(slope) * radius1 + 256;
+      let y1 = Math.sin(slope) * radius1 + 256;
+
+      let radius2 = 208;
+      let x2 = Math.cos(slope) * radius2 + 256;
+      let y2 = Math.sin(slope) * radius2 + 256;
+
+      this.arcs.push({
+        x1: x1,
+        y1: y1,
+        x2: x2,
+        y2: y2,
       });
     }
   }

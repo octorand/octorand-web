@@ -6,14 +6,20 @@
         <path *ngFor="let block of blocks" [attr.d]="block.curve" stroke-width="50" [attr.stroke]="block.color"
             fill="none">
         </path>
-        <circle r="246" cx="256" cy="256" stroke-width="20" [attr.stroke]="shades[8]" fill="none">
+        <line *ngFor="let arc of arcs" [attr.x1]="arc.x1" [attr.y1]="arc.y1" [attr.x2]="arc.x2" [attr.y2]="arc.y2"
+            stroke-width="4" [attr.stroke]="shades[8]">
+        </line>
+        <circle r="254" cx="256" cy="256" stroke-width="4" [attr.stroke]="shades[8]" fill="none">
+        </circle>
+        <circle r="208" cx="256" cy="256" stroke-width="4" [attr.stroke]="shades[8]" fill="none">
         </circle>
         <line *ngFor="let arm of arms" [attr.x2]="arm.x" [attr.y2]="arm.y" x1="256" y1="256" stroke-width="4"
-            [attr.stroke]="arm.color">
+            [attr.stroke]="shades[8]">
         </line>
-        <circle *ngFor="let arm of arms" [attr.cx]="arm.x" [attr.cy]="arm.y" r="20" [attr.fill]="arm.color">
+        <circle *ngFor="let arm of arms" [attr.cx]="arm.x" [attr.cy]="arm.y" r="20" [attr.fill]="arm.color"
+            stroke-width="4" [attr.stroke]="shades[8]">
         </circle>
-        <circle [attr.fill]="shades[6]" r="30" cx="256" cy="256">
+        <circle [attr.fill]="shades[6]" r="30" cx="256" cy="256" stroke-width="4" [attr.stroke]="shades[8]">
         </circle>
     </svg>
 </div>
