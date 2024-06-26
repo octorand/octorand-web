@@ -171,11 +171,21 @@ export class PrimeSkinsGenTwoTag0 implements OnInit, OnChanges {
 
     this.arms = [];
     for (let i = 0; i < this.prime.name.length; i++) {
-      let angle = ((i % 4) + 1) * 360 / 4;
+      let angle = (((i % 4) + 1) * 360 / 4) - 135;
       let slope = angle * Math.PI / 180;
-      let radius = 50 + params[i] * 4;
+      let radius = 50 + params[i] * 2;
 
-      let center = centers[i % 4];
+      let center = centers[0];
+      if (i < 4) {
+        center = centers[0];
+      } else if (i < 8) {
+        center = centers[1];
+      } else if (i < 12) {
+        center = centers[2];
+      } else {
+        center = centers[3];
+      }
+
       let nx = Math.cos(slope) * radius + center.x;
       let ny = Math.sin(slope) * radius + center.y;
       let color = this.colorHelper.findColor(params[i]);
