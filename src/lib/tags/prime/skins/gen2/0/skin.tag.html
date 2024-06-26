@@ -7,11 +7,11 @@
             fill="none">
         </path>
         <line *ngFor="let arc of arcs" [attr.x1]="arc.x1" [attr.y1]="arc.y1" [attr.x2]="arc.x2" [attr.y2]="arc.y2"
-            stroke-width="4" [attr.stroke]="shades[8]">
+            stroke-width="4" stroke="#25282c">
         </line>
-        <rect x="2" y="2" width="508" height="508" stroke-width="4" [attr.stroke]="shades[8]" fill="none">
+        <rect x="2" y="2" width="508" height="508" stroke-width="4" stroke="#25282c" fill="none">
         </rect>
-        <rect x="50" y="50" width="412" height="412" stroke-width="4" [attr.stroke]="shades[8]" fill="none">
+        <rect x="50" y="50" width="412" height="412" stroke-width="4" stroke="#25282c" fill="none">
         </rect>
 
         <line *ngFor="let arm of arms" [attr.x2]="arm.x" [attr.y2]="arm.y" x1="256" y1="256" stroke-width="4"
