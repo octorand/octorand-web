@@ -13,7 +13,7 @@
         </circle>
         <circle r="208" cx="256" cy="256" stroke-width="4" [attr.stroke]="shades[8]" fill="none">
         </circle>
-        <line *ngFor="let arm of arms" [attr.x2]="arm.x" [attr.y2]="arm.y" x1="256" y1="256" stroke-width="4"
+        <line *ngFor="let slice of slices" [attr.x2]="slice.x" [attr.y2]="slice.y" x1="256" y1="256" stroke-width="4"
             [attr.stroke]="shades[8]">
         </line>
         <circle *ngFor="let arm of arms" [attr.cx]="arm.x" [attr.cy]="arm.y" r="20" [attr.fill]="arm.color"

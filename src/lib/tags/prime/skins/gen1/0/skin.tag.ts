@@ -12,6 +12,7 @@ export class PrimeSkinsGenOneTag0 implements OnInit, OnChanges {
   shades: Array<any> = [];
   blocks: Array<any> = [];
   arcs: Array<any> = [];
+  slices: Array<any> = [];
   arms: Array<any> = [];
 
   /**
@@ -49,6 +50,7 @@ export class PrimeSkinsGenOneTag0 implements OnInit, OnChanges {
     this.calculateImageParams();
     this.calculateBlockParams();
     this.calculateArcParams();
+    this.calculateSliceParams();
     this.calculateArmParams();
   }
 
@@ -119,6 +121,33 @@ export class PrimeSkinsGenOneTag0 implements OnInit, OnChanges {
         y1: y1,
         x2: x2,
         y2: y2,
+      });
+    }
+  }
+
+  /**
+   * Generate the slice params for this prime
+   */
+  calculateSliceParams() {
+    let alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+    let params = [];
+    for (let j = 0; j < this.prime.name.length; j++) {
+      params.push(alphabet.indexOf(this.prime.name.charAt(j)));
+    }
+
+    this.slices = [];
+    for (let i = 0; i < this.prime.name.length; i++) {
+      let angle = (i + 1) * 360 / this.prime.name.length;
+      let slope = angle * Math.PI / 180;
+      let radius = 208;
+
+      let x = Math.cos(slope) * radius + 256;
+      let y = Math.sin(slope) * radius + 256;
+
+      this.slices.push({
+        x: x,
+        y: y
       });
     }
   }
