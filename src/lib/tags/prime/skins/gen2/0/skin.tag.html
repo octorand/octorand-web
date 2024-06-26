@@ -16,16 +16,16 @@
         <line *ngFor="let slice of slices" [attr.x1]="slice.x1" [attr.y1]="slice.y1" [attr.x2]="slice.x2"
             [attr.y2]="slice.y2" stroke-width="4" stroke="#25282c">
         </line>
-        <circle *ngFor="let arm of arms" [attr.cx]="arm.x" [attr.cy]="arm.y" r="20" [attr.fill]="arm.color"
+        <circle *ngFor="let arm of arms" [attr.cx]="arm.x" [attr.cy]="arm.y" r="16" [attr.fill]="arm.color"
             stroke-width="4" stroke="#25282c">
         </circle>
-        <circle [attr.fill]="shades[6]" r="20" cx="153" cy="153" stroke-width="4" stroke="#25282c">
+        <circle [attr.fill]="shades[6]" r="24" cx="153" cy="153" stroke-width="4" stroke="#25282c">
         </circle>
-        <circle [attr.fill]="shades[6]" r="20" cx="153" cy="359" stroke-width="4" stroke="#25282c">
+        <circle [attr.fill]="shades[6]" r="24" cx="359" cy="153" stroke-width="4" stroke="#25282c">
         </circle>
-        <circle [attr.fill]="shades[6]" r="20" cx="359" cy="153" stroke-width="4" stroke="#25282c">
+        <circle [attr.fill]="shades[6]" r="24" cx="359" cy="359" stroke-width="4" stroke="#25282c">
         </circle>
-        <circle [attr.fill]="shades[6]" r="20" cx="359" cy="359" stroke-width="4" stroke="#25282c">
+        <circle [attr.fill]="shades[6]" r="24" cx="153" cy="359" stroke-width="4" stroke="#25282c">
         </circle>
     </svg>
 </div>
