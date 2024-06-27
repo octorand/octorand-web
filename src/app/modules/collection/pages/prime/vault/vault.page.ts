@@ -54,7 +54,7 @@ export class CollectionPrimeVaultPage implements OnInit, OnChanges, OnDestroy {
   /**
    * Name of selected asset
    */
-  selectedAssetName: string = 'Select';
+  selectedAssetName: string = 'Select Asset';
 
   /**
    * Decimals of selected asset
@@ -390,7 +390,7 @@ export class CollectionPrimeVaultPage implements OnInit, OnChanges, OnDestroy {
           this.dataHelper.loadPrimeDetails();
           this.appHelper.showSuccess('Asset deposited successfully');
           this.selectedAssetId = 0;
-          this.selectedAssetName = 'Select';
+          this.selectedAssetName = 'Select Asset';
           this.selectedAssetDecimals = 0;
           this.inputs.amount = null;
         }

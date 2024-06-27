@@ -1,15 +1,15 @@
 <div class="card">
-    <h2 class="card-title text-center text-secondary">
+    <h2 class="card-title text-center text-secondary mt-0 mb-20">
         VAULT
     </h2>
-    <p class="text-muted text-center m-0">
+    <p class="text-muted text-center mt-0 mb-20">
         Primes can act as a storage of value. Anyone can send any third party asset to be stored inside a Prime.
     </p>
-    <div *ngIf="depositableAssets.length > 0" class="info row justify-content-center my-20">
-        <div class="col-auto">
-            <lib-tags-chip key="Asset">
+    <div *ngIf="depositableAssets.length > 0" class="mt-0 mb-20">
+        <div class="info row justify-content-center mt-0 mb-0">
+            <div class="col-auto">
                 <div class="dropdown with-arrow select hand select-asset-dropdown">
-                    <input value="{{selectedAssetName}}" class="form-control w-100" type="text" data-toggle="dropdown"
+                    <input value="{{selectedAssetName}}" class="form-control w-150" type="text" data-toggle="dropdown"
                         id="popover-toggle" aria-haspopup="true" aria-expanded="false" readonly>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="popover-toggle">
                         <div *ngFor="let asset of depositableAssets" class="dropdown-item py-0"
@@ -18,23 +18,21 @@
                         </div>
                     </div>
                 </div>
-            </lib-tags-chip>
-        </div>
-        <div class="col-auto">
-            <lib-tags-chip key="Amount">
+            </div>
+            <div class="col-auto">
                 <input [(ngModel)]="inputs.amount" class="form-control w-100" type="number" placeholder="Amount">
-            </lib-tags-chip>
+            </div>
+        </div>
+        <div class="text-center mt-20 mb-0">
+            <button *ngIf="!actions.depositPrime" class="btn btn-primary" (click)="depositPrime()">
+                Deposit
+            </button>
+            <button *ngIf="actions.depositPrime" class="btn btn-primary">
+                <i class="fas fa-cog fa-spin mx-20"></i>
+            </button>
         </div>
     </div>
-    <div *ngIf="depositableAssets.length > 0" class="text-center my-20">
-        <button *ngIf="!actions.depositPrime" class="btn btn-primary" (click)="depositPrime()">
-            Deposit
-        </button>
-        <button *ngIf="actions.depositPrime" class="btn btn-primary">
-            <i class="fas fa-cog fa-spin mx-20"></i>
-        </button>
-    </div>
-    <div *ngIf="depositableAssets.length == 0">
+    <div *ngIf="depositableAssets.length == 0" class="mt-0 mb-20">
         <p *ngIf="!isConnected" class="text-muted text-center">
             Connect your wallet to deposit assets.
         </p>
@@ -42,37 +40,39 @@
             We could not find any assets in your wallet that can be deposited.
         </p>
     </div>
-    <p class="text-muted text-center">
+    <p class="text-muted text-center mt-0 mb-20">
         Stored assets can be withdrawn by the holder of Prime asset.
     </p>
-    <div *ngIf="vaultedAssets.length > 0" class="info row justify-content-center my-20">
-        <div class="col-auto" *ngFor="let asset of vaultedAssets">
-            <lib-tags-chip>
-                <div *ngIf="isPrimeOwner">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text px-15"
-                                innerHTML="{{asset.amount | amount:asset.id | async}}"></span>
-                        </div>
-                        <div class="input-group-append">
-                            <button *ngIf="actions.withdrawPrime != asset.id" class="btn btn-primary"
-                                (click)="withdrawPrime(asset.id)">
-                                Withdraw
-                            </button>
-                            <button *ngIf="actions.withdrawPrime == asset.id" class="btn btn-primary">
-                                <i class="fas fa-cog fa-spin mx-20"></i>
-                            </button>
+    <div *ngIf="vaultedAssets.length > 0" class="mt-0 mb-0">
+        <div class="info row justify-content-center mt-0 mb-0">
+            <div class="col-auto" *ngFor="let asset of vaultedAssets">
+                <lib-tags-chip>
+                    <div *ngIf="isPrimeOwner">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text px-15"
+                                    innerHTML="{{asset.amount | amount:asset.id | async}}"></span>
+                            </div>
+                            <div class="input-group-append">
+                                <button *ngIf="actions.withdrawPrime != asset.id" class="btn btn-primary"
+                                    (click)="withdrawPrime(asset.id)">
+                                    Withdraw
+                                </button>
+                                <button *ngIf="actions.withdrawPrime == asset.id" class="btn btn-primary">
+                                    <i class="fas fa-cog fa-spin mx-20"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div *ngIf="!isPrimeOwner">
-                    <span innerHTML="{{asset.amount | amount:asset.id | async}}"></span>
-                </div>
-            </lib-tags-chip>
+                    <div *ngIf="!isPrimeOwner">
+                        <span innerHTML="{{asset.amount | amount:asset.id | async}}"></span>
+                    </div>
+                </lib-tags-chip>
+            </div>
         </div>
     </div>
-    <div *ngIf="vaultedAssets.length == 0">
-        <p class="text-muted text-center">
+    <div *ngIf="vaultedAssets.length == 0" class="mt-0 mb-0">
+        <p class="text-muted text-center mt-0 mb-0">
             No assets found in the vault.
         </p>
     </div>
