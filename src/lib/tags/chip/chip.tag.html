@@ -6,7 +6,8 @@
   </div>
   <div *ngIf="key" class="col-auto bg-dark hidden-sm-and-down vertical-divider">
   </div>
-  <div class="col-12 col-md-auto bg-dark-light text-center text-white py-10 px-15">
+  <div class="col-12 col-md-auto text-center text-white py-10 px-15"
+    [ngClass]="{'bg-primary': active, 'bg-dark-light': !active}">
     <ng-content></ng-content>
   </div>
 </div>

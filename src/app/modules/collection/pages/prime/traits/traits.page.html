@@ -5,13 +5,12 @@
     <p class="text-muted text-center m-0">
         Primes obtain badges when they meet certain qualifications.
     </p>
-    <div class="info my-20">
-        <nav>
-            <ul class="pagination text-center">
-                <li class="page-item dropdown dropup with-arrow" *ngFor="let badge of badges">
+    <div class="info row justify-content-center my-20">
+        <div class="col-auto" *ngFor="let badge of badges">
+            <lib-tags-chip [active]="badge.active">
+                <div class="dropdown dropup with-arrow">
                     <div data-toggle="dropdown" id="popover-toggle" aria-haspopup="true" aria-expanded="false"
-                        class="page-link text-white hand px-20"
-                        [ngClass]="{'bg-primary': badge.active, 'bg-dark-light': !badge.active}">
+                        class="hand">
                         <i class="{{badge.icon}} mr-5"></i>
                         {{badge.name}}
                     </div>
@@ -25,8 +24,8 @@
                             <p class="description">{{badge.description}}</p>
                         </div>
                     </div>
-                </li>
-            </ul>
-        </nav>
+                </div>
+            </lib-tags-chip>
+        </div>
     </div>
 </div>
