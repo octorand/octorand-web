@@ -2,86 +2,56 @@
     <h2 class="card-title text-center text-secondary">
         SUMMARY
     </h2>
-    <p class="text-success text-center m-0">
-        Status
-    </p>
     <p class="text-muted text-center m-0">
         Primes are feature packed creatures, each ranked by their score.
     </p>
-    <div class="info my-20">
-        <nav>
-            <ul class="pagination text-center">
-                <li class="page-item">
-                    <div class="page-link">
-                        <lib-tags-chip key="Index">
-                            {{prime.id_text}}
-                        </lib-tags-chip>
-                    </div>
-                </li>
-                <li class="page-item">
-                    <div class="page-link">
-                        <lib-tags-chip key="Name">
-                            {{prime.name}}
-                        </lib-tags-chip>
-                    </div>
-                </li>
-                <li class="page-item">
-                    <div class="page-link">
-                        <lib-tags-chip key="Score">
-                            {{prime.score}}
-                        </lib-tags-chip>
-                    </div>
-                </li>
-                <li class="page-item">
-                    <div class="page-link">
-                        <lib-tags-chip key="Rank">
-                            {{prime.rank}}
-                        </lib-tags-chip>
-                    </div>
-                </li>
-                <li class="page-item">
-                    <div class="page-link">
-                        <lib-tags-chip key="Owner">
-                            <span innerHTML="{{prime.owner | identity:true:true | async}}"></span>
-                        </lib-tags-chip>
-                    </div>
-                </li>
-                <li class="page-item" *ngIf="prime.price > 0">
-                    <div class="page-link">
-                        <lib-tags-chip key="Price">
-                            <span innerHTML="{{prime.price | amount:0 | async}}"></span>
-                        </lib-tags-chip>
-                    </div>
-                </li>
-            </ul>
-        </nav>
+    <div class="info row justify-content-center my-20">
+        <div class="col-auto">
+            <lib-tags-chip key="Index">
+                {{prime.id_text}}
+            </lib-tags-chip>
+        </div>
+        <div class="col-auto">
+            <lib-tags-chip key="Name">
+                {{prime.name}}
+            </lib-tags-chip>
+        </div>
+        <div class="col-auto">
+            <lib-tags-chip key="Score">
+                {{prime.score}}
+            </lib-tags-chip>
+        </div>
+        <div class="col-auto">
+            <lib-tags-chip key="Rank">
+                {{prime.rank}}
+            </lib-tags-chip>
+        </div>
+        <div class="col-auto">
+            <lib-tags-chip key="Owner">
+                <span innerHTML="{{prime.owner | identity:true:true | async}}"></span>
+            </lib-tags-chip>
+        </div>
+        <div class="col-auto">
+            <lib-tags-chip key="Price">
+                <span innerHTML="{{prime.price | amount:0 | async}}"></span>
+            </lib-tags-chip>
+        </div>
     </div>
-    <p class="text-success text-center m-0">
-        Resources
-    </p>
     <p class="text-muted text-center m-0">
         Each Prime is uniquely represented by an Algorand standard asset and powered by an
         Algorand smart contract application.
     </p>
-    <div class="info mt-20">
-        <nav>
-            <ul class="pagination text-center">
-                <li class="page-item">
-                    <div class="page-link">
-                        <lib-tags-chip key="Asset">
-                            <span innerHTML="{{prime.prime_asset_id | asset:true | async}}"></span>
-                        </lib-tags-chip>
-                    </div>
-                </li>
-                <li class="page-item">
-                    <div class="page-link">
-                        <lib-tags-chip key="App">
-                            <span innerHTML="{{prime.application_id | application:true}}"></span>
-                        </lib-tags-chip>
-                    </div>
-                </li>
-            </ul>
-        </nav>
+    <div class="info row justify-content-center my-20">
+        <div class="col-auto">
+            <lib-tags-chip key="Asset">
+                <span innerHTML="{{prime.prime_asset_id | asset:true | async}}"></span>
+            </lib-tags-chip>
+        </div>
+        <div class="col-auto">
+            <lib-tags-chip key="Application">
+                <span innerHTML="{{prime.application_id | application:true}}"></span>
+            </lib-tags-chip>
+        </div>
     </div>
     <div *ngIf="isOptinable" class="text-center mt-20">
         <button *ngIf="!actions.optinPrime" class="btn btn-primary" (click)="optinPrime()">
