@@ -1,8 +1,8 @@
-<div class="row align-items-center chip" [ngClass]="{'bg-primary': active, 'bg-dark-light': !active}">
-  <div *ngIf="key" class="col-12 col-md-auto text-center text-secondary py-10 px-15">
+<div class="row align-items-center py-10 px-15 chip" [ngClass]="{'bg-primary': active, 'bg-dark-light': !active}">
+  <div *ngIf="key" class="col-12 col-md-auto text-center text-secondary p-0 pr-md-15">
     {{key}}
   </div>
-  <div class="col-12 col-md-auto text-center text-white py-10 px-15">
+  <div class="col-12 col-md-auto text-center text-white p-0">
     <ng-content></ng-content>
   </div>
 </div>
