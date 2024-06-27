@@ -1,12 +1,12 @@
 <div class="card">
-    <h2 class="card-title text-center text-secondary">
+    <h2 class="card-title text-center text-secondary mt-0 mb-20">
         FAMILY
     </h2>
     <div *ngIf="prime.gen == 1">
-        <p class="text-muted text-center m-0">
+        <p class="text-muted text-center mt-0 mb-20">
             Each GEN1 Prime is a parent of eight GEN2 children.
         </p>
-        <div class="info row justify-content-center my-20">
+        <div class="info row justify-content-center mt-0 mb-20">
             <div class="col-auto" *ngFor="let child of children">
                 <lib-tags-chip [active]="child.owner == prime.owner">
                     <div class="dropdown dropup with-arrow">
@@ -33,10 +33,10 @@
         </div>
     </div>
     <div *ngIf="prime.gen == 2">
-        <p class="text-muted text-center m-0">
+        <p class="text-muted text-center mt-0 mb-20">
             Each GEN2 Prime is a child of a GEN1 parent.
         </p>
-        <div class="info row justify-content-center my-20">
+        <div class="info row justify-content-center mt-0 mb-20">
             <div class="col-auto">
                 <lib-tags-chip [active]="parent.owner == prime.owner">
                     <div class="dropdown dropup with-arrow">
@@ -61,10 +61,10 @@
                 </lib-tags-chip>
             </div>
         </div>
-        <p class="text-muted text-center m-0">
+        <p class="text-muted text-center mt-0 mb-20">
             Each GEN2 Prime have seven other GEN2 siblings.
         </p>
-        <div class="info row justify-content-center my-20">
+        <div class="info row justify-content-center mt-0 mb-20">
             <div class="col-auto" *ngFor="let sibling of siblings">
                 <lib-tags-chip [active]="sibling.owner == prime.owner">
                     <div class="dropdown dropup with-arrow">
@@ -90,7 +90,7 @@
             </div>
         </div>
     </div>
-    <p class="text-muted text-center m-0">
+    <p class="text-muted text-center mt-0 mb-0">
         Collect all the Primes in family to receive the rare Family badge.
     </p>
 </div>

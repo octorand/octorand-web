@@ -1,22 +1,22 @@
 <div class="card">
-    <h2 class="card-title text-center text-secondary">
+    <h2 class="card-title text-center text-secondary mt-0 mb-20">
         TRANSFORM
     </h2>
-    <p class="text-muted text-center m-0">
+    <p class="text-muted text-center mt-0 mb-20">
         Primes can transform themselves by changing their name.
     </p>
-    <div class="info row justify-content-center my-20">
+    <div class="info row justify-content-center mt-0 mb-20">
         <div class="col-auto">
             <lib-tags-chip key="Name">
                 {{prime.name}}
             </lib-tags-chip>
         </div>
     </div>
-    <p class="text-muted text-center m-0">
+    <p class="text-muted text-center mt-0 mb-0">
         Owner of Prime asset can change the name.
     </p>
     <div *ngIf="isPrimeOwner">
-        <div class="info mt-20">
+        <div class="info mt-20 mb-0">
             <div class="name">
                 <div class="row">
                     <div *ngFor="let number of [0, 1, 2, 3, 4, 5, 6, 7]" class="col">
@@ -85,7 +85,7 @@
                     </div>
                 </div>
             </div>
-            <div *ngIf="renameDifference > 0" class="text-center my-20">
+            <div *ngIf="renameDifference > 0" class="text-center mt-20 mb-20">
                 <button *ngIf="!actions.renamePrime" class="btn btn-primary" (click)="renamePrime()">
                     Update Letter
                 </button>

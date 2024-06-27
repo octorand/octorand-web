@@ -1,12 +1,12 @@
 <div class="card">
-    <h2 class="card-title text-center text-secondary">
+    <h2 class="card-title text-center text-secondary mt-0 mb-20">
         REWARDS
     </h2>
-    <p class="text-muted text-center m-0">
+    <p class="text-muted text-center mt-0 mb-20">
         Each Prime started with a OCTO rewards bundle burried inside them. Each GEN1 Prime also receive ALGO royalties
         when their child GEN2 primes are traded in the marketplace.
     </p>
-    <div class="info row justify-content-center my-20">
+    <div class="info row justify-content-center mt-0 mb-20">
         <div class="col-auto">
             <lib-tags-chip key="Rewards">
                 <span innerHTML="{{prime.rewards | amount:prime.platform_asset_id | async}}"></span>
@@ -18,10 +18,10 @@
             </lib-tags-chip>
         </div>
     </div>
-    <p class="text-muted text-center m-0">
+    <p class="text-muted text-center mt-0 mb-20">
         Anyone can deposit more ALGO or OCTO into the rewards bundle.
     </p>
-    <div class="info row justify-content-center my-20">
+    <div class="info row justify-content-center mt-0 mb-20">
         <div class="col-auto">
             <div class="input-group">
                 <div class="input-group-prepend">
@@ -38,6 +38,8 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="info row justify-content-center mt-0 mb-20">
         <div class="col-auto">
             <div class="input-group">
                 <div class="input-group-prepend">
@@ -55,10 +57,10 @@
             </div>
         </div>
     </div>
-    <p class="text-muted text-center m-0">
+    <p class="text-muted text-center mt-0 mb-0">
         Only the holder of Prime asset can withdraw ALGO or OCTO from the rewards bundle.
     </p>
-    <div *ngIf="isPrimeOwner" class="info row justify-content-center mt-20">
+    <div *ngIf="isPrimeOwner" class="info row justify-content-center mt-20 mb-0">
         <div class="col-auto">
             <div class="input-group">
                 <div class="input-group-prepend">
@@ -75,6 +77,8 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div *ngIf="isPrimeOwner" class="info row justify-content-center mt-20 mb-0">
         <div class="col-auto">
             <div class="input-group">
                 <div class="input-group-prepend">
