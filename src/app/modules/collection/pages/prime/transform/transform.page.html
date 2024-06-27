@@ -2,24 +2,15 @@
     <h2 class="card-title text-center text-secondary">
         TRANSFORM
     </h2>
-    <p class="text-success text-center m-0">
-        Rename
-    </p>
     <p class="text-muted text-center m-0">
         Primes can transform themselves by changing their name.
     </p>
-    <div class="info my-20">
-        <nav>
-            <ul class="pagination text-center">
-                <li class="page-item">
-                    <div class="page-link">
-                        <lib-tags-chip key="Name">
-                            {{prime.name}}
-                        </lib-tags-chip>
-                    </div>
-                </li>
-            </ul>
-        </nav>
+    <div class="info row justify-content-center my-20">
+        <div class="col-auto">
+            <lib-tags-chip key="Name">
+                {{prime.name}}
+            </lib-tags-chip>
+        </div>
     </div>
     <p class="text-muted text-center m-0">
         Owner of Prime asset can change the name.
