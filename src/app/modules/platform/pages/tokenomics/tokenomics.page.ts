@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppHelper, BadgeHelper, DataHelper, StoreHelper } from '@lib/helpers';
-import { AppModel, DataModel, PrimeModel } from '@lib/models';
+import { AppHelper, IndexerHelper } from '@lib/helpers';
+import { AppModel } from '@lib/models';
 import { Subscription } from 'rxjs';
 import { environment } from '@environment';
 
@@ -18,44 +18,39 @@ export class PlatformTokenomicsPage implements OnInit, OnDestroy {
   app: AppModel = new AppModel();
 
   /**
-   * Data state
-   */
-  data: DataModel = new DataModel();
-
-  /**
    * App subscription
    */
   appSubscription: Subscription = new Subscription();
 
   /**
-   * Data subscription
+   * Token id
    */
-  dataSubscription: Subscription = new Subscription();
+  assetId: number = 0;
 
   /**
-   * Current page number
+   * Token unit
    */
-  currentPage: number = 1;
+  assetUnit: string = '';
 
   /**
-   * Number of results per page
+   * Token decimals
    */
-  resultsPerPage: number = environment.display_page_size;
+  assetDecimals: number = 0;
 
   /**
-   * Total number of results
+   * Total supply of token
    */
-  totalResults: number = 0;
+  totalSupply: number = 0;
 
   /**
-   * Total number of pages
+   * Burnt supply of token
    */
-  pagesCount: number = 0;
+  burntSupply: number = 0;
 
   /**
-   * Results of current page
+   * Current supply of token
    */
-  currentPageResults: Array<PrimeModel> = [];
+  remainingSupply: number = 0;
 
   /**
    * Whether the page is ready to be rendered
@@ -63,49 +58,21 @@ export class PlatformTokenomicsPage implements OnInit, OnDestroy {
   ready: boolean = false;
 
   /**
-   * Selected generation
+   * Track token details loading task
    */
-  selectedGen: number = 1;
-
-  /**
-   * Selected sort
-   */
-  selectedSort: string = 'Id';
-
-  /**
-   * Selected list of badges
-   */
-  selectedBadges: Array<string> = [];
-
-  /**
-   * Keys for sorting
-   */
-  sorts: Array<string> = [
-    'Id',
-    'Name',
-    'Rank',
-  ];
-
-  /**
-   * List of badges
-   */
-  badges: Array<any> = [];
+  private tokenDetailsLoadTask: any = null;
 
   /**
    * Construct component
    *
    * @param router
    * @param appHelper
-   * @param badgeHelper
-   * @param dataHelper
-   * @param storeHelper
+   * @param indexerHelper
    */
   constructor(
     private router: Router,
     private appHelper: AppHelper,
-    private badgeHelper: BadgeHelper,
-    private dataHelper: DataHelper,
-    private storeHelper: StoreHelper
+    private indexerHelper: IndexerHelper
   ) { }
 
   /**
@@ -113,10 +80,7 @@ export class PlatformTokenomicsPage implements OnInit, OnDestroy {
    */
   ngOnInit() {
     this.initApp();
-    this.initData();
-    this.initStore();
-    this.initBadges();
-    this.refreshView();
+    this.initTasks();
   }
 
   /**
@@ -124,7 +88,7 @@ export class PlatformTokenomicsPage implements OnInit, OnDestroy {
    */
   ngOnDestroy() {
     this.appSubscription.unsubscribe();
-    this.dataSubscription.unsubscribe();
+    clearInterval(this.tokenDetailsLoadTask);
   }
 
   /**
@@ -134,128 +98,37 @@ export class PlatformTokenomicsPage implements OnInit, OnDestroy {
     this.app = this.appHelper.getDefaultState();
     this.appSubscription = this.appHelper.app.subscribe((value: AppModel) => {
       this.app = value;
-      this.refreshView();
     });
   }
 
   /**
-   * Initialize data
+   * Initialize tasks
    */
-  initData() {
-    this.data = this.dataHelper.getDefaultState();
-    this.dataSubscription = this.dataHelper.data.subscribe((value: DataModel) => {
-      this.data = value;
-      this.refreshView();
+  initTasks() {
+    this.loadTokenDetails();
+    this.tokenDetailsLoadTask = setInterval(() => { this.loadTokenDetails() }, 30000);
+  }
+
+  /**
+   * Load token details
+   */
+  loadTokenDetails() {
+    this.assetId = environment.platform.asset_id;
+    this.indexerHelper.lookupAsset(this.assetId).then((asset: any) => {
+      this.assetUnit = asset['params']['unit-name'];
+      this.assetDecimals = asset['params']['decimals'];
+      this.totalSupply = asset['params']['total'];
+
+      this.indexerHelper.lookupAccount(environment.platform.reserve).then((account: any) => {
+        let balance = account['assets'].find((a: any) => a['asset-id'] == this.assetId);
+        if (balance) {
+          this.burntSupply = balance.amount;
+        }
+
+        this.remainingSupply = this.totalSupply - this.burntSupply;
+        this.ready = true;
+      });
     });
-  }
-
-  /**
-   * Initialize store
-   */
-  initStore() {
-    let store = this.storeHelper.getDefaultState();
-    this.selectedGen = store.browse_gen;
-    this.selectedSort = store.browse_sort;
-    this.selectedBadges = store.browse_badges;
-  }
-
-  /**
-   * Initialize badges
-   */
-  initBadges() {
-    this.badges = this.badgeHelper.list();
-  }
-
-  /**
-   * Refresh view state
-   */
-  refreshView() {
-    if (this.data && this.data.initialised) {
-      let allResults = [];
-      if (this.selectedGen == 1) {
-        allResults = this.data.gen_one_primes;
-      } else {
-        allResults = this.data.gen_two_primes;
-      }
-
-      if (this.selectedBadges.length > 0) {
-        allResults = allResults.filter(x => this.selectedBadges.every(b => x.badges.includes(b)))
-      }
-
-      switch (this.selectedSort) {
-        case 'Id':
-          allResults.sort((first, second) => first.id - second.id);
-          break;
-        case 'Name':
-          allResults.sort((first, second) => first.name.localeCompare(second.name));
-          break;
-        case 'Rank':
-          allResults.sort((first, second) => first.rank - second.rank);
-          break;
-      }
-
-      let totalResults = allResults.length;
-      let pagesCount = Math.ceil(totalResults / this.resultsPerPage);
-
-      let start = this.resultsPerPage * (this.currentPage - 1);
-      let end = start + this.resultsPerPage;
-      let currentPageResults = allResults.slice(start, end);
-
-      this.totalResults = totalResults;
-      this.pagesCount = pagesCount;
-      this.currentPageResults = currentPageResults;
-      this.ready = true;
-    }
-  }
-
-  /**
-   * When page is changed
-   *
-   * @param page
-   */
-  changePage(page: any) {
-    this.currentPage = page;
-    this.refreshView();
-  }
-
-  /**
-   * When gen is changed
-   *
-   * @param gen
-   */
-  changeGen(gen: number) {
-    this.selectedGen = gen;
-    this.currentPage = 1;
-    this.refreshView();
-    this.storeHelper.setBrowseGen(this.selectedGen);
-  }
-
-  /**
-   * When sort is changed
-   *
-   * @param sort
-   */
-  changeSort(sort: string) {
-    this.selectedSort = sort;
-    this.currentPage = 1;
-    this.refreshView();
-    this.storeHelper.setBrowseSort(this.selectedSort);
-  }
-
-  /**
-   * When badge is changed
-   *
-   * @param badge
-   */
-  changeBadge(badge: string) {
-    if (this.selectedBadges.includes(badge)) {
-      this.selectedBadges = this.selectedBadges.filter(b => b != badge);
-    } else {
-      this.selectedBadges.push(badge);
-    }
-    this.currentPage = 1;
-    this.refreshView();
-    this.storeHelper.setBrowseBadges(this.selectedBadges);
   }
 
   /**
