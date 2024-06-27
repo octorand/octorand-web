@@ -23,36 +23,36 @@
     </p>
     <div class="info row justify-content-center my-20">
         <div class="col-auto">
-            <lib-tags-chip key="OCTO">
-                <div class="input-group">
-                    <input [(ngModel)]="inputs.depositOCTO" class="form-control w-100" type="number"
-                        placeholder="Amount">
-                    <div class="input-group-append">
-                        <button *ngIf="!actions.depositOCTO" class="btn btn-primary" (click)="depositOCTO()">
-                            Deposit
-                        </button>
-                        <button *ngIf="actions.depositOCTO" class="btn btn-primary">
-                            <i class="fas fa-cog fa-spin mx-20"></i>
-                        </button>
-                    </div>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text px-10 text-secondary">OCTO</span>
                 </div>
-            </lib-tags-chip>
+                <input [(ngModel)]="inputs.depositOCTO" class="form-control w-100" type="number" placeholder="Amount">
+                <div class="input-group-append">
+                    <button *ngIf="!actions.depositOCTO" class="btn btn-primary" (click)="depositOCTO()">
+                        Deposit
+                    </button>
+                    <button *ngIf="actions.depositOCTO" class="btn btn-primary">
+                        <i class="fas fa-cog fa-spin mx-20"></i>
+                    </button>
+                </div>
+            </div>
         </div>
         <div class="col-auto">
-            <lib-tags-chip key="ALGO">
-                <div class="input-group">
-                    <input [(ngModel)]="inputs.depositALGO" class="form-control w-100" type="number"
-                        placeholder="Amount">
-                    <div class="input-group-append">
-                        <button *ngIf="!actions.depositALGO" class="btn btn-primary" (click)="depositALGO()">
-                            Deposit
-                        </button>
-                        <button *ngIf="actions.depositALGO" class="btn btn-primary">
-                            <i class="fas fa-cog fa-spin mx-20"></i>
-                        </button>
-                    </div>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text px-10 text-secondary">ALGO</span>
                 </div>
-            </lib-tags-chip>
+                <input [(ngModel)]="inputs.depositALGO" class="form-control w-100" type="number" placeholder="Amount">
+                <div class="input-group-append">
+                    <button *ngIf="!actions.depositALGO" class="btn btn-primary" (click)="depositALGO()">
+                        Deposit
+                    </button>
+                    <button *ngIf="actions.depositALGO" class="btn btn-primary">
+                        <i class="fas fa-cog fa-spin mx-20"></i>
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
     <p class="text-muted text-center m-0">
@@ -60,36 +60,36 @@
     </p>
     <div *ngIf="isPrimeOwner" class="info row justify-content-center mt-20">
         <div class="col-auto">
-            <lib-tags-chip key="OCTO">
-                <div class="input-group">
-                    <input [(ngModel)]="inputs.withdrawOCTO" class="form-control w-100" type="number"
-                        placeholder="Amount">
-                    <div class="input-group-append">
-                        <button *ngIf="!actions.withdrawOCTO" class="btn btn-primary" (click)="withdrawOCTO()">
-                            Withdraw
-                        </button>
-                        <button *ngIf="actions.withdrawOCTO" class="btn btn-primary">
-                            <i class="fas fa-cog fa-spin mx-20"></i>
-                        </button>
-                    </div>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text px-10 text-secondary">OCTO</span>
                 </div>
-            </lib-tags-chip>
+                <input [(ngModel)]="inputs.withdrawOCTO" class="form-control w-100" type="number" placeholder="Amount">
+                <div class="input-group-append">
+                    <button *ngIf="!actions.withdrawOCTO" class="btn btn-primary" (click)="withdrawOCTO()">
+                        Withdraw
+                    </button>
+                    <button *ngIf="actions.withdrawOCTO" class="btn btn-primary">
+                        <i class="fas fa-cog fa-spin mx-20"></i>
+                    </button>
+                </div>
+            </div>
         </div>
         <div class="col-auto">
-            <lib-tags-chip key="ALGO">
-                <div class="input-group">
-                    <input [(ngModel)]="inputs.withdrawALGO" class="form-control w-100" type="number"
-                        placeholder="Amount">
-                    <div class="input-group-append">
-                        <button *ngIf="!actions.withdrawALGO" class="btn btn-primary" (click)="withdrawALGO()">
-                            Withdraw
-                        </button>
-                        <button *ngIf="actions.withdrawALGO" class="btn btn-primary">
-                            <i class="fas fa-cog fa-spin mx-20"></i>
-                        </button>
-                    </div>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text px-10 text-secondary">ALGO</span>
                 </div>
-            </lib-tags-chip>
+                <input [(ngModel)]="inputs.withdrawALGO" class="form-control w-100" type="number" placeholder="Amount">
+                <div class="input-group-append">
+                    <button *ngIf="!actions.withdrawALGO" class="btn btn-primary" (click)="withdrawALGO()">
+                        Withdraw
+                    </button>
+                    <button *ngIf="actions.withdrawALGO" class="btn btn-primary">
+                        <i class="fas fa-cog fa-spin mx-20"></i>
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -81,15 +81,15 @@
             </p>
             <div class="info row justify-content-center mt-0 mb-20">
                 <div class="col-auto">
-                    <lib-tags-chip key="Asking Price">
-                        <div class="input-group">
-                            <input [(ngModel)]="inputs.price" class="form-control w-100" type="number"
-                                placeholder="Price">
-                            <div class="input-group-append">
-                                <span class="input-group-text">ALGO</span>
-                            </div>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text px-10 text-secondary">Price</span>
                         </div>
-                    </lib-tags-chip>
+                        <input [(ngModel)]="inputs.price" class="form-control w-100" type="number" placeholder="Price">
+                        <div class="input-group-append">
+                            <span class="input-group-text px-10 text-secondary">ALGO</span>
+                        </div>
+                    </div>
                 </div>
             </div>
             <p class="text-muted text-center mt-0 mb-20">
