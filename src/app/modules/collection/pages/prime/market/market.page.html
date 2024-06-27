@@ -7,7 +7,7 @@
             <p class="text-muted text-center m-0">
                 You have listed this Prime for sale at the moment. Unlist it if you want to pull it off the market.
             </p>
-            <div class="info row justify-content-center my-20">
+            <div class="info row justify-content-center mt-20">
                 <div class="col-auto">
                     <lib-tags-chip key="Price">
                         <span innerHTML="{{prime.price | amount:0 | async}}"></span>
@@ -33,7 +33,7 @@
                 <p class="text-muted text-center m-0">
                     This Prime is currently listed for sale. Buy it by paying the asking price.
                 </p>
-                <div class="info row justify-content-center my-20">
+                <div class="info row justify-content-center mt-20">
                     <div class="col-auto">
                         <lib-tags-chip key="Price">
                             <span innerHTML="{{prime.price | amount:0 | async}}"></span>
@@ -58,7 +58,7 @@
                 <p class="text-muted text-center m-0">
                     This Prime is currently listed for sale. Connect your wallet to buy it.
                 </p>
-                <div class="info row justify-content-center my-20">
+                <div class="info row justify-content-center mt-20">
                     <div class="col-auto">
                         <lib-tags-chip key="Price">
                             <span innerHTML="{{prime.price | amount:0 | async}}"></span>
@@ -96,9 +96,9 @@
                 Listing a Prime for sale is free, but please note that the platform will
                 charge a 10% fee when a sale is made, which means you will only get 90% of the selling price.
             </p>
-            <div class="info row justify-content-center my-20">
+            <div class="info row justify-content-center mt-20">
                 <div class="col-auto">
-                    <lib-tags-chip key="Expected Profit">
+                    <lib-tags-chip key="Expected Return">
                         <span innerHTML="{{inputs.price * 0.9 * 1000000 | amount:0 | async}}"></span>
                     </lib-tags-chip>
                 </div>
