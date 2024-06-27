@@ -3,19 +3,15 @@
         FAMILY
     </h2>
     <div *ngIf="prime.gen == 1">
-        <p class="text-success text-center m-0">
-            Children
-        </p>
         <p class="text-muted text-center m-0">
             Each GEN1 Prime is a parent of eight GEN2 children.
         </p>
-        <div class="info mt-20">
-            <nav>
-                <ul class="pagination text-center">
-                    <li class="page-item dropdown dropup with-arrow" *ngFor="let child of children">
+        <div class="info row justify-content-center my-20">
+            <div class="col-auto" *ngFor="let child of children">
+                <lib-tags-chip [active]="child.owner == prime.owner">
+                    <div class="dropdown dropup with-arrow">
                         <div data-toggle="dropdown" id="popover-toggle" aria-haspopup="true" aria-expanded="false"
-                            class="page-link text-white hand px-20"
-                            [ngClass]="{'bg-primary': child.owner == prime.owner, 'bg-dark-light': child.owner != prime.owner}">
+                            class="hand">
                             GEN{{child.gen}} Prime #{{child.id_text}}
                         </div>
                         <div class="dropdown-menu dropdown-menu-center" aria-labelledby="popover-toggle">
@@ -31,25 +27,21 @@
                                 </button>
                             </div>
                         </div>
-                    </li>
-                </ul>
-            </nav>
+                    </div>
+                </lib-tags-chip>
+            </div>
         </div>
     </div>
     <div *ngIf="prime.gen == 2">
-        <p class="text-success text-center m-0">
-            Parent
-        </p>
         <p class="text-muted text-center m-0">
             Each GEN2 Prime is a child of a GEN1 parent.
         </p>
-        <div class="info mt-20">
-            <nav>
-                <ul class="pagination text-center">
-                    <li class="page-item dropdown dropup with-arrow">
+        <div class="info row justify-content-center my-20">
+            <div class="col-auto">
+                <lib-tags-chip [active]="parent.owner == prime.owner">
+                    <div class="dropdown dropup with-arrow">
                         <div data-toggle="dropdown" id="popover-toggle" aria-haspopup="true" aria-expanded="false"
-                            class="page-link text-white hand px-20"
-                            [ngClass]="{'bg-primary': parent.owner == prime.owner, 'bg-dark-light': parent.owner != prime.owner}">
+                            class="hand">
                             GEN{{parent.gen}} Prime #{{parent.id_text}}
                         </div>
                         <div class="dropdown-menu dropdown-menu-center" aria-labelledby="popover-toggle">
@@ -65,23 +57,19 @@
                                 </button>
                             </div>
                         </div>
-                    </li>
-                </ul>
-            </nav>
+                    </div>
+                </lib-tags-chip>
+            </div>
         </div>
-        <p class="text-success text-center m-0">
-            Siblings
-        </p>
         <p class="text-muted text-center m-0">
             Each GEN2 Prime have seven other GEN2 siblings.
         </p>
-        <div class="info mt-20">
-            <nav>
-                <ul class="pagination text-center">
-                    <li class="page-item dropdown dropup with-arrow" *ngFor="let sibling of siblings">
+        <div class="info row justify-content-center my-20">
+            <div class="col-auto" *ngFor="let sibling of siblings">
+                <lib-tags-chip [active]="sibling.owner == prime.owner">
+                    <div class="dropdown dropup with-arrow">
                         <div data-toggle="dropdown" id="popover-toggle" aria-haspopup="true" aria-expanded="false"
-                            class="page-link text-white hand px-20"
-                            [ngClass]="{'bg-primary': sibling.owner == prime.owner, 'bg-dark-light': sibling.owner != prime.owner}">
+                            class="hand">
                             GEN{{sibling.gen}} Prime #{{sibling.id_text}}
                         </div>
                         <div class="dropdown-menu dropdown-menu-center" aria-labelledby="popover-toggle">
@@ -97,12 +85,12 @@
                                 </button>
                             </div>
                         </div>
-                    </li>
-                </ul>
-            </nav>
+                    </div>
+                </lib-tags-chip>
+            </div>
         </div>
-        <p class="text-muted text-center m-0">
-            Collect all the Primes in family to receive the rare Family badge.
-        </p>
     </div>
+    <p class="text-muted text-center m-0">
+        Collect all the Primes in family to receive the rare Family badge.
+    </p>
 </div>
