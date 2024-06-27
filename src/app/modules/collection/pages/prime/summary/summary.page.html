@@ -41,7 +41,7 @@
         Each Prime is uniquely represented by an Algorand standard asset and powered by an
         Algorand smart contract application.
     </p>
-    <div class="info row justify-content-center mt-0 mb-20">
+    <div class="info row justify-content-center mt-0 mb-0">
         <div class="col-auto">
             <lib-tags-chip key="Asset">
                 <span innerHTML="{{prime.prime_asset_id | asset:true | async}}"></span>
@@ -53,7 +53,7 @@
             </lib-tags-chip>
         </div>
     </div>
-    <div *ngIf="isOptinable" class="text-center mt-0 mb-0">
+    <div *ngIf="isOptinable" class="text-center mt-20 mb-0">
         <button *ngIf="!actions.optinPrime" class="btn btn-primary" (click)="optinPrime()">
             Optin to Asset
         </button>
@@ -61,7 +61,7 @@
             <i class="fas fa-cog fa-spin mx-20"></i>
         </button>
     </div>
-    <div *ngIf="isClaimable" class="text-center mt-0 mb-0">
+    <div *ngIf="isClaimable" class="text-center mt-20 mb-0">
         <button *ngIf="!actions.claimPrime" class="btn btn-primary" (click)="claimPrime()">
             Claim Ownership
         </button>
@@ -69,7 +69,7 @@
             <i class="fas fa-cog fa-spin mx-20"></i>
         </button>
     </div>
-    <div *ngIf="isUpgradable" class="text-center mt-0 mb-0">
+    <div *ngIf="isUpgradable" class="text-center mt-20 mb-0">
         <button *ngIf="!actions.upgradePrime" class="btn btn-primary" (click)="upgradePrime()">
             Upgrade Version
         </button>

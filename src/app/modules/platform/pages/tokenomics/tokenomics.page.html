@@ -3,10 +3,10 @@
         <div class="row">
             <div class="col">
                 <div class="mx-auto text-center">
-                    <h1 class="content-title text-secondary mb-20">
+                    <h1 class="content-title text-secondary mt-0 mb-20">
                         Tokenomics
                     </h1>
-                    <p class="text-muted mb-5 mx-auto mw-600">
+                    <p class="text-muted mx-auto mw-600 mt-0 mb-20">
                         OCTO token, the native currency of Octorand platform comes with interesting deflationary
                         dynamics. It is a multi purpose utility token with many use cases across the entire Octorand
                         ecosystem.
@@ -14,19 +14,19 @@
                 </div>
             </div>
         </div>
-        <div class="row mt-20" *ngIf="ready">
+        <div class="row mt-0 mb-0" *ngIf="ready">
             <div class="col">
                 <div class="row justify-content-center">
                     <div class="column col-12 col-lg-6">
                         <div class="card">
-                            <h2 class="card-title text-center text-secondary">
+                            <h2 class="card-title text-center text-secondary mt-0 mb-20">
                                 SUMMARY
                             </h2>
-                            <p class="text-muted text-center m-0">
+                            <p class="text-muted text-center mt-0 mb-20">
                                 Each Prime started with a OCTO token rewards bundle burried inside them. Full supply of
                                 OCTO token was distributed among the Prime holders in this manner.
                             </p>
-                            <div class="info row justify-content-center my-20">
+                            <div class="info row justify-content-center mt-0 mb-0">
                                 <div class="col-auto">
                                     <lib-tags-chip key="Asset Id">
                                         {{assetId}}
@@ -43,7 +43,7 @@
                                     </lib-tags-chip>
                                 </div>
                             </div>
-                            <div *ngIf="isOptinable" class="text-center">
+                            <div *ngIf="isOptinable" class="text-center mt-20 mb-0">
                                 <button *ngIf="!actions.optin" class="btn btn-primary" (click)="optin()">
                                     Optin to Asset
                                 </button>
@@ -55,14 +55,14 @@
                     </div>
                     <div class="column col-12 col-lg-6">
                         <div class="card">
-                            <h2 class="card-title text-center text-secondary">
+                            <h2 class="card-title text-center text-secondary mt-0 mb-20">
                                 SUPPLY
                             </h2>
-                            <p class="text-muted text-center m-0">
+                            <p class="text-muted text-center mt-0 mb-20">
                                 The OCTO supply is finite and hyper-deflationary. Supply is burned each time users do
                                 things like transform their Primes, upgrade their artwork, etc.
                             </p>
-                            <div class="info row justify-content-center my-20">
+                            <div class="info row justify-content-center mt-0 mb-0">
                                 <div class="col-auto">
                                     <lib-tags-chip key="Total Supply">
                                         <span innerHTML="{{totalSupply | amount:assetId | async}}"></span>
