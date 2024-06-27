@@ -26,34 +26,24 @@
                                 Each Prime started with a OCTO token rewards bundle burried inside them. Full supply of
                                 OCTO token was distributed among the Prime holders in this manner.
                             </p>
-                            <div class="info my-20">
-                                <nav>
-                                    <ul class="pagination text-center">
-                                        <li class="page-item">
-                                            <div class="page-link">
-                                                <lib-tags-chip key="Asset Id">
-                                                    {{assetId}}
-                                                </lib-tags-chip>
-                                            </div>
-                                        </li>
-                                        <li class="page-item">
-                                            <div class="page-link">
-                                                <lib-tags-chip key="Asset Unit">
-                                                    {{assetUnit}}
-                                                </lib-tags-chip>
-                                            </div>
-                                        </li>
-                                        <li class="page-item">
-                                            <div class="page-link">
-                                                <lib-tags-chip key="Asset Decimals">
-                                                    {{assetDecimals}}
-                                                </lib-tags-chip>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </nav>
+                            <div class="info row justify-content-center my-20">
+                                <div class="col-auto">
+                                    <lib-tags-chip key="Asset Id">
+                                        {{assetId}}
+                                    </lib-tags-chip>
+                                </div>
+                                <div class="col-auto">
+                                    <lib-tags-chip key="Asset Unit">
+                                        {{assetUnit}}
+                                    </lib-tags-chip>
+                                </div>
+                                <div class="col-auto">
+                                    <lib-tags-chip key="Asset Decimals">
+                                        {{assetDecimals}}
+                                    </lib-tags-chip>
+                                </div>
                             </div>
-                            <div *ngIf="isOptinable" class="text-center mt">
+                            <div *ngIf="isOptinable" class="text-center">
                                 <button *ngIf="!actions.optin" class="btn btn-primary" (click)="optin()">
                                     Optin to Asset
                                 </button>
@@ -72,33 +62,22 @@
                                 The OCTO supply is finite and hyper-deflationary. Supply is burned each time users do
                                 things like transform their Primes, upgrade their artwork, etc.
                             </p>
-                            <div class="info my-20">
-                                <nav>
-                                    <ul class="pagination text-center">
-                                        <li class="page-item">
-                                            <div class="page-link">
-                                                <lib-tags-chip key="Total Supply">
-                                                    <span innerHTML="{{totalSupply | amount:assetId | async}}"></span>
-                                                </lib-tags-chip>
-                                            </div>
-                                        </li>
-                                        <li class="page-item">
-                                            <div class="page-link">
-                                                <lib-tags-chip key="Burnt Supply">
-                                                    <span innerHTML="{{burntSupply | amount:assetId | async}}"></span>
-                                                </lib-tags-chip>
-                                            </div>
-                                        </li>
-                                        <li class="page-item">
-                                            <div class="page-link">
-                                                <lib-tags-chip key="Remaining Supply">
-                                                    <span innerHTML="{{remainingSupply | amount:assetId | async}}">
-                                                    </span>
-                                                </lib-tags-chip>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </nav>
+                            <div class="info row justify-content-center my-20">
+                                <div class="col-auto">
+                                    <lib-tags-chip key="Total Supply">
+                                        <span innerHTML="{{totalSupply | amount:assetId | async}}"></span>
+                                    </lib-tags-chip>
+                                </div>
+                                <div class="col-auto">
+                                    <lib-tags-chip key="Burnt Supply">
+                                        <span innerHTML="{{burntSupply | amount:assetId | async}}"></span>
+                                    </lib-tags-chip>
+                                </div>
+                                <div class="col-auto">
+                                    <lib-tags-chip key="Remaining Supply">
+                                        <span innerHTML="{{remainingSupply | amount:assetId | async}}"></span>
+                                    </lib-tags-chip>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -106,4 +85,3 @@
             </div>
         </div>
     </div>
-</div>
