@@ -2,87 +2,68 @@
     <h2 class="card-title text-center text-secondary">
         ARTWORK
     </h2>
-    <p class="text-success text-center m-0">
-        Appearance
-    </p>
     <p class="text-muted text-center m-0">
         Primes can change their appearance by changing their theme and skin.
     </p>
-    <div class="info my-20">
-        <nav>
-            <ul class="pagination text-center">
-                <li class="page-item">
-                    <div class="page-link">
-                        <lib-tags-chip key="Theme">
-                            {{prime.theme_text}}
-                        </lib-tags-chip>
-                    </div>
-                </li>
-                <li class="page-item">
-                    <div class="page-link">
-                        <lib-tags-chip key="Skin">
-                            {{prime.skin_text}}
-                        </lib-tags-chip>
-                    </div>
-                </li>
-            </ul>
-        </nav>
+    <div class="info row justify-content-center my-20">
+        <div class="col-auto">
+            <lib-tags-chip key="Theme">
+                {{prime.theme_text}}
+            </lib-tags-chip>
+        </div>
+        <div class="col-auto">
+            <lib-tags-chip key="Skin">
+                {{prime.skin_text}}
+            </lib-tags-chip>
+        </div>
     </div>
     <p class="text-muted text-center m-0">
         Owner of Prime asset can change the theme and skin.
     </p>
     <div *ngIf="isPrimeOwner">
-        <div class="info mt-20">
-            <nav>
-                <ul class="pagination text-center">
-                    <li class="page-item">
-                        <div class="page-link">
-                            <div class="dropdown with-arrow select hand select-theme-dropdown">
-                                <input value="{{selectedThemeName}}" class="form-control" type="text"
-                                    data-toggle="dropdown" id="popover-toggle" aria-haspopup="true"
-                                    aria-expanded="false" readonly>
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="popover-toggle">
-                                    <div *ngFor="let theme of themes" class="dropdown-item py-0"
-                                        (click)="selectTheme(theme)">
-                                        {{theme.name}}
-                                    </div>
-                                </div>
+        <div class="info row justify-content-center mt-20">
+            <div class="col-auto">
+                <lib-tags-chip key="Theme">
+                    <div class="dropdown with-arrow select hand select-theme-dropdown">
+                        <input value="{{selectedThemeName}}" class="form-control" type="text" data-toggle="dropdown"
+                            id="popover-toggle" aria-haspopup="true" aria-expanded="false" readonly>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="popover-toggle">
+                            <div *ngFor="let theme of themes" class="dropdown-item py-0" (click)="selectTheme(theme)">
+                                {{theme.name}}
                             </div>
                         </div>
-                    </li>
-                    <li class="page-item">
-                        <div class="page-link">
-                            <div class="dropdown with-arrow select hand select-skin-dropdown">
-                                <input value="{{selectedSkinName}}" class="form-control" type="text"
-                                    data-toggle="dropdown" id="popover-toggle" aria-haspopup="true"
-                                    aria-expanded="false" readonly>
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="popover-toggle">
-                                    <div *ngFor="let skin of skins" class="dropdown-item py-0"
-                                        (click)="selectSkin(skin)">
-                                        {{skin.name}}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </nav>
-            <div class="text-center my-20">
-                <button *ngIf="!actions.repaintPrime" class="btn btn-primary" (click)="repaintPrime()">
-                    Update Appearance
-                </button>
-                <button *ngIf="actions.repaintPrime" class="btn btn-primary">
-                    <i class="fas fa-cog fa-spin mx-20"></i>
-                </button>
+                    </div>
+                </lib-tags-chip>
             </div>
-            <p class="text-muted text-center m-0">
-                Updating appearance costs
-                <span innerHTML="{{repaintPrice | amount:prime.platform_asset_id | async}}"></span>.
-                In return it increases the score of this Prime by {{repaintScore}} points.
-                <span *ngIf="parentScore > 0">
-                    GEN1 parent of this Prime will also receive a {{parentScore}} points score boost.
-                </span>
-            </p>
+            <div class="col-auto">
+                <lib-tags-chip key="Skin">
+                    <div class="dropdown with-arrow select hand select-skin-dropdown">
+                        <input value="{{selectedSkinName}}" class="form-control" type="text" data-toggle="dropdown"
+                            id="popover-toggle" aria-haspopup="true" aria-expanded="false" readonly>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="popover-toggle">
+                            <div *ngFor="let skin of skins" class="dropdown-item py-0" (click)="selectSkin(skin)">
+                                {{skin.name}}
+                            </div>
+                        </div>
+                    </div>
+                </lib-tags-chip>
+            </div>
         </div>
+        <div class="text-center my-20">
+            <button *ngIf="!actions.repaintPrime" class="btn btn-primary" (click)="repaintPrime()">
+                Update Appearance
+            </button>
+            <button *ngIf="actions.repaintPrime" class="btn btn-primary">
+                <i class="fas fa-cog fa-spin mx-20"></i>
+            </button>
+        </div>
+        <p class="text-muted text-center m-0">
+            Updating appearance costs
+            <span innerHTML="{{repaintPrice | amount:prime.platform_asset_id | async}}"></span>.
+            In return it increases the score of this Prime by {{repaintScore}} points.
+            <span *ngIf="parentScore > 0">
+                GEN1 parent of this Prime will also receive a {{parentScore}} points score boost.
+            </span>
+        </p>
     </div>
 </div>
