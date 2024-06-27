@@ -46,27 +46,25 @@
     <div *ngIf="vaultedAssets.length > 0" class="mt-0 mb-0">
         <div class="info row justify-content-center mt-0 mb-0">
             <div class="col-auto" *ngFor="let asset of vaultedAssets">
-                <lib-tags-chip>
-                    <div *ngIf="isPrimeOwner">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text px-15"
-                                    innerHTML="{{asset.amount | amount:asset.id | async}}"></span>
-                            </div>
-                            <div class="input-group-append">
-                                <button *ngIf="actions.withdrawPrime != asset.id" class="btn btn-primary"
-                                    (click)="withdrawPrime(asset.id)">
-                                    Withdraw
-                                </button>
-                                <button *ngIf="actions.withdrawPrime == asset.id" class="btn btn-primary">
-                                    <i class="fas fa-cog fa-spin mx-20"></i>
-                                </button>
-                            </div>
+                <div *ngIf="isPrimeOwner">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text px-15"
+                                innerHTML="{{asset.amount | amount:asset.id | async}}"></span>
+                        </div>
+                        <div class="input-group-append">
+                            <button *ngIf="actions.withdrawPrime != asset.id" class="btn btn-primary"
+                                (click)="withdrawPrime(asset.id)">
+                                Withdraw
+                            </button>
+                            <button *ngIf="actions.withdrawPrime == asset.id" class="btn btn-primary">
+                                <i class="fas fa-cog fa-spin mx-20"></i>
+                            </button>
                         </div>
                     </div>
-                    <div *ngIf="!isPrimeOwner">
-                        <span innerHTML="{{asset.amount | amount:asset.id | async}}"></span>
-                    </div>
+                </div>
+                <lib-tags-chip *ngIf="!isPrimeOwner">
+                    <span innerHTML="{{asset.amount | amount:asset.id | async}}"></span>
                 </lib-tags-chip>
             </div>
         </div>
