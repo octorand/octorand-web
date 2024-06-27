@@ -53,59 +53,14 @@
                                     </ul>
                                 </nav>
                             </div>
-                            <!-- <p class="text-success text-center m-0">
-                                Resources
-                            </p>
-                            <p class="text-muted text-center m-0">
-                                Each Prime is uniquely represented by an Algorand standard asset and powered by an
-                                Algorand smart contract application.
-                            </p>
-                            <div class="info mt-20">
-                                <nav>
-                                    <ul class="pagination text-center">
-                                        <li class="page-item">
-                                            <div class="page-link">
-                                                <lib-tags-chip key="Asset">
-                                                    <span
-                                                        innerHTML="{{prime.prime_asset_id | asset:true | async}}"></span>
-                                                </lib-tags-chip>
-                                            </div>
-                                        </li>
-                                        <li class="page-item">
-                                            <div class="page-link">
-                                                <lib-tags-chip key="App">
-                                                    <span
-                                                        innerHTML="{{prime.application_id | application:true}}"></span>
-                                                </lib-tags-chip>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </nav>
-                            </div>
-                            <div *ngIf="isOptinable" class="text-center mt-20">
-                                <button *ngIf="!actions.optinPrime" class="btn btn-primary" (click)="optinPrime()">
+                            <div *ngIf="isOptinable" class="text-center mt">
+                                <button *ngIf="!actions.optin" class="btn btn-primary" (click)="optin()">
                                     Optin to Asset
                                 </button>
-                                <button *ngIf="actions.optinPrime" class="btn btn-primary">
+                                <button *ngIf="actions.optin" class="btn btn-primary">
                                     <i class="fas fa-cog fa-spin mx-20"></i>
                                 </button>
                             </div>
-                            <div *ngIf="isClaimable" class="text-center mt-20">
-                                <button *ngIf="!actions.claimPrime" class="btn btn-primary" (click)="claimPrime()">
-                                    Claim Ownership
-                                </button>
-                                <button *ngIf="actions.claimPrime" class="btn btn-primary">
-                                    <i class="fas fa-cog fa-spin mx-20"></i>
-                                </button>
-                            </div>
-                            <div *ngIf="isUpgradable" class="text-center mt-20">
-                                <button *ngIf="!actions.upgradePrime" class="btn btn-primary" (click)="upgradePrime()">
-                                    Upgrade Version
-                                </button>
-                                <button *ngIf="actions.upgradePrime" class="btn btn-primary">
-                                    <i class="fas fa-cog fa-spin mx-20"></i>
-                                </button>
-                            </div> -->
                         </div>
                     </div>
                     <div class="column col-12 col-lg-6">

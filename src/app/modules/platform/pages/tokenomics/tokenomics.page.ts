@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppHelper, IndexerHelper } from '@lib/helpers';
+import { AppHelper, ChainHelper, IndexerHelper } from '@lib/helpers';
 import { AppModel } from '@lib/models';
 import { Subscription } from 'rxjs';
 import { environment } from '@environment';
@@ -58,6 +58,28 @@ export class PlatformTokenomicsPage implements OnInit, OnDestroy {
   ready: boolean = false;
 
   /**
+   * Whether a wallet is connected
+   */
+  isConnected: boolean = false;
+
+  /**
+   * Whether wallet is opted into platform asset
+   */
+  isOptedIn: boolean = false;
+
+  /**
+   * Whether prime is optinable
+   */
+  isOptinable: boolean = false;
+
+  /**
+   * Tracking actions
+   */
+  actions = {
+    optin: false,
+  };
+
+  /**
    * Track token details loading task
    */
   private tokenDetailsLoadTask: any = null;
@@ -67,11 +89,13 @@ export class PlatformTokenomicsPage implements OnInit, OnDestroy {
    *
    * @param router
    * @param appHelper
+   * @param chainHelper
    * @param indexerHelper
    */
   constructor(
     private router: Router,
     private appHelper: AppHelper,
+    private chainHelper: ChainHelper,
     private indexerHelper: IndexerHelper
   ) { }
 
@@ -81,6 +105,7 @@ export class PlatformTokenomicsPage implements OnInit, OnDestroy {
   ngOnInit() {
     this.initApp();
     this.initTasks();
+    this.refreshView();
   }
 
   /**
@@ -98,6 +123,7 @@ export class PlatformTokenomicsPage implements OnInit, OnDestroy {
     this.app = this.appHelper.getDefaultState();
     this.appSubscription = this.appHelper.app.subscribe((value: AppModel) => {
       this.app = value;
+      this.refreshView();
     });
   }
 
@@ -127,6 +153,57 @@ export class PlatformTokenomicsPage implements OnInit, OnDestroy {
 
         this.remainingSupply = this.totalSupply - this.burntSupply;
         this.ready = true;
+      });
+    });
+  }
+
+  /**
+   * Refresh view state
+   */
+  refreshView() {
+    this.isConnected = this.app.account ? true : false;
+    this.isOptedIn = this.app.assets.find(a => a.id == this.assetId) ? true : false;
+    this.isOptinable = (this.isConnected && !this.isOptedIn) ? true : false;
+  }
+
+  /**
+   * Optin to platform asset
+   */
+  optin() {
+    let baseClient = this.chainHelper.getBaseClient();
+    let algodClient = this.chainHelper.getAlgodClient();
+
+    algodClient.getTransactionParams().do().then((params: any) => {
+      let composer = new baseClient.AtomicTransactionComposer();
+
+      composer.addTransaction({
+        txn: baseClient.makeAssetTransferTxnWithSuggestedParamsFromObject({
+          from: this.app.account,
+          to: this.app.account,
+          assetIndex: this.assetId,
+          amount: 0,
+          suggestedParams: {
+            ...params,
+            fee: 1000,
+            flatFee: true
+          }
+        })
+      });
+
+      let group = composer.buildGroup();
+
+      let transactions = [];
+      for (let i = 0; i < group.length; i++) {
+        transactions.push(group[i].txn);
+      }
+
+      this.actions.optin = true;
+      this.chainHelper.submitTransactions(transactions).then((response) => {
+        this.actions.optin = false;
+        if (response.success) {
+          this.appHelper.loadAccountDetails();
+          this.appHelper.showSuccess('Opted into asset successfully');
+        }
       });
     });
   }
