@@ -112,7 +112,7 @@ export class AppHomePage implements OnInit, OnDestroy {
    */
   initTasks() {
     this.loadPrimeDetails();
-    this.primeDetailsLoadTask = setInterval(() => { this.loadPrimeDetails() }, 1000);
+    this.primeDetailsLoadTask = setInterval(() => { this.loadPrimeDetails() }, 2000);
   }
 
   /**
