@@ -22,11 +22,6 @@ export class AppHomePage implements OnInit, OnDestroy {
   data: DataModel = new DataModel();
 
   /**
-   * Main prime state
-   */
-  primeMain: PrimeModel = new PrimeModel();
-
-  /**
    * Gen one prime state
    */
   primeOne: PrimeModel = new PrimeModel();
@@ -125,19 +120,7 @@ export class AppHomePage implements OnInit, OnDestroy {
 
       this.primeOne = this.data.gen_one_primes[Math.floor(Math.random() * sizeOne)];
       this.primeTwo = this.data.gen_two_primes[Math.floor(Math.random() * sizeTwo)];
-
-      let genMain = this.primeMain.gen == 1 ? 2 : 1;
-      if (genMain == 1) {
-        this.primeMain = this.data.gen_one_primes[Math.floor(Math.random() * sizeOne)];
-      } else {
-        this.primeMain = this.data.gen_two_primes[Math.floor(Math.random() * sizeTwo)];
-      }
     } else {
-      let primeMain = new PrimeModel();
-      primeMain.gen = 1;
-      primeMain.name = 'OCTORAND';
-      this.primeMain = primeMain;
-
       let primeOne = new PrimeModel();
       primeOne.gen = 1;
       primeOne.name = 'OCTORAND';
