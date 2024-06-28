@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppHelper, DataHelper } from '@lib/helpers';
-import { AppModel, DataModel } from '@lib/models';
+import { AppModel, DataModel, PrimeModel } from '@lib/models';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -22,6 +22,21 @@ export class AppHomePage implements OnInit, OnDestroy {
   data: DataModel = new DataModel();
 
   /**
+   * Main prime state
+   */
+  primeMain: PrimeModel = new PrimeModel();
+
+  /**
+   * Gen one prime state
+   */
+  primeOne: PrimeModel = new PrimeModel();
+
+  /**
+   * Gen two prime state
+   */
+  primeTwo: PrimeModel = new PrimeModel();
+
+  /**
    * App subscription
    */
   appSubscription: Subscription = new Subscription();
@@ -30,6 +45,16 @@ export class AppHomePage implements OnInit, OnDestroy {
    * Data subscription
    */
   dataSubscription: Subscription = new Subscription();
+
+  /**
+   * Whether the page is ready to be rendered
+   */
+  ready: boolean = false;
+
+  /**
+   * Track prime details loading task
+   */
+  private primeDetailsLoadTask: any = null;
 
   /**
    * Construct component
@@ -50,6 +75,7 @@ export class AppHomePage implements OnInit, OnDestroy {
   ngOnInit() {
     this.initApp();
     this.initData();
+    this.initTasks();
   }
 
   /**
@@ -58,6 +84,7 @@ export class AppHomePage implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.appSubscription.unsubscribe();
     this.dataSubscription.unsubscribe();
+    clearInterval(this.primeDetailsLoadTask);
   }
 
   /**
@@ -78,6 +105,51 @@ export class AppHomePage implements OnInit, OnDestroy {
     this.dataSubscription = this.dataHelper.data.subscribe((value: DataModel) => {
       this.data = value;
     });
+  }
+
+  /**
+   * Initialize tasks
+   */
+  initTasks() {
+    this.loadPrimeDetails();
+    this.primeDetailsLoadTask = setInterval(() => { this.loadPrimeDetails() }, 1000);
+  }
+
+  /**
+   * Load prime details
+   */
+  loadPrimeDetails() {
+    if (this.data && this.data.initialised) {
+      let sizeOne = this.data.gen_one_primes.length;
+      let sizeTwo = this.data.gen_two_primes.length;
+
+      this.primeOne = this.data.gen_one_primes[Math.floor(Math.random() * sizeOne)];
+      this.primeTwo = this.data.gen_two_primes[Math.floor(Math.random() * sizeTwo)];
+
+      let genMain = this.primeMain.gen == 1 ? 2 : 1;
+      if (genMain == 1) {
+        this.primeMain = this.data.gen_one_primes[Math.floor(Math.random() * sizeOne)];
+      } else {
+        this.primeMain = this.data.gen_two_primes[Math.floor(Math.random() * sizeTwo)];
+      }
+    } else {
+      let primeMain = new PrimeModel();
+      primeMain.gen = 1;
+      primeMain.name = 'OCTORAND';
+      this.primeMain = primeMain;
+
+      let primeOne = new PrimeModel();
+      primeOne.gen = 1;
+      primeOne.name = 'OCTORAND';
+      this.primeOne = primeOne;
+
+      let primeTwo = new PrimeModel();
+      primeTwo.gen = 1;
+      primeTwo.name = 'OCTORANDOCTORAND';
+      this.primeTwo = primeTwo;
+    }
+
+    this.ready = true;
   }
 
   /**
