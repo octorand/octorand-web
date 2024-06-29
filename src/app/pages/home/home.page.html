@@ -22,11 +22,24 @@
                     </div>
                     <p class="text-muted mt-40 mb-40">
                         Primes are a dynamic and ever-evolving species. They have the unique ability to transform
-                        themselves based on the influence of their owners. To facilitate these evolutions, Primes
+                        themselves under the influence of their owners. To facilitate these evolutions, Primes
                         require OCTO tokens.
                     </p>
-                    <img class="logo" src="/assets/img/logo/logo.svg">
-
+                    <div class="prime">
+                        <lib-tags-prime-skins *ngIf="primeOne" [prime]="primeOne"></lib-tags-prime-skins>
+                    </div>
+                    <p class="text-muted mt-40 mb-40">
+                        OCTO token is the native currency of Octorand. Every Prime started its life with a bundle of
+                        OCTO token rewards hidden within. They graciously allow their owners to extract these OCTO token
+                        bundles from them.
+                    </p>
+                    <div class="prime">
+                        <lib-tags-prime-skins *ngIf="primeTwo" [prime]="primeTwo"></lib-tags-prime-skins>
+                    </div>
+                    <p class="text-muted mt-40 mb-40">
+                        OCTO tokens used for Prime evolutions are instantly burned, gradually reducing the OCTO token
+                        supply over time. This process leads to the eventual finality of Prime evolutions.
+                    </p>
                 </div>
             </div>
         </div>
