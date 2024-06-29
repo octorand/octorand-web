@@ -360,8 +360,8 @@ export class CollectionPrimeMarketPage implements OnInit, OnChanges {
         composer.addTransaction({
           txn: baseClient.makePaymentTxnWithSuggestedParamsFromObject({
             from: this.app.account,
-            to: environment.admin_address,
-            amount: Math.floor(this.prime.price * environment.gen2.admin_market_share / 100),
+            to: this.prime.parent_application_address,
+            amount: Math.floor(this.prime.price * environment.gen2.parent_market_share / 100),
             suggestedParams: {
               ...params,
               fee: 1000,
@@ -373,8 +373,8 @@ export class CollectionPrimeMarketPage implements OnInit, OnChanges {
         composer.addTransaction({
           txn: baseClient.makePaymentTxnWithSuggestedParamsFromObject({
             from: this.app.account,
-            to: this.prime.parent_application_address,
-            amount: Math.floor(this.prime.price * environment.gen2.parent_market_share / 100),
+            to: environment.admin_address,
+            amount: Math.floor(this.prime.price * environment.gen2.admin_market_share / 100),
             suggestedParams: {
               ...params,
               fee: 1000,
