@@ -180,7 +180,7 @@ export class CollectionAccountPage implements OnInit, OnDestroy {
         }
 
         let assets = this.app.assets.filter(a => a.amount > 0).map(a => a.id);
-        allResults = allResults.filter(x => assets.includes(x.legacy_asset_id) || assets.includes(x.prime_asset_id));
+        allResults = allResults.filter(x => assets.includes(x.legacy_asset_id) || assets.includes(x.prime_asset_id) || x.seller == this.app.account);
 
         if (this.selectedBadges.length > 0) {
           allResults = allResults.filter(x => this.selectedBadges.every(b => x.badges.includes(b)))
