@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AppHelper, DataHelper } from '@lib/helpers';
 import { AppModel, DataModel, PrimeModel } from '@lib/models';
 import { Subscription } from 'rxjs';
+import { environment } from '@environment';
 
 @Component({
   selector: 'app-home',
@@ -127,7 +128,7 @@ export class AppHomePage implements OnInit, OnDestroy {
       this.primeOne = primeOne;
 
       let primeTwo = new PrimeModel();
-      primeTwo.gen = 1;
+      primeTwo.gen = 2;
       primeTwo.name = 'OCTORANDOCTORAND';
       this.primeTwo = primeTwo;
     }
