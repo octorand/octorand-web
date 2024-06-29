@@ -263,6 +263,7 @@ export class CollectionPrimeVaultPage implements OnInit, OnChanges, OnDestroy {
         this.actions.withdrawPrime = 0;
         if (response.success) {
           this.dataHelper.loadPrimeDetails();
+          this.appHelper.loadAccountDetails();
           this.appHelper.showSuccess('Asset withdrawn successfully');
         }
       });
@@ -388,6 +389,7 @@ export class CollectionPrimeVaultPage implements OnInit, OnChanges, OnDestroy {
         this.actions.depositPrime = false;
         if (response.success) {
           this.dataHelper.loadPrimeDetails();
+          this.appHelper.loadAccountDetails();
           this.appHelper.showSuccess('Asset deposited successfully');
           this.selectedAssetId = 0;
           this.selectedAssetName = 'Select Asset';

@@ -163,6 +163,7 @@ export class CollectionPrimeMarketPage implements OnInit, OnChanges {
         this.actions.listPrime = false;
         if (response.success) {
           this.dataHelper.loadPrimeDetails();
+          this.appHelper.loadAccountDetails();
           this.appHelper.showSuccess('Listed prime successfully');
         }
       });
@@ -235,6 +236,7 @@ export class CollectionPrimeMarketPage implements OnInit, OnChanges {
         this.actions.unlistPrime = false;
         if (response.success) {
           this.dataHelper.loadPrimeDetails();
+          this.appHelper.loadAccountDetails();
           this.appHelper.showSuccess('Unlisted prime successfully');
         }
       });
@@ -278,24 +280,24 @@ export class CollectionPrimeMarketPage implements OnInit, OnChanges {
         });
       }
 
-      composer.addMethodCall({
-        sender: this.app.account,
-        appID: buyContractId,
-        method: this.chainHelper.getMethod(buyContract, 'buy'),
-        methodArgs: [
-          this.prime.application_id,
-        ],
-        appForeignAssets: [
-          this.prime.prime_asset_id
-        ],
-        suggestedParams: {
-          ...params,
-          fee: 3000,
-          flatFee: true
-        }
-      });
-
       if (this.prime.gen == 1) {
+        composer.addMethodCall({
+          sender: this.app.account,
+          appID: buyContractId,
+          method: this.chainHelper.getMethod(buyContract, 'buy'),
+          methodArgs: [
+            this.prime.application_id,
+          ],
+          appForeignAssets: [
+            this.prime.prime_asset_id
+          ],
+          suggestedParams: {
+            ...params,
+            fee: 3000,
+            flatFee: true
+          }
+        });
+
         composer.addTransaction({
           txn: baseClient.makePaymentTxnWithSuggestedParamsFromObject({
             from: this.app.account,
@@ -322,6 +324,26 @@ export class CollectionPrimeMarketPage implements OnInit, OnChanges {
           })
         });
       } else {
+        composer.addMethodCall({
+          sender: this.app.account,
+          appID: buyContractId,
+          method: this.chainHelper.getMethod(buyContract, 'buy'),
+          methodArgs: [
+            this.prime.application_id,
+          ],
+          appForeignAssets: [
+            this.prime.prime_asset_id
+          ],
+          appForeignApps: [
+            this.prime.parent_application_id,
+          ],
+          suggestedParams: {
+            ...params,
+            fee: 3000,
+            flatFee: true
+          }
+        });
+
         composer.addTransaction({
           txn: baseClient.makePaymentTxnWithSuggestedParamsFromObject({
             from: this.app.account,
@@ -374,6 +396,7 @@ export class CollectionPrimeMarketPage implements OnInit, OnChanges {
         this.actions.buyPrime = false;
         if (response.success) {
           this.dataHelper.loadPrimeDetails();
+          this.appHelper.loadAccountDetails();
           this.appHelper.showSuccess('Bought prime successfully');
         }
       });
