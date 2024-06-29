@@ -53,6 +53,22 @@
         max-width: 800px;
     }
 
+    .mt-60 {
+        margin-top: 60px;
+    }
+
+    .mb-60 {
+        margin-bottom: 60px;
+    }
+
+    .mt-50 {
+        margin-top: 50px;
+    }
+
+    .mb-50 {
+        margin-bottom: 50px;
+    }
+
     .mt-40 {
         margin-top: 40px;
     }
@@ -67,6 +83,38 @@
 
     .mb-30 {
         margin-bottom: 30px;
+    }
+
+    .pt-60 {
+        padding-top: 60px;
+    }
+
+    .pb-60 {
+        padding-bottom: 60px;
+    }
+
+    .pt-50 {
+        padding-top: 50px;
+    }
+
+    .pb-50 {
+        padding-bottom: 50px;
+    }
+
+    .pt-40 {
+        padding-top: 40px;
+    }
+
+    .pb-40 {
+        padding-bottom: 40px;
+    }
+
+    .pt-30 {
+        padding-top: 30px;
+    }
+
+    .pb-30 {
+        padding-bottom: 30px;
     }
 
     @keyframes fade {

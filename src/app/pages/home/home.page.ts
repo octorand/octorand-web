@@ -23,14 +23,9 @@ export class AppHomePage implements OnInit, OnDestroy {
   data: DataModel = new DataModel();
 
   /**
-   * Gen one prime state
+   * List of primes for animations
    */
-  primeOne: PrimeModel = new PrimeModel();
-
-  /**
-   * Gen two prime state
-   */
-  primeTwo: PrimeModel = new PrimeModel();
+  primes: Array<PrimeModel> = [];
 
   /**
    * App subscription
@@ -119,18 +114,35 @@ export class AppHomePage implements OnInit, OnDestroy {
       let sizeOne = this.data.gen_one_primes.length;
       let sizeTwo = this.data.gen_two_primes.length;
 
-      this.primeOne = this.data.gen_one_primes[Math.floor(Math.random() * sizeOne)];
-      this.primeTwo = this.data.gen_two_primes[Math.floor(Math.random() * sizeTwo)];
+      this.primes = [
+        this.data.gen_one_primes[Math.floor(Math.random() * sizeOne)],
+        this.data.gen_two_primes[Math.floor(Math.random() * sizeTwo)],
+        this.data.gen_one_primes[Math.floor(Math.random() * sizeOne)],
+        this.data.gen_two_primes[Math.floor(Math.random() * sizeTwo)],
+      ];
     } else {
       let primeOne = new PrimeModel();
       primeOne.gen = 1;
       primeOne.name = 'OCTORAND';
-      this.primeOne = primeOne;
 
       let primeTwo = new PrimeModel();
       primeTwo.gen = 2;
       primeTwo.name = 'OCTORANDOCTORAND';
-      this.primeTwo = primeTwo;
+
+      let primeThree = new PrimeModel();
+      primeThree.gen = 1;
+      primeThree.name = 'ALGORAND';
+
+      let primeFour = new PrimeModel();
+      primeFour.gen = 2;
+      primeFour.name = 'ALGORANDALGORAND';
+
+      this.primes = [
+        primeOne,
+        primeTwo,
+        primeThree,
+        primeFour,
+      ];
     }
 
     this.ready = true;

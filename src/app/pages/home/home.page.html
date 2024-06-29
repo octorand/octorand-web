@@ -1,45 +1,49 @@
 <div *ngIf="ready" class="container-fluid">
     <div class="content">
-        <div class="row align-items-center section">
+        <div class="row align-items-center">
             <div class="col">
-                <div class="mw-800 mx-auto text-center">
-                    <h1 class="content-title text-secondary font-size-24 mt-40 mb-40">
+                <div class="mw-600 mx-auto text-center">
+                    <h1 class="content-title text-secondary font-size-24 mt-60 mb-60">
                         OCTORAND
                     </h1>
-                    <p class="text-muted mt-0 mb-40">
+                    <p class="text-muted mt-0 mb-60">
                         Step into the enchanting world of Octorand, the most exciting dapp in Algorand ecosystem.
                     </p>
                     <div class="prime">
-                        <lib-tags-prime-skins *ngIf="primeOne" [prime]="primeOne"></lib-tags-prime-skins>
+                        <lib-tags-prime-skins [prime]="primes[0]"></lib-tags-prime-skins>
                     </div>
-                    <p class="text-muted mt-40 mb-40">
+                    <p class="text-muted mt-60 mb-60">
                         In Octorand, Primes reign supreme as the sole inhabitants. Initially, 1000 Primes graced this
                         realm, but as time unfolded, each of these first generation Primes gave birth to 8 offspring,
                         leading to the emergence of 8000 Primes in the second generation.
                     </p>
                     <div class="prime">
-                        <lib-tags-prime-skins *ngIf="primeTwo" [prime]="primeTwo"></lib-tags-prime-skins>
+                        <lib-tags-prime-skins [prime]="primes[1]"></lib-tags-prime-skins>
                     </div>
-                    <p class="text-muted mt-40 mb-40">
+                    <p class="text-muted mt-60 mb-60">
                         Primes are a dynamic and ever-evolving species. They have the unique ability to transform
                         themselves under the influence of their owners. To facilitate these evolutions, Primes
                         require OCTO tokens.
                     </p>
                     <div class="prime">
-                        <lib-tags-prime-skins *ngIf="primeOne" [prime]="primeOne"></lib-tags-prime-skins>
+                        <lib-tags-prime-skins [prime]="primes[2]"></lib-tags-prime-skins>
                     </div>
-                    <p class="text-muted mt-40 mb-40">
+                    <p class="text-muted mt-60 mb-60">
                         OCTO token is the native currency of Octorand. Every Prime started its life with a bundle of
                         OCTO token rewards hidden within. They graciously allow their owners to extract these OCTO token
                         bundles from them.
                     </p>
                     <div class="prime">
-                        <lib-tags-prime-skins *ngIf="primeTwo" [prime]="primeTwo"></lib-tags-prime-skins>
+                        <lib-tags-prime-skins [prime]="primes[3]"></lib-tags-prime-skins>
                     </div>
-                    <p class="text-muted mt-40 mb-40">
+                    <p class="text-muted mt-60 mb-60">
                         OCTO tokens used for Prime evolutions are instantly burned, gradually reducing the OCTO token
                         supply over time. This process leads to the eventual finality of Prime evolutions.
                     </p>
+                    <button class="btn btn-primary mt-0 mb-60" type="button"
+                        (click)="navigateToPage('/collection/browse')">
+                        Browse Primes
+                    </button>
                 </div>
             </div>
         </div>
