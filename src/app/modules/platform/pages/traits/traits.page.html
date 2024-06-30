@@ -7,7 +7,7 @@
                         Traits
                     </h1>
                     <p class="text-muted mx-auto mw-600 mt-0 mb-20">
-                        Primes earn badges by meeting specific qualifications. Some badges, like Artifact, are inherent
+                        Primes earn badges by meeting specific qualifications. Some badges, like Founder, are inherent
                         from birth. Others, like Chameleon, are earned as Primes undergo transformations. Additionally,
                         badges such as Wordsmith are awarded when Primes change their names.
                     </p>
@@ -19,12 +19,12 @@
                 <div class="row justify-content-center">
                     <div class="column col-12 col-md-6 col-lg-4 col-xl-3" *ngFor="let badge of badges">
                         <div class="card">
-                            <h2 class="card-title text-center text-secondary">
-                                {{badge.name}}
-                            </h2>
                             <h1 class="text-center text-primary">
                                 <i class="{{badge.icon}}"></i>
                             </h1>
+                            <h2 class="card-title text-center text-secondary">
+                                {{badge.name}}
+                            </h2>
                             <div class="info mb-20">
                                 <div class="table-responsive">
                                     <table class="table table-no-outer-padding">
@@ -34,11 +34,17 @@
                                                 <td class="text-right">
                                                     {{badge.count_one}}x ({{badge.percentage_one}}%)
                                                 </td>
+                                                <td class="text-right text-primary hand" (click)="openBadge(1, badge)">
+                                                    <i class="fas fa-eye"></i>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td class="text-success">GEN2 Primes</td>
                                                 <td class="text-right">
                                                     {{badge.count_two}}x ({{badge.percentage_two}}%)
+                                                </td>
+                                                <td class="text-right text-primary hand" (click)="openBadge(2, badge)">
+                                                    <i class="fas fa-eye"></i>
                                                 </td>
                                             </tr>
                                         </tbody>

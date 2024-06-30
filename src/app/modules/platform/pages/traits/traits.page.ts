@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppHelper, BadgeHelper, DataHelper } from '@lib/helpers';
+import { AppHelper, BadgeHelper, DataHelper, StoreHelper } from '@lib/helpers';
 import { AppModel, DataModel } from '@lib/models';
 import { Subscription } from 'rxjs';
 
@@ -48,12 +48,14 @@ export class PlatformTraitsPage implements OnInit, OnDestroy {
    * @param appHelper
    * @param badgeHelper
    * @param dataHelper
+   * @param storeHelper
    */
   constructor(
     private router: Router,
     private appHelper: AppHelper,
     private badgeHelper: BadgeHelper,
-    private dataHelper: DataHelper
+    private dataHelper: DataHelper,
+    private storeHelper: StoreHelper
   ) { }
 
   /**
@@ -120,6 +122,19 @@ export class PlatformTraitsPage implements OnInit, OnDestroy {
 
       this.ready = true;
     }
+  }
+
+  /**
+   * Open badge details page
+   *
+   * @param gen
+   * @param badge
+   */
+  openBadge(gen: number, badge: any) {
+    this.storeHelper.setBrowseGen(gen);
+    this.storeHelper.setBrowseBadges([badge.name]);
+    this.storeHelper.setBrowseSort('Id');
+    this.navigateToPage('/collection/browse');
   }
 
   /**
