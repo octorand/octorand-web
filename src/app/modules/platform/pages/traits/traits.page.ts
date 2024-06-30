@@ -1,9 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppHelper, ChainHelper, IndexerHelper } from '@lib/helpers';
-import { AppModel } from '@lib/models';
+import { AppHelper, BadgeHelper, DataHelper } from '@lib/helpers';
+import { AppModel, DataModel } from '@lib/models';
 import { Subscription } from 'rxjs';
-import { environment } from '@environment';
 
 @Component({
   selector: 'app-platform-traits',
@@ -18,39 +17,19 @@ export class PlatformTraitsPage implements OnInit, OnDestroy {
   app: AppModel = new AppModel();
 
   /**
+   * Data state
+   */
+  data: DataModel = new DataModel();
+
+  /**
    * App subscription
    */
   appSubscription: Subscription = new Subscription();
 
   /**
-   * Token id
+   * Data subscription
    */
-  assetId: number = 0;
-
-  /**
-   * Token unit
-   */
-  assetUnit: string = '';
-
-  /**
-   * Token decimals
-   */
-  assetDecimals: number = 0;
-
-  /**
-   * Total supply of token
-   */
-  totalSupply: number = 0;
-
-  /**
-   * Burnt supply of token
-   */
-  burntSupply: number = 0;
-
-  /**
-   * Current supply of token
-   */
-  circulatingSupply: number = 0;
+  dataSubscription: Subscription = new Subscription();
 
   /**
    * Whether the page is ready to be rendered
@@ -58,45 +37,23 @@ export class PlatformTraitsPage implements OnInit, OnDestroy {
   ready: boolean = false;
 
   /**
-   * Whether a wallet is connected
+   * List of badges
    */
-  isConnected: boolean = false;
-
-  /**
-   * Whether wallet is opted into platform asset
-   */
-  isOptedIn: boolean = false;
-
-  /**
-   * Whether prime is optinable
-   */
-  isOptinable: boolean = false;
-
-  /**
-   * Tracking actions
-   */
-  actions = {
-    optin: false,
-  };
-
-  /**
-   * Track token details loading task
-   */
-  private tokenDetailsLoadTask: any = null;
+  badges: Array<any> = [];
 
   /**
    * Construct component
    *
    * @param router
    * @param appHelper
-   * @param chainHelper
-   * @param indexerHelper
+   * @param badgeHelper
+   * @param dataHelper
    */
   constructor(
     private router: Router,
     private appHelper: AppHelper,
-    private chainHelper: ChainHelper,
-    private indexerHelper: IndexerHelper
+    private badgeHelper: BadgeHelper,
+    private dataHelper: DataHelper
   ) { }
 
   /**
@@ -104,7 +61,8 @@ export class PlatformTraitsPage implements OnInit, OnDestroy {
    */
   ngOnInit() {
     this.initApp();
-    this.initTasks();
+    this.initData();
+    this.initBadges();
     this.refreshView();
   }
 
@@ -113,7 +71,7 @@ export class PlatformTraitsPage implements OnInit, OnDestroy {
    */
   ngOnDestroy() {
     this.appSubscription.unsubscribe();
-    clearInterval(this.tokenDetailsLoadTask);
+    this.dataSubscription.unsubscribe();
   }
 
   /**
@@ -128,84 +86,40 @@ export class PlatformTraitsPage implements OnInit, OnDestroy {
   }
 
   /**
-   * Initialize tasks
+   * Initialize data
    */
-  initTasks() {
-    this.loadTokenDetails();
-    this.tokenDetailsLoadTask = setInterval(() => { this.loadTokenDetails() }, 30000);
+  initData() {
+    this.data = this.dataHelper.getDefaultState();
+    this.dataSubscription = this.dataHelper.data.subscribe((value: DataModel) => {
+      this.data = value;
+      this.refreshView();
+    });
   }
 
   /**
-   * Load token details
+   * Initialize badges
    */
-  loadTokenDetails() {
-    this.assetId = environment.platform.asset_id;
-    this.indexerHelper.lookupAsset(this.assetId).then((asset: any) => {
-      this.assetUnit = asset['params']['unit-name'];
-      this.assetDecimals = asset['params']['decimals'];
-      this.totalSupply = asset['params']['total'];
-
-      this.indexerHelper.lookupAccount(environment.platform.reserve).then((account: any) => {
-        let balance = account['assets'].find((a: any) => a['asset-id'] == this.assetId);
-        if (balance) {
-          this.burntSupply = balance.amount;
-        }
-
-        this.circulatingSupply = this.totalSupply - this.burntSupply;
-        this.ready = true;
-      });
-    });
+  initBadges() {
+    this.badges = this.badgeHelper.list();
   }
 
   /**
    * Refresh view state
    */
   refreshView() {
-    this.isConnected = this.app.account ? true : false;
-    this.isOptedIn = this.app.assets.find(a => a.id == this.assetId) ? true : false;
-    this.isOptinable = (this.isConnected && !this.isOptedIn) ? true : false;
-  }
+    if (this.data && this.data.initialised) {
+      let primesOne = this.data.gen_one_primes;
+      let primesTwo = this.data.gen_two_primes;
 
-  /**
-   * Optin to platform asset
-   */
-  optin() {
-    let baseClient = this.chainHelper.getBaseClient();
-    let algodClient = this.chainHelper.getAlgodClient();
-
-    algodClient.getTransactionParams().do().then((params: any) => {
-      let composer = new baseClient.AtomicTransactionComposer();
-
-      composer.addTransaction({
-        txn: baseClient.makeAssetTransferTxnWithSuggestedParamsFromObject({
-          from: this.app.account,
-          to: this.app.account,
-          assetIndex: this.assetId,
-          amount: 0,
-          suggestedParams: {
-            ...params,
-            fee: 1000,
-            flatFee: true
-          }
-        })
-      });
-
-      let group = composer.buildGroup();
-
-      let transactions = [];
-      for (let i = 0; i < group.length; i++) {
-        transactions.push(group[i].txn);
+      for (let i = 0; i < this.badges.length; i++) {
+        this.badges[i].count_one = primesOne.filter(p => p.badges.includes(this.badges[i].name)).length;
+        this.badges[i].percentage_one = Math.floor(this.badges[i].count_one * 100 / primesOne.length);
+        this.badges[i].count_two = primesTwo.filter(p => p.badges.includes(this.badges[i].name)).length;
+        this.badges[i].percentage_two = Math.floor(this.badges[i].count_one * 100 / primesTwo.length);
       }
 
-      this.actions.optin = true;
-      this.chainHelper.submitTransactions(transactions).then((response) => {
-        this.actions.optin = false;
-        if (response.success) {
-          this.appHelper.loadAccountDetails();
-          this.appHelper.showSuccess('Opted into asset successfully');
-        }
-      });
-    });
+      this.ready = true;
+    }
   }
 
   /**

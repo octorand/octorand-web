@@ -1,0 +1,15 @@
+.table {
+    th,
+    tr,
+    td {
+        border: none !important;
+        padding: 0;
+    }
+}
+
+.description {
+    max-width: 300px;
+    text-wrap: wrap;
+    padding: 0;
+    margin: 0;
+}

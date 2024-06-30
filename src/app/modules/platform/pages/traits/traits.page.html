@@ -14,71 +14,40 @@
                 </div>
             </div>
         </div>
-        <div class="row mt-0 mb-0" *ngIf="ready">
+        <div class="row" *ngIf="ready">
             <div class="col">
                 <div class="row justify-content-center">
-                    <div class="column col-12 col-lg-6">
+                    <div class="column col-12 col-md-6 col-lg-4 col-xl-3" *ngFor="let badge of badges">
                         <div class="card">
-                            <h2 class="card-title text-center text-secondary mt-0 mb-20">
-                                SUMMARY
+                            <h2 class="card-title text-center text-secondary">
+                                {{badge.name}}
                             </h2>
-                            <p class="text-muted text-center mt-0 mb-20">
-                                Each Prime started with a OCTO token rewards bundle burried inside them. Full supply of
-                                OCTO token was distributed among the Prime holders in this manner.
+                            <h1 class="text-center text-primary">
+                                <i class="{{badge.icon}}"></i>
+                            </h1>
+                            <div class="info mb-20">
+                                <div class="table-responsive">
+                                    <table class="table table-no-outer-padding">
+                                        <tbody>
+                                            <tr>
+                                                <td class="text-success">GEN1 Primes</td>
+                                                <td class="text-right">
+                                                    {{badge.count_one}}x ({{badge.percentage_one}}%)
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-success">GEN2 Primes</td>
+                                                <td class="text-right">
+                                                    {{badge.count_two}}x ({{badge.percentage_two}}%)
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <p class="description text-center text-muted">
+                                {{badge.description}}
                             </p>
-                            <div class="info row justify-content-center mt-0 mb-0">
-                                <div class="col-auto">
-                                    <lib-tags-chip key="Asset Id">
-                                        {{assetId}}
-                                    </lib-tags-chip>
-                                </div>
-                                <div class="col-auto">
-                                    <lib-tags-chip key="Asset Unit">
-                                        {{assetUnit}}
-                                    </lib-tags-chip>
-                                </div>
-                                <div class="col-auto">
-                                    <lib-tags-chip key="Asset Decimals">
-                                        {{assetDecimals}}
-                                    </lib-tags-chip>
-                                </div>
-                            </div>
-                            <div *ngIf="isOptinable" class="text-center mt-20 mb-0">
-                                <button *ngIf="!actions.optin" class="btn btn-primary" (click)="optin()">
-                                    Optin to Asset
-                                </button>
-                                <button *ngIf="actions.optin" class="btn btn-primary">
-                                    <i class="fas fa-cog fa-spin mx-20"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="column col-12 col-lg-6">
-                        <div class="card">
-                            <h2 class="card-title text-center text-secondary mt-0 mb-20">
-                                SUPPLY
-                            </h2>
-                            <p class="text-muted text-center mt-0 mb-20">
-                                The OCTO supply is finite and hyper-deflationary. Supply is burned each time users do
-                                things like transform their Primes, upgrade Prime artwork, etc.
-                            </p>
-                            <div class="info row justify-content-center mt-0 mb-0">
-                                <div class="col-auto">
-                                    <lib-tags-chip key="Total Supply">
-                                        <span innerHTML="{{totalSupply | amount:assetId | async}}"></span>
-                                    </lib-tags-chip>
-                                </div>
-                                <div class="col-auto">
-                                    <lib-tags-chip key="Burnt Supply">
-                                        <span innerHTML="{{burntSupply | amount:assetId | async}}"></span>
-                                    </lib-tags-chip>
-                                </div>
-                                <div class="col-auto">
-                                    <lib-tags-chip key="Circulating Supply">
-                                        <span innerHTML="{{circulatingSupply | amount:assetId | async}}"></span>
-                                    </lib-tags-chip>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
