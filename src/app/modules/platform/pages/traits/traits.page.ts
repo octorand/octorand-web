@@ -6,11 +6,11 @@ import { Subscription } from 'rxjs';
 import { environment } from '@environment';
 
 @Component({
-  selector: 'app-platform-tokenomics',
-  templateUrl: './tokenomics.page.html',
-  styleUrls: ['./tokenomics.page.scss'],
+  selector: 'app-platform-traits',
+  templateUrl: './traits.page.html',
+  styleUrls: ['./traits.page.scss'],
 })
-export class PlatformTokenomicsPage implements OnInit, OnDestroy {
+export class PlatformTraitsPage implements OnInit, OnDestroy {
 
   /**
    * App state

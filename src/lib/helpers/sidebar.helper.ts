@@ -46,11 +46,11 @@ export class SidebarHelper {
                     route: 'platform/tokenomics',
                 },
                 {
-                    id: 'statistics',
-                    name: 'Statistics',
-                    icon: 'fas fa-signal',
+                    id: 'traits',
+                    name: 'Traits',
+                    icon: 'fas fa-certificate',
                     color: '#2ecc71',
-                    route: 'platform/statistics',
+                    route: 'platform/traits',
                 },
             ]
         },

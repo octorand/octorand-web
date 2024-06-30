@@ -15,6 +15,10 @@ const routes: Routes = [
         path: 'tokenomics',
         component: Pages.PlatformTokenomicsPage
       },
+      {
+        path: 'traits',
+        component: Pages.PlatformTraitsPage
+      },
     ]
   }
 ];
@@ -23,6 +27,7 @@ const routes: Routes = [
   declarations: [
     PlatformContainer,
     Pages.PlatformTokenomicsPage,
+    Pages.PlatformTraitsPage,
   ],
   imports: [
     CommonModule,
