@@ -50,7 +50,12 @@ export class PlatformTokenomicsPage implements OnInit, OnDestroy {
   /**
    * Current supply of token
    */
-  remainingSupply: number = 0;
+  circulatingSupply: number = 0;
+
+  /**
+   * Asset balances
+   */
+  balances: Array<any> = [];
 
   /**
    * Whether the page is ready to be rendered
@@ -151,9 +156,13 @@ export class PlatformTokenomicsPage implements OnInit, OnDestroy {
           this.burntSupply = balance.amount;
         }
 
-        this.remainingSupply = this.totalSupply - this.burntSupply;
+        this.circulatingSupply = this.totalSupply - this.burntSupply;
         this.ready = true;
       });
+    });
+
+    this.indexerHelper.lookupAssetBalances(this.assetId, 1000000).then((balances: Array<any>) => {
+      this.balances = balances.sort((first, second) => first.amount - second.amount).slice(0, 50);
     });
   }
 

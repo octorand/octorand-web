@@ -74,11 +74,33 @@
                                     </lib-tags-chip>
                                 </div>
                                 <div class="col-auto">
-                                    <lib-tags-chip key="Remaining Supply">
-                                        <span innerHTML="{{remainingSupply | amount:assetId | async}}"></span>
+                                    <lib-tags-chip key="Circulating Supply">
+                                        <span innerHTML="{{circulatingSupply | amount:assetId | async}}"></span>
                                     </lib-tags-chip>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                    <div class="column col-12 col-lg-12">
+                        <div class="card">
+                            <h2 class="card-title text-center text-secondary mt-0 mb-20">
+                                HOLDERS
+                            </h2>
+                            <p class="text-muted text-center mt-0 mb-20">
+                                Here are the top holders of OCTO tokens.
+                            </p>
+                            <table class="table table-no-outer-padding  mt-0 mb-0">
+                                <tbody>
+                                    <tr>
+                                        <td class="text-secondary">Holder</td>
+                                        <td class="text-right">Amount</td>
+                                    </tr>
+                                    <tr *ngFor="let balance of balances">
+                                        <td class="text-secondary">{{balance.address}}</td>
+                                        <td class="text-right">{{balance.amount}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

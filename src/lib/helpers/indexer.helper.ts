@@ -114,9 +114,28 @@ export class IndexerHelper {
     }
 
     /**
+     * Lookup balances for an asset
+     *
+     * @param id
+     * @param min
+     */
+    async lookupAssetBalances(id: number, min: number = 0): Promise<Array<any>> {
+        let limit = environment.indexer_page_size;
+        let key = 'balances';
+        let balances = [];
+
+        let pager = await this.getPagedResults(this.getIndexerClient().lookupAssetBalances(id).currencyGreaterThan(min), limit, key);
+        for (let i = 0; i < pager.length; i++) {
+            balances.push(pager[i])
+        }
+
+        return balances;
+    }
+
+    /**
      * Lookup transactions for an asset
      *
-     * @param address
+     * @param id
      */
     async lookupAssetTransactions(id: number): Promise<Array<any>> {
         let limit = environment.indexer_page_size;
@@ -153,6 +172,7 @@ export class IndexerHelper {
      * Lookup asset transfer transactions from an account
      *
      * @param from
+     * @param id
      */
     async lookupAssetTransferTransactions(from: string, id: number): Promise<Array<any>> {
         let limit = environment.indexer_page_size;
