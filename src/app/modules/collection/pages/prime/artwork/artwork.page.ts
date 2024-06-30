@@ -209,8 +209,12 @@ export class CollectionPrimeArtworkPage implements OnInit, OnChanges {
    * Update preview prime
    */
   updatePreviewPrime() {
-    this.previewPrime.theme = this.selectedThemeId;
-    this.previewPrime.skin = this.selectedSkinId;
+    let previewPrime = new PrimeModel();
+    previewPrime.gen = this.prime.gen;
+    previewPrime.name = this.prime.name;
+    previewPrime.theme = this.selectedThemeId;
+    previewPrime.skin = this.selectedSkinId;
+    this.previewPrime = previewPrime;
   }
 
   /**

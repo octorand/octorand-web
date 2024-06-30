@@ -201,7 +201,12 @@ export class CollectionPrimeTransformPage implements OnInit, OnChanges {
    * Update preview prime
    */
   updatePreviewPrime() {
-    this.previewPrime.name = this.updatedName;
+    let previewPrime = new PrimeModel();
+    previewPrime.gen = this.prime.gen;
+    previewPrime.theme = this.prime.theme;
+    previewPrime.skin = this.prime.skin;
+    previewPrime.name = this.updatedName;
+    this.previewPrime = previewPrime;
   }
 
   /**
