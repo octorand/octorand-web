@@ -162,7 +162,7 @@ export class PlatformTokenomicsPage implements OnInit, OnDestroy {
     });
 
     this.indexerHelper.lookupAssetBalances(this.assetId, 1000000).then((balances: Array<any>) => {
-      this.balances = balances.sort((first, second) => first.amount - second.amount).slice(0, 50);
+      this.balances = balances.sort((first, second) => second.amount - first.amount).slice(0, 50);
     });
   }
 

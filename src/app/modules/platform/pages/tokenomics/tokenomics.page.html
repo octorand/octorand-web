@@ -96,8 +96,12 @@
                                         <td class="text-right">Amount</td>
                                     </tr>
                                     <tr *ngFor="let balance of balances">
-                                        <td class="text-secondary">{{balance.address}}</td>
-                                        <td class="text-right">{{balance.amount}}</td>
+                                        <td class="text-secondary">
+                                            <span innerHTML="{{balance.address | identity:true:true | async}}"></span>
+                                        </td>
+                                        <td class="text-right">
+                                            <span innerHTML="{{balance.amount | amount:assetId | async}}"></span>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
