@@ -27,6 +27,11 @@ export class CollectionPrimeArtworkPage implements OnInit, OnChanges {
   @Input() prime: PrimeModel = new PrimeModel();
 
   /**
+   * Preview prime details
+   */
+  @Input() previewPrime: PrimeModel = new PrimeModel();
+
+  /**
    * List of skins
    */
   skins: Array<any> = [];
@@ -153,6 +158,14 @@ export class CollectionPrimeArtworkPage implements OnInit, OnChanges {
         this.selectedThemeName = this.prime.theme_text;
         this.selectedSkinId = this.prime.skin;
         this.selectedSkinName = this.prime.skin_text;
+
+        let previewPrime = new PrimeModel();
+        previewPrime.gen = this.prime.gen;
+        previewPrime.name = this.prime.name;
+        previewPrime.theme = this.prime.theme;
+        previewPrime.skin = this.prime.skin;
+        this.previewPrime = previewPrime;
+
         this.isInitialised = true;
       }
 
@@ -176,6 +189,7 @@ export class CollectionPrimeArtworkPage implements OnInit, OnChanges {
   selectTheme(theme: any) {
     this.selectedThemeId = theme.id;
     this.selectedThemeName = theme.name;
+    this.updatePreviewPrime();
     this.hideDropdown('.select-theme-dropdown');
   }
 
@@ -187,7 +201,16 @@ export class CollectionPrimeArtworkPage implements OnInit, OnChanges {
   selectSkin(skin: any) {
     this.selectedSkinId = skin.id;
     this.selectedSkinName = skin.name;
+    this.updatePreviewPrime()
     this.hideDropdown('.select-skin-dropdown');
+  }
+
+  /**
+   * Update preview prime
+   */
+  updatePreviewPrime() {
+    this.previewPrime.theme = this.selectedThemeId;
+    this.previewPrime.skin = this.selectedSkinId;
   }
 
   /**

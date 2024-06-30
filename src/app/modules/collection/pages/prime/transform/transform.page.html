@@ -16,6 +16,9 @@
         Owner of Prime asset can change the name.
     </p>
     <div *ngIf="isPrimeOwner">
+        <div class="mt-20 mb-20">
+            <lib-tags-prime-skins [prime]="previewPrime"></lib-tags-prime-skins>
+        </div>
         <div class="info mt-20 mb-0">
             <div class="name">
                 <div class="row">

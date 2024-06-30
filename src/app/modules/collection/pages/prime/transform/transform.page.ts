@@ -27,6 +27,11 @@ export class CollectionPrimeTransformPage implements OnInit, OnChanges {
   @Input() prime: PrimeModel = new PrimeModel();
 
   /**
+   * Preview prime details
+   */
+  @Input() previewPrime: PrimeModel = new PrimeModel();
+
+  /**
    * Whether details are initialised
    */
   isInitialised: boolean = false;
@@ -132,6 +137,14 @@ export class CollectionPrimeTransformPage implements OnInit, OnChanges {
         this.updatedName = this.prime.name;
         this.selectNameIndex(0);
         this.renameDifference = 0;
+
+        let previewPrime = new PrimeModel();
+        previewPrime.gen = this.prime.gen;
+        previewPrime.name = this.prime.name;
+        previewPrime.theme = this.prime.theme;
+        previewPrime.skin = this.prime.skin;
+        this.previewPrime = previewPrime;
+
         this.isInitialised = true;
       }
     }
@@ -148,6 +161,7 @@ export class CollectionPrimeTransformPage implements OnInit, OnChanges {
       this.selectedNameIndex = index;
       this.selectedLetterIndex = this.prime.name.charCodeAt(index);
       this.renameDifference = 0;
+      this.updatePreviewPrime();
     }
   }
 
@@ -164,6 +178,7 @@ export class CollectionPrimeTransformPage implements OnInit, OnChanges {
     }
 
     this.renameDifference = Math.abs(this.prime.name.charCodeAt(index) - this.updatedName.charCodeAt(index));
+    this.updatePreviewPrime();
   }
 
   /**
@@ -179,6 +194,14 @@ export class CollectionPrimeTransformPage implements OnInit, OnChanges {
     }
 
     this.renameDifference = Math.abs(this.prime.name.charCodeAt(index) - this.updatedName.charCodeAt(index));
+    this.updatePreviewPrime();
+  }
+
+  /**
+   * Update preview prime
+   */
+  updatePreviewPrime() {
+    this.previewPrime.name = this.updatedName;
   }
 
   /**

@@ -21,6 +21,9 @@
         Owner of Prime asset can change the theme and skin.
     </p>
     <div *ngIf="isPrimeOwner">
+        <div class="mt-20 mb-20">
+            <lib-tags-prime-skins [prime]="previewPrime"></lib-tags-prime-skins>
+        </div>
         <div class="info row justify-content-center mt-20 mb-20">
             <div class="col-auto">
                 <div class="dropdown with-arrow select hand select-theme-dropdown">
