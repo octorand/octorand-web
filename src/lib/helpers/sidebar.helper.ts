@@ -75,6 +75,19 @@ export class SidebarHelper {
                 },
             ]
         },
+        {
+            id: 'tools',
+            name: 'Tools',
+            items: [
+                {
+                    id: 'designer',
+                    name: 'Designer',
+                    icon: 'fas fa-palette',
+                    color: '#c0392b',
+                    route: 'tools/designer',
+                },
+            ]
+        },
     ];
 
     /**

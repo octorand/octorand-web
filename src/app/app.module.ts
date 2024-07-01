@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgxGoogleAnalyticsModule, NgxGoogleAnalyticsRouterModule } from 'ngx-google-analytics';
 import { LibModule } from '@lib';
-import { CollectionModule, PlatformModule } from '@app/modules';
+import { CollectionModule, PlatformModule, ToolsModule } from '@app/modules';
 import { AppComponent } from './app.component';
 import { environment } from '@environment';
 import * as Pages from '@app/pages';
@@ -20,6 +20,10 @@ const routes: Routes = [
   {
     path: 'platform',
     loadChildren: () => PlatformModule
+  },
+  {
+    path: 'tools',
+    loadChildren: () => ToolsModule
   },
   {
     path: '**',
