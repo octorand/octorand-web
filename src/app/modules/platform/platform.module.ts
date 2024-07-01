@@ -12,6 +12,18 @@ const routes: Routes = [
     component: PlatformContainer,
     children: [
       {
+        path: 'guide',
+        component: Pages.PlatformGuidePage
+      },
+      {
+        path: 'migration',
+        component: Pages.PlatformMigrationPage
+      },
+      {
+        path: 'statistics',
+        component: Pages.PlatformStatisticsPage
+      },
+      {
         path: 'tokenomics',
         component: Pages.PlatformTokenomicsPage
       },
@@ -26,6 +38,9 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     PlatformContainer,
+    Pages.PlatformGuidePage,
+    Pages.PlatformMigrationPage,
+    Pages.PlatformStatisticsPage,
     Pages.PlatformTokenomicsPage,
     Pages.PlatformTraitsPage,
   ],

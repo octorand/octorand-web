@@ -48,9 +48,30 @@ export class SidebarHelper {
                 {
                     id: 'traits',
                     name: 'Traits',
-                    icon: 'fas fa-certificate',
+                    icon: 'fas fa-trophy',
                     color: '#2ecc71',
                     route: 'platform/traits',
+                },
+                {
+                    id: 'statistics',
+                    name: 'Statistics',
+                    icon: 'fas fa-signal',
+                    color: '#1abc9c',
+                    route: 'platform/statistics',
+                },
+                {
+                    id: 'migration',
+                    name: 'Migration',
+                    icon: 'fas fa-retweet',
+                    color: '#8e44ad',
+                    route: 'platform/migration',
+                },
+                {
+                    id: 'guide',
+                    name: 'Guide',
+                    icon: 'fas fa-book-open',
+                    color: '#f39c12',
+                    route: 'platform/guide',
                 },
             ]
         },
