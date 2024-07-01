@@ -13,55 +13,130 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <div class="row justify-content-center">
-                <div class="column col-12 col-md-6 col-lg-6 col-xl-6">
-                    <div class="card text-center">
-                        <h2 class="card-title text-secondary">
-                            Preview Prime
-                        </h2>
-                        <div class="mt-20 mb-40">
-                            <lib-tags-prime-skins [prime]="previewPrime"></lib-tags-prime-skins>
-                        </div>
-                        <p class="text-muted mb-5">
-                            Generation
-                        </p>
-                        <div class="info row justify-content-center mt-0 mb-0">
-                            <div class="col-auto">
-                                <button class="btn option" [ngClass]="{'btn-primary': selectedGen == 1}"
-                                    (click)="changeGen(1)">
-                                    GEN1
-                                </button>
+        <div class="row">
+            <div class="col">
+                <div class="row justify-content-center">
+                    <div class="column col-12 col-md-6 col-lg-6 col-xl-6">
+                        <div class="card text-center">
+                            <h2 class="card-title text-secondary">
+                                PREVIEW
+                            </h2>
+                            <div class="mt-20 mb-40">
+                                <lib-tags-prime-skins [prime]="previewPrime"></lib-tags-prime-skins>
                             </div>
-                            <div class="col-auto">
-                                <button class="btn option" [ngClass]="{'btn-primary': selectedGen == 2}"
-                                    (click)="changeGen(2)">
-                                    GEN2
-                                </button>
+                            <p class="text-muted mb-5">
+                                Generation
+                            </p>
+                            <div class="info row justify-content-center mt-0 mb-0">
+                                <div class="col-auto">
+                                    <button class="btn option" [ngClass]="{'btn-primary': selectedGen == 1}"
+                                        (click)="changeGen(1)">
+                                        GEN1
+                                    </button>
+                                </div>
+                                <div class="col-auto">
+                                    <button class="btn option" [ngClass]="{'btn-primary': selectedGen == 2}"
+                                        (click)="changeGen(2)">
+                                        GEN2
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                        <p class="text-muted mb-5">
-                            Theme
-                        </p>
-                        <div class="info row justify-content-center mt-0 mb-0">
-                            <div class="col-auto" *ngFor="let theme of themes">
-                                <button class="btn option" [ngClass]="{'btn-primary': theme.id == selectedTheme}"
-                                    (click)="changeTheme(theme.id)">
-                                    {{theme.name}}
-                                </button>
+                            <p class="text-muted mb-5">
+                                Name
+                            </p>
+                            <div class="info mt-0 mb-0">
+                                <div class="name">
+                                    <div class="row">
+                                        <div *ngFor="let number of [0, 1, 2, 3, 4, 5, 6, 7]" class="col">
+                                            <div class="action">
+                                                <div class="hand text-center text-primary"
+                                                    (click)="upLetterIndex(number)">
+                                                    <span>
+                                                        <i class="fas fa-chevron-up"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div *ngFor="let number of [0, 1, 2, 3, 4, 5, 6, 7]" class="col">
+                                            <div class="letter">
+                                                <div class="hand text-center">
+                                                    {{selectedName[number]}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div *ngFor="let number of [0, 1, 2, 3, 4, 5, 6, 7]" class="col">
+                                            <div class="action">
+                                                <div class="hand text-center text-primary"
+                                                    (click)="downLetterIndex(number)">
+                                                    <span>
+                                                        <i class="fas fa-chevron-down"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div *ngIf="selectedGen > 1" class="name">
+                                    <div class="row">
+                                        <div *ngFor="let number of [8, 9, 10, 11, 12, 13, 14, 15]" class="col">
+                                            <div class="action">
+                                                <div class="hand text-center text-primary"
+                                                    (click)="upLetterIndex(number)">
+                                                    <span>
+                                                        <i class="fas fa-chevron-up"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div *ngFor="let number of [8, 9, 10, 11, 12, 13, 14, 15]" class="col">
+                                            <div class="letter">
+                                                <div class="hand text-center">
+                                                    {{selectedName[number]}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div *ngFor="let number of [8, 9, 10, 11, 12, 13, 14, 15]" class="col">
+                                            <div class="action">
+                                                <div class="hand text-center text-primary"
+                                                    (click)="downLetterIndex(number)">
+                                                    <span>
+                                                        <i class="fas fa-chevron-down"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <p class="text-muted mb-5">
-                            Skin
-                        </p>
-                        <div class="info row justify-content-center mt-0 mb-0">
-                            <div class="col-auto" *ngFor="let skin of skins">
-                                <button class="btn option" [ngClass]="{'btn-primary': skin.id == selectedSkin}"
-                                    (click)="changeSkin(skin.id)">
-                                    {{skin.name}}
-                                </button>
+                            <p class="text-muted mb-5">
+                                Theme
+                            </p>
+                            <div class="info row justify-content-center mt-0 mb-0">
+                                <div class="col-auto" *ngFor="let theme of themes">
+                                    <button class="btn option" [ngClass]="{'btn-primary': theme.id == selectedTheme}"
+                                        (click)="changeTheme(theme.id)">
+                                        {{theme.name}}
+                                    </button>
+                                </div>
+                            </div>
+                            <p class="text-muted mb-5">
+                                Skin
+                            </p>
+                            <div class="info row justify-content-center mt-0 mb-0">
+                                <div class="col-auto" *ngFor="let skin of skins">
+                                    <button class="btn option" [ngClass]="{'btn-primary': skin.id == selectedSkin}"
+                                        (click)="changeSkin(skin.id)">
+                                        {{skin.name}}
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>

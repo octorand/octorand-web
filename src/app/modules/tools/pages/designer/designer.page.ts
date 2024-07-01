@@ -30,14 +30,19 @@ export class ToolsDesignerPage implements OnInit {
   selectedGen: number = 1;
 
   /**
-   * Id of selected theme
+   * Selected theme
    */
   selectedTheme: number = 0;
 
   /**
-   * Id of selected skin
+   * Selected skin
    */
   selectedSkin: number = 0;
+
+  /**
+   * Selected name
+   */
+  selectedName: string = 'AAAAAAAAAAAAAAAA';
 
   /**
    * Construct component
@@ -56,7 +61,7 @@ export class ToolsDesignerPage implements OnInit {
   ngOnInit() {
     this.initSkins();
     this.initThemes();
-    this.refreshView();
+    this.updatePreviewPrime();
   }
 
   /**
@@ -71,18 +76,6 @@ export class ToolsDesignerPage implements OnInit {
    */
   initThemes() {
     this.themes = this.themeHelper.list();
-  }
-
-  /**
-   * Refresh view state
-   */
-  refreshView() {
-    let previewPrime = new PrimeModel();
-    previewPrime.gen = this.selectedGen;
-    previewPrime.theme = this.selectedTheme;
-    previewPrime.skin = this.selectedSkin;
-    previewPrime.name = 'AAAAAAAA';
-    this.previewPrime = previewPrime;
   }
 
   /**
@@ -116,6 +109,36 @@ export class ToolsDesignerPage implements OnInit {
   }
 
   /**
+   * Roll up letter index
+   *
+   * @param index
+   */
+  upLetterIndex(index: number) {
+    let selectedLetterIndex = this.selectedName.charCodeAt(index);
+    if (selectedLetterIndex > 65) {
+      selectedLetterIndex = selectedLetterIndex - 1;
+      this.selectedName = this.selectedName.substring(0, index) + String.fromCharCode(selectedLetterIndex) + this.selectedName.substring(index + 1);
+    }
+
+    this.updatePreviewPrime();
+  }
+
+  /**
+   * Roll down letter index
+   *
+   * @param index
+   */
+  downLetterIndex(index: number) {
+    let selectedLetterIndex = this.selectedName.charCodeAt(index);
+    if (selectedLetterIndex < 90) {
+      selectedLetterIndex = selectedLetterIndex + 1;
+      this.selectedName = this.selectedName.substring(0, index) + String.fromCharCode(selectedLetterIndex) + this.selectedName.substring(index + 1);
+    }
+
+    this.updatePreviewPrime();
+  }
+
+  /**
    * Update preview prime
    */
   updatePreviewPrime() {
@@ -123,7 +146,7 @@ export class ToolsDesignerPage implements OnInit {
     previewPrime.gen = this.selectedGen;
     previewPrime.theme = this.selectedTheme;
     previewPrime.skin = this.selectedSkin;
-    previewPrime.name = 'OCTORAND';
+    previewPrime.name = this.selectedGen == 1 ? this.selectedName.substring(0, 8) : this.selectedName.substring(0, 16);
     this.previewPrime = previewPrime;
   }
 }
