@@ -17,40 +17,51 @@
     <div class="row">
         <div class="col">
             <div class="row justify-content-center">
-                <div class="column col-12 col-md-6 col-lg-6 col-xl-4">
-                    <div class="card">
-                        <h2 class="card-title text-center text-secondary">
+                <div class="column col-12 col-md-6 col-lg-6 col-xl-6">
+                    <div class="card text-center">
+                        <h2 class="card-title text-secondary">
                             Preview Prime
                         </h2>
-                        <div class="mt-20 mb-20">
+                        <div class="mt-20 mb-40">
                             <lib-tags-prime-skins [prime]="previewPrime"></lib-tags-prime-skins>
                         </div>
-                        <div class="info row justify-content-center mt-20 mb-20">
+                        <p class="text-muted mb-5">
+                            Generation
+                        </p>
+                        <div class="info row justify-content-center mt-0 mb-0">
                             <div class="col-auto">
-                                <div class="dropdown with-arrow select hand select-theme-dropdown">
-                                    <input value="{{selectedThemeName}}" class="form-control" type="text"
-                                        data-toggle="dropdown" id="popover-toggle" aria-haspopup="true"
-                                        aria-expanded="false" readonly>
-                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="popover-toggle">
-                                        <div *ngFor="let theme of themes" class="dropdown-item py-0"
-                                            (click)="selectTheme(theme)">
-                                            {{theme.name}}
-                                        </div>
-                                    </div>
-                                </div>
+                                <button class="btn option" [ngClass]="{'btn-primary': selectedGen == 1}"
+                                    (click)="changeGen(1)">
+                                    GEN1
+                                </button>
                             </div>
                             <div class="col-auto">
-                                <div class="dropdown with-arrow select hand select-skin-dropdown">
-                                    <input value="{{selectedSkinName}}" class="form-control" type="text"
-                                        data-toggle="dropdown" id="popover-toggle" aria-haspopup="true"
-                                        aria-expanded="false" readonly>
-                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="popover-toggle">
-                                        <div *ngFor="let skin of skins" class="dropdown-item py-0"
-                                            (click)="selectSkin(skin)">
-                                            {{skin.name}}
-                                        </div>
-                                    </div>
-                                </div>
+                                <button class="btn option" [ngClass]="{'btn-primary': selectedGen == 2}"
+                                    (click)="changeGen(2)">
+                                    GEN2
+                                </button>
+                            </div>
+                        </div>
+                        <p class="text-muted mb-5">
+                            Theme
+                        </p>
+                        <div class="info row justify-content-center mt-0 mb-0">
+                            <div class="col-auto" *ngFor="let theme of themes">
+                                <button class="btn option" [ngClass]="{'btn-primary': theme.id == selectedTheme}"
+                                    (click)="changeTheme(theme.id)">
+                                    {{theme.name}}
+                                </button>
+                            </div>
+                        </div>
+                        <p class="text-muted mb-5">
+                            Skin
+                        </p>
+                        <div class="info row justify-content-center mt-0 mb-0">
+                            <div class="col-auto" *ngFor="let skin of skins">
+                                <button class="btn option" [ngClass]="{'btn-primary': skin.id == selectedSkin}"
+                                    (click)="changeSkin(skin.id)">
+                                    {{skin.name}}
+                                </button>
                             </div>
                         </div>
                     </div>

@@ -25,24 +25,19 @@ export class ToolsDesignerPage implements OnInit {
   themes: Array<any> = [];
 
   /**
-   * Id of selected theme
+   * Selected generation
    */
-  selectedThemeId: number = 0;
+  selectedGen: number = 1;
 
   /**
-   * Name of selected theme
+   * Id of selected theme
    */
-  selectedThemeName: string = '';
+  selectedTheme: number = 0;
 
   /**
    * Id of selected skin
    */
-  selectedSkinId: number = 0;
-
-  /**
-   * Name of selected skin
-   */
-  selectedSkinName: string = '';
+  selectedSkin: number = 0;
 
   /**
    * Construct component
@@ -82,39 +77,42 @@ export class ToolsDesignerPage implements OnInit {
    * Refresh view state
    */
   refreshView() {
-    this.selectedThemeName = this.themes[this.selectedThemeId].name;
-    this.selectedSkinName = this.skins[this.selectedSkinId].name;
-
     let previewPrime = new PrimeModel();
-    previewPrime.gen = 1;
+    previewPrime.gen = this.selectedGen;
+    previewPrime.theme = this.selectedTheme;
+    previewPrime.skin = this.selectedSkin;
     previewPrime.name = 'AAAAAAAA';
-    previewPrime.theme = this.selectedThemeId;
-    previewPrime.skin = this.selectedSkinId;
     this.previewPrime = previewPrime;
   }
 
   /**
-   * Select theme
+   * When gen is changed
    *
-   * @param theme
+   * @param gen
    */
-  selectTheme(theme: any) {
-    this.selectedThemeId = theme.id;
-    this.selectedThemeName = theme.name;
+  changeGen(gen: number) {
+    this.selectedGen = gen;
     this.updatePreviewPrime();
-    this.hideDropdown('.select-theme-dropdown');
   }
 
   /**
-   * Select skin
+   * When theme is changed
+   *
+   * @param theme
+   */
+  changeTheme(theme: number) {
+    this.selectedTheme = theme;
+    this.updatePreviewPrime();
+  }
+
+  /**
+   * When skin is changed
    *
    * @param skin
    */
-  selectSkin(skin: any) {
-    this.selectedSkinId = skin.id;
-    this.selectedSkinName = skin.name;
+  changeSkin(skin: number) {
+    this.selectedSkin = skin;
     this.updatePreviewPrime()
-    this.hideDropdown('.select-skin-dropdown');
   }
 
   /**
@@ -122,25 +120,10 @@ export class ToolsDesignerPage implements OnInit {
    */
   updatePreviewPrime() {
     let previewPrime = new PrimeModel();
-    previewPrime.gen = 1;
+    previewPrime.gen = this.selectedGen;
+    previewPrime.theme = this.selectedTheme;
+    previewPrime.skin = this.selectedSkin;
     previewPrime.name = 'OCTORAND';
-    previewPrime.theme = this.selectedThemeId;
-    previewPrime.skin = this.selectedSkinId;
     this.previewPrime = previewPrime;
-  }
-
-  /**
-   * Hide dropdown
-   */
-  hideDropdown(css: string) {
-    let dropdown = document.querySelector(css);
-    if (dropdown) {
-      dropdown.classList.remove('show');
-
-      let button = dropdown.querySelector('.btn');
-      if (button) {
-        button.classList.remove('active');
-      }
-    }
   }
 }
