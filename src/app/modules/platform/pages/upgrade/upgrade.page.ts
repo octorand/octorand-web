@@ -156,6 +156,10 @@ export class PlatformUpgradePage implements OnInit, OnDestroy {
         this.currentPageResults = [];
       }
 
+      if (this.currentPage > this.pagesCount) {
+        this.currentPage = 1;
+      }
+
       this.ready = true;
     }
   }

@@ -206,6 +206,11 @@ export class CollectionMarketPage implements OnInit, OnDestroy {
       this.totalResults = totalResults;
       this.pagesCount = pagesCount;
       this.currentPageResults = currentPageResults;
+
+      if (this.currentPage > this.pagesCount) {
+        this.currentPage = 1;
+      }
+
       this.ready = true;
     }
   }
