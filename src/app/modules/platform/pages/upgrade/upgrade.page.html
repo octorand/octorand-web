@@ -7,10 +7,59 @@
                         Upgrade
                     </h1>
                     <p class="text-muted mx-auto mw-600 mt-0 mb-20">
-                        Primes earn badges by meeting specific qualifications. Some badges, like Founder, are inherent
-                        from birth. Others, like Chameleon, are earned as Primes undergo transformations. Additionally,
-                        badges such as Wordsmith are awarded when Primes change their names.
+                        Occasionally, we introduce new features to the Octorand ecosystem that require Primes to be
+                        upgraded to the latest version. Only Prime owners can perform these upgrades on their Primes.
+                        Here, you can view any of your Primes that need upgrading.
                     </p>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="ready">
+            <div class="col">
+                <div *ngIf="currentPageResults.length > 0">
+                    <div class="my-20">
+                        <lib-tags-pager [totalPages]="pagesCount" [currentPage]="currentPage"
+                            (onPageChange)="changePage($event)">
+                        </lib-tags-pager>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="column col-12 col-md-6 col-lg-4 col-xl-3" *ngFor="let prime of currentPageResults">
+                            <div class="card">
+                                <h2 class="card-title text-center text-secondary">
+                                    GEN{{prime.gen}} PRIME #{{prime.id_text}}
+                                </h2>
+                                <lib-tags-prime-skins [prime]="prime"></lib-tags-prime-skins>
+                                <div class="btn-group mt-20 btn-block" role="group">
+                                    <button *ngIf="actions.upgradePrime != prime.id_text"
+                                        class="btn btn-primary btn-block" type="button" (click)="upgradePrime(prime)">
+                                        Upgrade
+                                    </button>
+                                    <button *ngIf="actions.upgradePrime == prime.id_text"
+                                        class="btn btn-primary btn-block" type="button">
+                                        <i class="fas fa-cog fa-spin mx-20"></i>
+                                    </button>
+                                    <button class="btn btn-primary btn-square" type="button">
+                                        <a class="text-white" href="{{prime.url}}" target="_blank">
+                                            <i class="fas fa-external-link-alt"></i>
+                                        </a>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-20">
+                        <lib-tags-pager [totalPages]="pagesCount" [currentPage]="currentPage"
+                            (onPageChange)="changePage($event)">
+                        </lib-tags-pager>
+                    </div>
+                </div>
+                <div *ngIf="currentPageResults.length == 0" class="mw-600 mx-auto text-center">
+                    <div *ngIf="app.account" class="text-muted mt-60 mb-60">
+                        There aren't any primes owned by you that requires upgrading at the moment
+                    </div>
+                    <div *ngIf="!app.account" class="text-muted mt-60 mb-60">
+                        Connect you wallet to see your primes
+                    </div>
                 </div>
             </div>
         </div>
