@@ -87,6 +87,7 @@ export class PlatformGuidePage implements OnInit, OnDestroy {
       this.refreshView();
     });
   }
+
   /**
    * Refresh view state
    */

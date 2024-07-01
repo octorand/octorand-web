@@ -96,6 +96,7 @@ export class PlatformStatisticsPage implements OnInit, OnDestroy {
       this.refreshView();
     });
   }
+
   /**
    * Refresh view state
    */

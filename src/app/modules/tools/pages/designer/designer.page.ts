@@ -1,109 +1,146 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { AppHelper, DataHelper } from '@lib/helpers';
-import { AppModel, DataModel } from '@lib/models';
-import { Subscription } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { SkinHelper, ThemeHelper } from '@lib/helpers';
+import { PrimeModel } from '@lib/models';
 
 @Component({
   selector: 'app-tools-designer',
   templateUrl: './designer.page.html',
   styleUrls: ['./designer.page.scss'],
 })
-export class ToolsDesignerPage implements OnInit, OnDestroy {
+export class ToolsDesignerPage implements OnInit {
 
   /**
-   * App state
+   * Preview prime details
    */
-  app: AppModel = new AppModel();
+  previewPrime: PrimeModel = new PrimeModel();
 
   /**
-   * Data state
+   * List of skins
    */
-  data: DataModel = new DataModel();
+  skins: Array<any> = [];
 
   /**
-   * App subscription
+   * List of themes
    */
-  appSubscription: Subscription = new Subscription();
+  themes: Array<any> = [];
 
   /**
-   * Data subscription
+   * Id of selected theme
    */
-  dataSubscription: Subscription = new Subscription();
+  selectedThemeId: number = 0;
 
   /**
-   * Whether the page is ready to be rendered
+   * Name of selected theme
    */
-  ready: boolean = false;
+  selectedThemeName: string = '';
+
+  /**
+   * Id of selected skin
+   */
+  selectedSkinId: number = 0;
+
+  /**
+   * Name of selected skin
+   */
+  selectedSkinName: string = '';
 
   /**
    * Construct component
    *
-   * @param router
-   * @param appHelper
-   * @param dataHelper
+   * @param skinHelper
+   * @param themeHelper
    */
   constructor(
-    private router: Router,
-    private appHelper: AppHelper,
-    private dataHelper: DataHelper
+    private skinHelper: SkinHelper,
+    private themeHelper: ThemeHelper
   ) { }
 
   /**
    * Initialize component
    */
   ngOnInit() {
-    this.initApp();
-    this.initData();
+    this.initSkins();
+    this.initThemes();
     this.refreshView();
   }
 
   /**
-   * Destroy component
+   * Initialize skins
    */
-  ngOnDestroy() {
-    this.appSubscription.unsubscribe();
-    this.dataSubscription.unsubscribe();
+  initSkins() {
+    this.skins = this.skinHelper.list();
   }
 
   /**
-   * Initialize app
+   * Initialize themes
    */
-  initApp() {
-    this.app = this.appHelper.getDefaultState();
-    this.appSubscription = this.appHelper.app.subscribe((value: AppModel) => {
-      this.app = value;
-      this.refreshView();
-    });
+  initThemes() {
+    this.themes = this.themeHelper.list();
   }
 
-  /**
-   * Initialize data
-   */
-  initData() {
-    this.data = this.dataHelper.getDefaultState();
-    this.dataSubscription = this.dataHelper.data.subscribe((value: DataModel) => {
-      this.data = value;
-      this.refreshView();
-    });
-  }
   /**
    * Refresh view state
    */
   refreshView() {
-    if (this.data && this.data.initialised) {
+    this.selectedThemeName = this.themes[this.selectedThemeId].name;
+    this.selectedSkinName = this.skins[this.selectedSkinId].name;
 
-
-      this.ready = true;
-    }
+    let previewPrime = new PrimeModel();
+    previewPrime.gen = 1;
+    previewPrime.name = 'AAAAAAAA';
+    previewPrime.theme = this.selectedThemeId;
+    previewPrime.skin = this.selectedSkinId;
+    this.previewPrime = previewPrime;
   }
 
   /**
-   * Navigate to page
+   * Select theme
    *
-   * @param page
+   * @param theme
    */
-  navigateToPage(page: string) {
-    this.router.navigate([page]);
+  selectTheme(theme: any) {
+    this.selectedThemeId = theme.id;
+    this.selectedThemeName = theme.name;
+    this.updatePreviewPrime();
+    this.hideDropdown('.select-theme-dropdown');
+  }
+
+  /**
+   * Select skin
+   *
+   * @param skin
+   */
+  selectSkin(skin: any) {
+    this.selectedSkinId = skin.id;
+    this.selectedSkinName = skin.name;
+    this.updatePreviewPrime()
+    this.hideDropdown('.select-skin-dropdown');
+  }
+
+  /**
+   * Update preview prime
+   */
+  updatePreviewPrime() {
+    let previewPrime = new PrimeModel();
+    previewPrime.gen = 1;
+    previewPrime.name = 'OCTORAND';
+    previewPrime.theme = this.selectedThemeId;
+    previewPrime.skin = this.selectedSkinId;
+    this.previewPrime = previewPrime;
+  }
+
+  /**
+   * Hide dropdown
+   */
+  hideDropdown(css: string) {
+    let dropdown = document.querySelector(css);
+    if (dropdown) {
+      dropdown.classList.remove('show');
+
+      let button = dropdown.querySelector('.btn');
+      if (button) {
+        button.classList.remove('active');
+      }
+    }
   }
 }
