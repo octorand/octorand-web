@@ -119,8 +119,8 @@ export class PlatformStatisticsPage implements OnInit, OnDestroy {
           count: primesOne.length,
           owners: (new Set(primesOne.map(p => p.owner))).size,
           listed: primesOne.filter(p => p.price > 0).length,
-          sales: 0,
-          volume: 0,
+          sales: genOneSales.length,
+          volume: genOneSales.reduce((a, b) => a.price + b.price, 0),
           highest: 0
         };
 
@@ -130,8 +130,8 @@ export class PlatformStatisticsPage implements OnInit, OnDestroy {
           count: primesTwo.length,
           owners: (new Set(primesTwo.map(p => p.owner))).size,
           listed: primesTwo.filter(p => p.price > 0).length,
-          sales: 0,
-          volume: 0,
+          sales: genTwoSales.length,
+          volume: genTwoSales.reduce((a, b) => a.price + b.price, 0),
           highest: 0
         };
 

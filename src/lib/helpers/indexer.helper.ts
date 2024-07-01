@@ -199,7 +199,8 @@ export class IndexerHelper {
 
         let pager = await this.getPagedResults(this.getIndexerClient().lookupApplicationLogs(id), limit, key);
         for (let i = 0; i < pager.length; i++) {
-            logs.push(pager[i]['logs'][0]);
+            let log = pager[i]['logs'][0];
+            logs.push(this.decodeLogEvent(log));
         }
 
         return logs;
@@ -243,5 +244,85 @@ export class IndexerHelper {
         }
 
         return entries;
+    }
+
+    /**
+     * Decode log event details
+     *
+     * @param log
+     */
+    private decodeLogEvent(log: string) {
+        let value = Buffer.from(log, 'base64');
+
+        let data = {
+            code: value.subarray(0, 4).toString('utf-8').trim(),
+            version: algosdk.decodeUint64(value.subarray(4, 12)),
+            timestamp: algosdk.decodeUint64(value.subarray(12, 20)),
+            prime: algosdk.decodeUint64(value.subarray(20, 28)),
+            sender: algosdk.encodeAddress(value.subarray(28, 60)),
+            name: '',
+            params: {
+                seller: null,
+                price: null,
+                amount: null,
+                asset_id: null,
+                name: null,
+                index: null,
+                value: null,
+                theme: null,
+                skin: null,
+            }
+        };
+
+        switch (data.code) {
+            case 'prby':
+                data.name = 'prime_buy';
+                data.params.seller = algosdk.encodeAddress(value.subarray(60, 92));
+                data.params.price = algosdk.decodeUint64(value.subarray(92, 100));
+                break;
+            case 'prls':
+                data.name = 'prime_list';
+                data.params.price = algosdk.decodeUint64(value.subarray(60, 68));
+                break;
+            case 'prmt':
+                data.name = 'prime_mint';
+                data.params.amount = algosdk.decodeUint64(value.subarray(60, 68));
+                break;
+            case 'proi':
+                data.name = 'prime_optin';
+                data.params.asset_id = algosdk.decodeUint64(value.subarray(60, 68));
+                break;
+            case 'proo':
+                data.name = 'prime_optout';
+                data.params.asset_id = algosdk.decodeUint64(value.subarray(60, 68));
+                break;
+            case 'prrn':
+                data.name = 'prime_rename';
+                data.params.index = algosdk.decodeUint64(value.subarray(60, 68));
+                data.params.value = algosdk.decodeUint64(value.subarray(68, 76));
+                data.params.price = algosdk.decodeUint64(value.subarray(76, 84));
+                break;
+            case 'prrp':
+                data.name = 'prime_repaint';
+                data.params.theme = algosdk.decodeUint64(value.subarray(60, 68));
+                data.params.skin = algosdk.decodeUint64(value.subarray(68, 76));
+                data.params.price = algosdk.decodeUint64(value.subarray(76, 84));
+                break;
+            case 'prul':
+                data.name = 'prime_unlist';
+                break;
+            case 'prug':
+                data.name = 'prime_upgrade';
+                break;
+            case 'prwd':
+                data.name = 'prime_withdraw';
+                data.params.amount = algosdk.decodeUint64(value.subarray(60, 68));
+                break;
+            case 'prcl':
+                data.name = 'prime_claim';
+                break;
+        }
+
+        return data;
     }
 }
