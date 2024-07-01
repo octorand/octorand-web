@@ -89,7 +89,7 @@ export class IndexerHelper {
 
         let pager = await this.getPagedResults(this.getIndexerClient().lookupAccountCreatedApplications(address), limit, key);
         for (let i = 0; i < pager.length; i++) {
-            applications.push(pager[i])
+            applications.push(pager[i]);
         }
 
         return applications;
@@ -107,7 +107,7 @@ export class IndexerHelper {
 
         let pager = await this.getPagedResults(this.getIndexerClient().lookupAccountCreatedAssets(address), limit, key);
         for (let i = 0; i < pager.length; i++) {
-            assets.push(pager[i])
+            assets.push(pager[i]);
         }
 
         return assets;
@@ -126,7 +126,7 @@ export class IndexerHelper {
 
         let pager = await this.getPagedResults(this.getIndexerClient().lookupAssetBalances(id).currencyGreaterThan(min), limit, key);
         for (let i = 0; i < pager.length; i++) {
-            balances.push(pager[i])
+            balances.push(pager[i]);
         }
 
         return balances;
@@ -144,7 +144,7 @@ export class IndexerHelper {
 
         let pager = await this.getPagedResults(this.getIndexerClient().lookupAssetTransactions(id), limit, key);
         for (let i = 0; i < pager.length; i++) {
-            transactions.push(pager[i])
+            transactions.push(pager[i]);
         }
 
         return transactions;
@@ -162,7 +162,7 @@ export class IndexerHelper {
 
         let pager = await this.getPagedResults(this.getIndexerClient().lookupAccountTransactions(from).txType('pay').currencyGreaterThan(0), limit, key);
         for (let i = 0; i < pager.length; i++) {
-            transactions.push(pager[i])
+            transactions.push(pager[i]);
         }
 
         return transactions;
@@ -181,10 +181,28 @@ export class IndexerHelper {
 
         let pager = await this.getPagedResults(this.getIndexerClient().lookupAccountTransactions(from).assetID(id).txType('axfer').currencyGreaterThan(0), limit, key);
         for (let i = 0; i < pager.length; i++) {
-            transactions.push(pager[i])
+            transactions.push(pager[i]);
         }
 
         return transactions;
+    }
+
+    /**
+     * Lookup logs for an application
+     *
+     * @param id
+     */
+    async lookupApplicationLogs(id: number): Promise<Array<any>> {
+        let limit = environment.indexer_page_size;
+        let key = 'log-data';
+        let logs = [];
+
+        let pager = await this.getPagedResults(this.getIndexerClient().lookupApplicationLogs(id), limit, key);
+        for (let i = 0; i < pager.length; i++) {
+            logs.push(pager[i]['logs'][0]);
+        }
+
+        return logs;
     }
 
     /**

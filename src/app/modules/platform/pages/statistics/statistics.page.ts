@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppHelper, DataHelper, StoreHelper } from '@lib/helpers';
+import { environment } from '@environment';
+import { AppHelper, DataHelper, IndexerHelper, StoreHelper } from '@lib/helpers';
 import { AppModel, DataModel } from '@lib/models';
 import { Subscription } from 'rxjs';
 
@@ -53,6 +54,7 @@ export class PlatformStatisticsPage implements OnInit, OnDestroy {
     private router: Router,
     private appHelper: AppHelper,
     private dataHelper: DataHelper,
+    private indexerHelper: IndexerHelper,
     private storeHelper: StoreHelper
   ) { }
 
@@ -99,37 +101,49 @@ export class PlatformStatisticsPage implements OnInit, OnDestroy {
    */
   refreshView() {
     if (this.data && this.data.initialised) {
-      let primesOne = this.data.gen_one_primes;
-      let primesTwo = this.data.gen_two_primes;
-
-      let genOne = {
-        id: 1,
-        name: 'GEN1',
-        count: primesOne.length,
-        owners: (new Set(primesOne.map(p => p.owner))).size,
-        listed: primesOne.filter(p => p.price > 0).length,
-        sales: 0,
-        volume: 0,
-        highest: 0
-      };
-
-      let genTwo = {
-        id: 2,
-        name: 'GEN2',
-        count: primesTwo.length,
-        owners: (new Set(primesTwo.map(p => p.owner))).size,
-        listed: primesTwo.filter(p => p.price > 0).length,
-        sales: 0,
-        volume: 0,
-        highest: 0
-      };
-
-      this.generations = [
-        genOne,
-        genTwo,
+      let promises = [
+        this.indexerHelper.lookupApplicationLogs(environment.gen1.contracts.prime.buy.application_id),
+        this.indexerHelper.lookupApplicationLogs(environment.gen2.contracts.prime.buy.application_id),
       ];
 
-      this.ready = true;
+      Promise.all(promises).then(values => {
+        let genOneSales = values[0];
+        let genTwoSales = values[1];
+
+        let primesOne = this.data.gen_one_primes;
+        let primesTwo = this.data.gen_two_primes;
+
+        let genOne = {
+          id: 1,
+          name: 'GEN1',
+          count: primesOne.length,
+          owners: (new Set(primesOne.map(p => p.owner))).size,
+          listed: primesOne.filter(p => p.price > 0).length,
+          sales: 0,
+          volume: 0,
+          highest: 0
+        };
+
+        let genTwo = {
+          id: 2,
+          name: 'GEN2',
+          count: primesTwo.length,
+          owners: (new Set(primesTwo.map(p => p.owner))).size,
+          listed: primesTwo.filter(p => p.price > 0).length,
+          sales: 0,
+          volume: 0,
+          highest: 0
+        };
+
+        this.generations = [
+          genOne,
+          genTwo,
+        ];
+
+        console.log(genOneSales, genTwoSales);
+
+        this.ready = true;
+      });
     }
   }
 

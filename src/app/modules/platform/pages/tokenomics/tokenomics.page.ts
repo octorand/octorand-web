@@ -140,20 +140,27 @@ export class PlatformTokenomicsPage implements OnInit, OnDestroy {
    */
   loadTokenDetails() {
     this.assetId = environment.platform.asset_id;
-    this.indexerHelper.lookupAsset(this.assetId).then((asset: any) => {
+
+    let promises = [
+      this.indexerHelper.lookupAsset(this.assetId),
+      this.indexerHelper.lookupAccount(environment.platform.reserve),
+    ];
+
+    Promise.all(promises).then(values => {
+      let asset = values[0];
+      let account = values[1];
+
       this.assetUnit = asset['params']['unit-name'];
       this.assetDecimals = asset['params']['decimals'];
       this.totalSupply = asset['params']['total'];
 
-      this.indexerHelper.lookupAccount(environment.platform.reserve).then((account: any) => {
-        let balance = account['assets'].find((a: any) => a['asset-id'] == this.assetId);
-        if (balance) {
-          this.burntSupply = balance.amount;
-        }
+      let balance = account['assets'].find((a: any) => a['asset-id'] == this.assetId);
+      if (balance) {
+        this.burntSupply = balance.amount;
+      }
 
-        this.circulatingSupply = this.totalSupply - this.burntSupply;
-        this.ready = true;
-      });
+      this.circulatingSupply = this.totalSupply - this.burntSupply;
+      this.ready = true;
     });
   }
 
