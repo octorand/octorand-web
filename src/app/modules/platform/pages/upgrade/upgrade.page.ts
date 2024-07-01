@@ -5,11 +5,11 @@ import { AppModel, DataModel } from '@lib/models';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-platform-migration',
-  templateUrl: './migration.page.html',
-  styleUrls: ['./migration.page.scss'],
+  selector: 'app-platform-upgrade',
+  templateUrl: './upgrade.page.html',
+  styleUrls: ['./upgrade.page.scss'],
 })
-export class PlatformMigrationPage implements OnInit, OnDestroy {
+export class PlatformUpgradePage implements OnInit, OnDestroy {
 
   /**
    * App state

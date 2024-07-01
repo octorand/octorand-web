@@ -16,10 +16,6 @@ const routes: Routes = [
         component: Pages.PlatformGuidePage
       },
       {
-        path: 'migration',
-        component: Pages.PlatformMigrationPage
-      },
-      {
         path: 'statistics',
         component: Pages.PlatformStatisticsPage
       },
@@ -31,6 +27,10 @@ const routes: Routes = [
         path: 'traits',
         component: Pages.PlatformTraitsPage
       },
+      {
+        path: 'upgrade',
+        component: Pages.PlatformUpgradePage
+      },
     ]
   }
 ];
@@ -39,10 +39,10 @@ const routes: Routes = [
   declarations: [
     PlatformContainer,
     Pages.PlatformGuidePage,
-    Pages.PlatformMigrationPage,
     Pages.PlatformStatisticsPage,
     Pages.PlatformTokenomicsPage,
     Pages.PlatformTraitsPage,
+    Pages.PlatformUpgradePage,
   ],
   imports: [
     CommonModule,

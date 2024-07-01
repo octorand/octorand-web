@@ -60,11 +60,11 @@ export class SidebarHelper {
                     route: 'platform/statistics',
                 },
                 {
-                    id: 'migration',
-                    name: 'Migration',
-                    icon: 'fas fa-retweet',
+                    id: 'upgrade',
+                    name: 'Upgrade',
+                    icon: 'fas fa-upload',
                     color: '#8e44ad',
-                    route: 'platform/migration',
+                    route: 'platform/upgrade',
                 },
                 {
                     id: 'guide',
