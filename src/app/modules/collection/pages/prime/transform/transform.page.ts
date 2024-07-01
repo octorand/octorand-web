@@ -172,11 +172,8 @@ export class CollectionPrimeTransformPage implements OnInit, OnChanges {
    */
   upLetterIndex(index: number) {
     this.selectNameIndex(index);
-    if (this.selectedLetterIndex > 65) {
-      this.selectedLetterIndex = this.selectedLetterIndex - 1;
-      this.updatedName = this.updatedName.substring(0, index) + String.fromCharCode(this.selectedLetterIndex) + this.updatedName.substring(index + 1);
-    }
-
+    this.selectedLetterIndex = this.selectedLetterIndex >= 90 ? 65 : (this.selectedLetterIndex + 1);
+    this.updatedName = this.updatedName.substring(0, index) + String.fromCharCode(this.selectedLetterIndex) + this.updatedName.substring(index + 1);
     this.renameDifference = Math.abs(this.prime.name.charCodeAt(index) - this.updatedName.charCodeAt(index));
     this.updatePreviewPrime();
   }
@@ -188,11 +185,8 @@ export class CollectionPrimeTransformPage implements OnInit, OnChanges {
    */
   downLetterIndex(index: number) {
     this.selectNameIndex(index);
-    if (this.selectedLetterIndex < 90) {
-      this.selectedLetterIndex = this.selectedLetterIndex + 1;
-      this.updatedName = this.updatedName.substring(0, index) + String.fromCharCode(this.selectedLetterIndex) + this.updatedName.substring(index + 1);
-    }
-
+    this.selectedLetterIndex = this.selectedLetterIndex <= 65 ? 90 : (this.selectedLetterIndex - 1);
+    this.updatedName = this.updatedName.substring(0, index) + String.fromCharCode(this.selectedLetterIndex) + this.updatedName.substring(index + 1);
     this.renameDifference = Math.abs(this.prime.name.charCodeAt(index) - this.updatedName.charCodeAt(index));
     this.updatePreviewPrime();
   }
