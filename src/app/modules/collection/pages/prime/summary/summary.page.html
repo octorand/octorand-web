@@ -36,6 +36,16 @@
                 <span innerHTML="{{prime.price | amount:0 | async}}"></span>
             </lib-tags-chip>
         </div>
+        <div class="col-auto">
+            <lib-tags-chip key="Sales">
+                {{prime.sales}}
+            </lib-tags-chip>
+        </div>
+        <div class="col-auto">
+            <lib-tags-chip key="Transforms">
+                {{prime.transforms}}
+            </lib-tags-chip>
+        </div>
     </div>
     <p class="text-muted text-center mt-0 mb-20">
         Each Prime is uniquely represented by an Algorand standard asset and powered by an
