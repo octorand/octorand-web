@@ -115,11 +115,8 @@ export class ToolsDesignerPage implements OnInit {
    */
   upLetterIndex(index: number) {
     let selectedLetterIndex = this.selectedName.charCodeAt(index);
-    if (selectedLetterIndex > 65) {
-      selectedLetterIndex = selectedLetterIndex - 1;
-      this.selectedName = this.selectedName.substring(0, index) + String.fromCharCode(selectedLetterIndex) + this.selectedName.substring(index + 1);
-    }
-
+    selectedLetterIndex = selectedLetterIndex >= 90 ? 65 : (selectedLetterIndex + 1);
+    this.selectedName = this.selectedName.substring(0, index) + String.fromCharCode(selectedLetterIndex) + this.selectedName.substring(index + 1);
     this.updatePreviewPrime();
   }
 
@@ -130,11 +127,8 @@ export class ToolsDesignerPage implements OnInit {
    */
   downLetterIndex(index: number) {
     let selectedLetterIndex = this.selectedName.charCodeAt(index);
-    if (selectedLetterIndex < 90) {
-      selectedLetterIndex = selectedLetterIndex + 1;
-      this.selectedName = this.selectedName.substring(0, index) + String.fromCharCode(selectedLetterIndex) + this.selectedName.substring(index + 1);
-    }
-
+    selectedLetterIndex = selectedLetterIndex <= 65 ? 90 : (selectedLetterIndex - 1);
+    this.selectedName = this.selectedName.substring(0, index) + String.fromCharCode(selectedLetterIndex) + this.selectedName.substring(index + 1);
     this.updatePreviewPrime();
   }
 
