@@ -59,7 +59,13 @@
                                             <tr>
                                                 <td class="text-success">Highest Sale</td>
                                                 <td class="text-right"
-                                                    innerHTML="{{generation.highest | amount:0 | async}}">
+                                                    innerHTML="{{generation.highestSale | amount:0 | async}}">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-success">Highest Score</td>
+                                                <td class="text-right">
+                                                    {{generation.highestScore}}
                                                 </td>
                                             </tr>
                                         </tbody>

@@ -108,8 +108,8 @@ export class PlatformStatisticsPage implements OnInit, OnDestroy {
       ];
 
       Promise.all(promises).then(values => {
-        let genOneSales = values[0];
-        let genTwoSales = values[1];
+        let salesOne = values[0];
+        let salesTwo = values[1];
 
         let primesOne = this.data.gen_one_primes;
         let primesTwo = this.data.gen_two_primes;
@@ -120,9 +120,10 @@ export class PlatformStatisticsPage implements OnInit, OnDestroy {
           count: primesOne.length,
           owners: (new Set(primesOne.map(p => p.owner))).size,
           listed: primesOne.filter(p => p.price > 0).length,
-          sales: genOneSales.length,
-          volume: genOneSales.length > 0 ? genOneSales.map(p => p.params.price).reduce((a, b) => a + b, 0) : 0,
-          highest: genOneSales.length > 0 ? Math.max(...genOneSales.map(p => p.params.price)) : 0
+          sales: salesOne.length,
+          volume: salesOne.length > 0 ? salesOne.map(p => p.params.price).reduce((a, b) => a + b, 0) : 0,
+          highestSale: salesOne.length > 0 ? Math.max(...salesOne.map(p => p.params.price)) : 0,
+          highestScore: primesOne.length > 0 ? Math.max(...primesOne.map(p => p.score)) : 0
         };
 
         let genTwo = {
@@ -131,9 +132,10 @@ export class PlatformStatisticsPage implements OnInit, OnDestroy {
           count: primesTwo.length,
           owners: (new Set(primesTwo.map(p => p.owner))).size,
           listed: primesTwo.filter(p => p.price > 0).length,
-          sales: genTwoSales.length,
-          volume: genTwoSales.length > 0 ? genTwoSales.map(p => p.params.price).reduce((a, b) => a + b, 0) : 0,
-          highest: genTwoSales.length > 0 ? Math.max(...genTwoSales.map(p => p.params.price)) : 0
+          sales: salesTwo.length,
+          volume: salesTwo.length > 0 ? salesTwo.map(p => p.params.price).reduce((a, b) => a + b, 0) : 0,
+          highestSale: salesTwo.length > 0 ? Math.max(...salesTwo.map(p => p.params.price)) : 0,
+          highestScore: primesTwo.length > 0 ? Math.max(...primesTwo.map(p => p.score)) : 0
         };
 
         this.generations = [
