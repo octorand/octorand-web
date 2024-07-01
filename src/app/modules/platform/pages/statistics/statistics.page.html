@@ -7,11 +7,74 @@
                         Statistics
                     </h1>
                     <p class="text-muted mx-auto mw-600 mt-0 mb-20">
-                        Primes earn badges by meeting specific qualifications. Some badges, like Founder, are inherent
-                        from birth. Others, like Chameleon, are earned as Primes undergo transformations. Additionally,
-                        badges such as Wordsmith are awarded when Primes change their names.
+                        In Octorand, Primes reign supreme as the sole inhabitants. Initially, 1000 Primes graced this
+                        realm, but as time unfolded, each of these first generation Primes gave birth to 8 offspring,
+                        leading to the emergence of 8000 Primes in the second generation.
                     </p>
                 </div>
             </div>
         </div>
+        <div class="row" *ngIf="ready">
+            <div class="col">
+                <div class="row justify-content-center">
+                    <div class="column col-12 col-md-6 col-lg-6 col-xl-4" *ngFor="let generation of generations">
+                        <div class="card">
+                            <h2 class="card-title text-center text-secondary">
+                                {{generation.name}} Primes
+                            </h2>
+                            <div class="info mb-20">
+                                <div class="table-responsive">
+                                    <table class="table table-no-outer-padding">
+                                        <tbody>
+                                            <tr>
+                                                <td class="text-success">Primes Count</td>
+                                                <td class="text-right">
+                                                    {{generation.count}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-success">Unique Holders</td>
+                                                <td class="text-right">
+                                                    {{generation.owners}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-success">Listed for Sale</td>
+                                                <td class="text-right">
+                                                    {{generation.listed}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-success">Total Sales</td>
+                                                <td class="text-right"
+                                                    innerHTML="{{generation.sales | amount:0 | async}}">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-success">Sales Volume</td>
+                                                <td class="text-right"
+                                                    innerHTML="{{generation.volume | amount:0 | async}}">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-success">Highest Sale</td>
+                                                <td class="text-right"
+                                                    innerHTML="{{generation.highest | amount:0 | async}}">
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="text-center mt-0 mb-0">
+                                <button class="btn btn-primary" (click)="openGen(generation.id)" type="button">
+                                    Browse Primes
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+</div>

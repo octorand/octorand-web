@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppHelper, DataHelper } from '@lib/helpers';
+import { AppHelper, DataHelper, StoreHelper } from '@lib/helpers';
 import { AppModel, DataModel } from '@lib/models';
 import { Subscription } from 'rxjs';
 
@@ -37,16 +37,23 @@ export class PlatformStatisticsPage implements OnInit, OnDestroy {
   ready: boolean = false;
 
   /**
+   * Details of prime generations
+   */
+  generations: Array<any> = [];
+
+  /**
    * Construct component
    *
    * @param router
    * @param appHelper
    * @param dataHelper
+   * @param storeHelper
    */
   constructor(
     private router: Router,
     private appHelper: AppHelper,
-    private dataHelper: DataHelper
+    private dataHelper: DataHelper,
+    private storeHelper: StoreHelper
   ) { }
 
   /**
@@ -92,10 +99,50 @@ export class PlatformStatisticsPage implements OnInit, OnDestroy {
    */
   refreshView() {
     if (this.data && this.data.initialised) {
+      let primesOne = this.data.gen_one_primes;
+      let primesTwo = this.data.gen_two_primes;
 
+      let genOne = {
+        id: 1,
+        name: 'GEN1',
+        count: primesOne.length,
+        owners: (new Set(primesOne.map(p => p.owner))).size,
+        listed: primesOne.filter(p => p.price > 0).length,
+        sales: 0,
+        volume: 0,
+        highest: 0
+      };
+
+      let genTwo = {
+        id: 2,
+        name: 'GEN2',
+        count: primesTwo.length,
+        owners: (new Set(primesTwo.map(p => p.owner))).size,
+        listed: primesTwo.filter(p => p.price > 0).length,
+        sales: 0,
+        volume: 0,
+        highest: 0
+      };
+
+      this.generations = [
+        genOne,
+        genTwo,
+      ];
 
       this.ready = true;
     }
+  }
+
+  /**
+   * Open browse primes page
+   *
+   * @param gen
+   */
+  openGen(gen: number) {
+    this.storeHelper.setBrowseGen(gen);
+    this.storeHelper.setBrowseBadges([]);
+    this.storeHelper.setBrowseSort('Id');
+    this.navigateToPage('/collection/browse');
   }
 
   /**
