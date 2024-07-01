@@ -120,8 +120,8 @@ export class PlatformStatisticsPage implements OnInit, OnDestroy {
           owners: (new Set(primesOne.map(p => p.owner))).size,
           listed: primesOne.filter(p => p.price > 0).length,
           sales: genOneSales.length,
-          volume: genOneSales.reduce((a, b) => a.price + b.price, 0),
-          highest: 0
+          volume: genOneSales.length > 0 ? genOneSales.map(p => p.params.price).reduce((a, b) => a + b, 0) : 0,
+          highest: genOneSales.length > 0 ? Math.max(...genOneSales.map(p => p.params.price)) : 0
         };
 
         let genTwo = {
@@ -131,16 +131,14 @@ export class PlatformStatisticsPage implements OnInit, OnDestroy {
           owners: (new Set(primesTwo.map(p => p.owner))).size,
           listed: primesTwo.filter(p => p.price > 0).length,
           sales: genTwoSales.length,
-          volume: genTwoSales.reduce((a, b) => a.price + b.price, 0),
-          highest: 0
+          volume: genTwoSales.length > 0 ? genTwoSales.map(p => p.params.price).reduce((a, b) => a + b, 0) : 0,
+          highest: genTwoSales.length > 0 ? Math.max(...genTwoSales.map(p => p.params.price)) : 0
         };
 
         this.generations = [
           genOne,
           genTwo,
         ];
-
-        console.log(genOneSales, genTwoSales);
 
         this.ready = true;
       });
