@@ -138,7 +138,7 @@ export class PlatformUpgradePage implements OnInit, OnDestroy {
         let assets = this.app.assets.filter(a => a.amount > 0).map(a => a.id);
         allResults = allResults.filter(x => assets.includes(x.legacy_asset_id));
 
-        allResults.sort((first, second) => first.id - second.id);
+        allResults.sort((first, second) => 10000 + first.id - second.id);
 
         let totalResults = allResults.length;
         let pagesCount = Math.ceil(totalResults / this.resultsPerPage);
