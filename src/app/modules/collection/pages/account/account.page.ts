@@ -202,7 +202,12 @@ export class CollectionAccountPage implements OnInit, OnDestroy {
             allResults.sort((first, second) => second.rewards - first.rewards);
             break;
           case 'Price':
-            allResults.sort((first, second) => first.price - second.price);
+            allResults.sort((first, second) => {
+              function value(price: number) {
+                return price == 0 ? Infinity : price;
+              }
+              return value(first.price) - value(second.price);
+            });
             break;
         }
 
