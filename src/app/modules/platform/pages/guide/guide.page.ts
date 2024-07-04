@@ -93,8 +93,6 @@ export class PlatformGuidePage implements OnInit, OnDestroy {
    */
   refreshView() {
     if (this.data && this.data.initialised) {
-
-
       this.ready = true;
     }
   }
