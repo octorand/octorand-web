@@ -19,10 +19,10 @@ export class StoreHelper {
             account_sort: 'Id',
             account_badges: [],
             browse_gen: 1,
-            browse_sort: 'Id',
+            browse_sort: 'Rank',
             browse_badges: [],
             market_gen: 1,
-            market_sort: 'Id',
+            market_sort: 'Price',
             market_badges: [],
         };
 

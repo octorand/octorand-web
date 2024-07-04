@@ -84,6 +84,8 @@ export class CollectionAccountPage implements OnInit, OnDestroy {
     'Id',
     'Name',
     'Rank',
+    'Rewards',
+    'Price',
   ];
 
   /**
@@ -195,6 +197,12 @@ export class CollectionAccountPage implements OnInit, OnDestroy {
             break;
           case 'Rank':
             allResults.sort((first, second) => first.rank - second.rank);
+            break;
+          case 'Rewards':
+            allResults.sort((first, second) => second.rewards - first.rewards);
+            break;
+          case 'Price':
+            allResults.sort((first, second) => first.price - second.price);
             break;
         }
 

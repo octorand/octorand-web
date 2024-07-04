@@ -70,7 +70,7 @@ export class CollectionMarketPage implements OnInit, OnDestroy {
   /**
    * Selected sort
    */
-  selectedSort: string = 'Id';
+  selectedSort: string = 'Price';
 
   /**
    * Selected list of badges
@@ -84,6 +84,8 @@ export class CollectionMarketPage implements OnInit, OnDestroy {
     'Id',
     'Name',
     'Rank',
+    'Rewards',
+    'Price',
   ];
 
   /**
@@ -193,6 +195,12 @@ export class CollectionMarketPage implements OnInit, OnDestroy {
           break;
         case 'Rank':
           allResults.sort((first, second) => first.rank - second.rank);
+          break;
+        case 'Rewards':
+          allResults.sort((first, second) => second.rewards - first.rewards);
+          break;
+        case 'Price':
+          allResults.sort((first, second) => first.price - second.price);
           break;
       }
 
