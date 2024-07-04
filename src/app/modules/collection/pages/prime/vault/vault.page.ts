@@ -37,6 +37,11 @@ export class CollectionPrimeVaultPage implements OnInit, OnChanges, OnDestroy {
   isPrimeOwner: boolean = false;
 
   /**
+   * Whether prime asset is listed for sale by current wallet
+   */
+  isListedOwner: boolean = false;
+
+  /**
    * List of assets that can be deposited
    */
   depositableAssets: Array<any> = [];
@@ -162,6 +167,7 @@ export class CollectionPrimeVaultPage implements OnInit, OnChanges, OnDestroy {
     if (this.prime) {
       this.isConnected = this.app.account ? true : false;
       this.isPrimeOwner = this.app.assets.find(a => a.id == this.prime.prime_asset_id && a.amount > 0) ? true : false;
+      this.isListedOwner = (this.prime.is_listed && this.prime.seller == this.app.account) ? true : false;
       this.depositableAssets = this.app.assets.filter(a => a.amount > 0 && ![this.prime.platform_asset_id, this.prime.legacy_asset_id, this.prime.prime_asset_id].includes(a.id));
     }
   }

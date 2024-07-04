@@ -37,6 +37,11 @@ export class CollectionPrimeRewardsPage implements OnInit, OnChanges {
   isPrimeOwner: boolean = false;
 
   /**
+   * Whether prime asset is listed for sale by current wallet
+   */
+  isListedOwner: boolean = false;
+
+  /**
    * Whether current wallet is opted into platform asset
    */
   isOptedIn: boolean = false;
@@ -95,6 +100,7 @@ export class CollectionPrimeRewardsPage implements OnInit, OnChanges {
     if (this.prime) {
       this.isConnected = this.app.account ? true : false;
       this.isPrimeOwner = this.app.assets.find(a => a.id == this.prime.prime_asset_id && a.amount > 0) ? true : false;
+      this.isListedOwner = (this.prime.is_listed && this.prime.seller == this.app.account) ? true : false;
       this.isOptedIn = this.app.assets.find(a => a.id == this.prime.platform_asset_id) ? true : false;
     }
   }

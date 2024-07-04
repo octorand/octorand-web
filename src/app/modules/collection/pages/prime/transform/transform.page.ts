@@ -47,6 +47,11 @@ export class CollectionPrimeTransformPage implements OnInit, OnChanges {
   isPrimeOwner: boolean = false;
 
   /**
+   * Whether prime asset is listed for sale by current wallet
+   */
+  isListedOwner: boolean = false;
+
+  /**
    * Index of selected name letter
    */
   selectedNameIndex: number = -1;
@@ -122,6 +127,7 @@ export class CollectionPrimeTransformPage implements OnInit, OnChanges {
     if (this.prime) {
       this.isConnected = this.app.account ? true : false;
       this.isPrimeOwner = this.app.assets.find(a => a.id == this.prime.prime_asset_id && a.amount > 0) ? true : false;
+      this.isListedOwner = (this.prime.is_listed && this.prime.seller == this.app.account) ? true : false;
 
       if (this.prime.gen == 1) {
         this.renamePrice = environment.gen1.rename_price;

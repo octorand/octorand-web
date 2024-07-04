@@ -58,7 +58,10 @@
         </div>
     </div>
     <p class="text-muted text-center mt-0 mb-0">
-        Only the holder of Prime asset can withdraw ALGO or OCTO from the rewards bundle.
+        Owner of Prime asset can withdraw ALGO or OCTO from the rewards bundle.
+    </p>
+    <p *ngIf="isListedOwner" class="text-muted text-center mt-0 mb-0">
+        Unlist this Prime from market to make withdrawals.
     </p>
     <div *ngIf="isPrimeOwner" class="info row justify-content-center mt-20 mb-0">
         <div class="col-auto">

@@ -20,6 +20,9 @@
     <p class="text-muted text-center mt-0 mb-0">
         Owner of Prime asset can change the theme and skin.
     </p>
+    <p *ngIf="isListedOwner" class="text-muted text-center mt-0 mb-0">
+        Unlist this Prime from market to change the theme and skin.
+    </p>
     <div *ngIf="isPrimeOwner">
         <div class="mt-20 mb-20">
             <lib-tags-prime-skins [prime]="previewPrime"></lib-tags-prime-skins>

@@ -57,6 +57,11 @@ export class CollectionPrimeArtworkPage implements OnInit, OnChanges {
   isPrimeOwner: boolean = false;
 
   /**
+   * Whether prime asset is listed for sale by current wallet
+   */
+  isListedOwner: boolean = false;
+
+  /**
    * Id of selected theme
    */
   selectedThemeId: number = 0;
@@ -152,6 +157,7 @@ export class CollectionPrimeArtworkPage implements OnInit, OnChanges {
     if (this.prime) {
       this.isConnected = this.app.account ? true : false;
       this.isPrimeOwner = this.app.assets.find(a => a.id == this.prime.prime_asset_id && a.amount > 0) ? true : false;
+      this.isListedOwner = (this.prime.is_listed && this.prime.seller == this.app.account) ? true : false;
 
       if (!this.isInitialised) {
         this.selectedThemeId = this.prime.theme;
