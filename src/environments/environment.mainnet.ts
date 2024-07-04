@@ -6,7 +6,7 @@ export const environment = {
   analytics_code: '',
   admin_address: 'NXZLEEQ35KIZ3V3MHFXOOQNEINVLYAU7JCAOZZTQRCDREO4O34I27KLIXU',
   indexer_page_size: 1000,
-  display_page_size: 100,
+  display_page_size: 50,
   platform: {
     asset_id: 559219992,
     manager: 'NP5K3WA5H6SBM36DJDZDMPFDVQPRIX6RAXNZ3H6EIC32K6C75YNAMM6Z44',
