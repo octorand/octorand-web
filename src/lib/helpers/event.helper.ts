@@ -74,11 +74,14 @@ export class EventHelper {
             price: null,
         };
 
-        if (version == 1) {
-            params.prime = algosdk.decodeUint64(value.subarray(20, 28));
-            params.sender = algosdk.encodeAddress(value.subarray(28, 60));
-            params.seller = algosdk.encodeAddress(value.subarray(60, 92));
-            params.price = algosdk.decodeUint64(value.subarray(92, 100));
+        switch (version) {
+            case 0:
+            case 1:
+                params.prime = algosdk.decodeUint64(value.subarray(20, 28));
+                params.sender = algosdk.encodeAddress(value.subarray(28, 60));
+                params.seller = algosdk.encodeAddress(value.subarray(60, 92));
+                params.price = algosdk.decodeUint64(value.subarray(92, 100));
+                break;
         }
 
         return params;
@@ -97,9 +100,12 @@ export class EventHelper {
             sender: null,
         };
 
-        if (version == 1) {
-            params.prime = algosdk.decodeUint64(value.subarray(20, 28));
-            params.sender = algosdk.encodeAddress(value.subarray(28, 60));
+        switch (version) {
+            case 0:
+            case 1:
+                params.prime = algosdk.decodeUint64(value.subarray(20, 28));
+                params.sender = algosdk.encodeAddress(value.subarray(28, 60));
+                break;
         }
 
         return params;
@@ -119,10 +125,13 @@ export class EventHelper {
             price: null,
         };
 
-        if (version == 1) {
-            params.prime = algosdk.decodeUint64(value.subarray(20, 28));
-            params.sender = algosdk.encodeAddress(value.subarray(28, 60));
-            params.price = algosdk.decodeUint64(value.subarray(60, 68));
+        switch (version) {
+            case 0:
+            case 1:
+                params.prime = algosdk.decodeUint64(value.subarray(20, 28));
+                params.sender = algosdk.encodeAddress(value.subarray(28, 60));
+                params.price = algosdk.decodeUint64(value.subarray(60, 68));
+                break;
         }
 
         return params;
@@ -142,10 +151,13 @@ export class EventHelper {
             amount: null,
         };
 
-        if (version == 1) {
-            params.prime = algosdk.decodeUint64(value.subarray(20, 28));
-            params.sender = algosdk.encodeAddress(value.subarray(28, 60));
-            params.amount = algosdk.decodeUint64(value.subarray(60, 68));
+        switch (version) {
+            case 0:
+            case 1:
+                params.prime = algosdk.decodeUint64(value.subarray(20, 28));
+                params.sender = algosdk.encodeAddress(value.subarray(28, 60));
+                params.amount = algosdk.decodeUint64(value.subarray(60, 68));
+                break;
         }
 
         return params;
@@ -165,10 +177,13 @@ export class EventHelper {
             asset_id: null,
         };
 
-        if (version == 1) {
-            params.prime = algosdk.decodeUint64(value.subarray(20, 28));
-            params.sender = algosdk.encodeAddress(value.subarray(28, 60));
-            params.asset_id = algosdk.decodeUint64(value.subarray(60, 68));
+        switch (version) {
+            case 0:
+            case 1:
+                params.prime = algosdk.decodeUint64(value.subarray(20, 28));
+                params.sender = algosdk.encodeAddress(value.subarray(28, 60));
+                params.asset_id = algosdk.decodeUint64(value.subarray(60, 68));
+                break;
         }
 
         return params;
@@ -188,10 +203,13 @@ export class EventHelper {
             asset_id: null,
         };
 
-        if (version == 1) {
-            params.prime = algosdk.decodeUint64(value.subarray(20, 28));
-            params.sender = algosdk.encodeAddress(value.subarray(28, 60));
-            params.asset_id = algosdk.decodeUint64(value.subarray(60, 68));
+        switch (version) {
+            case 0:
+            case 1:
+                params.prime = algosdk.decodeUint64(value.subarray(20, 28));
+                params.sender = algosdk.encodeAddress(value.subarray(28, 60));
+                params.asset_id = algosdk.decodeUint64(value.subarray(60, 68));
+                break;
         }
 
         return params;
@@ -213,12 +231,15 @@ export class EventHelper {
             price: null,
         };
 
-        if (version == 1) {
-            params.prime = algosdk.decodeUint64(value.subarray(20, 28));
-            params.sender = algosdk.encodeAddress(value.subarray(28, 60));
-            params.index = algosdk.decodeUint64(value.subarray(60, 68));
-            params.value = algosdk.decodeUint64(value.subarray(68, 76));
-            params.price = algosdk.decodeUint64(value.subarray(76, 84));
+        switch (version) {
+            case 0:
+            case 1:
+                params.prime = algosdk.decodeUint64(value.subarray(20, 28));
+                params.sender = algosdk.encodeAddress(value.subarray(28, 60));
+                params.index = algosdk.decodeUint64(value.subarray(60, 68));
+                params.value = algosdk.decodeUint64(value.subarray(68, 76));
+                params.price = algosdk.decodeUint64(value.subarray(76, 84));
+                break;
         }
 
         return params;
@@ -240,12 +261,15 @@ export class EventHelper {
             price: null,
         };
 
-        if (version == 1) {
-            params.prime = algosdk.decodeUint64(value.subarray(20, 28));
-            params.sender = algosdk.encodeAddress(value.subarray(28, 60));
-            params.theme = algosdk.decodeUint64(value.subarray(60, 68));
-            params.skin = algosdk.decodeUint64(value.subarray(68, 76));
-            params.price = algosdk.decodeUint64(value.subarray(76, 84));
+        switch (version) {
+            case 0:
+            case 1:
+                params.prime = algosdk.decodeUint64(value.subarray(20, 28));
+                params.sender = algosdk.encodeAddress(value.subarray(28, 60));
+                params.theme = algosdk.decodeUint64(value.subarray(60, 68));
+                params.skin = algosdk.decodeUint64(value.subarray(68, 76));
+                params.price = algosdk.decodeUint64(value.subarray(76, 84));
+                break;
         }
 
         return params;
@@ -264,9 +288,12 @@ export class EventHelper {
             sender: null,
         };
 
-        if (version == 1) {
-            params.prime = algosdk.decodeUint64(value.subarray(20, 28));
-            params.sender = algosdk.encodeAddress(value.subarray(28, 60));
+        switch (version) {
+            case 0:
+            case 1:
+                params.prime = algosdk.decodeUint64(value.subarray(20, 28));
+                params.sender = algosdk.encodeAddress(value.subarray(28, 60));
+                break;
         }
 
         return params;
@@ -285,9 +312,12 @@ export class EventHelper {
             sender: null,
         };
 
-        if (version == 1) {
-            params.prime = algosdk.decodeUint64(value.subarray(20, 28));
-            params.sender = algosdk.encodeAddress(value.subarray(28, 60));
+        switch (version) {
+            case 0:
+            case 1:
+                params.prime = algosdk.decodeUint64(value.subarray(20, 28));
+                params.sender = algosdk.encodeAddress(value.subarray(28, 60));
+                break;
         }
 
         return params;
@@ -307,10 +337,13 @@ export class EventHelper {
             amount: null,
         };
 
-        if (version == 1) {
-            params.prime = algosdk.decodeUint64(value.subarray(20, 28));
-            params.sender = algosdk.encodeAddress(value.subarray(28, 60));
-            params.amount = algosdk.decodeUint64(value.subarray(60, 68));
+        switch (version) {
+            case 0:
+            case 1:
+                params.prime = algosdk.decodeUint64(value.subarray(20, 28));
+                params.sender = algosdk.encodeAddress(value.subarray(28, 60));
+                params.amount = algosdk.decodeUint64(value.subarray(60, 68));
+                break;
         }
 
         return params;
