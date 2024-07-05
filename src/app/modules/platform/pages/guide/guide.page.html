@@ -129,6 +129,136 @@
                         16 vibrant color themes. The OCTO tokens used for repainting Primes are burned instantly,
                         decreasing the total OCTO supply.
                     </p>
+                    <p class="text-secondary mt-0 mb-20">
+                        Scoring
+                    </p>
+                    <p class="text-muted mx-auto mw-600 mt-20 mb-20">
+                        Primes are ranked based on their scores, which are earned through various transformations and
+                        activities. When a second generation Prime earns points, its first generation parent also
+                        receives a points boost of 10%, enhancing their overall ranking.
+                    </p>
+                    <div class="row justify-content-center">
+                        <div class="column col-12 col-md-6 col-lg-4 col-xl-3" *ngFor="let generation of generations">
+                            <div class="card">
+                                <h2 class="card-title text-center text-secondary">
+                                    {{generation.name}} PRIMES
+                                </h2>
+                                <div class="info mb-0">
+                                    <div class="table-responsive">
+                                        <table class="table table-no-outer-padding">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="text-success">Points for Renaming</td>
+                                                    <td class="text-right">
+                                                        {{generation.rename_points}}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-success">Points for Repainting</td>
+                                                    <td class="text-right">
+                                                        {{generation.repaint_points}}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-success">Boost from Child</td>
+                                                    <td class="text-right">
+                                                        {{generation.points_boost}}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-secondary mt-20 mb-20">
+                        Market
+                    </p>
+                    <p class="text-muted mx-auto mw-600 mt-20 mb-20">
+                        Octorand features an integrated marketplace where players can trade their Primes. Listing a
+                        Prime for sale is free, and a 10% platform fee is deducted from the sales price upon completion
+                        of a sale. This fee is distributed among various shareholders within the system. Notably, when a
+                        second generation Prime is sold in the marketplace, its first generation parent receives a 5%
+                        royalty payment.
+                    </p>
+                    <div class="row justify-content-center">
+                        <div class="column col-12 col-md-6 col-lg-4 col-xl-3" *ngFor="let generation of generations">
+                            <div class="card">
+                                <h2 class="card-title text-center text-secondary">
+                                    {{generation.name}} PRIMES
+                                </h2>
+                                <div class="info mb-0">
+                                    <div class="table-responsive">
+                                        <table class="table table-no-outer-padding">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="text-success">Seller Profit</td>
+                                                    <td class="text-right">
+                                                        {{generation.seller_profit}}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-success">Developer Profit</td>
+                                                    <td class="text-right">
+                                                        {{generation.developer_profit}}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-success">Parent Prime Profit</td>
+                                                    <td class="text-right">
+                                                        {{generation.parent_profit}}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-secondary mt-20 mb-20">
+                        Traits
+                    </p>
+                    <p class="text-muted mx-auto mw-600 mt-20 mb-20">
+                        Primes earn badges by meeting specific qualifications. Some badges, like Founder, are inherent
+                        from birth, while others, such as Chameleon, are earned through transformations. Additionally,
+                        badges like Wordsmith are awarded when Primes change their names. Transforming Primes to earn
+                        high-quality badges is an exciting endeavor.
+                    </p>
+                    <div class="row justify-content-center">
+                        <div class="column col-12 col-md-12 col-lg-12 col-xl-6">
+                            <div class="card">
+                                <h2 class="card-title text-center text-secondary">
+                                    BADGES
+                                </h2>
+                                <div class="info mb-0">
+                                    <div class="table-responsive">
+                                        <table class="table table-no-outer-padding">
+                                            <tbody>
+                                                <tr *ngFor="let badge of badges">
+                                                    <td class="text-success">
+                                                        <p>{{badge.name}}</p>
+                                                    </td>
+                                                    <td>
+                                                        <p>{{badge.description}}</p>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-secondary mt-20 mb-20">
+                        Vault
+                    </p>
+                    <p class="text-muted mx-auto mw-600 mt-20 mb-20">
+                        Primes can serve as a storage of value. Anyone can send third-party ASAs to be stored inside a
+                        Prime, but only the Prime's owner can withdraw these stored assets. This feature allows players
+                        to sell a bundle of assets in the marketplace by storing all of them inside a single Prime.
+                    </p>
                 </div>
             </div>
         </div>

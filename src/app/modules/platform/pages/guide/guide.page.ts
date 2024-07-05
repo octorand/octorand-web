@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { StoreHelper } from '@lib/helpers';
+import { BadgeHelper, StoreHelper } from '@lib/helpers';
 import { environment } from '@environment';
 
 @Component({
@@ -21,6 +21,11 @@ export class PlatformGuidePage implements OnInit {
   generations: Array<any> = [];
 
   /**
+   * Details of prime badges
+   */
+  badges: Array<any> = [];
+
+  /**
    * Platform asset id
    */
   assetId: number = 0;
@@ -29,12 +34,12 @@ export class PlatformGuidePage implements OnInit {
    * Construct component
    *
    * @param router
-   * @param appHelper
-   * @param dataHelper
+   * @param badgeHelper
    * @param storeHelper
    */
   constructor(
     private router: Router,
+    private badgeHelper: BadgeHelper,
     private storeHelper: StoreHelper
   ) { }
 
@@ -58,8 +63,14 @@ export class PlatformGuidePage implements OnInit {
       name_letters: 8,
       mint_price: 100 * Math.pow(10, 6),
       rewards: 1000 * Math.pow(10, 6),
-      rename_cost: 10 * Math.pow(10, 6),
-      repaint_cost: 10 * Math.pow(10, 6),
+      rename_cost: environment.gen1.rename_price,
+      repaint_cost: environment.gen1.repaint_price,
+      rename_points: environment.gen1.rename_score,
+      repaint_points: environment.gen1.repaint_score,
+      points_boost: '10%',
+      seller_profit: '90%',
+      developer_profit: '10%',
+      parent_profit: 'NA',
     };
 
     let genTwo = {
@@ -69,14 +80,22 @@ export class PlatformGuidePage implements OnInit {
       name_letters: 16,
       mint_price: 25 * Math.pow(10, 6),
       rewards: 8 * Math.pow(10, 6),
-      rename_cost: 1 * Math.pow(10, 6),
-      repaint_cost: 1 * Math.pow(10, 6),
+      rename_cost: environment.gen2.rename_price,
+      repaint_cost: environment.gen2.repaint_price,
+      rename_points: environment.gen2.rename_score,
+      repaint_points: environment.gen2.repaint_score,
+      points_boost: 'NA',
+      seller_profit: '90%',
+      developer_profit: '5%',
+      parent_profit: '5%',
     };
 
     this.generations = [
       genOne,
       genTwo,
     ];
+
+    this.badges = this.badgeHelper.list();
 
     this.ready = true;
   }
