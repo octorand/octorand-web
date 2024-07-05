@@ -11,13 +11,13 @@ export class BadgeHelper {
             id: 'artifact',
             name: 'Artifact',
             icon: 'fas fa-star',
-            description: 'Primes that have made some special contributions in the early days of Octorand',
+            description: 'Primes that made some special impacts in Octorand history',
         },
         {
             id: 'bountiful',
             name: 'Bountiful',
             icon: 'fas fa-coins',
-            description: 'Primes that have never been harvested for OCTO',
+            description: 'Primes that have never been harvested for OCTO rewards',
         },
         {
             id: 'chameleon',
@@ -35,13 +35,13 @@ export class BadgeHelper {
             id: 'culture',
             name: 'Culture',
             icon: 'fas fa-heart',
-            description: 'Primes whose traits spell a word that has some reference to certain cultures',
+            description: 'Primes whose name spell a cultural reference word',
         },
         {
             id: 'drained',
             name: 'Drained',
             icon: 'fas fa-tint-slash',
-            description: 'Primes that have no more OCTO inside them to be minted',
+            description: 'Primes that have no more OCTO inside them to be harvested',
         },
         {
             id: 'equidistant',
@@ -53,7 +53,7 @@ export class BadgeHelper {
             id: 'exotic',
             name: 'Exotic',
             icon: 'fas fa-cocktail',
-            description: 'Primes that have been traded in the marketplace at least 10 times',
+            description: 'Primes that have been traded in the market at least 10 times',
         },
         {
             id: 'explorer',
@@ -71,19 +71,19 @@ export class BadgeHelper {
             id: 'fancy',
             name: 'Fancy',
             icon: 'fas fa-rainbow',
-            description: 'Primes that have special pattern traits like zigzags or palindromes',
+            description: 'Primes that have special pattern names like zigzags or palindromes',
         },
         {
             id: 'fiction',
             name: 'Fiction',
             icon: 'fas fa-jedi',
-            description: 'Primes whose traits spell a fictional word from books, comics, movies, etc',
+            description: 'Primes whose name spell a word from fictional literacy',
         },
         {
             id: 'flipper',
             name: 'Flipper',
             icon: 'fas fa-drafting-compass',
-            description: 'Primes that have been traded in the marketplace at least 5 times',
+            description: 'Primes that have been traded in the market at least 5 times',
         },
         {
             id: 'founder',
@@ -101,7 +101,7 @@ export class BadgeHelper {
             id: 'pioneer',
             name: 'Pioneer',
             icon: 'fas fa-user-astronaut',
-            description: 'Primes that went through transformations in the early days of Octorand',
+            description: 'Primes that pioneered the art of transforming',
         },
         {
             id: 'pristine',
