@@ -1,35 +1,14 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppHelper, DataHelper } from '@lib/helpers';
-import { AppModel, DataModel } from '@lib/models';
-import { Subscription } from 'rxjs';
+import { StoreHelper } from '@lib/helpers';
+import { environment } from '@environment';
 
 @Component({
   selector: 'app-platform-guide',
   templateUrl: './guide.page.html',
   styleUrls: ['./guide.page.scss'],
 })
-export class PlatformGuidePage implements OnInit, OnDestroy {
-
-  /**
-   * App state
-   */
-  app: AppModel = new AppModel();
-
-  /**
-   * Data state
-   */
-  data: DataModel = new DataModel();
-
-  /**
-   * App subscription
-   */
-  appSubscription: Subscription = new Subscription();
-
-  /**
-   * Data subscription
-   */
-  dataSubscription: Subscription = new Subscription();
+export class PlatformGuidePage implements OnInit {
 
   /**
    * Whether the page is ready to be rendered
@@ -37,64 +16,77 @@ export class PlatformGuidePage implements OnInit, OnDestroy {
   ready: boolean = false;
 
   /**
+   * Details of prime generations
+   */
+  generations: Array<any> = [];
+
+  /**
+   * Platform asset id
+   */
+  assetId: number = 0;
+
+  /**
    * Construct component
    *
    * @param router
    * @param appHelper
    * @param dataHelper
+   * @param storeHelper
    */
   constructor(
     private router: Router,
-    private appHelper: AppHelper,
-    private dataHelper: DataHelper
+    private storeHelper: StoreHelper
   ) { }
 
   /**
    * Initialize component
    */
   ngOnInit() {
-    this.initApp();
-    this.initData();
     this.refreshView();
-  }
-
-  /**
-   * Destroy component
-   */
-  ngOnDestroy() {
-    this.appSubscription.unsubscribe();
-    this.dataSubscription.unsubscribe();
-  }
-
-  /**
-   * Initialize app
-   */
-  initApp() {
-    this.app = this.appHelper.getDefaultState();
-    this.appSubscription = this.appHelper.app.subscribe((value: AppModel) => {
-      this.app = value;
-      this.refreshView();
-    });
-  }
-
-  /**
-   * Initialize data
-   */
-  initData() {
-    this.data = this.dataHelper.getDefaultState();
-    this.dataSubscription = this.dataHelper.data.subscribe((value: DataModel) => {
-      this.data = value;
-      this.refreshView();
-    });
   }
 
   /**
    * Refresh view state
    */
   refreshView() {
-    if (this.data && this.data.initialised) {
-      this.ready = true;
-    }
+    this.assetId = environment.platform.asset_id;
+
+    let genOne = {
+      id: 1,
+      name: 'GEN1',
+      count: 1000,
+      mint_price: 100 * Math.pow(10, 6),
+      name_letters: 8,
+      rewards: 1000 * Math.pow(10, 6),
+    };
+
+    let genTwo = {
+      id: 2,
+      name: 'GEN2',
+      count: 8000,
+      mint_price: 25 * Math.pow(10, 6),
+      name_letters: 16,
+      rewards: 8 * Math.pow(10, 6),
+    };
+
+    this.generations = [
+      genOne,
+      genTwo,
+    ];
+
+    this.ready = true;
+  }
+
+  /**
+   * Open browse primes page
+   *
+   * @param gen
+   */
+  openGen(gen: number) {
+    this.storeHelper.setBrowseGen(gen);
+    this.storeHelper.setBrowseBadges([]);
+    this.storeHelper.setBrowseSort('Rank');
+    this.navigateToPage('/collection/browse');
   }
 
   /**

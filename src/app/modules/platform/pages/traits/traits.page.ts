@@ -133,7 +133,7 @@ export class PlatformTraitsPage implements OnInit, OnDestroy {
   openBadge(gen: number, badge: any) {
     this.storeHelper.setBrowseGen(gen);
     this.storeHelper.setBrowseBadges([badge.name]);
-    this.storeHelper.setBrowseSort('Id');
+    this.storeHelper.setBrowseSort('Rank');
     this.navigateToPage('/collection/browse');
   }
 

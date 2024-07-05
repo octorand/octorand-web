@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div *ngIf="ready" class="container-fluid">
     <div class="content">
         <div class="row">
             <div class="col">
@@ -7,18 +7,71 @@
                         Guide
                     </h1>
                     <p class="text-muted mx-auto mw-600 mt-0 mb-20">
-                        Octorand is a virtual world where the sole inhabitants are called Primes. Features of Primes are
-                        controlled by OCTO, the native currency of Octorand.
+                        Octorand is a unique virtual world exclusively inhabited by beings known as Primes. The
+                        characteristics and abilities of Primes are governed by OCTO, the native currency of this
+                        digital realm.
                     </p>
-                    <h5 class="text-white mt-0 mb-20">
+                    <p class="text-secondary mt-0 mb-20">
                         Primes
-                    </h5>
+                    </p>
                     <p class="text-muted mx-auto mw-600 mt-0 mb-20">
-                        Each Prime is a Algorand NFT. They are uniquely represented by a Algorand ASA and a Algorand
-                        Smart Contract. Primes come in two generations. There are 1000 first generation Primes who each
-                        gave birth to 8 offspring leading to 8000 Primes in the second generation.
+                        Each Prime in Octorand is an Algorand NFT, uniquely represented by an Algorand ASA and an
+                        Algorand Smart Contract. Primes exist in two generations, the first generation consists of 1000
+                        Primes, each of which produced 8 offspring, resulting in 8000 second generation Primes. The two
+                        generations of Primes differ in several ways, with the first generation typically being more
+                        costly to manage compared to the second generation.
+                    </p>
+                    <div class="row justify-content-center">
+                        <div class="column col-12 col-md-6 col-lg-4 col-xl-3" *ngFor="let generation of generations">
+                            <div class="card">
+                                <h2 class="card-title text-center text-secondary">
+                                    {{generation.name}} PRIMES
+                                </h2>
+                                <div class="info mb-0">
+                                    <div class="table-responsive">
+                                        <table class="table table-no-outer-padding">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="text-success">Primes Count</td>
+                                                    <td class="text-right">
+                                                        {{generation.count}}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-success">Mint Price</td>
+                                                    <td class="text-right"
+                                                        innerHTML="{{generation.mint_price | amount:0 | async}}">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-success">Rewards Bundle</td>
+                                                    <td class="text-right"
+                                                        innerHTML="{{generation.rewards | amount:assetId | async}}">
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-muted mx-auto mw-600 mt-20 mb-20">
+                        Every Prime begins its journey with an OCTO rewards bundle. First generation Primes come loaded
+                        with 1000 OCTO, while second generation Primes contain 8 OCTO each. Prime owners can withdraw
+                        these OCTO rewards at their convenience.
+                    </p>
+                    <p class="text-secondary mt-0 mb-20">
+                        Tokenomics
+                    </p>
+                    <p class="text-muted mx-auto mw-600 mt-0 mb-20">
+                        OCTO, represented by an Algorand ASA, is the native currency of Octorand and features unique
+                        deflationary dynamics. As a versatile utility token, OCTO serves numerous applications across
+                        the Octorand ecosystem. With an initial finite supply of 1,000,000 tokens, the total amount of
+                        OCTO gradually decreases over time as it is utilized for various functions within Octorand.
                     </p>
                 </div>
             </div>
         </div>
     </div>
+</div>

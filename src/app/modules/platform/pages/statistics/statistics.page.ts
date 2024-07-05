@@ -156,7 +156,7 @@ export class PlatformStatisticsPage implements OnInit, OnDestroy {
   openGen(gen: number) {
     this.storeHelper.setBrowseGen(gen);
     this.storeHelper.setBrowseBadges([]);
-    this.storeHelper.setBrowseSort('Id');
+    this.storeHelper.setBrowseSort('Rank');
     this.navigateToPage('/collection/browse');
   }
 
