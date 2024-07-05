@@ -70,6 +70,65 @@
                         the Octorand ecosystem. With an initial finite supply of 1,000,000 tokens, the total amount of
                         OCTO gradually decreases over time as it is utilized for various functions within Octorand.
                     </p>
+                    <p class="text-secondary mt-0 mb-20">
+                        Transforming
+                    </p>
+                    <p class="text-muted mx-auto mw-600 mt-0 mb-20">
+                        Primes are a dynamic and ever-evolving species. They have the unique ability to transform
+                        themselves under the influence of their owners. To facilitate these evolutions, Primes require
+                        OCTO tokens.
+                    </p>
+                    <div class="row justify-content-center">
+                        <div class="column col-12 col-md-6 col-lg-4 col-xl-3" *ngFor="let generation of generations">
+                            <div class="card">
+                                <h2 class="card-title text-center text-secondary">
+                                    {{generation.name}} PRIMES
+                                </h2>
+                                <div class="info mb-0">
+                                    <div class="table-responsive">
+                                        <table class="table table-no-outer-padding">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="text-success">Letters in Name</td>
+                                                    <td class="text-right">
+                                                        {{generation.name_letters}}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-success">Cost to Rename</td>
+                                                    <td class="text-right"
+                                                        innerHTML="{{generation.rename_cost | amount:assetId | async}}">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-success">Cost to Repaint</td>
+                                                    <td class="text-right"
+                                                        innerHTML="{{generation.repaint_cost | amount:assetId | async}}">
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-muted mx-auto mw-600 mt-20 mb-20">
+                        One of the key features of Primes is the ability to rename them. First generation Primes have
+                        8-letter names, while second generation Primes have 16-letter names. Initially, Primes are given
+                        random names, but owners can rename their Primes to any name they choose, letter by letter.
+                    </p>
+                    <p class="text-muted mx-auto mw-600 mt-20 mb-20">
+                        The cost of renaming a letter depends on the alphabetical distance between the current letter
+                        and the target letter. For example, changing 'A' to 'B' is a one-letter change, while changing
+                        'B' to 'D' is a two-letter change and costs twice as much. Changing 'Z' to 'X' is a three-letter
+                        change and costs three times as much. The OCTO tokens used for renaming are burned instantly.
+                    </p>
+                    <p class="text-muted mx-auto mw-600 mt-20 mb-20">
+                        Prime owners can personalize the appearance of their Primes by selecting from 3 unique skins and
+                        16 vibrant color themes. The OCTO tokens used for repainting Primes are burned instantly,
+                        decreasing the total OCTO supply.
+                    </p>
                 </div>
             </div>
         </div>

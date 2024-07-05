@@ -55,18 +55,22 @@ export class PlatformGuidePage implements OnInit {
       id: 1,
       name: 'GEN1',
       count: 1000,
-      mint_price: 100 * Math.pow(10, 6),
       name_letters: 8,
+      mint_price: 100 * Math.pow(10, 6),
       rewards: 1000 * Math.pow(10, 6),
+      rename_cost: 10 * Math.pow(10, 6),
+      repaint_cost: 10 * Math.pow(10, 6),
     };
 
     let genTwo = {
       id: 2,
       name: 'GEN2',
       count: 8000,
-      mint_price: 25 * Math.pow(10, 6),
       name_letters: 16,
+      mint_price: 25 * Math.pow(10, 6),
       rewards: 8 * Math.pow(10, 6),
+      rename_cost: 1 * Math.pow(10, 6),
+      repaint_cost: 1 * Math.pow(10, 6),
     };
 
     this.generations = [
