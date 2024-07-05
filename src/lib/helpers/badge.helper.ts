@@ -101,7 +101,7 @@ export class BadgeHelper {
             id: 'pioneer',
             name: 'Pioneer',
             icon: 'fas fa-user-astronaut',
-            description: 'Primes that went through transformations before OCTO token finished emiting',
+            description: 'Primes that went through transformations in the early days of Octorand',
         },
         {
             id: 'pristine',

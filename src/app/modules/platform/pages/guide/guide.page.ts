@@ -69,7 +69,7 @@ export class PlatformGuidePage implements OnInit {
       repaint_points: environment.gen1.repaint_score,
       points_boost: '10%',
       seller_profit: '90%',
-      developer_profit: '10%',
+      platform_profit: '10%',
       parent_profit: 'NA',
     };
 
@@ -86,7 +86,7 @@ export class PlatformGuidePage implements OnInit {
       repaint_points: environment.gen2.repaint_score,
       points_boost: 'NA',
       seller_profit: '90%',
-      developer_profit: '5%',
+      platform_profit: '5%',
       parent_profit: '5%',
     };
 
