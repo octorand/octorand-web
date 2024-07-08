@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, OnChanges, SimpleChanges, SimpleChange } from '@angular/core';
-import { ColorHelper } from '@lib/helpers';
+import { ColorHelper, SkinHelper } from '@lib/helpers';
 import { PrimeModel } from '@lib/models';
 
 @Component({
@@ -10,6 +10,7 @@ import { PrimeModel } from '@lib/models';
 export class PrimeSkinsGenOneTag2 implements OnInit, OnChanges {
 
   shades: Array<any> = [];
+  params: Array<any> = [];
   blocks: Array<any> = [];
   arcs: Array<any> = [];
   slices: Array<any> = [];
@@ -21,8 +22,15 @@ export class PrimeSkinsGenOneTag2 implements OnInit, OnChanges {
   */
   @Input() prime: PrimeModel = new PrimeModel();
 
+  /**
+   * Construct component
+   *
+   * @param colorHelper
+   * @param skinHelper
+   */
   constructor(
-    private colorHelper: ColorHelper
+    private colorHelper: ColorHelper,
+    private skinHelper: SkinHelper
   ) { }
 
   /**
@@ -48,130 +56,34 @@ export class PrimeSkinsGenOneTag2 implements OnInit, OnChanges {
    * Calculate rendering parameters
    */
   calculate() {
-    this.calculateImageParams();
-    this.calculateBlockParams();
-    this.calculateArcParams();
-    this.calculateSliceParams();
-    this.calculateTwirlParams();
-  }
+    let prime = this.prime;
+    let colors = this.colorHelper;
 
-  /**
-   * Generate the image params for this prime
-   */
-  calculateImageParams() {
-    this.shades = this.colorHelper.findShades(this.prime.theme);
-  }
+    let info = this.skinHelper.genOne(prime, colors);
+    this.shades = info.shades;
+    this.params = info.params;
+    this.blocks = info.blocks;
+    this.arcs = info.arcs;
+    this.slices = info.slices;
 
-  /**
-   * Generate the image block params for this prime
-   */
-  calculateBlockParams() {
-    let alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    let twirls = [];
+    for (let i = 0; i < prime.name.length; i++) {
+      let radius = 50 + this.params[i] * 5;
+      let color = colors.findColor(this.params[i]);
 
-    let params = [];
-    for (let j = 0; j < this.prime.name.length; j++) {
-      params.push(alphabet.indexOf(this.prime.name.charAt(j)));
-    }
-
-    this.blocks = [];
-    for (let i = 0; i < this.prime.name.length; i++) {
-      let radius = 230;
-
-      let sangle = (i + 1) * 360 / this.prime.name.length;
-      let sslope = sangle * Math.PI / 180;
-      let sx = Math.cos(sslope) * radius + 256;
-      let sy = Math.sin(sslope) * radius + 256;
-
-      let eangle = (i + 2) * 360 / this.prime.name.length;
-      let eslope = eangle * Math.PI / 180;
-      let ex = Math.cos(eslope) * radius + 256;
-      let ey = Math.sin(eslope) * radius + 256;
-
-      let move = 'M ' + sx + ' ' + sy;
-      let arc = 'A ' + radius + ' ' + radius + ' 0 0 1 ' + ex + ' ' + ey;
-      let curve = move + ' ' + arc;
-
-      let color = this.colorHelper.findColor(params[i]);
-
-      this.blocks.push({
-        curve: curve,
-        color: color
-      });
-    }
-  }
-
-  /**
-   * Generate the arc params for this prime
-   */
-  calculateArcParams() {
-    this.arcs = [];
-    for (let i = 0; i < this.prime.name.length; i++) {
-      let angle = ((i + 1) * 360 / this.prime.name.length);
-      let slope = angle * Math.PI / 180;
-
-      let radius1 = 254;
-      let x1 = Math.cos(slope) * radius1 + 256;
-      let y1 = Math.sin(slope) * radius1 + 256;
-
-      let radius2 = 208;
-      let x2 = Math.cos(slope) * radius2 + 256;
-      let y2 = Math.sin(slope) * radius2 + 256;
-
-      this.arcs.push({
-        x1: x1,
-        y1: y1,
-        x2: x2,
-        y2: y2,
-      });
-    }
-  }
-
-  /**
-   * Generate the slice params for this prime
-   */
-  calculateSliceParams() {
-    this.slices = [];
-    for (let i = 0; i < this.prime.name.length; i++) {
-      let angle = (i + 1) * 360 / this.prime.name.length;
-      let slope = angle * Math.PI / 180;
-      let radius = 208;
-
-      let x = Math.cos(slope) * radius + 256;
-      let y = Math.sin(slope) * radius + 256;
-
-      this.slices.push({
-        x: x,
-        y: y
-      });
-    }
-  }
-
-  /**
-   * Generate the twirl params for this prime
-   */
-  calculateTwirlParams() {
-    let alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-
-    let params = [];
-    for (let j = 0; j < this.prime.name.length; j++) {
-      params.push(alphabet.indexOf(this.prime.name.charAt(j)));
-    }
-
-    this.twirls = [];
-    for (let i = 0; i < this.prime.name.length; i++) {
-      let radius = 50 + params[i] * 5;
-      let color = this.colorHelper.findColor(params[i]);
-
-      this.twirls.push({
+      twirls.push({
         radius: radius,
         color: color
       });
     }
 
-    this.twirls.sort((first, second) => second.radius - first.radius);
+    twirls.sort((first, second) => second.radius - first.radius);
 
-    this.borders = [
-      { radius: Math.max(...this.twirls.slice(0, 16).map(t => t.radius)) }
+    let borders = [
+      { radius: Math.max(...twirls.slice(0, 8).map(t => t.radius)) }
     ];
+
+    this.twirls = twirls;
+    this.borders = borders;
   }
 }

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, OnChanges, SimpleChanges, SimpleChange } from '@angular/core';
-import { ColorHelper } from '@lib/helpers';
+import { ColorHelper, SkinHelper } from '@lib/helpers';
 import { PrimeModel } from '@lib/models';
 
 @Component({
@@ -10,6 +10,7 @@ import { PrimeModel } from '@lib/models';
 export class PrimeSkinsGenTwoTag1 implements OnInit, OnChanges {
 
   shades: Array<any> = [];
+  params: Array<any> = [];
   blocks: Array<any> = [];
   arcs: Array<any> = [];
   slices: Array<any> = [];
@@ -21,8 +22,15 @@ export class PrimeSkinsGenTwoTag1 implements OnInit, OnChanges {
   */
   @Input() prime: PrimeModel = new PrimeModel();
 
+  /**
+   * Construct component
+   *
+   * @param colorHelper
+   * @param skinHelper
+   */
   constructor(
-    private colorHelper: ColorHelper
+    private colorHelper: ColorHelper,
+    private skinHelper: SkinHelper
   ) { }
 
   /**
@@ -48,140 +56,20 @@ export class PrimeSkinsGenTwoTag1 implements OnInit, OnChanges {
    * Calculate rendering parameters
    */
   calculate() {
-    this.calculateImageParams();
-    this.calculateBlockParams();
-    this.calculateArcParams();
-    this.calculateSliceParams();
-    this.calculateCrossParams();
-    this.calculatePieParams();
-  }
+    let prime = this.prime;
+    let colors = this.colorHelper;
 
-  /**
-   * Generate the image params for this prime
-   */
-  calculateImageParams() {
-    this.shades = this.colorHelper.findShades(this.prime.theme);
-  }
+    let info = this.skinHelper.genTwo(prime, colors);
+    this.shades = info.shades;
+    this.params = info.params;
+    this.blocks = info.blocks;
+    this.arcs = info.arcs;
+    this.slices = info.slices;
+    this.crosses = info.crosses;
 
-  /**
-   * Generate the image block params for this prime
-   */
-  calculateBlockParams() {
-    let alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-
-    let full = 115.5;
-    let half = 57.75;
-    let gap = 25;
-
-    let paths = [
-      `M ${half + gap} ${gap} L ${half + gap + full * 1} ${gap}`,
-      `M ${half + gap + full * 1} ${gap} L ${half + gap + full * 2} ${gap}`,
-      `M ${half + gap + full * 2} ${gap} L ${half + gap + full * 3} ${gap}`,
-      `M ${half + gap + full * 3} ${gap} L ${gap + full * 4} ${gap} L ${gap + full * 4} ${half + gap}`,
-      `M ${gap + full * 4} ${half + gap} L ${gap + full * 4} ${half + gap + full * 1}`,
-      `M ${gap + full * 4} ${half + gap + full * 1} L ${gap + full * 4} ${half + gap + full * 2}`,
-      `M ${gap + full * 4} ${half + gap + full * 2} L ${gap + full * 4} ${half + gap + full * 3}`,
-      `M ${gap + full * 4} ${half + gap + full * 3} L ${gap + full * 4} ${gap + full * 4} L ${half + gap + full * 3} ${gap + full * 4}`,
-      `M ${half + gap + full * 3} ${gap + full * 4} L ${half + gap + full * 2} ${gap + full * 4}`,
-      `M ${half + gap + full * 2} ${gap + full * 4} L ${half + gap + full * 1} ${gap + full * 4}`,
-      `M ${half + gap + full * 1} ${gap + full * 4} L ${half + gap} ${gap + full * 4}`,
-      `M ${half + gap} ${gap + full * 4} L ${gap} ${gap + full * 4} L ${gap} ${half + gap + full * 3}`,
-      `M ${gap} ${half + gap + full * 3} L ${gap} ${half + gap + full * 2}`,
-      `M ${gap} ${half + gap + full * 2} L ${gap} ${half + gap + full * 1}`,
-      `M ${gap} ${half + gap + full * 1} L ${gap} ${half + gap}`,
-      `M ${gap} ${half + gap} L ${gap} ${gap} L ${half + gap} ${gap}`,
-    ];
-
-    let params = [];
-    for (let j = 0; j < this.prime.name.length; j++) {
-      params.push(alphabet.indexOf(this.prime.name.charAt(j)));
-    }
-
-    this.blocks = [];
-    for (let i = 0; i < paths.length; i++) {
-      let color = this.colorHelper.findColor(params[i]);
-      this.blocks.push({
-        curve: paths[i],
-        color: color
-      });
-    }
-  }
-
-  /**
-   * Generate the image arc params for this prime
-   */
-  calculateArcParams() {
-    let full = 115.5;
-    let half = 57.75;
-    let gap = 25;
-
-    let arcs = [
-      { x1: half + gap, y1: 0, x2: half + gap, y2: gap * 2 },
-      { x1: half + gap + full * 1, y1: 0, x2: half + gap + full * 1, y2: gap * 2 },
-      { x1: half + gap + full * 2, y1: 0, x2: half + gap + full * 2, y2: gap * 2 },
-      { x1: half + gap + full * 3, y1: 0, x2: half + gap + full * 3, y2: gap * 2 },
-      { x1: half + gap, y1: full * 4, x2: half + gap, y2: full * 4 + gap * 2 },
-      { x1: half + gap + full * 1, y1: full * 4, x2: half + gap + full * 1, y2: full * 4 + gap * 2 },
-      { x1: half + gap + full * 2, y1: full * 4, x2: half + gap + full * 2, y2: full * 4 + gap * 2 },
-      { x1: half + gap + full * 3, y1: full * 4, x2: half + gap + full * 3, y2: full * 4 + gap * 2 },
-      { x1: 0, y1: half + gap, x2: gap * 2, y2: half + gap },
-      { x1: 0, y1: half + gap + full * 1, x2: gap * 2, y2: half + gap + full * 1 },
-      { x1: 0, y1: half + gap + full * 2, x2: gap * 2, y2: half + gap + full * 2 },
-      { x1: 0, y1: half + gap + full * 3, x2: gap * 2, y2: half + gap + full * 3 },
-      { x1: full * 4, y1: half + gap, x2: full * 4 + gap * 2, y2: half + gap },
-      { x1: full * 4, y1: half + gap + full * 1, x2: full * 4 + gap * 2, y2: half + gap + full * 1 },
-      { x1: full * 4, y1: half + gap + full * 2, x2: full * 4 + gap * 2, y2: half + gap + full * 2 },
-      { x1: full * 4, y1: half + gap + full * 3, x2: full * 4 + gap * 2, y2: half + gap + full * 3 },
-    ];
-
-    this.arcs = arcs;
-  }
-
-  /**
-   * Generate the slice params for this prime
-   */
-  calculateSliceParams() {
-    let slices = [
-      { x1: 50, y1: 50, x2: 462, y2: 462 },
-      { x1: 50, y1: 462, x2: 462, y2: 50 },
-      { x1: 50, y1: 256, x2: 256, y2: 50 },
-      { x1: 256, y1: 462, x2: 462, y2: 256 },
-      { x1: 50, y1: 256, x2: 256, y2: 462 },
-      { x1: 256, y1: 50, x2: 462, y2: 256 },
-    ];
-
-    this.slices = slices;
-  }
-
-  /**
-   * Generate the cross params for this prime
-   */
-  calculateCrossParams() {
-    let crosses = [
-      { x: 153, y: 153 },
-      { x: 359, y: 153 },
-      { x: 359, y: 359 },
-      { x: 153, y: 359 },
-      { x: 256, y: 256 },
-    ];
-
-    this.crosses = crosses;
-  }
-
-  /**
-   * Generate the pie params for this prime
-   */
-  calculatePieParams() {
-    let alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-
-    let params = [];
-    for (let j = 0; j < this.prime.name.length; j++) {
-      params.push(alphabet.indexOf(this.prime.name.charAt(j)));
-    }
-
-    this.pies = [];
-    for (let i = 0; i < this.prime.name.length; i++) {
-      let radius = 40 + params[i] * 2;
+    let pies = [];
+    for (let i = 0; i < prime.name.length; i++) {
+      let radius = 40 + this.params[i] * 2;
 
       let center = this.crosses[0];
       if (i < 4) {
@@ -210,13 +98,15 @@ export class PrimeSkinsGenTwoTag1 implements OnInit, OnChanges {
       let curve = move + ' ' + arc;
       let path = curve + ' ' + line;
 
-      let color = this.colorHelper.findColor(params[i]);
+      let color = colors.findColor(this.params[i]);
 
-      this.pies.push({
+      pies.push({
         curve: curve,
         path: path,
         color: color
       });
     }
+
+    this.pies = pies;
   }
 }
