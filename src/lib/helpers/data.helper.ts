@@ -101,6 +101,12 @@ export class DataHelper implements OnDestroy {
                     if (parent.badges.includes('Family')) {
                         genTwoPrimes[i].badges.push('Family');
                     }
+                    if (parent.badges.includes('Artifact')) {
+                        genTwoPrimes[i].badges.push('Artifact');
+                    }
+                    if (parent.badges.includes('Founder')) {
+                        genTwoPrimes[i].badges.push('Founder');
+                    }
                 }
             }
 

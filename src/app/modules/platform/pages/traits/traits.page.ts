@@ -117,7 +117,7 @@ export class PlatformTraitsPage implements OnInit, OnDestroy {
         this.badges[i].count_one = primesOne.filter(p => p.badges.includes(this.badges[i].name)).length;
         this.badges[i].percentage_one = Math.floor(this.badges[i].count_one * 100 / primesOne.length);
         this.badges[i].count_two = primesTwo.filter(p => p.badges.includes(this.badges[i].name)).length;
-        this.badges[i].percentage_two = Math.floor(this.badges[i].count_one * 100 / primesTwo.length);
+        this.badges[i].percentage_two = Math.floor(this.badges[i].count_two * 100 / primesTwo.length);
       }
 
       this.ready = true;
