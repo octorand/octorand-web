@@ -11,6 +11,7 @@ import * as Pipes from '@lib/pipes';
   ],
   declarations: [
     Tags.ChipTag,
+    Tags.LoaderTag,
     Tags.PagerTag,
     Tags.PrimeBadgesTag,
     Tags.PrimeBoxesTag,
@@ -32,6 +33,7 @@ import * as Pipes from '@lib/pipes';
   ],
   exports: [
     Tags.ChipTag,
+    Tags.LoaderTag,
     Tags.PagerTag,
     Tags.PrimeBadgesTag,
     Tags.PrimeBoxesTag,

@@ -82,5 +82,10 @@
                 </div>
             </div>
         </div>
+        <div class="row" *ngIf="!ready">
+            <div class="col">
+                <lib-tags-loader></lib-tags-loader>
+            </div>
+        </div>
     </div>
 </div>
