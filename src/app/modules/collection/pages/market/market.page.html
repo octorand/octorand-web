@@ -95,5 +95,10 @@
                 </div>
             </div>
         </div>
+        <div class="row" *ngIf="!ready">
+            <div class="col py-20">
+                <lib-tags-loader></lib-tags-loader>
+            </div>
+        </div>
     </div>
 </div>
