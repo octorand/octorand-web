@@ -59,21 +59,21 @@ export class PrimeSkinsGenOneTag0 implements OnInit, OnChanges {
     let colors = this.colorHelper;
 
     let info = this.skinHelper.genOne(prime, colors);
-    this.shades = info.shades;
-    this.params = info.params;
-    this.blocks = info.blocks;
-    this.arcs = info.arcs;
-    this.slices = info.slices;
+    let shades = info.shades;
+    let params = info.params;
+    let blocks = info.blocks;
+    let arcs = info.arcs;
+    let slices = info.slices;
 
     let arms = [];
     for (let i = 0; i < prime.name.length; i++) {
       let angle = (i + 1) * 360 / prime.name.length;
       let slope = angle * Math.PI / 180;
-      let radius = 50 + this.params[i] * 5;
+      let radius = 50 + params[i] * 5;
 
       let nx = Math.cos(slope) * radius + 256;
       let ny = Math.sin(slope) * radius + 256;
-      let color = colors.findColor(this.params[i]);
+      let color = colors.findColor(params[i]);
 
       arms.push({
         x: nx,
@@ -82,6 +82,11 @@ export class PrimeSkinsGenOneTag0 implements OnInit, OnChanges {
       });
     }
 
+    this.shades = shades;
+    this.params = params;
+    this.blocks = blocks;
+    this.arcs = arcs;
+    this.slices = slices;
     this.arms = arms;
   }
 }

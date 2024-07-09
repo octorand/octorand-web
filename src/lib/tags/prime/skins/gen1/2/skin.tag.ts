@@ -60,16 +60,16 @@ export class PrimeSkinsGenOneTag2 implements OnInit, OnChanges {
     let colors = this.colorHelper;
 
     let info = this.skinHelper.genOne(prime, colors);
-    this.shades = info.shades;
-    this.params = info.params;
-    this.blocks = info.blocks;
-    this.arcs = info.arcs;
-    this.slices = info.slices;
+    let shades = info.shades;
+    let params = info.params;
+    let blocks = info.blocks;
+    let arcs = info.arcs;
+    let slices = info.slices;
 
     let twirls = [];
     for (let i = 0; i < prime.name.length; i++) {
-      let radius = 50 + this.params[i] * 5;
-      let color = colors.findColor(this.params[i]);
+      let radius = 50 + params[i] * 5;
+      let color = colors.findColor(params[i]);
 
       twirls.push({
         radius: radius,
@@ -83,6 +83,11 @@ export class PrimeSkinsGenOneTag2 implements OnInit, OnChanges {
       { radius: Math.max(...twirls.slice(0, 8).map(t => t.radius)) }
     ];
 
+    this.shades = shades;
+    this.params = params;
+    this.blocks = blocks;
+    this.arcs = arcs;
+    this.slices = slices;
     this.twirls = twirls;
     this.borders = borders;
   }

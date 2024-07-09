@@ -60,26 +60,26 @@ export class PrimeSkinsGenTwoTag0 implements OnInit, OnChanges {
     let colors = this.colorHelper;
 
     let info = this.skinHelper.genTwo(prime, colors);
-    this.shades = info.shades;
-    this.params = info.params;
-    this.blocks = info.blocks;
-    this.arcs = info.arcs;
-    this.slices = info.slices;
-    this.crosses = info.crosses;
+    let shades = info.shades;
+    let params = info.params;
+    let blocks = info.blocks;
+    let arcs = info.arcs;
+    let slices = info.slices;
+    let crosses = info.crosses;
 
     let arms = [];
     for (let i = 0; i < prime.name.length; i++) {
-      let radius = 40 + this.params[i] * 2;
+      let radius = 40 + params[i] * 2;
 
-      let center = this.crosses[0];
+      let center = crosses[0];
       if (i < 4) {
-        center = this.crosses[0];
+        center = crosses[0];
       } else if (i < 8) {
-        center = this.crosses[1];
+        center = crosses[1];
       } else if (i < 12) {
-        center = this.crosses[2];
+        center = crosses[2];
       } else {
-        center = this.crosses[3];
+        center = crosses[3];
       }
 
       let angle = (((i % 4) + 1) * 360 / 4) - 135;
@@ -87,7 +87,7 @@ export class PrimeSkinsGenTwoTag0 implements OnInit, OnChanges {
 
       let nx = Math.cos(slope) * radius + center.x;
       let ny = Math.sin(slope) * radius + center.y;
-      let color = colors.findColor(this.params[i]);
+      let color = colors.findColor(params[i]);
 
       arms.push({
         x: nx,
@@ -96,6 +96,12 @@ export class PrimeSkinsGenTwoTag0 implements OnInit, OnChanges {
       });
     }
 
+    this.shades = shades;
+    this.params = params;
+    this.blocks = blocks;
+    this.arcs = arcs;
+    this.slices = slices;
+    this.crosses = crosses;
     this.arms = arms;
   }
 }
