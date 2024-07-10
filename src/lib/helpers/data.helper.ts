@@ -300,7 +300,7 @@ export class DataHelper implements OnDestroy {
             badges.push('Pristine');
         }
 
-        if (model.drains == 0) {
+        if (model.drains == 0 && model.rewards >= 1000 * Math.pow(10, 6)) {
             badges.push('Bountiful');
         }
 
@@ -417,7 +417,7 @@ export class DataHelper implements OnDestroy {
             badges.push('Pristine');
         }
 
-        if (model.drains == 0) {
+        if (model.drains == 0 && model.rewards >= 8 * Math.pow(10, 6)) {
             badges.push('Bountiful');
         }
 
