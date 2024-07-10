@@ -3,7 +3,7 @@ export const environment = {
   algo_server: 'https://mainnet-api.algonode.cloud',
   algo_indexer: 'https://mainnet-idx.algonode.cloud',
   algo_explorer: 'https://explorer.perawallet.app',
-  analytics_code: '',
+  analytics_code: 'G-QMGJC8EESG',
   admin_address: 'NXZLEEQ35KIZ3V3MHFXOOQNEINVLYAU7JCAOZZTQRCDREO4O34I27KLIXU',
   indexer_page_size: 1000,
   display_page_size: 20,
