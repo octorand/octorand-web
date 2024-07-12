@@ -1,6 +1,6 @@
 ﻿import { Injectable } from '@angular/core';
 import { AppHelper } from './app.helper';
-import { ExodusWallet, PeraWalletWallet, DeflyWalletWallet, WalletConnectWallet } from '@lib/wallets';
+import { ExodusWallet, PeraWalletWallet, DeflyWalletWallet } from '@lib/wallets';
 import { environment } from '@environment';
 
 declare var algosdk: any;
@@ -25,14 +25,12 @@ export class ChainHelper {
      * @param exodusWallet
      * @param peraWalletWallet
      * @param deflyWalletWallet
-     * @param walletConnectWallet
      */
     constructor(
         private appHelper: AppHelper,
         private exodusWallet: ExodusWallet,
         private peraWalletWallet: PeraWalletWallet,
-        private deflyWalletWallet: DeflyWalletWallet,
-        private walletConnectWallet: WalletConnectWallet
+        private deflyWalletWallet: DeflyWalletWallet
     ) {
         this.baseClient = algosdk;
         this.algodClient = new algosdk.Algodv2('', environment.algo_server, '');
@@ -112,8 +110,6 @@ export class ChainHelper {
                 return await this.peraWalletWallet.sign(transactions);
             case 'defly-wallet':
                 return await this.deflyWalletWallet.sign(transactions);
-            case 'wallet-connect':
-                return await this.walletConnectWallet.sign(transactions);
             default:
                 return {
                     success: false,

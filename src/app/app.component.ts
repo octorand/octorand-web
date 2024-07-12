@@ -7,8 +7,6 @@ import { environment } from '@environment';
 
 import { PeraWalletConnect } from "@perawallet/connect";
 import { DeflyWalletConnect } from "@blockshake/defly-connect";
-import WalletConnect from "@walletconnect/client";
-import QRCodeModal from "algorand-walletconnect-qrcode-modal";
 
 declare var window: any;
 declare var halfmoon: any;
@@ -179,9 +177,6 @@ export class AppComponent implements OnInit, OnDestroy {
       case 'defly-wallet':
         this.manageDeflyWallet(wallet.id);
         break;
-      case 'wallet-connect':
-        this.manageWalletConnect(wallet.id);
-        break;
     }
 
     this.hideConnectDropdown();
@@ -273,44 +268,6 @@ export class AppComponent implements OnInit, OnDestroy {
     });
 
     this.deflyConnection = deflyConnection;
-  }
-
-  /**
-   * Manage the connection of wallet connect
-   *
-   * @param wallet
-   */
-  manageWalletConnect(wallet: string) {
-    let walletConnectConnection = new WalletConnect({
-      bridge: "https://bridge.walletconnect.org",
-      qrcodeModal: QRCodeModal,
-    });
-
-    if (!walletConnectConnection.connected) {
-      walletConnectConnection.createSession();
-    } else {
-      this.connectAccount(wallet, walletConnectConnection.accounts);
-    }
-
-    walletConnectConnection.on("connect", (error, payload) => {
-      if (!error) {
-        this.connectAccount(wallet, payload.params[0].accounts);
-      }
-    });
-
-    walletConnectConnection.on("session_update", (error, payload) => {
-      if (!error) {
-        this.connectAccount(wallet, payload.params[0].accounts);
-      }
-    });
-
-    walletConnectConnection.on("disconnect", (error) => {
-      if (!error) {
-        this.disconnectAccount();
-      }
-    });
-
-    this.walletConnectConnection = walletConnectConnection;
   }
 
   /**

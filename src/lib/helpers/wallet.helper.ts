@@ -28,13 +28,6 @@ export class WalletHelper {
             color: '#ffffff',
             mainnet: true,
             testnet: true
-        },
-        {
-            id: 'wallet-connect',
-            name: 'Wallet Connect',
-            color: '#3396fe',
-            mainnet: true,
-            testnet: false
         }
     ];
 
