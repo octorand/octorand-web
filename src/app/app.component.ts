@@ -31,12 +31,18 @@ export class AppComponent implements OnInit, OnDestroy {
   /**
    * The pera wallet connection
    */
-  peraConnection: PeraWalletConnect = new PeraWalletConnect();
+  peraConnection: PeraWalletConnect = new PeraWalletConnect({
+    chainId: environment.production ? 416001 : 416002,
+    shouldShowSignTxnToast: false
+  });
 
   /**
    * The defly wallet connection
    */
-  deflyConnection: DeflyWalletConnect = new DeflyWalletConnect();
+  deflyConnection: DeflyWalletConnect = new DeflyWalletConnect({
+    chainId: environment.production ? 416001 : 416002,
+    shouldShowSignTxnToast: false
+  });
 
   /**
    * True if page in loaded in a mobile device
