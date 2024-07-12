@@ -5,8 +5,8 @@ export const environment = {
   algo_explorer: '',
   analytics_code: '',
   admin_address: '',
-  indexer_page_size: 1000,
-  display_page_size: 100,
+  indexer_page_size: 0,
+  display_page_size: 0,
   platform: {
     asset_id: 0,
     manager: '',

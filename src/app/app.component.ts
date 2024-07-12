@@ -29,19 +29,14 @@ export class AppComponent implements OnInit, OnDestroy {
   appSubscription: Subscription = new Subscription();
 
   /**
-   * The wallet connect connection
-   */
-  walletConnectConnection: any = null;
-
-  /**
    * The pera wallet connection
    */
-  peraConnection: any = null;
+  peraConnection: PeraWalletConnect = new PeraWalletConnect();
 
   /**
    * The defly wallet connection
    */
-  deflyConnection: any = null;
+  deflyConnection: DeflyWalletConnect = new DeflyWalletConnect();
 
   /**
    * True if page in loaded in a mobile device
@@ -87,6 +82,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.initApp();
     this.detectMobile();
     this.scrollToTop();
+    this.reconnectWallet();
   }
 
   /**
@@ -183,6 +179,26 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Reconnect to wallet
+   */
+  reconnectWallet() {
+    let wallet = this.appHelper.getWallet();
+    if (wallet) {
+      switch (wallet) {
+        case 'exodus':
+          this.reconnectExodus(wallet);
+          break;
+        case 'pera-wallet':
+          this.reconnectPeraWallet(wallet);
+          break;
+        case 'defly-wallet':
+          this.reconnectDeflyWallet(wallet);
+          break;
+      }
+    }
+  }
+
+  /**
    * Manage the connection of exodus
    *
    * @param wallet
@@ -210,31 +226,14 @@ export class AppComponent implements OnInit, OnDestroy {
    * @param wallet
    */
   managePeraWallet(wallet: string) {
-    let peraConnection: PeraWalletConnect;
-
-    if (environment.production) {
-      peraConnection = new PeraWalletConnect({
-        shouldShowSignTxnToast: false,
-        chainId: 416001
-      });
-    } else {
-      peraConnection = new PeraWalletConnect({
-        shouldShowSignTxnToast: false,
-        chainId: 416002
-      });
-    }
-
-    peraConnection.connect().then((accounts) => {
+    this.peraConnection.connect().then((accounts) => {
       this.connectAccount(wallet, accounts);
-
-      peraConnection.connector?.on("disconnect", () => {
+      this.peraConnection.connector?.on("disconnect", () => {
         this.disconnectAccount();
       });
     }).catch(() => {
-      this.appHelper.showError("Pera wallet is not connected.");
+      this.appHelper.showError("Could not connect to Pera wallet.");
     });
-
-    this.peraConnection = peraConnection;
   }
 
   /**
@@ -243,31 +242,65 @@ export class AppComponent implements OnInit, OnDestroy {
    * @param wallet
    */
   manageDeflyWallet(wallet: string) {
-    let deflyConnection: DeflyWalletConnect;
-
-    if (environment.production) {
-      deflyConnection = new DeflyWalletConnect({
-        shouldShowSignTxnToast: false,
-        chainId: 416001
-      });
-    } else {
-      deflyConnection = new DeflyWalletConnect({
-        shouldShowSignTxnToast: false,
-        chainId: 416002
-      });
-    }
-
-    deflyConnection.connect().then((accounts) => {
+    this.deflyConnection.connect().then((accounts) => {
       this.connectAccount(wallet, accounts);
-
-      deflyConnection.connector?.on("disconnect", () => {
+      this.deflyConnection.connector?.on("disconnect", () => {
         this.disconnectAccount();
       });
     }).catch(() => {
-      this.appHelper.showError("Defly wallet is not connected.");
+      this.appHelper.showError("Could not connect to Defly wallet.");
     });
+  }
 
-    this.deflyConnection = deflyConnection;
+  /**
+   * Reconnect the connection of exodus
+   *
+   * @param wallet
+   */
+  reconnectExodus(wallet: string) {
+    if (window && window.exodus && window.exodus.algorand) {
+      let accounts = window.exodus.algorand.accounts;
+      if (accounts && accounts.length > 0) {
+        this.connectAccount(wallet, accounts);
+      }
+    } else {
+      this.appHelper.showError("Could not reconnect to Exodus.");
+      this.disconnectAccount();
+    };
+  }
+
+  /**
+   * Reconnect the connection of pera connect
+   *
+   * @param wallet
+   */
+  reconnectPeraWallet(wallet: string) {
+    this.peraConnection.reconnectSession().then((accounts) => {
+      this.connectAccount(wallet, accounts);
+      this.peraConnection.connector?.on("disconnect", () => {
+        this.disconnectAccount();
+      });
+    }).catch(() => {
+      this.appHelper.showError("Could not reconnect to Pera wallet.");
+      this.disconnectAccount();
+    });
+  }
+
+  /**
+   * Reconnect the connection of defly connect
+   *
+   * @param wallet
+   */
+  reconnectDeflyWallet(wallet: string) {
+    this.deflyConnection.reconnectSession().then((accounts) => {
+      this.connectAccount(wallet, accounts);
+      this.deflyConnection.connector?.on("disconnect", () => {
+        this.disconnectAccount();
+      });
+    }).catch(() => {
+      this.appHelper.showError("Could not reconnect to Defly wallet.");
+      this.disconnectAccount();
+    });
   }
 
   /**
@@ -297,20 +330,10 @@ export class AppComponent implements OnInit, OnDestroy {
     this.appHelper.setAccount('');
     this.appHelper.setAddresses([]);
     this.appHelper.loadAccountDetails();
-
     localStorage.clear();
 
-    if (this.walletConnectConnection) {
-      this.walletConnectConnection.killSession();
-    }
-
-    if (this.peraConnection) {
-      this.peraConnection.disconnect();
-    }
-
-    if (this.deflyConnection) {
-      this.deflyConnection.disconnect();
-    }
+    this.peraConnection.disconnect();
+    this.deflyConnection.disconnect();
 
     this.hideConnectDropdown();
   }
@@ -333,7 +356,6 @@ export class AppComponent implements OnInit, OnDestroy {
     let dropdown = document.querySelector('.connect-dropdown');
     if (dropdown) {
       dropdown.classList.remove('show');
-
       let button = dropdown.querySelector('.btn');
       if (button) {
         button.classList.remove('active');
