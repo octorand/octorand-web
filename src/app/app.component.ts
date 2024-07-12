@@ -330,12 +330,12 @@ export class AppComponent implements OnInit, OnDestroy {
     this.appHelper.setAccount('');
     this.appHelper.setAddresses([]);
     this.appHelper.loadAccountDetails();
-    localStorage.clear();
 
     this.peraConnection.disconnect();
     this.deflyConnection.disconnect();
 
     this.hideConnectDropdown();
+    localStorage.clear();
   }
 
   /**
