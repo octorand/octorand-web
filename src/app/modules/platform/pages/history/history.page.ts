@@ -1,36 +1,39 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from '@environment';
-import { AppHelper, DataHelper, IndexerHelper, StoreHelper } from '@lib/helpers';
-import { AppModel, DataModel } from '@lib/models';
-import { Subscription } from 'rxjs';
+import { IndexerHelper } from '@lib/helpers';
 
 @Component({
   selector: 'app-platform-history',
   templateUrl: './history.page.html',
   styleUrls: ['./history.page.scss'],
 })
-export class PlatformHistoryPage implements OnInit, OnDestroy {
+export class PlatformHistoryPage implements OnInit {
 
   /**
-   * App state
+   * Current page number
    */
-  app: AppModel = new AppModel();
+  currentPage: number = 1;
 
   /**
-   * Data state
+   * Number of results per page
    */
-  data: DataModel = new DataModel();
+  resultsPerPage: number = environment.display_page_size;
 
   /**
-   * App subscription
+   * Total number of results
    */
-  appSubscription: Subscription = new Subscription();
+  totalResults: number = 0;
 
   /**
-   * Data subscription
+   * Total number of pages
    */
-  dataSubscription: Subscription = new Subscription();
+  pagesCount: number = 0;
+
+  /**
+   * Results of current page
+   */
+  currentPageResults: Array<any> = [];
 
   /**
    * Whether the page is ready to be rendered
@@ -38,9 +41,39 @@ export class PlatformHistoryPage implements OnInit, OnDestroy {
   ready: boolean = false;
 
   /**
-   * Details of prime generations
+   * Selected generation
    */
-  generations: Array<any> = [];
+  selectedGen: number = 1;
+
+  /**
+   * Selected action
+   */
+  selectedAction: string = 'Sales';
+
+  /**
+   * Keys for actions
+   */
+  actions: Array<string> = [
+    'Sales',
+  ];
+
+  /**
+   * List of gen one sales
+   */
+  genOneSales: Array<any> = [];
+
+  /**
+   * List of gen two sales
+   */
+  genTwoSales: Array<any> = [];
+
+  /**
+   * Track data loading
+   */
+  readyData = {
+    genOneSales: false,
+    genTwoSales: false
+  }
 
   /**
    * Construct component
@@ -48,116 +81,154 @@ export class PlatformHistoryPage implements OnInit, OnDestroy {
    * @param router
    * @param appHelper
    * @param dataHelper
-   * @param storeHelper
    */
   constructor(
     private router: Router,
-    private appHelper: AppHelper,
-    private dataHelper: DataHelper,
-    private indexerHelper: IndexerHelper,
-    private storeHelper: StoreHelper
+    private indexerHelper: IndexerHelper
   ) { }
 
   /**
    * Initialize component
    */
   ngOnInit() {
-    this.initApp();
-    this.initData();
     this.refreshView();
-  }
-
-  /**
-   * Destroy component
-   */
-  ngOnDestroy() {
-    this.appSubscription.unsubscribe();
-    this.dataSubscription.unsubscribe();
-  }
-
-  /**
-   * Initialize app
-   */
-  initApp() {
-    this.app = this.appHelper.getDefaultState();
-    this.appSubscription = this.appHelper.app.subscribe((value: AppModel) => {
-      this.app = value;
-      this.refreshView();
-    });
-  }
-
-  /**
-   * Initialize data
-   */
-  initData() {
-    this.data = this.dataHelper.getDefaultState();
-    this.dataSubscription = this.dataHelper.data.subscribe((value: DataModel) => {
-      this.data = value;
-      this.refreshView();
-    });
   }
 
   /**
    * Refresh view state
    */
   refreshView() {
-    if (this.data && this.data.initialised) {
+    this.ready = false;
+
+    switch (this.selectedAction) {
+      case 'Sales':
+        if (this.selectedGen == 1) {
+          this.loadGenOneSales();
+        } else {
+          this.loadGenTwoSales();
+        }
+        break;
+    }
+  }
+
+  /**
+   * Refresh results
+   */
+  refreshResults() {
+    let allResults = [];
+
+    switch (this.selectedAction) {
+      case 'Sales':
+        if (this.selectedGen == 1) {
+          allResults = this.genOneSales;
+        } else {
+          allResults = this.genTwoSales;
+        }
+        break;
+    }
+
+    allResults.sort((first, second) => first.timestamp - second.timestamp);
+
+    let totalResults = allResults.length;
+    let pagesCount = Math.ceil(totalResults / this.resultsPerPage);
+
+    let start = this.resultsPerPage * (this.currentPage - 1);
+    let end = start + this.resultsPerPage;
+    let currentPageResults = allResults.slice(start, end);
+
+    this.totalResults = totalResults;
+    this.pagesCount = pagesCount;
+    this.currentPageResults = currentPageResults;
+
+    if (this.currentPage > this.pagesCount) {
+      this.currentPage = 1;
+    }
+
+    this.ready = true;
+  }
+
+  /**
+   * Load gen one sales
+   */
+  loadGenOneSales() {
+    if (this.readyData.genOneSales) {
+      this.refreshResults();
+    } else {
       let promises = [
         this.indexerHelper.lookupApplicationLogs(environment.gen1.contracts.prime.buy.application_id),
-        this.indexerHelper.lookupApplicationLogs(environment.gen2.contracts.prime.buy.application_id),
       ];
 
       Promise.all(promises).then(values => {
-        let salesOne = values[0];
-        let salesTwo = values[1];
+        let value = values[0];
+        let sales = [];
 
-        let primesOne = this.data.gen_one_primes;
-        let primesTwo = this.data.gen_two_primes;
+        for (let i = 0; i < value.length; i++) {
+          sales.push(values[i]);
+        }
 
-        let genOne = {
-          id: 1,
-          name: 'GEN1',
-          count: primesOne.length,
-          owners: (new Set(primesOne.map(p => p.owner))).size,
-          listed: primesOne.filter(p => p.price > 0).length,
-          sales: salesOne.length,
-          volume: salesOne.length > 0 ? salesOne.map(p => p.params.price).reduce((a, b) => a + b, 0) : 0,
-          highestSale: salesOne.length > 0 ? Math.max(...salesOne.map(p => p.params.price)) : 0,
-          highestScore: primesOne.length > 0 ? Math.max(...primesOne.map(p => p.score)) : 0
-        };
-
-        let genTwo = {
-          id: 2,
-          name: 'GEN2',
-          count: primesTwo.length,
-          owners: (new Set(primesTwo.map(p => p.owner))).size,
-          listed: primesTwo.filter(p => p.price > 0).length,
-          sales: salesTwo.length,
-          volume: salesTwo.length > 0 ? salesTwo.map(p => p.params.price).reduce((a, b) => a + b, 0) : 0,
-          highestSale: salesTwo.length > 0 ? Math.max(...salesTwo.map(p => p.params.price)) : 0,
-          highestScore: primesTwo.length > 0 ? Math.max(...primesTwo.map(p => p.score)) : 0
-        };
-
-        this.generations = [
-          genOne,
-          genTwo,
-        ];
-
-        this.ready = true;
+        this.genOneSales = sales;
+        this.readyData.genOneSales = true;
+        this.refreshResults();
       });
     }
   }
 
   /**
-   * Open browse primes page
+   * Load gen two sales
+   */
+  loadGenTwoSales() {
+    if (this.readyData.genTwoSales) {
+      this.refreshResults();
+    } else {
+      let promises = [
+        this.indexerHelper.lookupApplicationLogs(environment.gen2.contracts.prime.buy.application_id),
+      ];
+
+      Promise.all(promises).then(values => {
+        let value = values[0];
+        let sales = [];
+
+        for (let i = 0; i < value.length; i++) {
+          sales.push(values[i]);
+        }
+
+        this.genTwoSales = sales;
+        this.readyData.genTwoSales = true;
+        this.refreshResults();
+      });
+    }
+  }
+
+  /**
+   * When page is changed
+   *
+   * @param page
+   */
+  changePage(page: any) {
+    this.currentPage = page;
+    this.refreshView();
+  }
+
+  /**
+   * When gen is changed
    *
    * @param gen
    */
-  openGen(gen: number) {
-    this.storeHelper.setBrowseGen(gen);
-    this.storeHelper.setBrowseBadges([]);
-    this.storeHelper.setBrowseSort('Rank');
-    this.navigateToPage('/collection/browse');
+  changeGen(gen: number) {
+    this.selectedGen = gen;
+    this.currentPage = 1;
+    this.refreshView();
+  }
+
+  /**
+   * When action is changed
+   *
+   * @param action
+   */
+  changeAction(action: string) {
+    this.selectedAction = action;
+    this.currentPage = 1;
+    this.refreshView();
   }
 
   /**

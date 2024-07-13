@@ -4,86 +4,88 @@
             <div class="col">
                 <div class="mx-auto text-center">
                     <h1 class="content-title text-secondary mt-0 mb-20">
-                        Statistics
+                        History
                     </h1>
-                    <p class="text-muted mx-auto mw-600 mt-0 mb-20">
-                        In Octorand, Primes are the exclusive inhabitants. Initially, the realm was home to 1000
-                        first generation Primes. Over time, each of these Primes gave birth to 8 offspring, resulting in
-                        a second generation of 8000 Primes.
+                    <p class="text-muted mb-5">
+                        Generation
                     </p>
-                </div>
-            </div>
-        </div>
-        <div class="row" *ngIf="ready">
-            <div class="col">
-                <div class="row justify-content-center">
-                    <div class="column col-12 col-md-6 col-lg-6 col-xl-4" *ngFor="let generation of generations">
-                        <div class="card">
-                            <h2 class="card-title text-center text-secondary">
-                                {{generation.name}} PRIMES
-                            </h2>
-                            <div class="info mb-20">
-                                <div class="table-responsive">
-                                    <table class="table table-no-outer-padding">
-                                        <tbody>
-                                            <tr>
-                                                <td class="text-success">Primes Count</td>
-                                                <td class="text-right">
-                                                    {{generation.count}}
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-success">Unique Holders</td>
-                                                <td class="text-right">
-                                                    {{generation.owners}}
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-success">Listed for Sale</td>
-                                                <td class="text-right">
-                                                    {{generation.listed}}
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-success">Total Sales</td>
-                                                <td class="text-right">
-                                                    {{generation.sales}}
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-success">Sales Volume</td>
-                                                <td class="text-right"
-                                                    innerHTML="{{generation.volume | amount:0 | async}}">
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-success">Highest Sale</td>
-                                                <td class="text-right"
-                                                    innerHTML="{{generation.highestSale | amount:0 | async}}">
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-success">Highest Score</td>
-                                                <td class="text-right">
-                                                    {{generation.highestScore}}
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="text-center mt-0 mb-0">
-                                <button class="btn btn-primary" (click)="openGen(generation.id)" type="button">
-                                    Browse {{generation.name}} Primes
-                                </button>
-                            </div>
+                    <div class="info row justify-content-center mt-0 mb-0">
+                        <div class="col-auto">
+                            <button class="btn option" [ngClass]="{'btn-primary': selectedGen == 1}"
+                                (click)="changeGen(1)">
+                                GEN1
+                            </button>
+                        </div>
+                        <div class="col-auto">
+                            <button class="btn option" [ngClass]="{'btn-primary': selectedGen == 2}"
+                                (click)="changeGen(2)">
+                                GEN2
+                            </button>
+                        </div>
+                    </div>
+                    <p class="text-muted mb-5">
+                        Action
+                    </p>
+                    <div class="info row justify-content-center mt-0 mb-0">
+                        <div class="col-auto" *ngFor="let action of actions">
+                            <button class="btn option" [ngClass]="{'btn-primary': action == selectedAction}"
+                                (click)="changeAction(action)">
+                                {{action}}
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row" *ngIf="!ready">
+        <div class="row" *ngIf="ready">
             <div class="col">
+                <div *ngIf="currentPageResults.length > 0">
+                    <div class="my-20">
+                        <lib-tags-pager [totalPages]="pagesCount" [currentPage]="currentPage"
+                            (onPageChange)="changePage($event)">
+                        </lib-tags-pager>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="column col-12">
+                            <div class="card">
+                                <div class="info mb-0">
+                                    <div class="table-responsive">
+                                        <table class="table table-no-outer-padding">
+                                            <tbody>
+                                                <tr *ngFor="let result of currentPageResults">
+                                                    <td class="text-success">
+                                                        <p class="mt-0 mb-0 text-wrap">
+
+                                                        </p>
+                                                    </td>
+                                                    <td>
+                                                        <p class="mt-0 mb-0 text-wrap">
+
+                                                        </p>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-20">
+                        <lib-tags-pager [totalPages]="pagesCount" [currentPage]="currentPage"
+                            (onPageChange)="changePage($event)">
+                        </lib-tags-pager>
+                    </div>
+                </div>
+                <div *ngIf="currentPageResults.length == 0" class="mw-600 mx-auto text-center">
+                    <div class="text-muted mt-60 mb-60">
+                        There aren't any actions found in history
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="!ready">
+            <div class="col py-20">
                 <lib-tags-loader></lib-tags-loader>
             </div>
         </div>
