@@ -127,7 +127,7 @@ export class PlatformHistoryPage implements OnInit {
         break;
     }
 
-    allResults.sort((first, second) => first.timestamp - second.timestamp);
+    allResults.sort((first, second) => second.timestamp - first.timestamp);
 
     let totalResults = allResults.length;
     let pagesCount = Math.ceil(totalResults / this.resultsPerPage);
@@ -163,7 +163,7 @@ export class PlatformHistoryPage implements OnInit {
         let sales = [];
 
         for (let i = 0; i < value.length; i++) {
-          sales.push(values[i]);
+          sales.push(value[i]);
         }
 
         this.genOneSales = sales;
@@ -189,7 +189,7 @@ export class PlatformHistoryPage implements OnInit {
         let sales = [];
 
         for (let i = 0; i < value.length; i++) {
-          sales.push(values[i]);
+          sales.push(value[i]);
         }
 
         this.genTwoSales = sales;

@@ -51,16 +51,46 @@
                                 <div class="info mb-0">
                                     <div class="table-responsive">
                                         <table class="table table-no-outer-padding">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-success">Date</th>
+                                                    <th class="text-success">Prime</th>
+                                                    <th class="text-success" *ngIf="selectedAction == 'Sales'">
+                                                        Seller
+                                                    </th>
+                                                    <th class="text-success" *ngIf="selectedAction == 'Sales'">
+                                                        Buyer
+                                                    </th>
+                                                    <th class="text-success" *ngIf="selectedAction == 'Sales'">
+                                                        Price
+                                                    </th>
+                                                </tr>
+                                            </thead>
                                             <tbody>
                                                 <tr *ngFor="let result of currentPageResults">
-                                                    <td class="text-success">
+                                                    <td>
                                                         <p class="mt-0 mb-0 text-wrap">
-
+                                                            {{result.timestamp * 1000 | date}}
                                                         </p>
                                                     </td>
                                                     <td>
                                                         <p class="mt-0 mb-0 text-wrap">
-
+                                                            {{result.params.prime}}
+                                                        </p>
+                                                    </td>
+                                                    <td *ngIf="selectedAction == 'Sales'">
+                                                        <p class="mt-0 mb-0 text-wrap"
+                                                            [innerHtml]="result.params.seller | identity:true:true | async">
+                                                        </p>
+                                                    </td>
+                                                    <td *ngIf="selectedAction == 'Sales'">
+                                                        <p class="mt-0 mb-0 text-wrap"
+                                                            [innerHtml]="result.params.sender | identity:true:true | async">
+                                                        </p>
+                                                    </td>
+                                                    <td *ngIf="selectedAction == 'Sales'">
+                                                        <p class="mt-0 mb-0 text-wrap"
+                                                            [innerHtml]="result.params.price | amount:0 | async">
                                                         </p>
                                                     </td>
                                                 </tr>
