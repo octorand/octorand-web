@@ -16,6 +16,10 @@ const routes: Routes = [
         component: Pages.PlatformGuidePage
       },
       {
+        path: 'history',
+        component: Pages.PlatformHistoryPage
+      },
+      {
         path: 'statistics',
         component: Pages.PlatformStatisticsPage
       },
@@ -39,6 +43,7 @@ const routes: Routes = [
   declarations: [
     PlatformContainer,
     Pages.PlatformGuidePage,
+    Pages.PlatformHistoryPage,
     Pages.PlatformStatisticsPage,
     Pages.PlatformTokenomicsPage,
     Pages.PlatformTraitsPage,

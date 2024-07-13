@@ -60,6 +60,13 @@ export class SidebarHelper {
                     route: 'platform/statistics',
                 },
                 {
+                    id: 'history',
+                    name: 'History',
+                    icon: 'fas fa-history',
+                    color: '#1abc9c',
+                    route: 'platform/history',
+                },
+                {
                     id: 'upgrade',
                     name: 'Upgrade',
                     icon: 'fas fa-upload',
