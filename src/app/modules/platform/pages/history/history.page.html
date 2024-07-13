@@ -75,7 +75,10 @@
                                                     </td>
                                                     <td>
                                                         <p class="mt-0 mb-0 text-wrap">
-                                                            {{result.params.prime}}
+                                                            #{{result.id_text}}
+                                                            <a href="{{result.url}}" target="_blank">
+                                                                <i class="ml-10 fas fa-info-circle text-primary"></i>
+                                                            </a>
                                                         </p>
                                                     </td>
                                                     <td *ngIf="selectedAction == 'Sales'">

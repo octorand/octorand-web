@@ -163,6 +163,9 @@ export class PlatformHistoryPage implements OnInit {
         let sales = [];
 
         for (let i = 0; i < value.length; i++) {
+          value[i].gen = 1;
+          value[i].id_text = String(value[i].params.prime).padStart(3, '0');
+          value[i].url = '/collection/prime/gen' + value[i].gen + '/' + value[i].id_text;
           sales.push(value[i]);
         }
 
@@ -189,6 +192,9 @@ export class PlatformHistoryPage implements OnInit {
         let sales = [];
 
         for (let i = 0; i < value.length; i++) {
+          value[i].gen = 2;
+          value[i].id_text = String(value[i].params.prime).padStart(4, '0');
+          value[i].url = '/collection/prime/gen' + value[i].gen + '/' + value[i].id_text;
           sales.push(value[i]);
         }
 
