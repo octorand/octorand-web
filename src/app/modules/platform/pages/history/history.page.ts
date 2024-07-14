@@ -86,6 +86,7 @@ export class PlatformHistoryPage implements OnInit, OnDestroy {
     'Sales',
     'Upgrades',
     'Transforms',
+    'Rewards',
   ];
 
   /**
@@ -129,6 +130,16 @@ export class PlatformHistoryPage implements OnInit, OnDestroy {
   genTwoTransforms: Array<any> = [];
 
   /**
+   * List of gen one rewards
+   */
+  genOneRewards: Array<any> = [];
+
+  /**
+   * List of gen two rewards
+   */
+  genTwoRewards: Array<any> = [];
+
+  /**
    * Track data loading
    */
   readyData = {
@@ -140,6 +151,8 @@ export class PlatformHistoryPage implements OnInit, OnDestroy {
     genTwoUpgrades: false,
     genOneTransforms: false,
     genTwoTransforms: false,
+    genOneRewards: false,
+    genTwoRewards: false,
   };
 
   /**
@@ -233,6 +246,13 @@ export class PlatformHistoryPage implements OnInit, OnDestroy {
             this.loadGenTwoTransforms();
           }
           break;
+        case 'Rewards':
+          if (this.selectedGen == 1) {
+            this.loadGenOneRewards();
+          } else {
+            this.loadGenTwoRewards();
+          }
+          break;
       }
     }
   }
@@ -270,6 +290,13 @@ export class PlatformHistoryPage implements OnInit, OnDestroy {
           allResults = this.genOneTransforms;
         } else {
           allResults = this.genTwoTransforms;
+        }
+        break;
+      case 'Rewards':
+        if (this.selectedGen == 1) {
+          allResults = this.genOneRewards;
+        } else {
+          allResults = this.genTwoRewards;
         }
         break;
     }
@@ -523,6 +550,78 @@ export class PlatformHistoryPage implements OnInit, OnDestroy {
 
         this.genTwoTransforms = data;
         this.readyData.genTwoTransforms = true;
+        this.refreshResults();
+      });
+    }
+  }
+
+  /**
+   * Load gen one rewards
+   */
+  loadGenOneRewards() {
+    if (this.readyData.genOneRewards) {
+      this.refreshResults();
+    } else {
+      let promises = [
+        this.indexerHelper.lookupApplicationLogs(environment.gen1.contracts.prime.mint.application_id),
+        this.indexerHelper.lookupApplicationLogs(environment.gen1.contracts.prime.withdraw.application_id),
+      ];
+
+      Promise.all(promises).then(values => {
+        let data = [];
+
+        let value = values[0];
+        for (let i = 0; i < value.length; i++) {
+          value[i].action = 'Reward';
+          value[i].prime = this.data.gen_one_primes.find(p => p.id == value[i].params.prime);
+          data.push(value[i]);
+        }
+
+        value = values[1];
+        for (let i = 0; i < value.length; i++) {
+          value[i].action = 'Royalty';
+          value[i].prime = this.data.gen_one_primes.find(p => p.id == value[i].params.prime);
+          data.push(value[i]);
+        }
+
+        this.genOneRewards = data;
+        this.readyData.genOneRewards = true;
+        this.refreshResults();
+      });
+    }
+  }
+
+  /**
+   * Load gen two rewards
+   */
+  loadGenTwoRewards() {
+    if (this.readyData.genTwoRewards) {
+      this.refreshResults();
+    } else {
+      let promises = [
+        this.indexerHelper.lookupApplicationLogs(environment.gen2.contracts.prime.mint.application_id),
+        this.indexerHelper.lookupApplicationLogs(environment.gen2.contracts.prime.withdraw.application_id),
+      ];
+
+      Promise.all(promises).then(values => {
+        let data = [];
+
+        let value = values[0];
+        for (let i = 0; i < value.length; i++) {
+          value[i].action = 'Reward';
+          value[i].prime = this.data.gen_two_primes.find(p => p.id == value[i].params.prime);
+          data.push(value[i]);
+        }
+
+        value = values[1];
+        for (let i = 0; i < value.length; i++) {
+          value[i].action = 'Royalty';
+          value[i].prime = this.data.gen_two_primes.find(p => p.id == value[i].params.prime);
+          data.push(value[i]);
+        }
+
+        this.genTwoRewards = data;
+        this.readyData.genTwoRewards = true;
         this.refreshResults();
       });
     }

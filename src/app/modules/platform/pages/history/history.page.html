@@ -80,6 +80,12 @@
                                                     <th class="text-success" *ngIf="selectedAction == 'Transforms'">
                                                         Cost
                                                     </th>
+                                                    <th class="text-success" *ngIf="selectedAction == 'Rewards'">
+                                                        Type
+                                                    </th>
+                                                    <th class="text-success" *ngIf="selectedAction == 'Rewards'">
+                                                        Amount
+                                                    </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -140,6 +146,20 @@
                                                     <td *ngIf="selectedAction == 'Transforms'">
                                                         <p class="mt-0 mb-0 text-wrap"
                                                             [innerHtml]="result.params.price | amount:assetId | async">
+                                                        </p>
+                                                    </td>
+                                                    <td *ngIf="selectedAction == 'Rewards'">
+                                                        <p class="mt-0 mb-0 text-wrap">
+                                                            {{result.action}}
+                                                        </p>
+                                                    </td>
+                                                    <td *ngIf="selectedAction == 'Rewards'">
+                                                        <p *ngIf="result.action == 'Reward'" class="mt-0 mb-0 text-wrap"
+                                                            [innerHtml]="result.params.amount | amount:assetId | async">
+                                                        </p>
+                                                        <p *ngIf="result.action == 'Royalty'"
+                                                            class="mt-0 mb-0 text-wrap"
+                                                            [innerHtml]="result.params.amount | amount:0 | async">
                                                         </p>
                                                     </td>
                                                 </tr>
