@@ -55,6 +55,7 @@
                                                 <tr>
                                                     <th class="text-success">Date</th>
                                                     <th class="text-success">Prime</th>
+                                                    <th class="text-success">Name</th>
                                                     <th class="text-success" *ngIf="selectedAction == 'Listings'">
                                                         Seller
                                                     </th>
@@ -84,10 +85,15 @@
                                                     </td>
                                                     <td>
                                                         <p class="mt-0 mb-0 text-wrap">
-                                                            #{{result.id_text}}
-                                                            <a href="{{result.url}}" target="_blank">
+                                                            #{{result.prime.id_text}}
+                                                            <a href="{{result.prime.url}}" target="_blank">
                                                                 <i class="ml-10 fas fa-info-circle text-primary"></i>
                                                             </a>
+                                                        </p>
+                                                    </td>
+                                                    <td>
+                                                        <p class="mt-0 mb-0 text-wrap">
+                                                            {{result.prime.name}}
                                                         </p>
                                                     </td>
                                                     <td *ngIf="selectedAction == 'Listings'">

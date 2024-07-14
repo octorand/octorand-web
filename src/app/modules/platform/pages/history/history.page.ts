@@ -1,14 +1,37 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { environment } from '@environment';
+import { AppHelper, DataHelper } from '@lib/helpers';
+import { AppModel, DataModel } from '@lib/models';
+import { Subscription } from 'rxjs';
 import { IndexerHelper } from '@lib/helpers';
+import { environment } from '@environment';
 
 @Component({
   selector: 'app-platform-history',
   templateUrl: './history.page.html',
   styleUrls: ['./history.page.scss'],
 })
-export class PlatformHistoryPage implements OnInit {
+export class PlatformHistoryPage implements OnInit, OnDestroy {
+
+  /**
+   * App state
+   */
+  app: AppModel = new AppModel();
+
+  /**
+   * Data state
+   */
+  data: DataModel = new DataModel();
+
+  /**
+   * App subscription
+   */
+  appSubscription: Subscription = new Subscription();
+
+  /**
+   * Data subscription
+   */
+  dataSubscription: Subscription = new Subscription();
 
   /**
    * Current page number
@@ -107,9 +130,12 @@ export class PlatformHistoryPage implements OnInit {
    * @param router
    * @param appHelper
    * @param dataHelper
+   * @param indexerHelper
    */
   constructor(
     private router: Router,
+    private appHelper: AppHelper,
+    private dataHelper: DataHelper,
     private indexerHelper: IndexerHelper
   ) { }
 
@@ -117,37 +143,70 @@ export class PlatformHistoryPage implements OnInit {
    * Initialize component
    */
   ngOnInit() {
+    this.initApp();
+    this.initData();
     this.refreshView();
+  }
+
+  /**
+   * Destroy component
+   */
+  ngOnDestroy() {
+    this.appSubscription.unsubscribe();
+    this.dataSubscription.unsubscribe();
+  }
+
+  /**
+   * Initialize app
+   */
+  initApp() {
+    this.app = this.appHelper.getDefaultState();
+    this.appSubscription = this.appHelper.app.subscribe((value: AppModel) => {
+      this.app = value;
+      this.refreshView();
+    });
+  }
+
+  /**
+   * Initialize data
+   */
+  initData() {
+    this.data = this.dataHelper.getDefaultState();
+    this.dataSubscription = this.dataHelper.data.subscribe((value: DataModel) => {
+      this.data = value;
+      this.refreshView();
+    });
   }
 
   /**
    * Refresh view state
    */
   refreshView() {
-    this.ready = false;
-
-    switch (this.selectedAction) {
-      case 'Listings':
-        if (this.selectedGen == 1) {
-          this.loadGenOneListings();
-        } else {
-          this.loadGenTwoListings();
-        }
-        break;
-      case 'Sales':
-        if (this.selectedGen == 1) {
-          this.loadGenOneSales();
-        } else {
-          this.loadGenTwoSales();
-        }
-        break;
-      case 'Upgrades':
-        if (this.selectedGen == 1) {
-          this.loadGenOneUpgrades();
-        } else {
-          this.loadGenTwoUpgrades();
-        }
-        break;
+    if (this.data && this.data.initialised) {
+      this.ready = false;
+      switch (this.selectedAction) {
+        case 'Listings':
+          if (this.selectedGen == 1) {
+            this.loadGenOneListings();
+          } else {
+            this.loadGenTwoListings();
+          }
+          break;
+        case 'Sales':
+          if (this.selectedGen == 1) {
+            this.loadGenOneSales();
+          } else {
+            this.loadGenTwoSales();
+          }
+          break;
+        case 'Upgrades':
+          if (this.selectedGen == 1) {
+            this.loadGenOneUpgrades();
+          } else {
+            this.loadGenTwoUpgrades();
+          }
+          break;
+      }
     }
   }
 
@@ -214,16 +273,14 @@ export class PlatformHistoryPage implements OnInit {
 
       Promise.all(promises).then(values => {
         let value = values[0];
-        let listings = [];
+        let data = [];
 
         for (let i = 0; i < value.length; i++) {
-          value[i].gen = 1;
-          value[i].id_text = String(value[i].params.prime).padStart(3, '0');
-          value[i].url = '/collection/prime/gen' + value[i].gen + '/' + value[i].id_text;
-          listings.push(value[i]);
+          value[i].prime = this.data.gen_one_primes.find(p => p.id == value[i].params.prime);
+          data.push(value[i]);
         }
 
-        this.genOneListings = listings;
+        this.genOneListings = data;
         this.readyData.genOneListings = true;
         this.refreshResults();
       });
@@ -243,16 +300,14 @@ export class PlatformHistoryPage implements OnInit {
 
       Promise.all(promises).then(values => {
         let value = values[0];
-        let listings = [];
+        let data = [];
 
         for (let i = 0; i < value.length; i++) {
-          value[i].gen = 2;
-          value[i].id_text = String(value[i].params.prime).padStart(4, '0');
-          value[i].url = '/collection/prime/gen' + value[i].gen + '/' + value[i].id_text;
-          listings.push(value[i]);
+          value[i].prime = this.data.gen_two_primes.find(p => p.id == value[i].params.prime);
+          data.push(value[i]);
         }
 
-        this.genTwoListings = listings;
+        this.genTwoListings = data;
         this.readyData.genTwoListings = true;
         this.refreshResults();
       });
@@ -272,16 +327,14 @@ export class PlatformHistoryPage implements OnInit {
 
       Promise.all(promises).then(values => {
         let value = values[0];
-        let sales = [];
+        let data = [];
 
         for (let i = 0; i < value.length; i++) {
-          value[i].gen = 1;
-          value[i].id_text = String(value[i].params.prime).padStart(3, '0');
-          value[i].url = '/collection/prime/gen' + value[i].gen + '/' + value[i].id_text;
-          sales.push(value[i]);
+          value[i].prime = this.data.gen_one_primes.find(p => p.id == value[i].params.prime);
+          data.push(value[i]);
         }
 
-        this.genOneSales = sales;
+        this.genOneSales = data;
         this.readyData.genOneSales = true;
         this.refreshResults();
       });
@@ -301,16 +354,14 @@ export class PlatformHistoryPage implements OnInit {
 
       Promise.all(promises).then(values => {
         let value = values[0];
-        let sales = [];
+        let data = [];
 
         for (let i = 0; i < value.length; i++) {
-          value[i].gen = 2;
-          value[i].id_text = String(value[i].params.prime).padStart(4, '0');
-          value[i].url = '/collection/prime/gen' + value[i].gen + '/' + value[i].id_text;
-          sales.push(value[i]);
+          value[i].prime = this.data.gen_two_primes.find(p => p.id == value[i].params.prime);
+          data.push(value[i]);
         }
 
-        this.genTwoSales = sales;
+        this.genTwoSales = data;
         this.readyData.genTwoSales = true;
         this.refreshResults();
       });
@@ -330,16 +381,14 @@ export class PlatformHistoryPage implements OnInit {
 
       Promise.all(promises).then(values => {
         let value = values[0];
-        let upgrades = [];
+        let data = [];
 
         for (let i = 0; i < value.length; i++) {
-          value[i].gen = 1;
-          value[i].id_text = String(value[i].params.prime).padStart(3, '0');
-          value[i].url = '/collection/prime/gen' + value[i].gen + '/' + value[i].id_text;
-          upgrades.push(value[i]);
+          value[i].prime = this.data.gen_one_primes.find(p => p.id == value[i].params.prime);
+          data.push(value[i]);
         }
 
-        this.genOneUpgrades = upgrades;
+        this.genOneUpgrades = data;
         this.readyData.genOneUpgrades = true;
         this.refreshResults();
       });
@@ -359,16 +408,14 @@ export class PlatformHistoryPage implements OnInit {
 
       Promise.all(promises).then(values => {
         let value = values[0];
-        let upgrades = [];
+        let data = [];
 
         for (let i = 0; i < value.length; i++) {
-          value[i].gen = 2;
-          value[i].id_text = String(value[i].params.prime).padStart(4, '0');
-          value[i].url = '/collection/prime/gen' + value[i].gen + '/' + value[i].id_text;
-          upgrades.push(value[i]);
+          value[i].prime = this.data.gen_two_primes.find(p => p.id == value[i].params.prime);
+          data.push(value[i]);
         }
 
-        this.genTwoUpgrades = upgrades;
+        this.genTwoUpgrades = data;
         this.readyData.genTwoUpgrades = true;
         this.refreshResults();
       });
