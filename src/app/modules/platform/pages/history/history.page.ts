@@ -48,14 +48,26 @@ export class PlatformHistoryPage implements OnInit {
   /**
    * Selected action
    */
-  selectedAction: string = 'Sales';
+  selectedAction: string = 'Listings';
 
   /**
    * Keys for actions
    */
   actions: Array<string> = [
+    'Listings',
     'Sales',
+    'Upgrades',
   ];
+
+  /**
+   * List of gen one listings
+   */
+  genOneListings: Array<any> = [];
+
+  /**
+   * List of gen two listings
+   */
+  genTwoListings: Array<any> = [];
 
   /**
    * List of gen one sales
@@ -68,11 +80,25 @@ export class PlatformHistoryPage implements OnInit {
   genTwoSales: Array<any> = [];
 
   /**
+   * List of gen one upgrades
+   */
+  genOneUpgrades: Array<any> = [];
+
+  /**
+   * List of gen two upgrades
+   */
+  genTwoUpgrades: Array<any> = [];
+
+  /**
    * Track data loading
    */
   readyData = {
+    genOneListings: false,
+    genTwoListings: false,
     genOneSales: false,
-    genTwoSales: false
+    genTwoSales: false,
+    genOneUpgrades: false,
+    genTwoUpgrades: false,
   }
 
   /**
@@ -101,11 +127,25 @@ export class PlatformHistoryPage implements OnInit {
     this.ready = false;
 
     switch (this.selectedAction) {
+      case 'Listings':
+        if (this.selectedGen == 1) {
+          this.loadGenOneListings();
+        } else {
+          this.loadGenTwoListings();
+        }
+        break;
       case 'Sales':
         if (this.selectedGen == 1) {
           this.loadGenOneSales();
         } else {
           this.loadGenTwoSales();
+        }
+        break;
+      case 'Upgrades':
+        if (this.selectedGen == 1) {
+          this.loadGenOneUpgrades();
+        } else {
+          this.loadGenTwoUpgrades();
         }
         break;
     }
@@ -118,11 +158,25 @@ export class PlatformHistoryPage implements OnInit {
     let allResults = [];
 
     switch (this.selectedAction) {
+      case 'Listings':
+        if (this.selectedGen == 1) {
+          allResults = this.genOneListings;
+        } else {
+          allResults = this.genTwoListings;
+        }
+        break;
       case 'Sales':
         if (this.selectedGen == 1) {
           allResults = this.genOneSales;
         } else {
           allResults = this.genTwoSales;
+        }
+        break;
+      case 'Upgrades':
+        if (this.selectedGen == 1) {
+          allResults = this.genOneUpgrades;
+        } else {
+          allResults = this.genTwoUpgrades;
         }
         break;
     }
@@ -145,6 +199,64 @@ export class PlatformHistoryPage implements OnInit {
     }
 
     this.ready = true;
+  }
+
+  /**
+   * Load gen one listings
+   */
+  loadGenOneListings() {
+    if (this.readyData.genOneListings) {
+      this.refreshResults();
+    } else {
+      let promises = [
+        this.indexerHelper.lookupApplicationLogs(environment.gen1.contracts.prime.list.application_id),
+      ];
+
+      Promise.all(promises).then(values => {
+        let value = values[0];
+        let listings = [];
+
+        for (let i = 0; i < value.length; i++) {
+          value[i].gen = 1;
+          value[i].id_text = String(value[i].params.prime).padStart(3, '0');
+          value[i].url = '/collection/prime/gen' + value[i].gen + '/' + value[i].id_text;
+          listings.push(value[i]);
+        }
+
+        this.genOneListings = listings;
+        this.readyData.genOneListings = true;
+        this.refreshResults();
+      });
+    }
+  }
+
+  /**
+   * Load gen two listings
+   */
+  loadGenTwoListings() {
+    if (this.readyData.genTwoListings) {
+      this.refreshResults();
+    } else {
+      let promises = [
+        this.indexerHelper.lookupApplicationLogs(environment.gen2.contracts.prime.list.application_id),
+      ];
+
+      Promise.all(promises).then(values => {
+        let value = values[0];
+        let listings = [];
+
+        for (let i = 0; i < value.length; i++) {
+          value[i].gen = 2;
+          value[i].id_text = String(value[i].params.prime).padStart(4, '0');
+          value[i].url = '/collection/prime/gen' + value[i].gen + '/' + value[i].id_text;
+          listings.push(value[i]);
+        }
+
+        this.genTwoListings = listings;
+        this.readyData.genTwoListings = true;
+        this.refreshResults();
+      });
+    }
   }
 
   /**
@@ -200,6 +312,64 @@ export class PlatformHistoryPage implements OnInit {
 
         this.genTwoSales = sales;
         this.readyData.genTwoSales = true;
+        this.refreshResults();
+      });
+    }
+  }
+
+  /**
+   * Load gen one upgrades
+   */
+  loadGenOneUpgrades() {
+    if (this.readyData.genOneUpgrades) {
+      this.refreshResults();
+    } else {
+      let promises = [
+        this.indexerHelper.lookupApplicationLogs(environment.gen1.contracts.prime.upgrade.application_id),
+      ];
+
+      Promise.all(promises).then(values => {
+        let value = values[0];
+        let upgrades = [];
+
+        for (let i = 0; i < value.length; i++) {
+          value[i].gen = 1;
+          value[i].id_text = String(value[i].params.prime).padStart(3, '0');
+          value[i].url = '/collection/prime/gen' + value[i].gen + '/' + value[i].id_text;
+          upgrades.push(value[i]);
+        }
+
+        this.genOneUpgrades = upgrades;
+        this.readyData.genOneUpgrades = true;
+        this.refreshResults();
+      });
+    }
+  }
+
+  /**
+   * Load gen two upgrades
+   */
+  loadGenTwoUpgrades() {
+    if (this.readyData.genTwoUpgrades) {
+      this.refreshResults();
+    } else {
+      let promises = [
+        this.indexerHelper.lookupApplicationLogs(environment.gen2.contracts.prime.upgrade.application_id),
+      ];
+
+      Promise.all(promises).then(values => {
+        let value = values[0];
+        let upgrades = [];
+
+        for (let i = 0; i < value.length; i++) {
+          value[i].gen = 2;
+          value[i].id_text = String(value[i].params.prime).padStart(4, '0');
+          value[i].url = '/collection/prime/gen' + value[i].gen + '/' + value[i].id_text;
+          upgrades.push(value[i]);
+        }
+
+        this.genTwoUpgrades = upgrades;
+        this.readyData.genTwoUpgrades = true;
         this.refreshResults();
       });
     }
