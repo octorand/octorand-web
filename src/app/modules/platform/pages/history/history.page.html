@@ -74,6 +74,12 @@
                                                     <th class="text-success" *ngIf="selectedAction == 'Upgrades'">
                                                         Owner
                                                     </th>
+                                                    <th class="text-success" *ngIf="selectedAction == 'Transforms'">
+                                                        Action
+                                                    </th>
+                                                    <th class="text-success" *ngIf="selectedAction == 'Transforms'">
+                                                        Cost
+                                                    </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -124,6 +130,16 @@
                                                     <td *ngIf="selectedAction == 'Upgrades'">
                                                         <p class="mt-0 mb-0 text-wrap"
                                                             [innerHtml]="result.params.sender | identity:true:true | async">
+                                                        </p>
+                                                    </td>
+                                                    <td *ngIf="selectedAction == 'Transforms'">
+                                                        <p class="mt-0 mb-0 text-wrap">
+                                                            {{result.action}}
+                                                        </p>
+                                                    </td>
+                                                    <td *ngIf="selectedAction == 'Transforms'">
+                                                        <p class="mt-0 mb-0 text-wrap"
+                                                            [innerHtml]="result.params.price | amount:assetId | async">
                                                         </p>
                                                     </td>
                                                 </tr>

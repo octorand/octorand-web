@@ -64,6 +64,11 @@ export class PlatformHistoryPage implements OnInit, OnDestroy {
   ready: boolean = false;
 
   /**
+   * Platform asset id
+   */
+  assetId: number = 0;
+
+  /**
    * Selected generation
    */
   selectedGen: number = 1;
@@ -80,6 +85,7 @@ export class PlatformHistoryPage implements OnInit, OnDestroy {
     'Listings',
     'Sales',
     'Upgrades',
+    'Transforms',
   ];
 
   /**
@@ -113,6 +119,16 @@ export class PlatformHistoryPage implements OnInit, OnDestroy {
   genTwoUpgrades: Array<any> = [];
 
   /**
+   * List of gen one transforms
+   */
+  genOneTransforms: Array<any> = [];
+
+  /**
+   * List of gen two transforms
+   */
+  genTwoTransforms: Array<any> = [];
+
+  /**
    * Track data loading
    */
   readyData = {
@@ -122,7 +138,9 @@ export class PlatformHistoryPage implements OnInit, OnDestroy {
     genTwoSales: false,
     genOneUpgrades: false,
     genTwoUpgrades: false,
-  }
+    genOneTransforms: false,
+    genTwoTransforms: false,
+  };
 
   /**
    * Construct component
@@ -182,6 +200,8 @@ export class PlatformHistoryPage implements OnInit, OnDestroy {
    * Refresh view state
    */
   refreshView() {
+    this.assetId = environment.platform.asset_id;
+
     if (this.data && this.data.initialised) {
       this.ready = false;
       switch (this.selectedAction) {
@@ -204,6 +224,13 @@ export class PlatformHistoryPage implements OnInit, OnDestroy {
             this.loadGenOneUpgrades();
           } else {
             this.loadGenTwoUpgrades();
+          }
+          break;
+        case 'Transforms':
+          if (this.selectedGen == 1) {
+            this.loadGenOneTransforms();
+          } else {
+            this.loadGenTwoTransforms();
           }
           break;
       }
@@ -236,6 +263,13 @@ export class PlatformHistoryPage implements OnInit, OnDestroy {
           allResults = this.genOneUpgrades;
         } else {
           allResults = this.genTwoUpgrades;
+        }
+        break;
+      case 'Transforms':
+        if (this.selectedGen == 1) {
+          allResults = this.genOneTransforms;
+        } else {
+          allResults = this.genTwoTransforms;
         }
         break;
     }
@@ -272,9 +306,9 @@ export class PlatformHistoryPage implements OnInit, OnDestroy {
       ];
 
       Promise.all(promises).then(values => {
-        let value = values[0];
         let data = [];
 
+        let value = values[0];
         for (let i = 0; i < value.length; i++) {
           value[i].prime = this.data.gen_one_primes.find(p => p.id == value[i].params.prime);
           data.push(value[i]);
@@ -299,9 +333,9 @@ export class PlatformHistoryPage implements OnInit, OnDestroy {
       ];
 
       Promise.all(promises).then(values => {
-        let value = values[0];
         let data = [];
 
+        let value = values[0];
         for (let i = 0; i < value.length; i++) {
           value[i].prime = this.data.gen_two_primes.find(p => p.id == value[i].params.prime);
           data.push(value[i]);
@@ -326,9 +360,9 @@ export class PlatformHistoryPage implements OnInit, OnDestroy {
       ];
 
       Promise.all(promises).then(values => {
-        let value = values[0];
         let data = [];
 
+        let value = values[0];
         for (let i = 0; i < value.length; i++) {
           value[i].prime = this.data.gen_one_primes.find(p => p.id == value[i].params.prime);
           data.push(value[i]);
@@ -353,9 +387,9 @@ export class PlatformHistoryPage implements OnInit, OnDestroy {
       ];
 
       Promise.all(promises).then(values => {
-        let value = values[0];
         let data = [];
 
+        let value = values[0];
         for (let i = 0; i < value.length; i++) {
           value[i].prime = this.data.gen_two_primes.find(p => p.id == value[i].params.prime);
           data.push(value[i]);
@@ -380,9 +414,9 @@ export class PlatformHistoryPage implements OnInit, OnDestroy {
       ];
 
       Promise.all(promises).then(values => {
-        let value = values[0];
         let data = [];
 
+        let value = values[0];
         for (let i = 0; i < value.length; i++) {
           value[i].prime = this.data.gen_one_primes.find(p => p.id == value[i].params.prime);
           data.push(value[i]);
@@ -407,9 +441,9 @@ export class PlatformHistoryPage implements OnInit, OnDestroy {
       ];
 
       Promise.all(promises).then(values => {
-        let value = values[0];
         let data = [];
 
+        let value = values[0];
         for (let i = 0; i < value.length; i++) {
           value[i].prime = this.data.gen_two_primes.find(p => p.id == value[i].params.prime);
           data.push(value[i]);
@@ -417,6 +451,78 @@ export class PlatformHistoryPage implements OnInit, OnDestroy {
 
         this.genTwoUpgrades = data;
         this.readyData.genTwoUpgrades = true;
+        this.refreshResults();
+      });
+    }
+  }
+
+  /**
+   * Load gen one transforms
+   */
+  loadGenOneTransforms() {
+    if (this.readyData.genOneTransforms) {
+      this.refreshResults();
+    } else {
+      let promises = [
+        this.indexerHelper.lookupApplicationLogs(environment.gen1.contracts.prime.rename.application_id),
+        this.indexerHelper.lookupApplicationLogs(environment.gen1.contracts.prime.repaint.application_id),
+      ];
+
+      Promise.all(promises).then(values => {
+        let data = [];
+
+        let value = values[0];
+        for (let i = 0; i < value.length; i++) {
+          value[i].action = 'Rename';
+          value[i].prime = this.data.gen_one_primes.find(p => p.id == value[i].params.prime);
+          data.push(value[i]);
+        }
+
+        value = values[1];
+        for (let i = 0; i < value.length; i++) {
+          value[i].action = 'Repaint';
+          value[i].prime = this.data.gen_one_primes.find(p => p.id == value[i].params.prime);
+          data.push(value[i]);
+        }
+
+        this.genOneTransforms = data;
+        this.readyData.genOneTransforms = true;
+        this.refreshResults();
+      });
+    }
+  }
+
+  /**
+   * Load gen two transforms
+   */
+  loadGenTwoTransforms() {
+    if (this.readyData.genTwoTransforms) {
+      this.refreshResults();
+    } else {
+      let promises = [
+        this.indexerHelper.lookupApplicationLogs(environment.gen2.contracts.prime.rename.application_id),
+        this.indexerHelper.lookupApplicationLogs(environment.gen2.contracts.prime.repaint.application_id),
+      ];
+
+      Promise.all(promises).then(values => {
+        let data = [];
+
+        let value = values[0];
+        for (let i = 0; i < value.length; i++) {
+          value[i].action = 'Rename';
+          value[i].prime = this.data.gen_two_primes.find(p => p.id == value[i].params.prime);
+          data.push(value[i]);
+        }
+
+        value = values[1];
+        for (let i = 0; i < value.length; i++) {
+          value[i].action = 'Repaint';
+          value[i].prime = this.data.gen_two_primes.find(p => p.id == value[i].params.prime);
+          data.push(value[i]);
+        }
+
+        this.genTwoTransforms = data;
+        this.readyData.genTwoTransforms = true;
         this.refreshResults();
       });
     }
