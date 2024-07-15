@@ -1,9 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppHelper, DataHelper } from '@lib/helpers';
+import { AppHelper, DataHelper, IndexerHelper } from '@lib/helpers';
 import { AppModel, DataModel } from '@lib/models';
 import { Subscription } from 'rxjs';
-import { IndexerHelper } from '@lib/helpers';
 import { environment } from '@environment';
 
 @Component({

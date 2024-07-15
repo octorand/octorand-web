@@ -4,7 +4,7 @@
             <div class="col">
                 <div class="mx-auto text-center">
                     <h1 class="content-title text-secondary mt-0 mb-20">
-                        History
+                        Leaderboard
                     </h1>
                     <p class="text-muted mb-5">
                         Generation
@@ -24,13 +24,13 @@
                         </div>
                     </div>
                     <p class="text-muted mb-5">
-                        Action
+                        Ranking
                     </p>
                     <div class="info row justify-content-center mt-0 mb-0">
-                        <div class="col-auto" *ngFor="let action of actions">
-                            <button class="btn option" [ngClass]="{'btn-primary': action == selectedAction}"
-                                (click)="changeAction(action)">
-                                {{action}}
+                        <div class="col-auto" *ngFor="let ranking of rankings">
+                            <button class="btn option" [ngClass]="{'btn-primary': ranking == selectedRanking}"
+                                (click)="changeRanking(ranking)">
+                                {{ranking}}
                             </button>
                         </div>
                     </div>
@@ -53,113 +53,43 @@
                                         <table class="table table-no-outer-padding">
                                             <thead>
                                                 <tr>
-                                                    <th class="text-success">Date</th>
-                                                    <th class="text-success">Prime</th>
-                                                    <th class="text-success">Name</th>
-                                                    <th class="text-success" *ngIf="selectedAction == 'Listings'">
-                                                        Seller
+                                                    <th class="text-success" *ngIf="selectedRanking == 'Scores'">
+                                                        Prime
                                                     </th>
-                                                    <th class="text-success" *ngIf="selectedAction == 'Listings'">
-                                                        Price
+                                                    <th class="text-success" *ngIf="selectedRanking == 'Scores'">
+                                                        Name
                                                     </th>
-                                                    <th class="text-success" *ngIf="selectedAction == 'Sales'">
-                                                        Seller
-                                                    </th>
-                                                    <th class="text-success" *ngIf="selectedAction == 'Sales'">
-                                                        Buyer
-                                                    </th>
-                                                    <th class="text-success" *ngIf="selectedAction == 'Sales'">
-                                                        Price
-                                                    </th>
-                                                    <th class="text-success" *ngIf="selectedAction == 'Upgrades'">
+                                                    <th class="text-success" *ngIf="selectedRanking == 'Scores'">
                                                         Owner
                                                     </th>
-                                                    <th class="text-success" *ngIf="selectedAction == 'Transforms'">
-                                                        Action
-                                                    </th>
-                                                    <th class="text-success" *ngIf="selectedAction == 'Transforms'">
-                                                        Cost
-                                                    </th>
-                                                    <th class="text-success" *ngIf="selectedAction == 'Rewards'">
-                                                        Type
-                                                    </th>
-                                                    <th class="text-success" *ngIf="selectedAction == 'Rewards'">
-                                                        Amount
+                                                    <th class="text-success" *ngIf="selectedRanking == 'Scores'">
+                                                        Score
                                                     </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr *ngFor="let result of currentPageResults">
-                                                    <td>
+                                                    <td *ngIf="selectedRanking == 'Scores'">
                                                         <p class="mt-0 mb-0 text-wrap">
-                                                            {{result.timestamp * 1000 | date}}
-                                                        </p>
-                                                    </td>
-                                                    <td>
-                                                        <p class="mt-0 mb-0 text-wrap">
-                                                            #{{result.prime.id_text}}
-                                                            <a href="{{result.prime.url}}" target="_blank">
+                                                            #{{result.id_text}}
+                                                            <a href="{{result.url}}" target="_blank">
                                                                 <i class="ml-10 fas fa-info-circle text-primary"></i>
                                                             </a>
                                                         </p>
                                                     </td>
-                                                    <td>
+                                                    <td *ngIf="selectedRanking == 'Scores'">
                                                         <p class="mt-0 mb-0 text-wrap">
-                                                            {{result.prime.name}}
+                                                            {{result.name}}
                                                         </p>
                                                     </td>
-                                                    <td *ngIf="selectedAction == 'Listings'">
+                                                    <td *ngIf="selectedRanking == 'Scores'">
                                                         <p class="mt-0 mb-0 text-wrap"
-                                                            [innerHtml]="result.params.sender | identity:true:true | async">
+                                                            [innerHtml]="result.owner | identity:true:true | async">
                                                         </p>
                                                     </td>
-                                                    <td *ngIf="selectedAction == 'Listings'">
-                                                        <p class="mt-0 mb-0 text-wrap"
-                                                            [innerHtml]="result.params.price | amount:0 | async">
-                                                        </p>
-                                                    </td>
-                                                    <td *ngIf="selectedAction == 'Sales'">
-                                                        <p class="mt-0 mb-0 text-wrap"
-                                                            [innerHtml]="result.params.seller | identity:true:true | async">
-                                                        </p>
-                                                    </td>
-                                                    <td *ngIf="selectedAction == 'Sales'">
-                                                        <p class="mt-0 mb-0 text-wrap"
-                                                            [innerHtml]="result.params.sender | identity:true:true | async">
-                                                        </p>
-                                                    </td>
-                                                    <td *ngIf="selectedAction == 'Sales'">
-                                                        <p class="mt-0 mb-0 text-wrap"
-                                                            [innerHtml]="result.params.price | amount:0 | async">
-                                                        </p>
-                                                    </td>
-                                                    <td *ngIf="selectedAction == 'Upgrades'">
-                                                        <p class="mt-0 mb-0 text-wrap"
-                                                            [innerHtml]="result.params.sender | identity:true:true | async">
-                                                        </p>
-                                                    </td>
-                                                    <td *ngIf="selectedAction == 'Transforms'">
+                                                    <td *ngIf="selectedRanking == 'Scores'">
                                                         <p class="mt-0 mb-0 text-wrap">
-                                                            {{result.action}}
-                                                        </p>
-                                                    </td>
-                                                    <td *ngIf="selectedAction == 'Transforms'">
-                                                        <p class="mt-0 mb-0 text-wrap"
-                                                            [innerHtml]="result.params.price | amount:assetId | async">
-                                                        </p>
-                                                    </td>
-                                                    <td *ngIf="selectedAction == 'Rewards'">
-                                                        <p class="mt-0 mb-0 text-wrap">
-                                                            {{result.action}}
-                                                        </p>
-                                                    </td>
-                                                    <td *ngIf="selectedAction == 'Rewards'">
-                                                        <p *ngIf="result.action == 'Reward'" class="mt-0 mb-0 text-wrap"
-                                                            [innerHtml]="result.params.amount | amount:assetId | async">
-                                                        </p>
-                                                        <p *ngIf="result.action == 'Royalty'"
-                                                            class="mt-0 mb-0 text-wrap"
-                                                            [innerHtml]="result.params.amount | amount:0 | async">
+                                                            {{result.score}}
                                                         </p>
                                                     </td>
                                                 </tr>
@@ -178,7 +108,7 @@
                 </div>
                 <div *ngIf="currentPageResults.length == 0" class="mw-600 mx-auto text-center">
                     <div class="text-muted mt-60 mb-60">
-                        There aren't any actions found in history
+                        There aren't any primes found
                     </div>
                 </div>
             </div>
