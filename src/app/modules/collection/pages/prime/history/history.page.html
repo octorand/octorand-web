@@ -13,8 +13,7 @@
                         <tr class="text-success">
                             <th>Date</th>
                             <th>Sender</th>
-                            <th>Action</th>
-                            <th>Details</th>
+                            <th>Event</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -30,43 +29,72 @@
                                 </p>
                             </td>
                             <td>
-                                <p class="mt-0 mb-0 text-wrap">
-                                    {{event.params.name.toUpperCase().replace('PRIME_', '')}}
+                                <p *ngIf="event.params.name == 'prime_buy'" class="mt-0 mb-0 text-wrap">
+                                    <span class="text-secondary">Bought</span>
+                                    for
+                                    <span class="text-secondary" [innerHtml]="event.params.price | amount:0 | async">
+                                    </span>
+                                    from
+                                    <span class="text-secondary"
+                                        [innerHtml]="event.params.seller | identity:false:true | async">
+                                    </span>
                                 </p>
-                            </td>
-                            <td>
-                                <p *ngIf="event.params.name == 'prime_buy'" class="mt-0 mb-0 text-wrap"
-                                    innerHtml="Bought for {{event.params.price | amount:0 | async}} from {{event.params.seller | identity:false:true | async}}">
+                                <p *ngIf="event.params.name == 'prime_claim'" class="mt-0 mb-0 text-wrap">
+                                    <span class="text-secondary">Claimed</span>
+                                    ownership
                                 </p>
-                                <p *ngIf="event.params.name == 'prime_claim'" class="mt-0 mb-0 text-wrap"
-                                    innerHtml="Claimed ownership">
+                                <p *ngIf="event.params.name == 'prime_list'" class="mt-0 mb-0 text-wrap">
+                                    <span class="text-secondary">Listed</span>
+                                    for sale at
+                                    <span class="text-secondary" [innerHtml]="event.params.price | amount:0 | async">
+                                    </span>
                                 </p>
-                                <p *ngIf="event.params.name == 'prime_list'" class="mt-0 mb-0 text-wrap"
-                                    innerHtml="Listed for sale for {{event.params.price | amount:0 | async}}">
+                                <p *ngIf="event.params.name == 'prime_mint'" class="mt-0 mb-0 text-wrap">
+                                    <span class="text-secondary">Collected</span>
+                                    rewards worth
+                                    <span class="text-secondary"
+                                        [innerHtml]="event.params.amount | amount:assetId | async">
+                                    </span>
                                 </p>
-                                <p *ngIf="event.params.name == 'prime_mint'" class="mt-0 mb-0 text-wrap"
-                                    innerHtml="Collected rewards worth {{event.params.amount | amount:assetId | async}}">
+                                <p *ngIf="event.params.name == 'prime_optin'" class="mt-0 mb-0 text-wrap">
+                                    <span class="text-secondary">Opted in</span>
+                                    to asset
+                                    <span class="text-secondary" [innerHtml]="event.params.asset_id | asset | async">
+                                    </span>
                                 </p>
-                                <p *ngIf="event.params.name == 'prime_optin'" class="mt-0 mb-0 text-wrap"
-                                    innerHtml="Opted in to asset {{event.params.asset_id | asset | async}}">
+                                <p *ngIf="event.params.name == 'prime_optout'" class="mt-0 mb-0 text-wrap">
+                                    <span class="text-secondary">Opted out</span>
+                                    of asset
+                                    <span class="text-secondary" [innerHtml]="event.params.asset_id | asset | async">
+                                    </span>
                                 </p>
-                                <p *ngIf="event.params.name == 'prime_optout'" class="mt-0 mb-0 text-wrap"
-                                    innerHtml="Opted out from asset {{event.params.asset_id | asset | async}}">
+                                <p *ngIf="event.params.name == 'prime_rename'" class="mt-0 mb-0 text-wrap">
+                                    <span class="text-secondary">Renamed</span>
+                                    by spending
+                                    <span class="text-secondary"
+                                        [innerHtml]="event.params.price | amount:assetId | async">
+                                    </span>
                                 </p>
-                                <p *ngIf="event.params.name == 'prime_rename'" class="mt-0 mb-0 text-wrap"
-                                    innerHtml="Renamed by spending {{event.params.price | amount:assetId | async}}">
+                                <p *ngIf="event.params.name == 'prime_repaint'" class="mt-0 mb-0 text-wrap">
+                                    <span class="text-secondary">Renamed</span>
+                                    by spending
+                                    <span class="text-secondary"
+                                        [innerHtml]="event.params.price | amount:assetId | async">
+                                    </span>
                                 </p>
-                                <p *ngIf="event.params.name == 'prime_repaint'" class="mt-0 mb-0 text-wrap"
-                                    innerHtml="Repainted by spending {{event.params.price | amount:assetId | async}}">
+                                <p *ngIf="event.params.name == 'prime_unlist'" class="mt-0 mb-0 text-wrap">
+                                    <span class="text-secondary">Unlisted</span>
+                                    from market
                                 </p>
-                                <p *ngIf="event.params.name == 'prime_unlist'" class="mt-0 mb-0 text-wrap"
-                                    innerHtml="Unlisted from market">
+                                <p *ngIf="event.params.name == 'prime_upgrade'" class="mt-0 mb-0 text-wrap">
+                                    <span class="text-secondary">Upgraded</span>
+                                    version
                                 </p>
-                                <p *ngIf="event.params.name == 'prime_upgrade'" class="mt-0 mb-0 text-wrap"
-                                    innerHtml="Upgraded version">
-                                </p>
-                                <p *ngIf="event.params.name == 'prime_withdraw'" class="mt-0 mb-0 text-wrap"
-                                    innerHtml="Collected royalties worth {{event.params.amount | amount:0 | async}}">
+                                <p *ngIf="event.params.name == 'prime_withdraw'" class="mt-0 mb-0 text-wrap">
+                                    <span class="text-secondary">Collected</span>
+                                    royalties worth
+                                    <span class="text-secondary" [innerHtml]="event.params.amount | amount:0 | async">
+                                    </span>
                                 </p>
                             </td>
                         </tr>
