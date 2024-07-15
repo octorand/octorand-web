@@ -6,6 +6,43 @@
         Primes evolve through various stages throughout their existence.
     </p>
     <div class="info row justify-content-center mt-0 mb-0">
-
+        <div class="column col-12">
+            <div class="table-responsive">
+                <table class="table table-no-outer-padding">
+                    <thead>
+                        <tr class="text-success">
+                            <th>Date</th>
+                            <th>Sender</th>
+                            <th>Action</th>
+                            <th>Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let event of events">
+                            <td>
+                                <p class="mt-0 mb-0 text-wrap">
+                                    {{event.timestamp * 1000 | date}}
+                                </p>
+                            </td>
+                            <td>
+                                <p class="mt-0 mb-0 text-wrap"
+                                    [innerHtml]="event.params.sender | identity:false:true | async">
+                                </p>
+                            </td>
+                            <td>
+                                <p class="mt-0 mb-0 text-wrap">
+                                    {{event.params.action}}
+                                </p>
+                            </td>
+                            <td>
+                                <p class="mt-0 mb-0 text-wrap">
+                                    {{event.params.details}}
+                                </p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
