@@ -20,6 +20,10 @@ const routes: Routes = [
         component: Pages.PlatformHistoryPage
       },
       {
+        path: 'leaderboard',
+        component: Pages.PlatformLeaderboardPage
+      },
+      {
         path: 'statistics',
         component: Pages.PlatformStatisticsPage
       },
@@ -44,6 +48,7 @@ const routes: Routes = [
     PlatformContainer,
     Pages.PlatformGuidePage,
     Pages.PlatformHistoryPage,
+    Pages.PlatformLeaderboardPage,
     Pages.PlatformStatisticsPage,
     Pages.PlatformTokenomicsPage,
     Pages.PlatformTraitsPage,

@@ -1,0 +1,192 @@
+<div class="container-fluid">
+    <div class="content">
+        <div class="row">
+            <div class="col">
+                <div class="mx-auto text-center">
+                    <h1 class="content-title text-secondary mt-0 mb-20">
+                        History
+                    </h1>
+                    <p class="text-muted mb-5">
+                        Generation
+                    </p>
+                    <div class="info row justify-content-center mt-0 mb-0">
+                        <div class="col-auto">
+                            <button class="btn option" [ngClass]="{'btn-primary': selectedGen == 1}"
+                                (click)="changeGen(1)">
+                                GEN1
+                            </button>
+                        </div>
+                        <div class="col-auto">
+                            <button class="btn option" [ngClass]="{'btn-primary': selectedGen == 2}"
+                                (click)="changeGen(2)">
+                                GEN2
+                            </button>
+                        </div>
+                    </div>
+                    <p class="text-muted mb-5">
+                        Action
+                    </p>
+                    <div class="info row justify-content-center mt-0 mb-0">
+                        <div class="col-auto" *ngFor="let action of actions">
+                            <button class="btn option" [ngClass]="{'btn-primary': action == selectedAction}"
+                                (click)="changeAction(action)">
+                                {{action}}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="ready">
+            <div class="col">
+                <div *ngIf="currentPageResults.length > 0">
+                    <div class="my-20">
+                        <lib-tags-pager [totalPages]="pagesCount" [currentPage]="currentPage"
+                            (onPageChange)="changePage($event)">
+                        </lib-tags-pager>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="column col-12">
+                            <div class="card">
+                                <div class="info mb-0">
+                                    <div class="table-responsive">
+                                        <table class="table table-no-outer-padding">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-success">Date</th>
+                                                    <th class="text-success">Prime</th>
+                                                    <th class="text-success">Name</th>
+                                                    <th class="text-success" *ngIf="selectedAction == 'Listings'">
+                                                        Seller
+                                                    </th>
+                                                    <th class="text-success" *ngIf="selectedAction == 'Listings'">
+                                                        Price
+                                                    </th>
+                                                    <th class="text-success" *ngIf="selectedAction == 'Sales'">
+                                                        Seller
+                                                    </th>
+                                                    <th class="text-success" *ngIf="selectedAction == 'Sales'">
+                                                        Buyer
+                                                    </th>
+                                                    <th class="text-success" *ngIf="selectedAction == 'Sales'">
+                                                        Price
+                                                    </th>
+                                                    <th class="text-success" *ngIf="selectedAction == 'Upgrades'">
+                                                        Owner
+                                                    </th>
+                                                    <th class="text-success" *ngIf="selectedAction == 'Transforms'">
+                                                        Action
+                                                    </th>
+                                                    <th class="text-success" *ngIf="selectedAction == 'Transforms'">
+                                                        Cost
+                                                    </th>
+                                                    <th class="text-success" *ngIf="selectedAction == 'Rewards'">
+                                                        Type
+                                                    </th>
+                                                    <th class="text-success" *ngIf="selectedAction == 'Rewards'">
+                                                        Amount
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let result of currentPageResults">
+                                                    <td>
+                                                        <p class="mt-0 mb-0 text-wrap">
+                                                            {{result.timestamp * 1000 | date}}
+                                                        </p>
+                                                    </td>
+                                                    <td>
+                                                        <p class="mt-0 mb-0 text-wrap">
+                                                            #{{result.prime.id_text}}
+                                                            <a href="{{result.prime.url}}" target="_blank">
+                                                                <i class="ml-10 fas fa-info-circle text-primary"></i>
+                                                            </a>
+                                                        </p>
+                                                    </td>
+                                                    <td>
+                                                        <p class="mt-0 mb-0 text-wrap">
+                                                            {{result.prime.name}}
+                                                        </p>
+                                                    </td>
+                                                    <td *ngIf="selectedAction == 'Listings'">
+                                                        <p class="mt-0 mb-0 text-wrap"
+                                                            [innerHtml]="result.params.sender | identity:true:true | async">
+                                                        </p>
+                                                    </td>
+                                                    <td *ngIf="selectedAction == 'Listings'">
+                                                        <p class="mt-0 mb-0 text-wrap"
+                                                            [innerHtml]="result.params.price | amount:0 | async">
+                                                        </p>
+                                                    </td>
+                                                    <td *ngIf="selectedAction == 'Sales'">
+                                                        <p class="mt-0 mb-0 text-wrap"
+                                                            [innerHtml]="result.params.seller | identity:true:true | async">
+                                                        </p>
+                                                    </td>
+                                                    <td *ngIf="selectedAction == 'Sales'">
+                                                        <p class="mt-0 mb-0 text-wrap"
+                                                            [innerHtml]="result.params.sender | identity:true:true | async">
+                                                        </p>
+                                                    </td>
+                                                    <td *ngIf="selectedAction == 'Sales'">
+                                                        <p class="mt-0 mb-0 text-wrap"
+                                                            [innerHtml]="result.params.price | amount:0 | async">
+                                                        </p>
+                                                    </td>
+                                                    <td *ngIf="selectedAction == 'Upgrades'">
+                                                        <p class="mt-0 mb-0 text-wrap"
+                                                            [innerHtml]="result.params.sender | identity:true:true | async">
+                                                        </p>
+                                                    </td>
+                                                    <td *ngIf="selectedAction == 'Transforms'">
+                                                        <p class="mt-0 mb-0 text-wrap">
+                                                            {{result.action}}
+                                                        </p>
+                                                    </td>
+                                                    <td *ngIf="selectedAction == 'Transforms'">
+                                                        <p class="mt-0 mb-0 text-wrap"
+                                                            [innerHtml]="result.params.price | amount:assetId | async">
+                                                        </p>
+                                                    </td>
+                                                    <td *ngIf="selectedAction == 'Rewards'">
+                                                        <p class="mt-0 mb-0 text-wrap">
+                                                            {{result.action}}
+                                                        </p>
+                                                    </td>
+                                                    <td *ngIf="selectedAction == 'Rewards'">
+                                                        <p *ngIf="result.action == 'Reward'" class="mt-0 mb-0 text-wrap"
+                                                            [innerHtml]="result.params.amount | amount:assetId | async">
+                                                        </p>
+                                                        <p *ngIf="result.action == 'Royalty'"
+                                                            class="mt-0 mb-0 text-wrap"
+                                                            [innerHtml]="result.params.amount | amount:0 | async">
+                                                        </p>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-20">
+                        <lib-tags-pager [totalPages]="pagesCount" [currentPage]="currentPage"
+                            (onPageChange)="changePage($event)">
+                        </lib-tags-pager>
+                    </div>
+                </div>
+                <div *ngIf="currentPageResults.length == 0" class="mw-600 mx-auto text-center">
+                    <div class="text-muted mt-60 mb-60">
+                        There aren't any actions found in history
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="!ready">
+            <div class="col py-20">
+                <lib-tags-loader></lib-tags-loader>
+            </div>
+        </div>
+    </div>
+</div>
