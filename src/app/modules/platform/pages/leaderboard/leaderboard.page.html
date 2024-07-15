@@ -50,26 +50,18 @@
                             <div class="card">
                                 <div class="info mb-0">
                                     <div class="table-responsive">
-                                        <table class="table table-no-outer-padding">
+                                        <table class="table table-no-outer-padding" *ngIf="selectedRanking == 'Primes'">
                                             <thead>
-                                                <tr>
-                                                    <th class="text-success" *ngIf="selectedRanking == 'Scores'">
-                                                        Prime
-                                                    </th>
-                                                    <th class="text-success" *ngIf="selectedRanking == 'Scores'">
-                                                        Name
-                                                    </th>
-                                                    <th class="text-success" *ngIf="selectedRanking == 'Scores'">
-                                                        Owner
-                                                    </th>
-                                                    <th class="text-success" *ngIf="selectedRanking == 'Scores'">
-                                                        Score
-                                                    </th>
+                                                <tr class="text-success">
+                                                    <th>Prime</th>
+                                                    <th>Name</th>
+                                                    <th>Owner</th>
+                                                    <th>Score</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr *ngFor="let result of currentPageResults">
-                                                    <td *ngIf="selectedRanking == 'Scores'">
+                                                    <td>
                                                         <p class="mt-0 mb-0 text-wrap">
                                                             #{{result.id_text}}
                                                             <a href="{{result.url}}" target="_blank">
@@ -77,17 +69,17 @@
                                                             </a>
                                                         </p>
                                                     </td>
-                                                    <td *ngIf="selectedRanking == 'Scores'">
+                                                    <td>
                                                         <p class="mt-0 mb-0 text-wrap">
                                                             {{result.name}}
                                                         </p>
                                                     </td>
-                                                    <td *ngIf="selectedRanking == 'Scores'">
+                                                    <td>
                                                         <p class="mt-0 mb-0 text-wrap"
                                                             [innerHtml]="result.owner | identity:true:true | async">
                                                         </p>
                                                     </td>
-                                                    <td *ngIf="selectedRanking == 'Scores'">
+                                                    <td>
                                                         <p class="mt-0 mb-0 text-wrap">
                                                             {{result.score}}
                                                         </p>

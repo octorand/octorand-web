@@ -70,13 +70,13 @@ export class PlatformLeaderboardPage implements OnInit, OnDestroy {
   /**
    * Selected ranking
    */
-  selectedRanking: string = 'Scores';
+  selectedRanking: string = 'Primes';
 
   /**
    * Keys for rankings
    */
   rankings: Array<string> = [
-    'Scores',
+    'Primes',
   ];
 
   /**
@@ -139,7 +139,7 @@ export class PlatformLeaderboardPage implements OnInit, OnDestroy {
       let allResults: Array<any> = [];
 
       switch (this.selectedRanking) {
-        case 'Scores':
+        case 'Primes':
           if (this.selectedGen == 1) {
             allResults = this.data.gen_one_primes.sort((first, second) => second.score - first.score);
           } else {
