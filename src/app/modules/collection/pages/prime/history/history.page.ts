@@ -1,6 +1,5 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import { GenOnePrimeClaimContract, GenOnePrimeUpgradeContract, GenTwoPrimeClaimContract, GenTwoPrimeUpgradeContract } from '@lib/contracts';
-import { AppHelper, DataHelper, IndexerHelper } from '@lib/helpers';
+import { IndexerHelper } from '@lib/helpers';
 import { AppModel, DataModel, PrimeModel } from '@lib/models';
 import { environment } from '@environment';
 
@@ -27,6 +26,11 @@ export class CollectionPrimeHistoryPage implements OnInit, OnChanges {
   @Input() prime: PrimeModel = new PrimeModel();
 
   /**
+   * Platform asset id
+   */
+  assetId: number = 0;
+
+  /**
    * List of events
    */
   events: Array<any> = [];
@@ -34,13 +38,9 @@ export class CollectionPrimeHistoryPage implements OnInit, OnChanges {
   /**
    * Construct component
    *
-   * @param appHelper
-   * @param dataHelper
    * @param indexerHelper
    */
   constructor(
-    private appHelper: AppHelper,
-    private dataHelper: DataHelper,
     private indexerHelper: IndexerHelper
   ) { }
 
@@ -62,6 +62,7 @@ export class CollectionPrimeHistoryPage implements OnInit, OnChanges {
    * Refresh view state
    */
   refreshView() {
+    this.assetId = environment.platform.asset_id;
     if (this.prime) {
       this.indexerHelper.lookupApplicationLogs(this.prime.application_id).then((value) => {
         this.events = value.sort((first, second) => second.timestamp - first.timestamp);
