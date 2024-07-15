@@ -4,6 +4,7 @@ export * from './market/market.page';
 export * from './prime/prime.page';
 export * from './prime/artwork/artwork.page';
 export * from './prime/family/family.page';
+export * from './prime/history/history.page';
 export * from './prime/market/market.page';
 export * from './prime/rewards/rewards.page';
 export * from './prime/summary/summary.page';
