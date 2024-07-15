@@ -87,6 +87,34 @@
                                                 </tr>
                                             </tbody>
                                         </table>
+                                        <table class="table table-no-outer-padding" *ngIf="selectedRanking == 'Owners'">
+                                            <thead>
+                                                <tr class="text-success">
+                                                    <th>Owner</th>
+                                                    <th>Primes</th>
+                                                    <th>Score</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let result of currentPageResults">
+                                                    <td>
+                                                        <p class="mt-0 mb-0 text-wrap"
+                                                            [innerHtml]="result.owner | identity:true:true | async">
+                                                        </p>
+                                                    </td>
+                                                    <td>
+                                                        <p class="mt-0 mb-0 text-wrap">
+                                                            {{result.primes}}
+                                                        </p>
+                                                    </td>
+                                                    <td>
+                                                        <p class="mt-0 mb-0 text-wrap">
+                                                            {{result.score}}
+                                                        </p>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
@@ -100,7 +128,7 @@
                 </div>
                 <div *ngIf="currentPageResults.length == 0" class="mw-600 mx-auto text-center">
                     <div class="text-muted mt-60 mb-60">
-                        There aren't any primes found
+                        No results found
                     </div>
                 </div>
             </div>

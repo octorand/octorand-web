@@ -77,6 +77,7 @@ export class PlatformLeaderboardPage implements OnInit, OnDestroy {
    */
   rankings: Array<string> = [
     'Primes',
+    'Owners',
   ];
 
   /**
@@ -145,6 +146,22 @@ export class PlatformLeaderboardPage implements OnInit, OnDestroy {
           } else {
             allResults = this.data.gen_two_primes.sort((first, second) => second.score - first.score);
           }
+          break;
+        case 'Owners':
+          let primes = this.selectedGen == 1 ? this.data.gen_one_primes : this.data.gen_two_primes;
+          let owners: Array<any> = [];
+          for (let i = 0; i < primes.length; i++) {
+            if (!owners.find(x => x.owner == primes[i].owner)) {
+              owners.push({
+                owner: primes[i].owner,
+                primes: 0,
+                score: 0
+              });
+            }
+            owners.find(x => x.owner == primes[i].owner).primes = owners.find(x => x.owner == primes[i].owner).primes + 1;
+            owners.find(x => x.owner == primes[i].owner).score = owners.find(x => x.owner == primes[i].owner).score + primes[i].score;
+          }
+          allResults = owners.sort((first, second) => second.score - first.score);
           break;
       }
 
