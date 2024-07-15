@@ -62,8 +62,10 @@
                                                     <th *ngIf="selectedAction == 'Sales'">Buyer</th>
                                                     <th *ngIf="selectedAction == 'Sales'">Price</th>
                                                     <th *ngIf="selectedAction == 'Upgrades'">Owner</th>
+                                                    <th *ngIf="selectedAction == 'Transforms'">Owner</th>
                                                     <th *ngIf="selectedAction == 'Transforms'">Action</th>
                                                     <th *ngIf="selectedAction == 'Transforms'">Cost</th>
+                                                    <th *ngIf="selectedAction == 'Rewards'">Owner</th>
                                                     <th *ngIf="selectedAction == 'Rewards'">Type</th>
                                                     <th *ngIf="selectedAction == 'Rewards'">Amount</th>
                                                 </tr>
@@ -119,6 +121,11 @@
                                                         </p>
                                                     </td>
                                                     <td *ngIf="selectedAction == 'Transforms'">
+                                                        <p class="mt-0 mb-0 text-wrap"
+                                                            [innerHtml]="result.params.sender | identity:true:true | async">
+                                                        </p>
+                                                    </td>
+                                                    <td *ngIf="selectedAction == 'Transforms'">
                                                         <p class="mt-0 mb-0 text-wrap">
                                                             {{result.action}}
                                                         </p>
@@ -126,6 +133,11 @@
                                                     <td *ngIf="selectedAction == 'Transforms'">
                                                         <p class="mt-0 mb-0 text-wrap"
                                                             [innerHtml]="result.params.price | amount:assetId | async">
+                                                        </p>
+                                                    </td>
+                                                    <td *ngIf="selectedAction == 'Rewards'">
+                                                        <p class="mt-0 mb-0 text-wrap"
+                                                            [innerHtml]="result.params.sender | identity:true:true | async">
                                                         </p>
                                                     </td>
                                                     <td *ngIf="selectedAction == 'Rewards'">
