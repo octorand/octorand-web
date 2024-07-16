@@ -264,6 +264,7 @@ export class PlatformUpgradePage implements OnInit, OnDestroy {
       this.chainHelper.submitTransactions(transactions).then((response) => {
         this.actions.upgradePrime = '';
         if (response.success) {
+          this.dataHelper.loadPrimeDetails();
           this.appHelper.loadAccountDetails();
           this.appHelper.showSuccess('Upgraded prime successfully');
         }

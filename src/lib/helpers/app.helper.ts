@@ -1,4 +1,4 @@
-﻿import { Injectable, OnDestroy } from '@angular/core';
+﻿import { Injectable } from '@angular/core';
 import { AppModel } from '../models/app.model';
 import { IndexerHelper } from './indexer.helper';
 import { Subject } from 'rxjs';
@@ -6,7 +6,7 @@ import { Subject } from 'rxjs';
 declare var halfmoon: any;
 
 @Injectable({ providedIn: 'root' })
-export class AppHelper implements OnDestroy {
+export class AppHelper {
 
     /**
      * Observable subject
@@ -17,11 +17,6 @@ export class AppHelper implements OnDestroy {
      * State of model
      */
     private state: AppModel;
-
-    /**
-     * Track account details loading task
-     */
-    private accountDetailsLoadTask: any = null;
 
     /**
      * Construct component
@@ -46,13 +41,6 @@ export class AppHelper implements OnDestroy {
     }
 
     /**
-     * Destroy component
-     */
-    ngOnDestroy() {
-        clearInterval(this.accountDetailsLoadTask);
-    }
-
-    /**
      * Get default state
      */
     getDefaultState(): AppModel {
@@ -64,7 +52,6 @@ export class AppHelper implements OnDestroy {
      */
     initTasks() {
         this.loadAccountDetails();
-        this.accountDetailsLoadTask = setInterval(() => { this.loadAccountDetails() }, 30000);
     }
 
     /**

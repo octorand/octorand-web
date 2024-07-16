@@ -1,4 +1,4 @@
-﻿import { Injectable, OnDestroy } from '@angular/core';
+﻿import { Injectable } from '@angular/core';
 import { DataModel, PrimeModel } from '@lib/models';
 import { IndexerHelper } from './indexer.helper';
 import { SkinHelper } from './skin.helper';
@@ -10,7 +10,7 @@ import { environment } from '@environment';
 declare var algosdk: any;
 
 @Injectable({ providedIn: 'root' })
-export class DataHelper implements OnDestroy {
+export class DataHelper {
 
     /**
      * Observable subject
@@ -21,11 +21,6 @@ export class DataHelper implements OnDestroy {
      * State of model
      */
     private state: DataModel;
-
-    /**
-     * Track prime details loading task
-     */
-    private primeDetailsLoadTask: any = null;
 
     /**
      * Construct component
@@ -53,13 +48,6 @@ export class DataHelper implements OnDestroy {
     }
 
     /**
-     * Destroy component
-     */
-    ngOnDestroy() {
-        clearInterval(this.primeDetailsLoadTask);
-    }
-
-    /**
      * Get default state
      */
     getDefaultState(): DataModel {
@@ -71,7 +59,6 @@ export class DataHelper implements OnDestroy {
      */
     initTasks() {
         this.loadPrimeDetails();
-        this.primeDetailsLoadTask = setInterval(() => { this.loadPrimeDetails() }, 30000);
     }
 
     /**
