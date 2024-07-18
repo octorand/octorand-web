@@ -1,4 +1,4 @@
-<div *ngIf="app" class="page-wrapper with-navbar with-navbar-fixed-bottom with-sidebar">
+<div class="page-wrapper with-navbar with-navbar-fixed-bottom with-sidebar">
     <div class="sticky-alerts"></div>
     <nav class="navbar">
         <div class="navbar-content">
@@ -11,7 +11,7 @@
             <span>OCTORAND</span>
         </a>
         <div class="navbar-content ml-auto">
-            <div class="dropdown with-arrow connect-dropdown">
+            <div *ngIf="app" class="dropdown with-arrow connect-dropdown">
                 <button class="btn btn-secondary" data-toggle="dropdown" type="button" id="connect-dropdown"
                     aria-haspopup="true" aria-expanded="false" [ngClass]="{'btn-action': isMobile}">
                     <i class="fas fa-user"></i>

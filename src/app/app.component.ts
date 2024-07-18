@@ -147,11 +147,7 @@ export class AppComponent implements OnInit, OnDestroy {
    * Toggle sidebar
    */
   toggleSidebar() {
-    console.log('toggle');
-    console.log(halfmoon);
     halfmoon.toggleSidebar();
-    console.log('done');
-    console.log(halfmoon.toggleSidebar);
   }
 
   /**
