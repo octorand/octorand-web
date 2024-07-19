@@ -1,4 +1,4 @@
-import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { AppHelper, SidebarHelper, SocialHelper, WalletHelper } from '@lib/helpers';
 import { AppModel } from '@lib/models';
@@ -15,7 +15,7 @@ declare var window: any;
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
 
   /**
    * App state
@@ -95,6 +95,13 @@ export class AppComponent implements OnInit, OnDestroy {
    */
   ngOnDestroy() {
     this.appSubscription.unsubscribe();
+  }
+
+  /**
+   * After the view is initialized
+   */
+  ngAfterViewInit() {
+    this.appHelper.refreshInterface();
   }
 
   /**
