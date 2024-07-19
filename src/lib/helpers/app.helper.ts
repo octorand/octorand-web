@@ -3,8 +3,7 @@ import { AppModel } from '../models/app.model';
 import { IndexerHelper } from './indexer.helper';
 import { Subject } from 'rxjs';
 
-declare var halfmoon: any;
-declare var window: any;
+const halfmoon = require("halfmoon");
 
 @Injectable({ providedIn: 'root' })
 export class AppHelper {
@@ -141,7 +140,7 @@ export class AppHelper {
      */
     refreshInterface() {
         try {
-            // window.halfmoonOnDOMContentLoaded();
+            halfmoon.onDOMContentLoaded();
         } catch (error) {
             console.log(error);
         }
