@@ -4,6 +4,7 @@ import { IndexerHelper } from './indexer.helper';
 import { Subject } from 'rxjs';
 
 declare var halfmoon: any;
+declare var window: any;
 
 @Injectable({ providedIn: 'root' })
 export class AppHelper {
@@ -136,15 +137,41 @@ export class AppHelper {
     }
 
     /**
+     * Refresh interface
+     */
+    refreshInterface() {
+        try {
+            window.halfmoonOnDOMContentLoaded();
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    /**
+     * Toggle sidebar
+     */
+    toggleSidebar() {
+        try {
+            halfmoon.toggleSidebar();
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    /**
      * Show success message
      *
      * @param message
      */
     showSuccess(message: string) {
-        halfmoon.initStickyAlert({
-            alertType: "alert-success",
-            content: message
-        });
+        try {
+            halfmoon.initStickyAlert({
+                alertType: "alert-success",
+                content: message
+            });
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     /**
@@ -153,10 +180,14 @@ export class AppHelper {
      * @param message
      */
     showWarning(message: string) {
-        halfmoon.initStickyAlert({
-            alertType: "alert-secondary",
-            content: message
-        });
+        try {
+            halfmoon.initStickyAlert({
+                alertType: "alert-secondary",
+                content: message
+            });
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     /**
@@ -165,10 +196,14 @@ export class AppHelper {
      * @param message
      */
     showError(message: string) {
-        halfmoon.initStickyAlert({
-            alertType: "alert-danger",
-            content: message
-        });
+        try {
+            halfmoon.initStickyAlert({
+                alertType: "alert-danger",
+                content: message
+            });
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     /**

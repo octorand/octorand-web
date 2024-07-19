@@ -9,7 +9,6 @@ import { PeraWalletConnect } from "@perawallet/connect";
 import { DeflyWalletConnect } from "@blockshake/defly-connect";
 
 declare var window: any;
-declare var halfmoon: any;
 
 @Component({
   selector: 'app-root',
@@ -147,7 +146,7 @@ export class AppComponent implements OnInit, OnDestroy {
    * Toggle sidebar
    */
   toggleSidebar() {
-    halfmoon.toggleSidebar();
+    this.appHelper.toggleSidebar();
   }
 
   /**
