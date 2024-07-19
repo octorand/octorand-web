@@ -3,7 +3,7 @@ import { AppHelper } from './app.helper';
 import { ExodusWallet, PeraWalletWallet, DeflyWalletWallet } from '@lib/wallets';
 import { environment } from '@environment';
 
-declare var algosdk: any;
+const algosdk = require("algosdk");
 
 @Injectable({ providedIn: 'root' })
 export class ChainHelper {

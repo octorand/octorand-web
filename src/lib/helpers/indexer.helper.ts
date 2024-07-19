@@ -3,7 +3,7 @@ import { Md5 } from 'ts-md5';
 import { EventHelper } from './event.helper';
 import { environment } from '@environment';
 
-declare var algosdk: any;
+const algosdk = require("algosdk");
 
 @Injectable({ providedIn: 'root' })
 export class IndexerHelper {

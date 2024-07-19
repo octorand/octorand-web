@@ -7,7 +7,7 @@ import { WordHelper } from './word.helper';
 import { Subject } from 'rxjs';
 import { environment } from '@environment';
 
-declare var algosdk: any;
+const algosdk = require("algosdk");
 
 @Injectable({ providedIn: 'root' })
 export class DataHelper {

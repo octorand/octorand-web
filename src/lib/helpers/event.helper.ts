@@ -1,6 +1,6 @@
 ﻿import { Injectable } from '@angular/core';
 
-declare var algosdk: any;
+const algosdk = require("algosdk");
 
 @Injectable({ providedIn: 'root' })
 export class EventHelper {
