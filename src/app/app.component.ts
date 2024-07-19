@@ -64,6 +64,11 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   sidebar: Array<any> = [];
 
   /**
+   * Application version
+   */
+  version: string = environment.version;
+
+  /**
    * Construct component
    *
    * @param router

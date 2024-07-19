@@ -1,6 +1,6 @@
 {
   "name": "octorand-web",
-  "version": "2.0.0",
+  "version": "2.1.1",
   "scripts": {
     "ng": "ng",
     "build": "npm run build:testnet && npm run build:mainnet",
