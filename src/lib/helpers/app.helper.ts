@@ -141,7 +141,7 @@ export class AppHelper {
      */
     refreshInterface() {
         try {
-            window.halfmoonOnDOMContentLoaded();
+            // window.halfmoonOnDOMContentLoaded();
         } catch (error) {
             console.log(error);
         }
