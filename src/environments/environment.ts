@@ -13,6 +13,10 @@ export const environment = {
     manager: '',
     reserve: ''
   },
+  burner: {
+    app_id: 0,
+    app_address: ''
+  },
   gen1: {
     manager_address: '',
     seller_market_share: 0,
@@ -127,6 +131,84 @@ export const environment = {
         withdraw: {
           application_id: 0,
           application_address: ''
+        }
+      }
+    }
+  },
+  launchpad: {
+    guardians: {
+      manager_address: '',
+      artist_address: '',
+      treasury_address: '',
+      platform: {
+        asset_id: 0,
+        manager: '',
+        reserve: ''
+      },
+      contracts: {
+        item: {
+          buy: {
+            application_id: 0,
+            application_address: ''
+          },
+          claim: {
+            application_id: 0,
+            application_address: ''
+          },
+          list: {
+            application_id: 0,
+            application_address: ''
+          },
+          mint: {
+            application_id: 0,
+            application_address: ''
+          },
+          rename: {
+            application_id: 0,
+            application_address: ''
+          },
+          unlist: {
+            application_id: 0,
+            application_address: ''
+          }
+        }
+      }
+    },
+    takos: {
+      manager_address: '',
+      artist_address: '',
+      treasury_address: '',
+      platform: {
+        asset_id: 0,
+        manager: '',
+        reserve: ''
+      },
+      contracts: {
+        item: {
+          buy: {
+            application_id: 0,
+            application_address: ''
+          },
+          claim: {
+            application_id: 0,
+            application_address: ''
+          },
+          list: {
+            application_id: 0,
+            application_address: ''
+          },
+          mint: {
+            application_id: 0,
+            application_address: ''
+          },
+          rename: {
+            application_id: 0,
+            application_address: ''
+          },
+          unlist: {
+            application_id: 0,
+            application_address: ''
+          }
         }
       }
     }

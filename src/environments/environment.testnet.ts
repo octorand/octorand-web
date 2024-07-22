@@ -13,6 +13,10 @@ export const environment = {
     manager: 'EQ6CG4M4TT7AKK2E3L6GPCJQREBUTL272SGBKIG7DP3RCKIN3AJNPD27HU',
     reserve: 'EQ6CG4M4TT7AKK2E3L6GPCJQREBUTL272SGBKIG7DP3RCKIN3AJNPD27HU'
   },
+  burner: {
+    app_id: 497806551,
+    app_address: '3TKF2GMZJ5VZ4BQVQGC72BJ63WFN4QBPU2EUD4NQYHFLC3NE5D7GXHXYOQ'
+  },
   gen1: {
     manager_address: '5VOHHIR344ZYOVOL6BKKVOTB27ZDLLQMVACB3MUVM3ZX2PEMNYU2DUW6GQ',
     seller_market_share: 90,
@@ -128,6 +132,84 @@ export const environment = {
         withdraw: {
           application_id: 680795410,
           application_address: 'R4SEHILROAJGR53FCAELJVFXTOMKQCUAZHIYK4KBSCWDJZH2YW42NIZHRY',
+        }
+      }
+    }
+  },
+  launchpad: {
+    guardians: {
+      manager_address: 'SILR7G3GCZCX23HAZJWIHMUOID6KKAWXSXT24BGF7PESXBQNHIK5YMF6AY',
+      artist_address: 'BB7UKUM7PQ4F532YOWU54GJH7B4YY65YIGH6ADOXHDMPT7UNA2QQ56AZSY',
+      treasury_address: '6DIX3LIIWN3C5EFQJQVWVH3JZ3VF6ZOI2YYCXT4RR7N4OSO2DYE6FRV2KA',
+      platform: {
+        asset_id: 704366178,
+        manager: 'EQ6CG4M4TT7AKK2E3L6GPCJQREBUTL272SGBKIG7DP3RCKIN3AJNPD27HU',
+        reserve: 'EQ6CG4M4TT7AKK2E3L6GPCJQREBUTL272SGBKIG7DP3RCKIN3AJNPD27HU'
+      },
+      contracts: {
+        item: {
+          buy: {
+            application_id: 704429190,
+            application_address: '2EQS2R2QOBQY3OA33PEOTYZRNE5E3QDRDTUBBEMC6EFWSL6OCNNCYOI3VA',
+          },
+          claim: {
+            application_id: 704429193,
+            application_address: 'PSKE3E6Z6RU6ZJCDL7TWFSVRFJOLYYTL63CJ532DZXTVFXXMC6F4XTHGZ4',
+          },
+          list: {
+            application_id: 704429200,
+            application_address: 'H3IDNKTPDJ3N7N2QSD7YUB7EI27DVXOJYM6BMC4WRLGMQSMNGUVD3VKKIU',
+          },
+          mint: {
+            application_id: 704429219,
+            application_address: 'EGB5ONLZXESBDSESWEGLYJRVQC5R5TFO64ZJQLAS5JTQDAZWMYO6VWSQ74',
+          },
+          rename: {
+            application_id: 704429257,
+            application_address: '46Y5VBHKK5XLWOJVY37UMEXRBJHITKPFDGHZ5ANWHVLFDS5FKUWRMIS3VA',
+          },
+          unlist: {
+            application_id: 704429591,
+            application_address: 'Y2P2N3INCBNDTIXAZ2NEO4KSY7OYYIZ72VG5M7ZV7T7YQFX7ORKS2IMAAQ',
+          }
+        }
+      }
+    },
+    takos: {
+      manager_address: 'IORAIKW4W5EJALIQZRCZQ225RYZD3YDUQY6ZUBMG2UXE2UCDKPENYUS6AM',
+      artist_address: 'ZGHG6UQBHK34Z4XDI4ZYF3FO5XO2UVURFUWFC7JYYF5BVJXS2BGE4HGVQE',
+      treasury_address: 'PVLLJ5SRPXTZH6ZYRDJ4OUNOCAO744N5AXNR6EK4NMYP3B4UUSC5PVBJ4Q',
+      platform: {
+        asset_id: 704366187,
+        manager: 'EQ6CG4M4TT7AKK2E3L6GPCJQREBUTL272SGBKIG7DP3RCKIN3AJNPD27HU',
+        reserve: 'EQ6CG4M4TT7AKK2E3L6GPCJQREBUTL272SGBKIG7DP3RCKIN3AJNPD27HU'
+      },
+      contracts: {
+        item: {
+          buy: {
+            application_id: 704441145,
+            application_address: 'TPQ3PDVLTUKTLD66OPI3QRHR2NLMIXGD2VJ3P6AN4H75K3FZ7PHTXZ77QE',
+          },
+          claim: {
+            application_id: 704441161,
+            application_address: 'LW2OXUBWDQDULTCBIPOMXOCGB5DUQI4HEUP2UTSFI2HSGRE6FIINZY4GSI',
+          },
+          list: {
+            application_id: 704441167,
+            application_address: 'NND7Z3Z6ZCKMD5D5ECPHWTPEBTV25KI5XCKNOBNV5GJXJZWN4245OWSO5E',
+          },
+          mint: {
+            application_id: 704441219,
+            application_address: 'GOICPXOV7HIYTSH5YBG7REWMVGXCBX3SVHTGF6VFHPETVBH7M2GIAN5IBM',
+          },
+          rename: {
+            application_id: 704441225,
+            application_address: 'W24RNXOXPOJJE3VQIO272GWJPYUE4KAPF6CL24J5II7PR7LGJBLVJ5JEE4',
+          },
+          unlist: {
+            application_id: 704441264,
+            application_address: 'FLTRCZTY5TX4RVXCMZX24ZOKWE4KASMAJW2RX3SMWWPB4ZGODIZAVZNEV4',
+          }
         }
       }
     }

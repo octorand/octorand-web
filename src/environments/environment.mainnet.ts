@@ -13,6 +13,10 @@ export const environment = {
     manager: 'NP5K3WA5H6SBM36DJDZDMPFDVQPRIX6RAXNZ3H6EIC32K6C75YNAMM6Z44',
     reserve: 'NP5K3WA5H6SBM36DJDZDMPFDVQPRIX6RAXNZ3H6EIC32K6C75YNAMM6Z44'
   },
+  burner: {
+    app_id: 1257620981,
+    app_address: 'BNFIREKGRXEHCFOEQLTX3PU5SUCMRKDU7WHNBGZA4SXPW42OAHZBP7BPHY'
+  },
   gen1: {
     manager_address: 'WLBZZ2XAUWBFUNSRL4GMU7FDIBY3WAT5VFXNLRJJX2G5RRT6JQMRKYNHFU',
     seller_market_share: 90,
@@ -127,6 +131,84 @@ export const environment = {
         withdraw: {
           application_id: 2141439903,
           application_address: 'GXZW6NIPVRCTVKFABDI2AGSVNTG2TEAD5A2DUAQ65HZABA3LZBSGYM2ZNU',
+        }
+      }
+    }
+  },
+  launchpad: {
+    guardians: {
+      manager_address: 'JLVSDIM7E6XOKJ45WDWJHIU7MDO5RU4LROS55M2OVJ5NB6KNRT2LNRFXEA',
+      artist_address: 'INNXFSZIGUQLRENDROQGJDBC6CFXXC3XVQJFYL2ZG5U3BTKP763J7KMUOY',
+      treasury_address: 'VXQLT7RZVNMHE66QWXUCFPURAEKVVVKV6BJGM64G744CABET7NCYAZPDAE',
+      platform: {
+        asset_id: 886409525,
+        manager: 'OQHHRNGDXMXTTLQXU54TGGT2AMF7PVSVOM3QTBGXBXY6HFJXDOADCWGVPQ',
+        reserve: 'BFBQZ5NIWN4A6GTE4QNR3VBJNKMIFIRTYHMT7IJNFK57QJGZEWPKAQSPQI'
+      },
+      contracts: {
+        item: {
+          buy: {
+            application_id: 0,
+            application_address: ''
+          },
+          claim: {
+            application_id: 0,
+            application_address: ''
+          },
+          list: {
+            application_id: 0,
+            application_address: ''
+          },
+          mint: {
+            application_id: 0,
+            application_address: ''
+          },
+          rename: {
+            application_id: 0,
+            application_address: ''
+          },
+          unlist: {
+            application_id: 0,
+            application_address: ''
+          }
+        }
+      }
+    },
+    takos: {
+      manager_address: 'AWY6IEQCC6AOXZT25J4IUP3MD64ZTTTCC6NXO2CTHEOHIDGU2XLYZKJZO4',
+      artist_address: 'V7UYNTZXLZSDJIKBHGUHVC5BQTTQHMWVIRLH3QRFSHKRHCYCBWTWD2COWQ',
+      treasury_address: 'T4J637F37KF3KWWDDRONBTBXCWP676YPSA7HKHFN6RV32WCNAWHSB23RX4',
+      platform: {
+        asset_id: 886452112,
+        manager: '6CKBGMR4NYXXB7UCH77MFR6IHJTMMJLCY6DE4NR3Z7MKH4NPWORFQ4MFO4',
+        reserve: 'BFBQZ5NIWN4A6GTE4QNR3VBJNKMIFIRTYHMT7IJNFK57QJGZEWPKAQSPQI'
+      },
+      contracts: {
+        item: {
+          buy: {
+            application_id: 0,
+            application_address: ''
+          },
+          claim: {
+            application_id: 0,
+            application_address: ''
+          },
+          list: {
+            application_id: 0,
+            application_address: ''
+          },
+          mint: {
+            application_id: 0,
+            application_address: ''
+          },
+          rename: {
+            application_id: 0,
+            application_address: ''
+          },
+          unlist: {
+            application_id: 0,
+            application_address: ''
+          }
         }
       }
     }
