@@ -15,6 +15,10 @@ const routes: Routes = [
         path: 'designer',
         component: Pages.ToolsDesignerPage
       },
+      {
+        path: 'launchpad',
+        component: Pages.ToolsLaunchpadPage
+      },
     ]
   }
 ];
@@ -23,6 +27,7 @@ const routes: Routes = [
   declarations: [
     ToolsContainer,
     Pages.ToolsDesignerPage,
+    Pages.ToolsLaunchpadPage,
   ],
   imports: [
     CommonModule,

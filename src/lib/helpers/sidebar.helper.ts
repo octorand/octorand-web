@@ -94,6 +94,13 @@ export class SidebarHelper {
             name: 'Tools',
             items: [
                 {
+                    id: 'launchpad',
+                    name: 'Launchpad',
+                    icon: 'fas fa-rocket',
+                    color: '#f1c40f',
+                    route: 'tools/launchpad',
+                },
+                {
                     id: 'designer',
                     name: 'Designer',
                     icon: 'fas fa-palette',
