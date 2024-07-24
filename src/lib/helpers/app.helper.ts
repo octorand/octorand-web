@@ -27,15 +27,7 @@ export class AppHelper {
         private indexerHelper: IndexerHelper
     ) {
         this.app = new Subject<any>();
-
-        this.state = {
-            initialised: false,
-            account: null,
-            wallet: null,
-            addresses: [],
-            assets: [],
-        };
-
+        this.state = new AppModel();
         this.initCurrentUser();
         this.initTasks();
     }

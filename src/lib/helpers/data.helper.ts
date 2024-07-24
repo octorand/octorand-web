@@ -37,13 +37,7 @@ export class DataHelper {
         private wordHelper: WordHelper
     ) {
         this.data = new Subject<any>();
-
-        this.state = {
-            initialised: false,
-            gen_one_primes: [],
-            gen_two_primes: [],
-        };
-
+        this.state = new DataModel();
         this.initTasks();
     }
 

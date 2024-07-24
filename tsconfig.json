@@ -31,6 +31,9 @@
       "@lib": [
         "./src/lib/lib.module.ts"
       ],
+      "@lib/collections": [
+        "./src/lib/collections/_index"
+      ],
       "@lib/contracts": [
         "./src/lib/contracts/_index"
       ],

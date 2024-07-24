@@ -1,5 +1,4 @@
 export class StoreModel {
-
     initialised: boolean = false;
     account_gen: number = 1;
     account_sort: string = 'Id';

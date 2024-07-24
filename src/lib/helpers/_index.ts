@@ -7,6 +7,7 @@ export * from './data.helper';
 export * from './event.helper';
 export * from './identity.helper';
 export * from './indexer.helper';
+export * from './launchpad.helper';
 export * from './sidebar.helper';
 export * from './skin.helper';
 export * from './social.helper';

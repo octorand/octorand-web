@@ -1,5 +1,4 @@
 export class PrimeModel {
-
     id: number = 0;
     platform_asset_id: number = 0;
     prime_asset_id: number = 0;
