@@ -4,6 +4,7 @@ export const environment = {
   algo_server: 'https://testnet-api.algonode.cloud',
   algo_indexer: 'https://testnet-idx.algonode.cloud',
   algo_explorer: 'https://testnet.explorer.perawallet.app',
+  image_server: 'https://ipfs.algonode.xyz/ipfs',
   analytics_code: '',
   admin_address: 'EQ6CG4M4TT7AKK2E3L6GPCJQREBUTL272SGBKIG7DP3RCKIN3AJNPD27HU',
   indexer_page_size: 10,

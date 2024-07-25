@@ -4,6 +4,7 @@ export const environment = {
   algo_server: '',
   algo_indexer: '',
   algo_explorer: '',
+  image_server: '',
   analytics_code: '',
   admin_address: '',
   indexer_page_size: 0,
