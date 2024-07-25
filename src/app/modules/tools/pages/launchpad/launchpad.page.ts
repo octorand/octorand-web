@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { environment } from '@environment';
 import { AppHelper, LaunchpadHelper } from '@lib/helpers';
 import { AppModel, LaunchpadModel } from '@lib/models';
 import { Subscription } from 'rxjs';
@@ -37,9 +38,19 @@ export class ToolsLaunchpadPage implements OnInit, OnDestroy {
   collections: Array<any> = [];
 
   /**
+   * List of images
+   */
+  images: Array<string> = [];
+
+  /**
    * Whether the page is ready to be rendered
    */
   ready: boolean = false;
+
+  /**
+   * Track image details loading task
+   */
+  private imageDetailsLoadTask: any = null;
 
   /**
    * Construct component
@@ -60,6 +71,7 @@ export class ToolsLaunchpadPage implements OnInit, OnDestroy {
   ngOnInit() {
     this.initApp();
     this.initLaunchpad();
+    this.initTasks();
     this.refreshView();
   }
 
@@ -69,6 +81,7 @@ export class ToolsLaunchpadPage implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.appSubscription.unsubscribe();
     this.launchpadSubscription.unsubscribe();
+    clearInterval(this.imageDetailsLoadTask);
   }
 
   /**
@@ -94,6 +107,14 @@ export class ToolsLaunchpadPage implements OnInit, OnDestroy {
   }
 
   /**
+   * Initialize tasks
+   */
+  initTasks() {
+    this.loadImageDetails();
+    this.imageDetailsLoadTask = setInterval(() => { this.loadImageDetails() }, 2000);
+  }
+
+  /**
    * Refresh view state
    */
   refreshView() {
@@ -103,8 +124,22 @@ export class ToolsLaunchpadPage implements OnInit, OnDestroy {
         this.launchpad.takos
       ];
 
+      this.loadImageDetails();
       this.ready = true;
     }
+  }
+
+  /**
+   * Load image details
+   */
+  loadImageDetails() {
+    let images = [];
+    for (let i = 0; i < this.collections.length; i++) {
+      let image = this.collections[i].items[Math.floor(Math.random() * this.collections[i].stats_count)].image;
+      images.push(environment.image_server + '/' + image + '?optimizer=image&width=300');
+    }
+
+    this.images = images;
   }
 
   /**

@@ -16,11 +16,15 @@
         <div class="row" *ngIf="ready">
             <div class="col">
                 <div class="row justify-content-center">
-                    <div class="column col-12 col-md-6 col-lg-6 col-xl-4" *ngFor="let collection of collections">
+                    <div class="column col-12 col-md-6 col-lg-6 col-xl-4"
+                        *ngFor="let collection of collections; ; let i = index">
                         <div class="card">
                             <h2 class="card-title text-center text-secondary">
                                 {{collection.plural_name}}
                             </h2>
+                            <div>
+                                <img class="item bg-success" src="{{images[i]}}">
+                            </div>
                             <div class="info mb-20">
                                 <div class="table-responsive">
                                     <table class="table table-no-outer-padding">
