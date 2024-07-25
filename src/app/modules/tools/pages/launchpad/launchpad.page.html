@@ -13,6 +13,60 @@
                 </div>
             </div>
         </div>
-
+        <div class="row" *ngIf="ready">
+            <div class="col">
+                <div class="row justify-content-center">
+                    <div class="column col-12 col-md-6 col-lg-6 col-xl-4" *ngFor="let collection of collections">
+                        <div class="card">
+                            <h2 class="card-title text-center text-secondary">
+                                {{collection.plural_name}}
+                            </h2>
+                            <div class="info mb-20">
+                                <div class="table-responsive">
+                                    <table class="table table-no-outer-padding">
+                                        <tbody>
+                                            <tr>
+                                                <td class="text-success">Artist</td>
+                                                <td class="text-right">
+                                                    {{collection.artist_name}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-success">Items Count</td>
+                                                <td class="text-right">
+                                                    {{collection.stats_count}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-success">Unique Owners</td>
+                                                <td class="text-right">
+                                                    {{collection.stats_owners}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-success">Listed for Sale</td>
+                                                <td class="text-right">
+                                                    {{collection.stats_listed}}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="text-center mt-0 mb-0">
+                                <button class="btn btn-primary" (click)="openCollection(collection.id)" type="button">
+                                    View Collection
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="!ready">
+            <div class="col">
+                <lib-tags-loader></lib-tags-loader>
+            </div>
+        </div>
     </div>
 </div>

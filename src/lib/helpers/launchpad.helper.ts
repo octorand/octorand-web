@@ -122,6 +122,10 @@ export class LaunchpadHelper {
             collection.items.push(item);
         }
 
+        collection.stats_count = collection.items.length;
+        collection.stats_owners = (new Set(collection.items.map(x => x.owner))).size;
+        collection.stats_listed = collection.items.filter(x => x.price > 0).length;
+
         return collection;
     }
 
