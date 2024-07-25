@@ -23,7 +23,7 @@
                                 {{collection.plural_name}}
                             </h2>
                             <div>
-                                <img class="item bg-success" src="{{images[i]}}">
+                                <img class="item" src="{{images[i]}}" [ngStyle]="{'background' : backgrounds[i]}">
                             </div>
                             <div class="info mb-20">
                                 <div class="table-responsive">

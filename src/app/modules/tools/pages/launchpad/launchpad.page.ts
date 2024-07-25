@@ -43,6 +43,11 @@ export class ToolsLaunchpadPage implements OnInit, OnDestroy {
   images: Array<string> = [];
 
   /**
+   * List of backgrounds
+   */
+  backgrounds: Array<string> = [];
+
+  /**
    * Whether the page is ready to be rendered
    */
   ready: boolean = false;
@@ -134,12 +139,16 @@ export class ToolsLaunchpadPage implements OnInit, OnDestroy {
    */
   loadImageDetails() {
     let images = [];
+    let backgrounds = [];
+
     for (let i = 0; i < this.collections.length; i++) {
       let image = this.collections[i].items[Math.floor(Math.random() * this.collections[i].stats_count)].image;
-      images.push(environment.image_server + '/' + image + '?optimizer=image&width=300');
+      images.push(environment.image_server + '/' + image + '?optimizer=image&width=200');
+      backgrounds.push('hsl(' + Math.random() * 360 + ', 100%, 75%)');
     }
 
     this.images = images;
+    this.backgrounds = backgrounds;
   }
 
   /**
