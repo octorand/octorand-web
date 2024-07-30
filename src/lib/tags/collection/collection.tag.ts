@@ -26,7 +26,7 @@ export class CollectionTag {
     'Browse',
     'Market',
     'Account',
-    'Stats',
+    'Statistics',
     'Token',
     'Traits',
   ];
@@ -46,7 +46,7 @@ export class CollectionTag {
    * @param id
    */
   openDetails(id: string) {
-    this.navigateToPage('/tools/launchpad/' + this.collection.id + '/' + id);
+    this.navigateToPage('/tools/launchpad/' + this.collection.id + '/' + id.toLowerCase());
   }
 
   /**

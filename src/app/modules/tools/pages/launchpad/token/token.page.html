@@ -1,0 +1,15 @@
+<div class="container-fluid">
+    <div class="content">
+        <div *ngIf="ready">
+            <lib-tags-collection [collection]="collection" [selectedOption]="'Token'">
+            </lib-tags-collection>
+        </div>
+        <div *ngIf="!ready">
+            <div class="row">
+                <div class="col py-20">
+                    <lib-tags-loader></lib-tags-loader>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

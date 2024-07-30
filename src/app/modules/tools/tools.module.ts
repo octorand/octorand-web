@@ -20,8 +20,28 @@ const routes: Routes = [
         component: Pages.ToolsLaunchpadPage
       },
       {
+        path: 'launchpad/:id/account',
+        component: Pages.ToolsLaunchpadAccountPage
+      },
+      {
         path: 'launchpad/:id/browse',
         component: Pages.ToolsLaunchpadBrowsePage
+      },
+      {
+        path: 'launchpad/:id/market',
+        component: Pages.ToolsLaunchpadMarketPage
+      },
+      {
+        path: 'launchpad/:id/statistics',
+        component: Pages.ToolsLaunchpadStatisticsPage
+      },
+      {
+        path: 'launchpad/:id/token',
+        component: Pages.ToolsLaunchpadTokenPage
+      },
+      {
+        path: 'launchpad/:id/traits',
+        component: Pages.ToolsLaunchpadTraitsPage
       },
     ]
   }
@@ -32,7 +52,12 @@ const routes: Routes = [
     ToolsContainer,
     Pages.ToolsDesignerPage,
     Pages.ToolsLaunchpadPage,
+    Pages.ToolsLaunchpadAccountPage,
     Pages.ToolsLaunchpadBrowsePage,
+    Pages.ToolsLaunchpadMarketPage,
+    Pages.ToolsLaunchpadStatisticsPage,
+    Pages.ToolsLaunchpadTokenPage,
+    Pages.ToolsLaunchpadTraitsPage,
   ],
   imports: [
     CommonModule,
