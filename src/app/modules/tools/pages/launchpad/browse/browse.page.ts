@@ -1,16 +1,16 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { environment } from '@environment';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AppHelper, LaunchpadHelper } from '@lib/helpers';
-import { AppModel, LaunchpadModel } from '@lib/models';
+import { AppModel, CollectionModel, ItemModel, LaunchpadModel } from '@lib/models';
 import { Subscription } from 'rxjs';
+import { environment } from '@environment';
 
 @Component({
-  selector: 'app-tools-launchpad',
-  templateUrl: './launchpad.page.html',
-  styleUrls: ['./launchpad.page.scss'],
+  selector: 'app-tools-launchpad-browse',
+  templateUrl: './browse.page.html',
+  styleUrls: ['./browse.page.scss'],
 })
-export class ToolsLaunchpadPage implements OnInit, OnDestroy {
+export class ToolsLaunchpadBrowsePage implements OnInit, OnDestroy {
 
   /**
    * App state
@@ -33,19 +33,34 @@ export class ToolsLaunchpadPage implements OnInit, OnDestroy {
   launchpadSubscription: Subscription = new Subscription();
 
   /**
-   * List of collections
+   * Collection details
    */
-  collections: Array<any> = [];
+  collection: CollectionModel = new CollectionModel();
 
   /**
-   * List of images
+   * Current page number
    */
-  images: Array<string> = [];
+  currentPage: number = 1;
 
   /**
-   * List of backgrounds
+   * Number of results per page
    */
-  backgrounds: Array<string> = [];
+  resultsPerPage: number = environment.display_page_size;
+
+  /**
+   * Total number of results
+   */
+  totalResults: number = 0;
+
+  /**
+   * Total number of pages
+   */
+  pagesCount: number = 0;
+
+  /**
+   * Results of current page
+   */
+  currentPageResults: Array<ItemModel> = [];
 
   /**
    * Whether the page is ready to be rendered
@@ -53,18 +68,15 @@ export class ToolsLaunchpadPage implements OnInit, OnDestroy {
   ready: boolean = false;
 
   /**
-   * Track image details loading task
-   */
-  private imageDetailsLoadTask: any = null;
-
-  /**
    * Construct component
    *
+   * @param activatedRoute
    * @param router
    * @param appHelper
    * @param launchpadHelper
    */
   constructor(
+    private activatedRoute: ActivatedRoute,
     private router: Router,
     private appHelper: AppHelper,
     private launchpadHelper: LaunchpadHelper
@@ -76,7 +88,6 @@ export class ToolsLaunchpadPage implements OnInit, OnDestroy {
   ngOnInit() {
     this.initApp();
     this.initLaunchpad();
-    this.initTasks();
     this.refreshView();
   }
 
@@ -86,7 +97,6 @@ export class ToolsLaunchpadPage implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.appSubscription.unsubscribe();
     this.launchpadSubscription.unsubscribe();
-    clearInterval(this.imageDetailsLoadTask);
   }
 
   /**
@@ -112,48 +122,20 @@ export class ToolsLaunchpadPage implements OnInit, OnDestroy {
   }
 
   /**
-   * Initialize tasks
-   */
-  initTasks() {
-    this.loadImageDetails();
-    this.imageDetailsLoadTask = setInterval(() => { this.loadImageDetails() }, 2000);
-  }
-
-  /**
    * Refresh view state
    */
   refreshView() {
     if (this.launchpad && this.launchpad.initialised) {
-      this.collections = this.launchpad.collections;
-      this.loadImageDetails();
-      this.ready = true;
+      let id = this.activatedRoute.snapshot.params['id'];
+      let collection = this.launchpad.collections.find(x => x.id == id);
+
+      if (collection) {
+        this.collection = collection;
+        this.ready = true;
+      } else {
+        this.navigateToPage('/tools/launchpad');
+      }
     }
-  }
-
-  /**
-   * Load image details
-   */
-  loadImageDetails() {
-    let images = [];
-    let backgrounds = [];
-
-    for (let i = 0; i < this.collections.length; i++) {
-      let image = this.collections[i].items[Math.floor(Math.random() * this.collections[i].stats_count)].image;
-      images.push(environment.image_server + '/' + image + '?optimizer=image&width=200');
-      backgrounds.push('hsl(' + Math.random() * 360 + ', 100%, 75%)');
-    }
-
-    this.images = images;
-    this.backgrounds = backgrounds;
-  }
-
-  /**
-   * Open launchpad collection page
-   *
-   * @param id
-   */
-  openCollection(id: string) {
-    this.navigateToPage('/tools/launchpad/' + id + '/browse');
   }
 
   /**

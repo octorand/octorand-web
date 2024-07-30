@@ -1,69 +1,73 @@
 <div class="container-fluid">
-    <div class="content" *ngIf="ready">
-        <div class="row">
-            <div class="col">
-                <div class="mx-auto text-center">
-                    <h1 class="content-title text-secondary mb-20">
-                        GEN{{prime.gen}} Prime #{{prime.id_text}}
-                    </h1>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <div class="row justify-content-center">
-                    <div class="column col-12 col-md-6 col-lg-4 col-xl-3">
-                        <lib-tags-prime-skins [prime]="prime"></lib-tags-prime-skins>
+    <div class="content">
+        <div *ngIf="ready">
+            <div class="row">
+                <div class="col">
+                    <div class="mx-auto text-center">
+                        <h1 class="content-title text-secondary mb-20">
+                            GEN{{prime.gen}} Prime #{{prime.id_text}}
+                        </h1>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row mt-20">
-            <div class="col">
-                <div class="row justify-content-center">
-                    <div class="column col-12 col-lg-6">
-                        <app-collection-prime-summary [app]="app" [data]="data" [prime]="prime">
-                        </app-collection-prime-summary>
+            <div class="row">
+                <div class="col">
+                    <div class="row justify-content-center">
+                        <div class="column col-12 col-md-6 col-lg-4 col-xl-3">
+                            <lib-tags-prime-skins [prime]="prime"></lib-tags-prime-skins>
+                        </div>
                     </div>
-                    <div class="column col-12 col-lg-6">
-                        <app-collection-prime-traits [app]="app" [data]="data" [prime]="prime">
-                        </app-collection-prime-traits>
-                    </div>
-                    <div class="column col-12 col-lg-6">
-                        <app-collection-prime-market [app]="app" [data]="data" [prime]="prime">
-                        </app-collection-prime-market>
-                    </div>
-                    <div class="column col-12 col-lg-6">
-                        <app-collection-prime-rewards [app]="app" [data]="data" [prime]="prime">
-                        </app-collection-prime-rewards>
-                    </div>
-                    <div class="column col-12 col-lg-6">
-                        <app-collection-prime-vault [app]="app" [data]="data" [prime]="prime">
-                        </app-collection-prime-vault>
-                    </div>
-                    <div class="column col-12 col-lg-6">
-                        <app-collection-prime-family [app]="app" [data]="data" [prime]="prime">
-                        </app-collection-prime-family>
-                    </div>
-                    <div class="column col-12 col-lg-6">
-                        <app-collection-prime-artwork [app]="app" [data]="data" [prime]="prime">
-                        </app-collection-prime-artwork>
-                    </div>
-                    <div class="column col-12 col-lg-6">
-                        <app-collection-prime-transform [app]="app" [data]="data" [prime]="prime">
-                        </app-collection-prime-transform>
-                    </div>
-                    <div class="column col-12 col-lg-12">
-                        <app-collection-prime-history [app]="app" [data]="data" [prime]="prime">
-                        </app-collection-prime-history>
+                </div>
+            </div>
+            <div class="row mt-20">
+                <div class="col">
+                    <div class="row justify-content-center">
+                        <div class="column col-12 col-lg-6">
+                            <app-collection-prime-summary [app]="app" [data]="data" [prime]="prime">
+                            </app-collection-prime-summary>
+                        </div>
+                        <div class="column col-12 col-lg-6">
+                            <app-collection-prime-traits [app]="app" [data]="data" [prime]="prime">
+                            </app-collection-prime-traits>
+                        </div>
+                        <div class="column col-12 col-lg-6">
+                            <app-collection-prime-market [app]="app" [data]="data" [prime]="prime">
+                            </app-collection-prime-market>
+                        </div>
+                        <div class="column col-12 col-lg-6">
+                            <app-collection-prime-rewards [app]="app" [data]="data" [prime]="prime">
+                            </app-collection-prime-rewards>
+                        </div>
+                        <div class="column col-12 col-lg-6">
+                            <app-collection-prime-vault [app]="app" [data]="data" [prime]="prime">
+                            </app-collection-prime-vault>
+                        </div>
+                        <div class="column col-12 col-lg-6">
+                            <app-collection-prime-family [app]="app" [data]="data" [prime]="prime">
+                            </app-collection-prime-family>
+                        </div>
+                        <div class="column col-12 col-lg-6">
+                            <app-collection-prime-artwork [app]="app" [data]="data" [prime]="prime">
+                            </app-collection-prime-artwork>
+                        </div>
+                        <div class="column col-12 col-lg-6">
+                            <app-collection-prime-transform [app]="app" [data]="data" [prime]="prime">
+                            </app-collection-prime-transform>
+                        </div>
+                        <div class="column col-12 col-lg-12">
+                            <app-collection-prime-history [app]="app" [data]="data" [prime]="prime">
+                            </app-collection-prime-history>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row" *ngIf="!ready">
-        <div class="col py-20">
-            <lib-tags-loader></lib-tags-loader>
+        <div *ngIf="!ready">
+            <div class="row">
+                <div class="col py-20">
+                    <lib-tags-loader></lib-tags-loader>
+                </div>
+            </div>
         </div>
     </div>
 </div>

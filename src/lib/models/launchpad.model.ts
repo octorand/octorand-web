@@ -1,7 +1,6 @@
 export class LaunchpadModel {
     initialised: boolean = false;
-    guardians: CollectionModel = new CollectionModel();
-    takos: CollectionModel = new CollectionModel();
+    collections: Array<CollectionModel> = [];
 }
 
 export class CollectionModel {

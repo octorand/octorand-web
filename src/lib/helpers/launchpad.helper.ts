@@ -58,8 +58,12 @@ export class LaunchpadHelper {
         ];
 
         Promise.all(promises).then(values => {
-            this.state.guardians = this.listItems('guardians', values[0]);
-            this.state.takos = this.listItems('takos', values[1]);
+            let collections = [
+                this.listItems('guardians', values[0]),
+                this.listItems('takos', values[1]),
+            ];
+
+            this.state.collections = collections;
             this.state.initialised = true;
 
             this.launchpad.next({ ...this.state });

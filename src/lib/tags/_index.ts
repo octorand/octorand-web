@@ -1,4 +1,5 @@
 ﻿export * from './chip/chip.tag';
+export * from './collection/collection.tag';
 export * from './loader/loader.tag';
 export * from './pager/pager.tag';
 export * from './prime/badges/badges.tag';

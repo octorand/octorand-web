@@ -19,6 +19,10 @@ const routes: Routes = [
         path: 'launchpad',
         component: Pages.ToolsLaunchpadPage
       },
+      {
+        path: 'launchpad/:id/browse',
+        component: Pages.ToolsLaunchpadBrowsePage
+      },
     ]
   }
 ];
@@ -28,6 +32,7 @@ const routes: Routes = [
     ToolsContainer,
     Pages.ToolsDesignerPage,
     Pages.ToolsLaunchpadPage,
+    Pages.ToolsLaunchpadBrowsePage,
   ],
   imports: [
     CommonModule,
