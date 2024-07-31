@@ -3,6 +3,64 @@
         <div *ngIf="ready">
             <lib-tags-collection [collection]="collection" [selectedOption]="'Browse'">
             </lib-tags-collection>
+            <div class="row">
+                <div class="col">
+                    <div class="mx-auto text-center">
+                        <p class="text-muted mx-auto mw-600 mt-20 mb-20">
+                            There are {{collection.stats_count}} items in this collection.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="info row justify-content-center mt-0 mb-0">
+                <div class="col-auto">
+                    <button class="btn option" (click)="openFilters()">
+                        Filter and Sort
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div *ngIf="currentPageResults.length > 0">
+                        <div class="my-20">
+                            <lib-tags-pager [totalPages]="pagesCount" [currentPage]="currentPage"
+                                (onPageChange)="changePage($event)">
+                            </lib-tags-pager>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="column col-12 col-md-6 col-lg-4 col-xl-3"
+                                *ngFor="let item of currentPageResults">
+                                <div class="card">
+                                    <h2 class="card-title text-center text-secondary">
+                                        {{item.id}}
+                                    </h2>
+                                    <div class="btn-group mt-20 btn-block" role="group">
+                                        <button class="btn btn-primary btn-block" type="button"
+                                            (click)="navigateToPage(item.url)">
+                                            View
+                                        </button>
+                                        <button class="btn btn-primary btn-square" type="button">
+                                            <a class="text-white" href="{{item.url}}" target="_blank">
+                                                <i class="fas fa-external-link-alt"></i>
+                                            </a>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-20">
+                            <lib-tags-pager [totalPages]="pagesCount" [currentPage]="currentPage"
+                                (onPageChange)="changePage($event)">
+                            </lib-tags-pager>
+                        </div>
+                    </div>
+                    <div *ngIf="currentPageResults.length == 0" class="mw-600 mx-auto text-center">
+                        <div class="text-muted mt-60 mb-60">
+                            There aren't any items that matches your selection criteria
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div *ngIf="!ready">
             <div class="row">

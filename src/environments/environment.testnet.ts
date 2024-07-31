@@ -8,7 +8,7 @@ export const environment = {
   analytics_code: '',
   admin_address: 'EQ6CG4M4TT7AKK2E3L6GPCJQREBUTL272SGBKIG7DP3RCKIN3AJNPD27HU',
   indexer_page_size: 10,
-  display_page_size: 20,
+  display_page_size: 5,
   platform: {
     asset_id: 680649213,
     manager: 'EQ6CG4M4TT7AKK2E3L6GPCJQREBUTL272SGBKIG7DP3RCKIN3AJNPD27HU',

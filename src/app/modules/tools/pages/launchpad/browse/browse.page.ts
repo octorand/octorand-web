@@ -68,6 +68,22 @@ export class ToolsLaunchpadBrowsePage implements OnInit, OnDestroy {
   ready: boolean = false;
 
   /**
+   * Selected sort
+   */
+  selectedSort: string = 'Rank';
+
+  /**
+   * Keys for sorting
+   */
+  sorts: Array<string> = [
+    'Id',
+    'Rank',
+    'Rewards',
+    'Price',
+  ];
+
+
+  /**
    * Construct component
    *
    * @param activatedRoute
@@ -131,11 +147,73 @@ export class ToolsLaunchpadBrowsePage implements OnInit, OnDestroy {
 
       if (collection) {
         this.collection = collection;
+
+        let allResults = this.collection.items;
+
+        switch (this.selectedSort) {
+          case 'Id':
+            allResults.sort((first, second) => first.id - second.id);
+            break;
+          case 'Rank':
+            allResults.sort((first, second) => first.rank - second.rank);
+            break;
+          case 'Rewards':
+            allResults.sort((first, second) => second.rewards - first.rewards);
+            break;
+          case 'Price':
+            allResults.sort((first, second) => {
+              function value(price: number) {
+                return price == 0 ? Infinity : price;
+              }
+              return value(first.price) - value(second.price);
+            });
+            break;
+        }
+
+        let totalResults = allResults.length;
+        let pagesCount = Math.ceil(totalResults / this.resultsPerPage);
+
+        let start = this.resultsPerPage * (this.currentPage - 1);
+        let end = start + this.resultsPerPage;
+        let currentPageResults = allResults.slice(start, end);
+
+        this.totalResults = totalResults;
+        this.pagesCount = pagesCount;
+        this.currentPageResults = currentPageResults;
+
+        if (this.currentPage > this.pagesCount) {
+          this.currentPage = 1;
+        }
+
         this.ready = true;
       } else {
         this.navigateToPage('/tools/launchpad');
       }
     }
+  }
+
+  /**
+   * When page is changed
+   *
+   * @param page
+   */
+  changePage(page: any) {
+    this.currentPage = page;
+    this.refreshView();
+  }
+
+  /**
+   * Open filters view
+   */
+  openFilters() {
+
+  }
+
+  /**
+   * Close filters view
+   */
+  closeFilters() {
+
   }
 
   /**
