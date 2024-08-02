@@ -38,34 +38,14 @@ export class ToolsLaunchpadTraitsPage implements OnInit, OnDestroy {
   collection: CollectionModel = new CollectionModel();
 
   /**
-   * Current page number
-   */
-  currentPage: number = 1;
-
-  /**
-   * Number of results per page
-   */
-  resultsPerPage: number = environment.display_page_size;
-
-  /**
-   * Total number of results
-   */
-  totalResults: number = 0;
-
-  /**
-   * Total number of pages
-   */
-  pagesCount: number = 0;
-
-  /**
-   * Results of current page
-   */
-  currentPageResults: Array<ItemModel> = [];
-
-  /**
    * Whether the page is ready to be rendered
    */
   ready: boolean = false;
+
+  /**
+   * Param values
+   */
+  params: Array<any> = [];
 
   /**
    * Construct component
@@ -131,6 +111,29 @@ export class ToolsLaunchpadTraitsPage implements OnInit, OnDestroy {
 
       if (collection) {
         this.collection = collection;
+
+        for (let i = 0; i < collection.params.length; i++) {
+          let param = collection.params[i];
+          let values = [];
+
+          for (let j = 0; j < param.values.length; j++) {
+            let value = param.values[j];
+            let count = collection.items.filter(x => x.params.find(y => y.name == param.name) && x.params.find(y => y.name == param.name)?.values.includes(value)).length;
+            let percentage = Math.floor(count * 100 / collection.items.length);
+
+            values.push({
+              value: value,
+              count: count,
+              percentage: percentage
+            });
+          }
+
+          this.params.push({
+            name: param.name,
+            values: values
+          });
+        }
+
         this.ready = true;
       } else {
         this.navigateToPage('/tools/launchpad');

@@ -3,6 +3,33 @@
         <div *ngIf="ready">
             <lib-tags-collection [collection]="collection" [selectedOption]="'Traits'">
             </lib-tags-collection>
+            <div class="row">
+                <div class="col">
+                    <div class="row justify-content-center mt-20">
+                        <div *ngFor="let param of params" class="column col-12 col-md-6 col-lg-6 col-xl-4">
+                            <div class="card">
+                                <h2 class="card-title text-center text-secondary">
+                                    {{param.name}}
+                                </h2>
+                                <div class="info">
+                                    <div class="table-responsive">
+                                        <table class="table table-no-outer-padding">
+                                            <tbody>
+                                                <tr *ngFor="let value of param.values; let i = index">
+                                                    <td class="text-success">{{value.value}}</td>
+                                                    <td class="text-right">
+                                                        {{value.count}}x ({{value.percentage}}%)
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div *ngIf="!ready">
             <div class="row">
