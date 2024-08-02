@@ -6,17 +6,18 @@
             <div class="row">
                 <div class="col">
                     <div class="mx-auto text-center">
-                        <p class="text-muted mx-auto mw-600 mt-20 mb-20">
-                            There are {{collection.stats_count}} items in this collection.
+                        <p class="text-muted mb-5">
+                            Sort
                         </p>
+                        <div class="info row justify-content-center mt-0 mb-0">
+                            <div class="col-auto" *ngFor="let sort of sorts">
+                                <button class="btn option" [ngClass]="{'btn-primary': sort == selectedSort}"
+                                    (click)="changeSort(sort)">
+                                    {{sort}}
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="info row justify-content-center mt-0 mb-0">
-                <div class="col-auto">
-                    <button class="btn option" (click)="openFilters()">
-                        Filter and Sort
-                    </button>
                 </div>
             </div>
             <div class="row">

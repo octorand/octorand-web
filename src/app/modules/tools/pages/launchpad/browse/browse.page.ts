@@ -82,7 +82,6 @@ export class ToolsLaunchpadBrowsePage implements OnInit, OnDestroy {
     'Price',
   ];
 
-
   /**
    * Construct component
    *
@@ -203,17 +202,14 @@ export class ToolsLaunchpadBrowsePage implements OnInit, OnDestroy {
   }
 
   /**
-   * Open filters view
+   * When sort is changed
+   *
+   * @param sort
    */
-  openFilters() {
-
-  }
-
-  /**
-   * Close filters view
-   */
-  closeFilters() {
-
+  changeSort(sort: string) {
+    this.selectedSort = sort;
+    this.currentPage = 1;
+    this.refreshView();
   }
 
   /**
