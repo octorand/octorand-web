@@ -3,6 +3,68 @@
         <div *ngIf="ready">
             <lib-tags-collection [collection]="collection" [selectedOption]="'Statistics'">
             </lib-tags-collection>
+            <div class="row">
+                <div class="col">
+                    <div class="row justify-content-center mt-20">
+                        <div class="column col-12 col-md-6 col-lg-6 col-xl-4">
+                            <div class="card">
+                                <h2 class="card-title text-center text-secondary">
+                                    Statistics
+                                </h2>
+                                <div class="info">
+                                    <div class="table-responsive">
+                                        <table class="table table-no-outer-padding">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="text-success">Items Count</td>
+                                                    <td class="text-right">
+                                                        {{collection.stats_count}}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-success">Unique Holders</td>
+                                                    <td class="text-right">
+                                                        {{collection.stats_owners}}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-success">Listed for Sale</td>
+                                                    <td class="text-right">
+                                                        {{collection.stats_listed}}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-success">Total Sales</td>
+                                                    <td class="text-right">
+                                                        {{sales}}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-success">Sales Volume</td>
+                                                    <td class="text-right" innerHTML="{{volume | amount:0 | async}}">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-success">Highest Sale</td>
+                                                    <td class="text-right"
+                                                        innerHTML="{{highestSale | amount:0 | async}}">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-success">Highest Score</td>
+                                                    <td class="text-right">
+                                                        {{highestScore}}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div *ngIf="!ready">
             <div class="row">

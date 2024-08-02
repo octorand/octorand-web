@@ -38,34 +38,29 @@ export class ToolsLaunchpadStatisticsPage implements OnInit, OnDestroy {
   collection: CollectionModel = new CollectionModel();
 
   /**
-   * Current page number
-   */
-  currentPage: number = 1;
-
-  /**
-   * Number of results per page
-   */
-  resultsPerPage: number = environment.display_page_size;
-
-  /**
-   * Total number of results
-   */
-  totalResults: number = 0;
-
-  /**
-   * Total number of pages
-   */
-  pagesCount: number = 0;
-
-  /**
-   * Results of current page
-   */
-  currentPageResults: Array<ItemModel> = [];
-
-  /**
    * Whether the page is ready to be rendered
    */
   ready: boolean = false;
+
+  /**
+   * Number of sales
+   */
+  sales: number = 0;
+
+  /**
+   * Sales volume
+   */
+  volume: number = 0;
+
+  /**
+   * Highest sale amount
+   */
+  highestSale: number = 0;
+
+  /**
+   * Highest score
+   */
+  highestScore: number = 0;
 
   /**
    * Construct component
@@ -131,6 +126,9 @@ export class ToolsLaunchpadStatisticsPage implements OnInit, OnDestroy {
 
       if (collection) {
         this.collection = collection;
+
+        this.highestScore = collection.items.length > 0 ? Math.max(...collection.items.map(x => x.score_display)) : 0;
+
         this.ready = true;
       } else {
         this.navigateToPage('/tools/launchpad');
