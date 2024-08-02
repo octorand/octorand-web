@@ -1,0 +1,30 @@
+<div class="info">
+    <div class="table-responsive">
+        <table class="table table-no-outer-padding">
+            <tbody>
+                <tr>
+                    <td class="text-secondary">Index</td>
+                    <td class="text-right">{{item.id_text}}</td>
+                </tr>
+                <tr>
+                    <td class="text-secondary">Score</td>
+                    <td class="text-right">{{item.score_display}}</td>
+                </tr>
+                <tr>
+                    <td class="text-secondary">Rank</td>
+                    <td class="text-right">{{item.rank}}</td>
+                </tr>
+                <tr>
+                    <td class="text-secondary">Price</td>
+                    <td *ngIf="item.is_listed" class="text-right" innerHTML="{{item.price | amount:0 | async}}"></td>
+                    <td *ngIf="!item.is_listed" class="text-right">Not for Sale</td>
+                </tr>
+                <tr>
+                    <td class="text-secondary">Rewards</td>
+                    <td class="text-right" innerHTML="{{item.rewards | amount:item.platform_asset_id | async}}">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

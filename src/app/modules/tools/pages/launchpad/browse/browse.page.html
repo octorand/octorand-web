@@ -32,8 +32,11 @@
                                 *ngFor="let item of currentPageResults">
                                 <div class="card">
                                     <h2 class="card-title text-center text-secondary">
-                                        {{item.id}}
+                                        {{item.name}}
                                     </h2>
+                                    <lib-tags-item-image [item]="item"></lib-tags-item-image>
+                                    <lib-tags-item-owner [item]="item"></lib-tags-item-owner>
+                                    <lib-tags-item-info [item]="item"></lib-tags-item-info>
                                     <div class="btn-group mt-20 btn-block" role="group">
                                         <button class="btn btn-primary btn-block" type="button"
                                             (click)="navigateToPage(item.url)">

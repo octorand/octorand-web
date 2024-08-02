@@ -9,7 +9,7 @@ import { PrimeModel } from '@lib/models';
 export class PrimeOwnerTag {
 
   /**
-  * The prime parameters
-  */
+   * The prime parameters
+   */
   @Input() prime: PrimeModel = new PrimeModel();
 }

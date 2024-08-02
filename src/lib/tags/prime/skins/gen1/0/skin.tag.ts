@@ -17,8 +17,8 @@ export class PrimeSkinsGenOneTag0 implements OnInit, OnChanges {
   arms: Array<any> = [];
 
   /**
-  * The prime parameters
-  */
+   * The prime parameters
+   */
   @Input() prime: PrimeModel = new PrimeModel();
 
   /**

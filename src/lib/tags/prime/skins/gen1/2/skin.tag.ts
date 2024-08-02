@@ -18,8 +18,8 @@ export class PrimeSkinsGenOneTag2 implements OnInit, OnChanges {
   borders: Array<any> = [];
 
   /**
-  * The prime parameters
-  */
+   * The prime parameters
+   */
   @Input() prime: PrimeModel = new PrimeModel();
 
   /**

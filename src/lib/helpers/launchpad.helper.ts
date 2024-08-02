@@ -121,6 +121,7 @@ export class LaunchpadHelper {
                 item.rank = item_definition.rank;
                 item.image = item_definition.image;
                 item.params = item_definition.params;
+                item.score_display = Math.floor(item.score / 100);
             }
 
             collection.items.push(item);

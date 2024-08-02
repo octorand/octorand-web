@@ -25,8 +25,8 @@ export class PrimeBadgesTag implements OnInit, OnChanges {
   @Input() data: DataModel = new DataModel();
 
   /**
-  * The prime parameters
-  */
+   * The prime parameters
+   */
   @Input() prime: PrimeModel = new PrimeModel();
 
   constructor(

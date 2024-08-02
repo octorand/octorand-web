@@ -42,6 +42,7 @@ export class ItemModel {
     name: string = '';
     application_id: number = 0;
     application_address: string = '';
+    score_display: number = 0;
     id_text: string = '';
     url: string = '';
     is_listed: boolean = false;

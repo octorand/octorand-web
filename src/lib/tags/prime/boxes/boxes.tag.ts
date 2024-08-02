@@ -20,8 +20,8 @@ export class PrimeBoxesTag implements OnInit, OnChanges {
   boxesTwo: Array<any> = [];
 
   /**
-  * The prime parameters
-  */
+   * The prime parameters
+   */
   @Input() prime: PrimeModel = new PrimeModel();
 
   constructor(

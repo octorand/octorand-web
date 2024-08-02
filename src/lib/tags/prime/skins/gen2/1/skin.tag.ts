@@ -18,8 +18,8 @@ export class PrimeSkinsGenTwoTag1 implements OnInit, OnChanges {
   pies: Array<any> = [];
 
   /**
-  * The prime parameters
-  */
+   * The prime parameters
+   */
   @Input() prime: PrimeModel = new PrimeModel();
 
   /**
