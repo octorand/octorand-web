@@ -154,6 +154,13 @@ export class ToolsLaunchpadBrowsePage implements OnInit, OnDestroy {
 
         let allResults = this.collection.items;
 
+        for (let i = 0; i < this.selectedParamValues.length; i++) {
+          let param = this.selectedParamValues[i];
+          if (param.values.length > 0) {
+            allResults = allResults.filter(x => param.values.every(v => x.params.find(y => y.name == param.name) && x.params.find(y => y.name == param.name)?.values.includes(v)))
+          }
+        }
+
         switch (this.selectedSort) {
           case 'Id':
             allResults.sort((first, second) => first.id - second.id);
@@ -238,6 +245,9 @@ export class ToolsLaunchpadBrowsePage implements OnInit, OnDestroy {
       this.selectedParamValues.push(model)
     }
     this.hideDropdown('.select-param-dropdown-' + index);
+
+    this.currentPage = 1;
+    this.refreshView();
   }
 
   /**
@@ -251,6 +261,9 @@ export class ToolsLaunchpadBrowsePage implements OnInit, OnDestroy {
     if (existing) {
       existing.values = existing.values.filter(x => x != value);
     }
+
+    this.currentPage = 1;
+    this.refreshView();
   }
 
   /**
