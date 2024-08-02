@@ -25,6 +25,7 @@ export class CollectionModel {
     stats_count: number = 0;
     stats_owners: number = 0;
     stats_listed: number = 0;
+    contracts: any = {};
 }
 
 export class ItemModel {

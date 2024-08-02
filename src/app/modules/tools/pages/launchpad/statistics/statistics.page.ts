@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AppHelper, LaunchpadHelper } from '@lib/helpers';
+import { AppHelper, IndexerHelper, LaunchpadHelper } from '@lib/helpers';
 import { AppModel, CollectionModel, ItemModel, LaunchpadModel } from '@lib/models';
 import { Subscription } from 'rxjs';
 import { environment } from '@environment';
@@ -68,12 +68,14 @@ export class ToolsLaunchpadStatisticsPage implements OnInit, OnDestroy {
    * @param activatedRoute
    * @param router
    * @param appHelper
+   * @param indexerHelper
    * @param launchpadHelper
    */
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private appHelper: AppHelper,
+    private indexerHelper: IndexerHelper,
     private launchpadHelper: LaunchpadHelper
   ) { }
 
@@ -129,11 +131,30 @@ export class ToolsLaunchpadStatisticsPage implements OnInit, OnDestroy {
 
         this.highestScore = collection.items.length > 0 ? Math.max(...collection.items.map(x => x.score_display)) : 0;
 
+        this.loadSalesDetails();
+
         this.ready = true;
       } else {
         this.navigateToPage('/tools/launchpad');
       }
     }
+  }
+
+  /**
+   * Load sales details
+   */
+  loadSalesDetails() {
+    let promises = [
+      this.indexerHelper.lookupApplicationLogs(this.collection.contracts.item.buy.application_id),
+    ];
+
+    Promise.all(promises).then(values => {
+      let sales = values[0];
+
+      this.sales = sales.length;
+      this.volume = sales.length > 0 ? sales.map(p => p.params.price).reduce((a, b) => a + b, 0) : 0;
+      this.highestSale = sales.length > 0 ? Math.max(...sales.map(p => p.params.price)) : 0;
+    });
   }
 
   /**

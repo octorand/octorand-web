@@ -80,14 +80,18 @@ export class LaunchpadHelper {
         let collection = new CollectionModel();
 
         let definition = CollectionGuardians;
+        let contracts = {};
         let platform_asset_id = 0;
+
         switch (collection_id) {
             case 'guardians':
                 definition = CollectionGuardians;
+                contracts = environment.launchpad.guardians.contracts;
                 platform_asset_id = environment.launchpad.guardians.platform.asset_id;
                 break;
             case 'takos':
                 definition = CollectionTakos;
+                contracts = environment.launchpad.takos.contracts;
                 platform_asset_id = environment.launchpad.takos.platform.asset_id;
                 break;
         }
@@ -109,6 +113,7 @@ export class LaunchpadHelper {
         collection.rename_burner_share = definition.rename_burner_share;
         collection.params = definition.params;
         collection.items = [];
+        collection.contracts = contracts;
         collection.platform_asset_id = platform_asset_id;
 
         for (let i = 0; i < applications.length; i++) {
