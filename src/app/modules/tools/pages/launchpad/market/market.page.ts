@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppHelper, LaunchpadHelper } from '@lib/helpers';
-import { AppModel, CollectionModel, ItemModel, LaunchpadModel } from '@lib/models';
+import { AppModel, CollectionModel, ItemModel, LaunchpadModel, ParamModel } from '@lib/models';
 import { Subscription } from 'rxjs';
 import { environment } from '@environment';
 
@@ -68,6 +68,26 @@ export class ToolsLaunchpadMarketPage implements OnInit, OnDestroy {
   ready: boolean = false;
 
   /**
+   * Selected param values
+   */
+  selectedParamValues: Array<ParamModel> = [];
+
+  /**
+   * Selected sort
+   */
+  selectedSort: string = 'Rank';
+
+  /**
+   * Keys for sorting
+   */
+  sorts: Array<string> = [
+    'Id',
+    'Rank',
+    'Rewards',
+    'Price',
+  ];
+
+  /**
    * Construct component
    *
    * @param activatedRoute
@@ -131,9 +151,134 @@ export class ToolsLaunchpadMarketPage implements OnInit, OnDestroy {
 
       if (collection) {
         this.collection = collection;
+
+        let allResults = this.collection.items;
+
+        allResults = allResults.filter(x => x.price > 0);
+
+        for (let i = 0; i < this.selectedParamValues.length; i++) {
+          let param = this.selectedParamValues[i];
+          if (param.values.length > 0) {
+            allResults = allResults.filter(x => param.values.every(v => x.params.find(y => y.name == param.name) && x.params.find(y => y.name == param.name)?.values.includes(v)))
+          }
+        }
+
+        switch (this.selectedSort) {
+          case 'Id':
+            allResults.sort((first, second) => first.id - second.id);
+            break;
+          case 'Rank':
+            allResults.sort((first, second) => first.rank - second.rank);
+            break;
+          case 'Rewards':
+            allResults.sort((first, second) => second.rewards - first.rewards);
+            break;
+          case 'Price':
+            allResults.sort((first, second) => {
+              function value(price: number) {
+                return price == 0 ? Infinity : price;
+              }
+              return value(first.price) - value(second.price);
+            });
+            break;
+        }
+
+        let totalResults = allResults.length;
+        let pagesCount = Math.ceil(totalResults / this.resultsPerPage);
+
+        let start = this.resultsPerPage * (this.currentPage - 1);
+        let end = start + this.resultsPerPage;
+        let currentPageResults = allResults.slice(start, end);
+
+        this.totalResults = totalResults;
+        this.pagesCount = pagesCount;
+        this.currentPageResults = currentPageResults;
+
+        if (this.currentPage > this.pagesCount) {
+          this.currentPage = 1;
+        }
+
         this.ready = true;
       } else {
         this.navigateToPage('/tools/launchpad');
+      }
+    }
+  }
+
+  /**
+   * When page is changed
+   *
+   * @param page
+   */
+  changePage(page: any) {
+    this.currentPage = page;
+    this.refreshView();
+  }
+
+  /**
+   * When sort is changed
+   *
+   * @param sort
+   */
+  changeSort(sort: string) {
+    this.selectedSort = sort;
+    this.currentPage = 1;
+    this.refreshView();
+  }
+
+  /**
+   * Select param value
+   *
+   * @param index
+   * @param param
+   * @param value
+   */
+  selectParamValue(index: number, param: ParamModel, value: string) {
+    let existing = this.selectedParamValues.find(x => x.name == param.name);
+    if (existing) {
+      let model = existing.values.find(x => x == value);
+      if (!model) {
+        existing.values.push(value);
+      }
+    } else {
+      let model = new ParamModel();
+      model.name = param.name;
+      model.values = [value];
+      this.selectedParamValues.push(model)
+    }
+    this.hideDropdown('.select-param-dropdown-' + index);
+
+    this.currentPage = 1;
+    this.refreshView();
+  }
+
+  /**
+   * Deselect param value
+   *
+   * @param param
+   * @param value
+   */
+  deselectParamValue(param: ParamModel, value: string) {
+    let existing = this.selectedParamValues.find(x => x.name == param.name);
+    if (existing) {
+      existing.values = existing.values.filter(x => x != value);
+    }
+
+    this.currentPage = 1;
+    this.refreshView();
+  }
+
+  /**
+   * Hide dropdown
+   */
+  hideDropdown(css: string) {
+    let dropdown = document.querySelector(css);
+    if (dropdown) {
+      dropdown.classList.remove('show');
+
+      let button = dropdown.querySelector('.btn');
+      if (button) {
+        button.classList.remove('active');
       }
     }
   }

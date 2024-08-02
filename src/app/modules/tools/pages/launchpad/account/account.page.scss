@@ -1,3 +1,8 @@
 .option {
     margin: 2px;
 }
+
+.dropdown-menu {
+    max-height: 300px;
+    overflow-y: scroll;
+}
