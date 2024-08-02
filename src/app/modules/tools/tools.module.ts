@@ -36,8 +36,8 @@ const routes: Routes = [
         component: Pages.ToolsLaunchpadStatisticsPage
       },
       {
-        path: 'launchpad/:id/token',
-        component: Pages.ToolsLaunchpadTokenPage
+        path: 'launchpad/:id/tokenomics',
+        component: Pages.ToolsLaunchpadTokenomicsPage
       },
       {
         path: 'launchpad/:id/traits',
@@ -56,7 +56,7 @@ const routes: Routes = [
     Pages.ToolsLaunchpadBrowsePage,
     Pages.ToolsLaunchpadMarketPage,
     Pages.ToolsLaunchpadStatisticsPage,
-    Pages.ToolsLaunchpadTokenPage,
+    Pages.ToolsLaunchpadTokenomicsPage,
     Pages.ToolsLaunchpadTraitsPage,
   ],
   imports: [

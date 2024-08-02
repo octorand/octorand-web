@@ -6,11 +6,11 @@ import { Subscription } from 'rxjs';
 import { environment } from '@environment';
 
 @Component({
-  selector: 'app-tools-launchpad-token',
-  templateUrl: './token.page.html',
-  styleUrls: ['./token.page.scss'],
+  selector: 'app-tools-launchpad-tokenomics',
+  templateUrl: './tokenomics.page.html',
+  styleUrls: ['./tokenomics.page.scss'],
 })
-export class ToolsLaunchpadTokenPage implements OnInit, OnDestroy {
+export class ToolsLaunchpadTokenomicsPage implements OnInit, OnDestroy {
 
   /**
    * App state

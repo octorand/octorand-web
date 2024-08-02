@@ -27,7 +27,7 @@ export class CollectionTag {
     'Market',
     'Account',
     'Statistics',
-    'Token',
+    'Tokenomics',
     'Traits',
   ];
 
