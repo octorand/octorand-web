@@ -17,6 +17,34 @@
                                 </button>
                             </div>
                         </div>
+                        <p class="text-muted mb-5">
+                            Traits
+                        </p>
+                        <div class="info row justify-content-center mt-0 mb-0">
+                            <div class="col-auto" *ngFor="let param of collection.params; let i = index">
+                                <div class="dropdown with-arrow select-param-dropdown-{{i}}">
+                                    <button class="btn option" data-toggle="dropdown" type="button" id="dropdown-param"
+                                        aria-haspopup="true" aria-expanded="false">
+                                        {{param.name}}
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-center" aria-labelledby="dropdown-param">
+                                        <div *ngFor="let value of param.values" class="dropdown-item hand"
+                                            (click)="selectParamValue(i, param, value)">
+                                            {{value}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngFor="let param of selectedParamValues"
+                            class="info row justify-content-center mt-0 mb-0">
+                            <div class="col-auto" *ngFor="let value of param.values">
+                                <button class="btn btn-primary option" (click)="deselectParamValue(param, value)">
+                                    {{param.name}} : {{value}}
+                                    <i class="fas fa-times ml-5"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

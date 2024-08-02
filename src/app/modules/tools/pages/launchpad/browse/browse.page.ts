@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppHelper, LaunchpadHelper } from '@lib/helpers';
-import { AppModel, CollectionModel, ItemModel, LaunchpadModel } from '@lib/models';
+import { AppModel, CollectionModel, ItemModel, LaunchpadModel, ParamModel } from '@lib/models';
 import { Subscription } from 'rxjs';
 import { environment } from '@environment';
 
@@ -66,6 +66,11 @@ export class ToolsLaunchpadBrowsePage implements OnInit, OnDestroy {
    * Whether the page is ready to be rendered
    */
   ready: boolean = false;
+
+  /**
+   * Selected param values
+   */
+  selectedParamValues: Array<ParamModel> = [];
 
   /**
    * Selected sort
@@ -210,6 +215,57 @@ export class ToolsLaunchpadBrowsePage implements OnInit, OnDestroy {
     this.selectedSort = sort;
     this.currentPage = 1;
     this.refreshView();
+  }
+
+  /**
+   * Select param value
+   *
+   * @param index
+   * @param param
+   * @param value
+   */
+  selectParamValue(index: number, param: ParamModel, value: string) {
+    let existing = this.selectedParamValues.find(x => x.name == param.name);
+    if (existing) {
+      let model = existing.values.find(x => x == value);
+      if (!model) {
+        existing.values.push(value);
+      }
+    } else {
+      let model = new ParamModel();
+      model.name = param.name;
+      model.values = [value];
+      this.selectedParamValues.push(model)
+    }
+    this.hideDropdown('.select-param-dropdown-' + index);
+  }
+
+  /**
+   * Deselect param value
+   *
+   * @param param
+   * @param value
+   */
+  deselectParamValue(param: ParamModel, value: string) {
+    let existing = this.selectedParamValues.find(x => x.name == param.name);
+    if (existing) {
+      existing.values = existing.values.filter(x => x != value);
+    }
+  }
+
+  /**
+   * Hide dropdown
+   */
+  hideDropdown(css: string) {
+    let dropdown = document.querySelector(css);
+    if (dropdown) {
+      dropdown.classList.remove('show');
+
+      let button = dropdown.querySelector('.btn');
+      if (button) {
+        button.classList.remove('active');
+      }
+    }
   }
 
   /**
