@@ -138,9 +138,10 @@ export class ToolsLaunchpadPage implements OnInit, OnDestroy {
     let backgrounds = [];
 
     for (let i = 0; i < this.collections.length; i++) {
-      let image = this.collections[i].items[Math.floor(Math.random() * this.collections[i].stats_count)].image;
+      let item = this.collections[i].items[Math.floor(Math.random() * this.collections[i].stats_count)];
+      let image = item.image;
       images.push(environment.image_server + '/' + image + '?optimizer=image&width=200');
-      backgrounds.push('hsl(' + Math.random() * 360 + ', 100%, 75%)');
+      backgrounds.push('hsl(' + item.score % 360 + ', 100%, 75%)');
     }
 
     this.images = images;

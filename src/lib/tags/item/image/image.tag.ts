@@ -48,6 +48,6 @@ export class ItemImageTag implements OnInit, OnChanges {
    */
   calculate() {
     this.url = environment.image_server + '/' + this.item.image + '?optimizer=image&width=200';
-    this.background = 'hsl(' + Math.random() * 360 + ', 100%, 75%)';
+    this.background = 'hsl(' + this.item.score % 360 + ', 100%, 75%)';
   }
 }
