@@ -38,6 +38,11 @@ export class PlatformTokenomicsPage implements OnInit, OnDestroy {
   assetDecimals: number = 0;
 
   /**
+   * Token burner
+   */
+  assetBurner: string = '';
+
+  /**
    * Total supply of token
    */
   totalSupply: number = 0;
@@ -80,11 +85,6 @@ export class PlatformTokenomicsPage implements OnInit, OnDestroy {
   };
 
   /**
-   * Track token details loading task
-   */
-  private tokenDetailsLoadTask: any = null;
-
-  /**
    * Construct component
    *
    * @param router
@@ -104,7 +104,6 @@ export class PlatformTokenomicsPage implements OnInit, OnDestroy {
    */
   ngOnInit() {
     this.initApp();
-    this.initTasks();
     this.refreshView();
   }
 
@@ -113,7 +112,6 @@ export class PlatformTokenomicsPage implements OnInit, OnDestroy {
    */
   ngOnDestroy() {
     this.appSubscription.unsubscribe();
-    clearInterval(this.tokenDetailsLoadTask);
   }
 
   /**
@@ -128,22 +126,28 @@ export class PlatformTokenomicsPage implements OnInit, OnDestroy {
   }
 
   /**
-   * Initialize tasks
+   * Refresh view state
    */
-  initTasks() {
+  refreshView() {
+    this.assetId = environment.platform.asset_id;
+    this.assetBurner = environment.platform.reserve;
+
+    this.isConnected = this.app.account ? true : false;
+    this.isOptedIn = this.app.assets.find(a => a.id == this.assetId) ? true : false;
+    this.isOptinable = (this.isConnected && !this.isOptedIn) ? true : false;
+
     this.loadTokenDetails();
-    this.tokenDetailsLoadTask = setInterval(() => { this.loadTokenDetails() }, 30000);
+
+    this.ready = true;
   }
 
   /**
    * Load token details
    */
   loadTokenDetails() {
-    this.assetId = environment.platform.asset_id;
-
     let promises = [
       this.indexerHelper.lookupAsset(this.assetId),
-      this.indexerHelper.lookupAccount(environment.platform.reserve),
+      this.indexerHelper.lookupAccount(this.assetBurner),
     ];
 
     Promise.all(promises).then(values => {
@@ -160,17 +164,7 @@ export class PlatformTokenomicsPage implements OnInit, OnDestroy {
       }
 
       this.circulatingSupply = this.totalSupply - this.burntSupply;
-      this.ready = true;
     });
-  }
-
-  /**
-   * Refresh view state
-   */
-  refreshView() {
-    this.isConnected = this.app.account ? true : false;
-    this.isOptedIn = this.app.assets.find(a => a.id == this.assetId) ? true : false;
-    this.isOptinable = (this.isConnected && !this.isOptedIn) ? true : false;
   }
 
   /**

@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AppHelper, LaunchpadHelper } from '@lib/helpers';
+import { AppHelper, ChainHelper, IndexerHelper, LaunchpadHelper } from '@lib/helpers';
 import { AppModel, CollectionModel, ItemModel, LaunchpadModel } from '@lib/models';
 import { Subscription } from 'rxjs';
 import { environment } from '@environment';
@@ -38,34 +38,66 @@ export class ToolsLaunchpadTokenomicsPage implements OnInit, OnDestroy {
   collection: CollectionModel = new CollectionModel();
 
   /**
-   * Current page number
-   */
-  currentPage: number = 1;
-
-  /**
-   * Number of results per page
-   */
-  resultsPerPage: number = environment.display_page_size;
-
-  /**
-   * Total number of results
-   */
-  totalResults: number = 0;
-
-  /**
-   * Total number of pages
-   */
-  pagesCount: number = 0;
-
-  /**
-   * Results of current page
-   */
-  currentPageResults: Array<ItemModel> = [];
-
-  /**
    * Whether the page is ready to be rendered
    */
   ready: boolean = false;
+
+  /**
+   * Token id
+   */
+  assetId: number = 0;
+
+  /**
+   * Token unit
+   */
+  assetUnit: string = '';
+
+  /**
+   * Token decimals
+   */
+  assetDecimals: number = 0;
+
+  /**
+   * Token burner
+   */
+  assetBurner: string = '';
+
+  /**
+   * Total supply of token
+   */
+  totalSupply: number = 0;
+
+  /**
+   * Burnt supply of token
+   */
+  burntSupply: number = 0;
+
+  /**
+   * Current supply of token
+   */
+  circulatingSupply: number = 0;
+
+  /**
+   * Whether a wallet is connected
+   */
+  isConnected: boolean = false;
+
+  /**
+   * Whether wallet is opted into platform asset
+   */
+  isOptedIn: boolean = false;
+
+  /**
+   * Whether item is optinable
+   */
+  isOptinable: boolean = false;
+
+  /**
+   * Tracking actions
+   */
+  actions = {
+    optin: false,
+  };
 
   /**
    * Construct component
@@ -73,12 +105,16 @@ export class ToolsLaunchpadTokenomicsPage implements OnInit, OnDestroy {
    * @param activatedRoute
    * @param router
    * @param appHelper
+   * @param chainHelper
+   * @param indexerHelper
    * @param launchpadHelper
    */
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private appHelper: AppHelper,
+    private chainHelper: ChainHelper,
+    private indexerHelper: IndexerHelper,
     private launchpadHelper: LaunchpadHelper
   ) { }
 
@@ -131,11 +167,89 @@ export class ToolsLaunchpadTokenomicsPage implements OnInit, OnDestroy {
 
       if (collection) {
         this.collection = collection;
+
+        this.assetId = this.collection.platform_asset_id;
+        this.assetBurner = environment.burner.app_address;
+
+        this.isConnected = this.app.account ? true : false;
+        this.isOptedIn = this.app.assets.find(a => a.id == this.assetId) ? true : false;
+        this.isOptinable = (this.isConnected && !this.isOptedIn) ? true : false;
+
+        this.loadTokenDetails();
+
         this.ready = true;
       } else {
         this.navigateToPage('/tools/launchpad');
       }
     }
+  }
+
+  /**
+   * Load token details
+   */
+  loadTokenDetails() {
+    let promises = [
+      this.indexerHelper.lookupAsset(this.assetId),
+      this.indexerHelper.lookupAccount(this.assetBurner),
+    ];
+
+    Promise.all(promises).then(values => {
+      let asset = values[0];
+      let account = values[1];
+
+      this.assetUnit = asset['params']['unit-name'];
+      this.assetDecimals = asset['params']['decimals'];
+      this.totalSupply = asset['params']['total'];
+
+      let balance = account['assets'].find((a: any) => a['asset-id'] == this.assetId);
+      if (balance) {
+        this.burntSupply = balance.amount;
+      }
+
+      this.circulatingSupply = this.totalSupply - this.burntSupply;
+    });
+  }
+
+  /**
+   * Optin to platform asset
+   */
+  optin() {
+    let baseClient = this.chainHelper.getBaseClient();
+    let algodClient = this.chainHelper.getAlgodClient();
+
+    algodClient.getTransactionParams().do().then((params: any) => {
+      let composer = new baseClient.AtomicTransactionComposer();
+
+      composer.addTransaction({
+        txn: baseClient.makeAssetTransferTxnWithSuggestedParamsFromObject({
+          from: this.app.account,
+          to: this.app.account,
+          assetIndex: this.assetId,
+          amount: 0,
+          suggestedParams: {
+            ...params,
+            fee: 1000,
+            flatFee: true
+          }
+        })
+      });
+
+      let group = composer.buildGroup();
+
+      let transactions = [];
+      for (let i = 0; i < group.length; i++) {
+        transactions.push(group[i].txn);
+      }
+
+      this.actions.optin = true;
+      this.chainHelper.submitTransactions(transactions).then((response) => {
+        this.actions.optin = false;
+        if (response.success) {
+          this.appHelper.loadAccountDetails();
+          this.appHelper.showSuccess('Opted into asset successfully');
+        }
+      });
+    });
   }
 
   /**
