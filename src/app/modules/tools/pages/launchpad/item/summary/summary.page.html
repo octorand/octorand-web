@@ -1,0 +1,90 @@
+<div class="card">
+    <h2 class="card-title text-center text-secondary mt-0 mb-20">
+        SUMMARY
+    </h2>
+    <p class="text-muted text-center mt-0 mb-20">
+        Primes are feature packed creatures, each ranked by their score.
+    </p>
+    <div class="info row justify-content-center mt-0 mb-20">
+        <div class="col-auto">
+            <lib-tags-chip key="Index">
+                {{prime.id_text}}
+            </lib-tags-chip>
+        </div>
+        <div class="col-auto">
+            <lib-tags-chip key="Name">
+                {{prime.name}}
+            </lib-tags-chip>
+        </div>
+        <div class="col-auto">
+            <lib-tags-chip key="Score">
+                {{prime.score}}
+            </lib-tags-chip>
+        </div>
+        <div class="col-auto">
+            <lib-tags-chip key="Rank">
+                {{prime.rank}}
+            </lib-tags-chip>
+        </div>
+        <div class="col-auto">
+            <lib-tags-chip key="Owner">
+                <span innerHTML="{{prime.owner | identity:true:true | async}}"></span>
+            </lib-tags-chip>
+        </div>
+        <div class="col-auto">
+            <lib-tags-chip key="Price">
+                <span innerHTML="{{prime.price | amount:0 | async}}"></span>
+            </lib-tags-chip>
+        </div>
+        <div class="col-auto">
+            <lib-tags-chip key="Sales">
+                {{prime.sales}}
+            </lib-tags-chip>
+        </div>
+        <div class="col-auto">
+            <lib-tags-chip key="Transforms">
+                {{prime.transforms}}
+            </lib-tags-chip>
+        </div>
+    </div>
+    <p class="text-muted text-center mt-0 mb-20">
+        Each Prime is uniquely represented by an Algorand standard asset and powered by an
+        Algorand smart contract application.
+    </p>
+    <div class="info row justify-content-center mt-0 mb-0">
+        <div class="col-auto">
+            <lib-tags-chip key="Asset">
+                <span innerHTML="{{prime.prime_asset_id | asset:true | async}}"></span>
+            </lib-tags-chip>
+        </div>
+        <div class="col-auto">
+            <lib-tags-chip key="Application">
+                <span innerHTML="{{prime.application_id | application:true}}"></span>
+            </lib-tags-chip>
+        </div>
+    </div>
+    <div *ngIf="isOptinable" class="text-center mt-20 mb-0">
+        <button *ngIf="!actions.optinPrime" class="btn btn-primary" (click)="optinPrime()">
+            Optin to Asset
+        </button>
+        <button *ngIf="actions.optinPrime" class="btn btn-primary">
+            <i class="fas fa-cog fa-spin mx-20"></i>
+        </button>
+    </div>
+    <div *ngIf="isClaimable" class="text-center mt-20 mb-0">
+        <button *ngIf="!actions.claimPrime" class="btn btn-primary" (click)="claimPrime()">
+            Claim Ownership
+        </button>
+        <button *ngIf="actions.claimPrime" class="btn btn-primary">
+            <i class="fas fa-cog fa-spin mx-20"></i>
+        </button>
+    </div>
+    <div *ngIf="isUpgradable" class="text-center mt-20 mb-0">
+        <button *ngIf="!actions.upgradePrime" class="btn btn-primary" (click)="upgradePrime()">
+            Upgrade Version
+        </button>
+        <button *ngIf="actions.upgradePrime" class="btn btn-primary">
+            <i class="fas fa-cog fa-spin mx-20"></i>
+        </button>
+    </div>
+</div>

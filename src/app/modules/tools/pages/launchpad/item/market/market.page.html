@@ -1,0 +1,121 @@
+<div class="card">
+    <h2 class="card-title text-center text-secondary mt-0 mb-20">
+        MARKET
+    </h2>
+    <div *ngIf="prime.is_listed">
+        <div *ngIf="isSeller">
+            <p class="text-muted text-center mt-0 mb-20">
+                You have listed this Prime for sale at the moment. Unlist it if you want to pull it off the market.
+            </p>
+            <div class="info row justify-content-center mt-0 mb-20">
+                <div class="col-auto">
+                    <lib-tags-chip key="Price">
+                        <span innerHTML="{{prime.price | amount:0 | async}}"></span>
+                    </lib-tags-chip>
+                </div>
+                <div class="col-auto">
+                    <lib-tags-chip key="Seller">
+                        <span innerHTML="{{prime.seller | identity:true:true | async}}"></span>
+                    </lib-tags-chip>
+                </div>
+            </div>
+            <div class="text-center mt-0 mb-0">
+                <button *ngIf="!actions.unlistPrime" class="btn btn-primary" (click)="unlistPrime()">
+                    Unlist Prime
+                </button>
+                <button *ngIf="actions.unlistPrime" class="btn btn-primary">
+                    <i class="fas fa-cog fa-spin mx-20"></i>
+                </button>
+            </div>
+        </div>
+        <div *ngIf="!isSeller">
+            <div *ngIf="isConnected">
+                <p class="text-muted text-center mt-0 mb-20">
+                    This Prime is currently listed for sale. Buy it by paying the asking price.
+                </p>
+                <div class="info row justify-content-center mt-0 mb-20">
+                    <div class="col-auto">
+                        <lib-tags-chip key="Price">
+                            <span innerHTML="{{prime.price | amount:0 | async}}"></span>
+                        </lib-tags-chip>
+                    </div>
+                    <div class="col-auto">
+                        <lib-tags-chip key="Seller">
+                            <span innerHTML="{{prime.seller | identity:true:true | async}}"></span>
+                        </lib-tags-chip>
+                    </div>
+                </div>
+                <div class="text-center mt-0 mb-0">
+                    <button *ngIf="!actions.buyPrime" class="btn btn-primary" (click)="buyPrime()">
+                        Buy Prime
+                    </button>
+                    <button *ngIf="actions.buyPrime" class="btn btn-primary">
+                        <i class="fas fa-cog fa-spin mx-20"></i>
+                    </button>
+                </div>
+            </div>
+            <div *ngIf="!isConnected">
+                <p class="text-muted text-center mt-0 mb-20">
+                    This Prime is currently listed for sale. Connect your wallet to buy it.
+                </p>
+                <div class="info row justify-content-center mt-0 mb-0">
+                    <div class="col-auto">
+                        <lib-tags-chip key="Price">
+                            <span innerHTML="{{prime.price | amount:0 | async}}"></span>
+                        </lib-tags-chip>
+                    </div>
+                    <div class="col-auto">
+                        <lib-tags-chip key="Seller">
+                            <span innerHTML="{{prime.seller | identity:true:true | async}}"></span>
+                        </lib-tags-chip>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="!prime.is_listed">
+        <div *ngIf="isPrimeOwner">
+            <p class="text-muted text-center mt-0 mb-20">
+                This Prime is not listed for sale at the moment. Since you are the owner of this Prime, you can list it
+                for sale any time you want.
+            </p>
+            <div class="info row justify-content-center mt-0 mb-20">
+                <div class="col-auto">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text px-10 text-secondary">Price</span>
+                        </div>
+                        <input [(ngModel)]="inputs.price" class="form-control w-100" type="number" placeholder="Price">
+                        <div class="input-group-append">
+                            <span class="input-group-text px-10 text-secondary">ALGO</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p class="text-muted text-center mt-0 mb-20">
+                Listing a Prime for sale is free, but please note that the platform will
+                charge a 10% fee when a sale is made, which means you will only get 90% of the selling price.
+            </p>
+            <div class="info row justify-content-center mt-0 mb-20">
+                <div class="col-auto">
+                    <lib-tags-chip key="Expected Return">
+                        <span innerHTML="{{inputs.price * 0.9 * 1000000 | amount:0 | async}}"></span>
+                    </lib-tags-chip>
+                </div>
+            </div>
+            <div class="text-center mt-0 mb-0">
+                <button *ngIf="!actions.listPrime" class="btn btn-primary" (click)="listPrime()">
+                    List Prime
+                </button>
+                <button *ngIf="actions.listPrime" class="btn btn-primary">
+                    <i class="fas fa-cog fa-spin mx-20"></i>
+                </button>
+            </div>
+        </div>
+        <div *ngIf="!isPrimeOwner">
+            <p class="text-muted text-center mt-0 mb-0">
+                This Prime is not listed for sale at the moment.
+            </p>
+        </div>
+    </div>
+</div>

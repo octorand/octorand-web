@@ -20,28 +20,32 @@ const routes: Routes = [
         component: Pages.ToolsLaunchpadPage
       },
       {
-        path: 'launchpad/:id/account',
+        path: 'launchpad/:collection_id/account',
         component: Pages.ToolsLaunchpadAccountPage
       },
       {
-        path: 'launchpad/:id/browse',
+        path: 'launchpad/:collection_id/browse',
         component: Pages.ToolsLaunchpadBrowsePage
       },
       {
-        path: 'launchpad/:id/market',
+        path: 'launchpad/:collection_id/market',
         component: Pages.ToolsLaunchpadMarketPage
       },
       {
-        path: 'launchpad/:id/statistics',
+        path: 'launchpad/:collection_id/statistics',
         component: Pages.ToolsLaunchpadStatisticsPage
       },
       {
-        path: 'launchpad/:id/tokenomics',
+        path: 'launchpad/:collection_id/tokenomics',
         component: Pages.ToolsLaunchpadTokenomicsPage
       },
       {
-        path: 'launchpad/:id/traits',
+        path: 'launchpad/:collection_id/traits',
         component: Pages.ToolsLaunchpadTraitsPage
+      },
+      {
+        path: 'launchpad/:collection_id/item/:item_id',
+        component: Pages.ToolsLaunchpadItemPage
       },
     ]
   }
@@ -58,6 +62,11 @@ const routes: Routes = [
     Pages.ToolsLaunchpadStatisticsPage,
     Pages.ToolsLaunchpadTokenomicsPage,
     Pages.ToolsLaunchpadTraitsPage,
+    Pages.ToolsLaunchpadItemPage,
+    Pages.ToolsLaunchpadItemMarketPage,
+    Pages.ToolsLaunchpadItemRewardsPage,
+    Pages.ToolsLaunchpadItemSummaryPage,
+    Pages.ToolsLaunchpadItemTraitsPage,
   ],
   imports: [
     CommonModule,

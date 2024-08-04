@@ -1,0 +1,102 @@
+<div class="card">
+    <h2 class="card-title text-center text-secondary mt-0 mb-20">
+        REWARDS
+    </h2>
+    <p class="text-muted text-center mt-0 mb-20">
+        Each Prime started with a OCTO rewards bundle burried inside them. Each GEN1 Prime also receive ALGO royalties
+        when their child GEN2 primes are traded in the marketplace.
+    </p>
+    <div class="info row justify-content-center mt-0 mb-20">
+        <div class="col-auto">
+            <lib-tags-chip key="Rewards">
+                <span innerHTML="{{prime.rewards | amount:prime.platform_asset_id | async}}"></span>
+            </lib-tags-chip>
+        </div>
+        <div class="col-auto">
+            <lib-tags-chip key="Royalties">
+                <span innerHTML="{{prime.royalties | amount:0 | async}}"></span>
+            </lib-tags-chip>
+        </div>
+    </div>
+    <p class="text-muted text-center mt-0 mb-20">
+        Anyone can deposit more ALGO or OCTO into the rewards bundle.
+    </p>
+    <div class="info row justify-content-center mt-0 mb-20">
+        <div class="col-auto">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text px-10 text-secondary">OCTO</span>
+                </div>
+                <input [(ngModel)]="inputs.depositOCTO" class="form-control w-100" type="number" placeholder="Amount">
+                <div class="input-group-append">
+                    <button *ngIf="!actions.depositOCTO" class="btn btn-primary" (click)="depositOCTO()">
+                        Deposit
+                    </button>
+                    <button *ngIf="actions.depositOCTO" class="btn btn-primary">
+                        <i class="fas fa-cog fa-spin mx-20"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="info row justify-content-center mt-0 mb-20">
+        <div class="col-auto">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text px-10 text-secondary">ALGO</span>
+                </div>
+                <input [(ngModel)]="inputs.depositALGO" class="form-control w-100" type="number" placeholder="Amount">
+                <div class="input-group-append">
+                    <button *ngIf="!actions.depositALGO" class="btn btn-primary" (click)="depositALGO()">
+                        Deposit
+                    </button>
+                    <button *ngIf="actions.depositALGO" class="btn btn-primary">
+                        <i class="fas fa-cog fa-spin mx-20"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p class="text-muted text-center mt-0 mb-0">
+        Owner of Prime asset can withdraw ALGO or OCTO from the rewards bundle.
+    </p>
+    <p *ngIf="isListedOwner" class="text-muted text-center mt-0 mb-0">
+        Unlist this Prime from market to make withdrawals.
+    </p>
+    <div *ngIf="isPrimeOwner" class="info row justify-content-center mt-20 mb-0">
+        <div class="col-auto">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text px-10 text-secondary">OCTO</span>
+                </div>
+                <input [(ngModel)]="inputs.withdrawOCTO" class="form-control w-100" type="number" placeholder="Amount">
+                <div class="input-group-append">
+                    <button *ngIf="!actions.withdrawOCTO" class="btn btn-primary" (click)="withdrawOCTO()">
+                        Withdraw
+                    </button>
+                    <button *ngIf="actions.withdrawOCTO" class="btn btn-primary">
+                        <i class="fas fa-cog fa-spin mx-20"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="isPrimeOwner" class="info row justify-content-center mt-20 mb-0">
+        <div class="col-auto">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text px-10 text-secondary">ALGO</span>
+                </div>
+                <input [(ngModel)]="inputs.withdrawALGO" class="form-control w-100" type="number" placeholder="Amount">
+                <div class="input-group-append">
+                    <button *ngIf="!actions.withdrawALGO" class="btn btn-primary" (click)="withdrawALGO()">
+                        Withdraw
+                    </button>
+                    <button *ngIf="actions.withdrawALGO" class="btn btn-primary">
+                        <i class="fas fa-cog fa-spin mx-20"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

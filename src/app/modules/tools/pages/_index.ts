@@ -6,3 +6,8 @@ export * from './launchpad/market/market.page';
 export * from './launchpad/statistics/statistics.page';
 export * from './launchpad/tokenomics/tokenomics.page';
 export * from './launchpad/traits/traits.page';
+export * from './launchpad/item/item.page';
+export * from './launchpad/item/market/market.page';
+export * from './launchpad/item/rewards/rewards.page';
+export * from './launchpad/item/summary/summary.page';
+export * from './launchpad/item/traits/traits.page';

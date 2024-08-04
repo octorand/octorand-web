@@ -1,0 +1,31 @@
+<div class="card">
+    <h2 class="card-title text-center text-secondary mt-0 mb-20">
+        TRAITS
+    </h2>
+    <p class="text-muted text-center mt-0 mb-20">
+        Primes earn badges by meeting specific qualifications.
+    </p>
+    <div class="info row justify-content-center mt-0 mb-0">
+        <div class="col-auto" *ngFor="let badge of badges">
+            <lib-tags-chip [active]="badge.active">
+                <div class="dropdown dropup with-arrow">
+                    <div data-toggle="dropdown" id="popover-toggle" aria-haspopup="true" aria-expanded="false"
+                        class="hand">
+                        <i class="{{badge.icon}} mr-5"></i>
+                        {{badge.name}}
+                    </div>
+                    <div class="dropdown-menu dropdown-menu-center" aria-labelledby="popover-toggle">
+                        <div class="dropdown-item">
+                            <i class="mr-10 {{badge.icon}}"></i>
+                            {{badge.name}} - {{badge.count}}x ({{badge.percentage}}%)
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <div class="dropdown-item">
+                            <p class="description">{{badge.description}}</p>
+                        </div>
+                    </div>
+                </div>
+            </lib-tags-chip>
+        </div>
+    </div>
+</div>

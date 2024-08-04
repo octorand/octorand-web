@@ -45,9 +45,7 @@ export class CollectionPrimePage implements OnInit, OnDestroy {
    * Construct component
    *
    * @param activatedRoute
-   * @param router
    * @param appHelper
-   * @param chainHelper
    * @param dataHelper
    */
   constructor(

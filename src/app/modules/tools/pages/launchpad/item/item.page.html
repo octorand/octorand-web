@@ -1,0 +1,51 @@
+<div class="container-fluid">
+    <div class="content">
+        <div *ngIf="ready">
+            <lib-tags-collection [collection]="collection" [selectedOption]="'Browse'">
+            </lib-tags-collection>
+            <div class="row">
+                <div class="col">
+                    <div class="mx-auto text-center">
+                        <lib-tags-item-image [item]="item"></lib-tags-item-image>
+                        <h1 class="content-title text-secondary mb-20">
+                            {{item.name}}
+                        </h1>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-20">
+                <div class="col">
+                    <div class="row justify-content-center">
+                        <div class="column col-12 col-lg-6">
+                            <app-tools-launchpad-item-summary [app]="app" [launchpad]="launchpad"
+                                [collection]="collection" [item]="item">
+                            </app-tools-launchpad-item-summary>
+                        </div>
+                        <div class="column col-12 col-lg-6">
+                            <app-tools-launchpad-item-traits [app]="app" [launchpad]="launchpad"
+                                [collection]="collection" [item]="item">
+                            </app-tools-launchpad-item-traits>
+                        </div>
+                        <div class="column col-12 col-lg-6">
+                            <app-tools-launchpad-item-market [app]="app" [launchpad]="launchpad"
+                                [collection]="collection" [item]="item">
+                            </app-tools-launchpad-item-market>
+                        </div>
+                        <div class="column col-12 col-lg-6">
+                            <app-tools-launchpad-item-rewards [app]="app" [launchpad]="launchpad"
+                                [collection]="collection" [item]="item">
+                            </app-tools-launchpad-item-rewards>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="!ready">
+            <div class="row">
+                <div class="col py-20">
+                    <lib-tags-loader></lib-tags-loader>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
