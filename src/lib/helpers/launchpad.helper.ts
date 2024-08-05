@@ -141,8 +141,13 @@ export class LaunchpadHelper {
         collection.rename_burner_share = definition.rename_burner_share;
         collection.params = definition.params;
         collection.items = [];
-        collection.contracts = contracts;
+
         collection.platform_asset_id = platform_asset_id;
+        collection.manager_address = manager_address;
+        collection.artist_address = artist_address;
+        collection.treasury_address = treasury_address;
+        collection.abis = abis;
+        collection.contracts = contracts;
 
         for (let i = 0; i < applications.length; i++) {
             let item = new ItemModel();
