@@ -1,6 +1,5 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import { AppHelper, ChainHelper, DataHelper } from '@lib/helpers';
-import { GenOnePrimeBuyContract, GenOnePrimeListContract, GenOnePrimeUnlistContract, GenTwoPrimeBuyContract, GenTwoPrimeListContract, GenTwoPrimeUnlistContract } from '@lib/contracts';
+import { AppHelper, ChainHelper, LaunchpadHelper } from '@lib/helpers';
 import { AppModel, CollectionModel, ItemModel, LaunchpadModel } from '@lib/models';
 import { environment } from '@environment';
 
@@ -37,17 +36,17 @@ export class ToolsLaunchpadItemMarketPage implements OnInit, OnChanges {
   isConnected: boolean = false;
 
   /**
-   * Whether wallet is opted into prime asset
+   * Whether wallet is opted into item asset
    */
   isOptedIn: boolean = false;
 
   /**
-   * Whether prime asset is owned by current wallet
+   * Whether item asset is owned by current wallet
    */
-  isPrimeOwner: boolean = false;
+  isItemOwner: boolean = false;
 
   /**
-   * Whether prime is listed by current wallet
+   * Whether item is listed by current wallet
    */
   isSeller: boolean = false;
 
@@ -62,9 +61,9 @@ export class ToolsLaunchpadItemMarketPage implements OnInit, OnChanges {
    * Tracking actions
    */
   actions = {
-    listPrime: false,
-    unlistPrime: false,
-    buyPrime: false,
+    listItem: false,
+    unlistItem: false,
+    buyItem: false,
   };
 
   /**
@@ -77,7 +76,7 @@ export class ToolsLaunchpadItemMarketPage implements OnInit, OnChanges {
   constructor(
     private appHelper: AppHelper,
     private chainHelper: ChainHelper,
-    private dataHelper: DataHelper
+    private launchpadHelper: LaunchpadHelper
   ) { }
 
   /**
@@ -98,31 +97,23 @@ export class ToolsLaunchpadItemMarketPage implements OnInit, OnChanges {
    * Refresh view state
    */
   refreshView() {
-    if (this.prime) {
+    if (this.item) {
       this.isConnected = this.app.account ? true : false;
-      this.isOptedIn = this.app.assets.find(a => a.id == this.prime.prime_asset_id) ? true : false;
-      this.isPrimeOwner = this.app.assets.find(a => a.id == this.prime.prime_asset_id && a.amount > 0) ? true : false;
-      this.isSeller = this.prime.seller == this.app.account ? true : false;
+      this.isOptedIn = this.app.assets.find(a => a.id == this.item.item_asset_id) ? true : false;
+      this.isItemOwner = this.app.assets.find(a => a.id == this.item.item_asset_id && a.amount > 0) ? true : false;
+      this.isSeller = this.item.seller == this.app.account ? true : false;
     }
   }
 
   /**
-   * List prime
+   * List item
    */
-  listPrime() {
+  listItem() {
     let baseClient = this.chainHelper.getBaseClient();
     let algodClient = this.chainHelper.getAlgodClient();
 
-    let listContract: any = null;
-    let listContractId = 0;
-
-    if (this.prime.gen == 1) {
-      listContract = new baseClient.ABIContract(GenOnePrimeListContract);
-      listContractId = environment.gen1.contracts.prime.list.application_id;
-    } else {
-      listContract = new baseClient.ABIContract(GenTwoPrimeListContract);
-      listContractId = environment.gen2.contracts.prime.list.application_id;
-    }
+    let listContract: any = new baseClient.ABIContract(this.collection.abis.list);
+    let listContractId = this.collection.contracts.item.list.application_id;
 
     algodClient.getTransactionParams().do().then((params: any) => {
       let composer = new baseClient.AtomicTransactionComposer();
@@ -133,7 +124,7 @@ export class ToolsLaunchpadItemMarketPage implements OnInit, OnChanges {
         method: this.chainHelper.getMethod(listContract, 'list'),
         methodArgs: [
           Number(this.inputs.price) * Math.pow(10, 6),
-          this.prime.application_id,
+          this.item.application_id,
         ],
         suggestedParams: {
           ...params,
@@ -145,8 +136,8 @@ export class ToolsLaunchpadItemMarketPage implements OnInit, OnChanges {
       composer.addTransaction({
         txn: baseClient.makeAssetTransferTxnWithSuggestedParamsFromObject({
           from: this.app.account,
-          to: this.prime.application_address,
-          assetIndex: this.prime.prime_asset_id,
+          to: this.item.application_address,
+          assetIndex: this.item.item_asset_id,
           amount: 1,
           suggestedParams: {
             ...params,
@@ -163,35 +154,27 @@ export class ToolsLaunchpadItemMarketPage implements OnInit, OnChanges {
         transactions.push(group[i].txn);
       }
 
-      this.actions.listPrime = true;
+      this.actions.listItem = true;
       this.chainHelper.submitTransactions(transactions).then((response) => {
-        this.actions.listPrime = false;
+        this.actions.listItem = false;
         if (response.success) {
-          this.dataHelper.loadPrimeDetails();
+          this.launchpadHelper.loadItemDetails();
           this.appHelper.loadAccountDetails();
-          this.appHelper.showSuccess('Listed prime successfully');
+          this.appHelper.showSuccess('Listed item successfully');
         }
       });
     });
   }
 
   /**
-   * Unlist prime
+   * Unlist item
    */
-  unlistPrime() {
+  unlistItem() {
     let baseClient = this.chainHelper.getBaseClient();
     let algodClient = this.chainHelper.getAlgodClient();
 
-    let unlistContract: any = null;
-    let unlistContractId = 0;
-
-    if (this.prime.gen == 1) {
-      unlistContract = new baseClient.ABIContract(GenOnePrimeUnlistContract);
-      unlistContractId = environment.gen1.contracts.prime.unlist.application_id;
-    } else {
-      unlistContract = new baseClient.ABIContract(GenTwoPrimeUnlistContract);
-      unlistContractId = environment.gen2.contracts.prime.unlist.application_id;
-    }
+    let unlistContract: any = new baseClient.ABIContract(this.collection.abis.unlist);
+    let unlistContractId = this.collection.contracts.item.unlist.application_id;
 
     algodClient.getTransactionParams().do().then((params: any) => {
       let composer = new baseClient.AtomicTransactionComposer();
@@ -201,7 +184,7 @@ export class ToolsLaunchpadItemMarketPage implements OnInit, OnChanges {
           txn: baseClient.makeAssetTransferTxnWithSuggestedParamsFromObject({
             from: this.app.account,
             to: this.app.account,
-            assetIndex: this.prime.prime_asset_id,
+            assetIndex: this.item.item_asset_id,
             amount: 0,
             suggestedParams: {
               ...params,
@@ -217,10 +200,10 @@ export class ToolsLaunchpadItemMarketPage implements OnInit, OnChanges {
         appID: unlistContractId,
         method: this.chainHelper.getMethod(unlistContract, 'unlist'),
         methodArgs: [
-          this.prime.application_id,
+          this.item.application_id,
         ],
         appForeignAssets: [
-          this.prime.prime_asset_id
+          this.item.item_asset_id
         ],
         suggestedParams: {
           ...params,
@@ -236,35 +219,27 @@ export class ToolsLaunchpadItemMarketPage implements OnInit, OnChanges {
         transactions.push(group[i].txn);
       }
 
-      this.actions.unlistPrime = true;
+      this.actions.unlistItem = true;
       this.chainHelper.submitTransactions(transactions).then((response) => {
-        this.actions.unlistPrime = false;
+        this.actions.unlistItem = false;
         if (response.success) {
-          this.dataHelper.loadPrimeDetails();
+          this.launchpadHelper.loadItemDetails();
           this.appHelper.loadAccountDetails();
-          this.appHelper.showSuccess('Unlisted prime successfully');
+          this.appHelper.showSuccess('Unlisted item successfully');
         }
       });
     });
   }
 
   /**
-   * Buy prime
+   * Buy item
    */
-  buyPrime() {
+  buyItem() {
     let baseClient = this.chainHelper.getBaseClient();
     let algodClient = this.chainHelper.getAlgodClient();
 
-    let buyContract: any = null;
-    let buyContractId = 0;
-
-    if (this.prime.gen == 1) {
-      buyContract = new baseClient.ABIContract(GenOnePrimeBuyContract);
-      buyContractId = environment.gen1.contracts.prime.buy.application_id;
-    } else {
-      buyContract = new baseClient.ABIContract(GenTwoPrimeBuyContract);
-      buyContractId = environment.gen2.contracts.prime.buy.application_id;
-    }
+    let buyContract: any = new baseClient.ABIContract(this.collection.abis.list);
+    let buyContractId = this.collection.contracts.item.list.application_id;
 
     algodClient.getTransactionParams().do().then((params: any) => {
       let composer = new baseClient.AtomicTransactionComposer();
@@ -274,7 +249,7 @@ export class ToolsLaunchpadItemMarketPage implements OnInit, OnChanges {
           txn: baseClient.makeAssetTransferTxnWithSuggestedParamsFromObject({
             from: this.app.account,
             to: this.app.account,
-            assetIndex: this.prime.prime_asset_id,
+            assetIndex: this.item.item_asset_id,
             amount: 0,
             suggestedParams: {
               ...params,
@@ -285,109 +260,61 @@ export class ToolsLaunchpadItemMarketPage implements OnInit, OnChanges {
         });
       }
 
-      if (this.prime.gen == 1) {
-        composer.addMethodCall({
-          sender: this.app.account,
-          appID: buyContractId,
-          method: this.chainHelper.getMethod(buyContract, 'buy'),
-          methodArgs: [
-            this.prime.application_id,
-          ],
-          appForeignAssets: [
-            this.prime.prime_asset_id
-          ],
+      composer.addMethodCall({
+        sender: this.app.account,
+        appID: buyContractId,
+        method: this.chainHelper.getMethod(buyContract, 'buy'),
+        methodArgs: [
+          this.item.application_id,
+        ],
+        appForeignAssets: [
+          this.item.item_asset_id
+        ],
+        suggestedParams: {
+          ...params,
+          fee: 3000,
+          flatFee: true
+        }
+      });
+
+      composer.addTransaction({
+        txn: baseClient.makePaymentTxnWithSuggestedParamsFromObject({
+          from: this.app.account,
+          to: this.item.seller,
+          amount: Math.floor(this.item.price * this.collection.seller_market_share / 100),
           suggestedParams: {
             ...params,
-            fee: 3000,
+            fee: 1000,
             flatFee: true
           }
-        });
+        })
+      });
 
-        composer.addTransaction({
-          txn: baseClient.makePaymentTxnWithSuggestedParamsFromObject({
-            from: this.app.account,
-            to: this.prime.seller,
-            amount: Math.floor(this.prime.price * environment.gen1.seller_market_share / 100),
-            suggestedParams: {
-              ...params,
-              fee: 1000,
-              flatFee: true
-            }
-          })
-        });
-
-        composer.addTransaction({
-          txn: baseClient.makePaymentTxnWithSuggestedParamsFromObject({
-            from: this.app.account,
-            to: environment.admin_address,
-            amount: Math.floor(this.prime.price * environment.gen1.admin_market_share / 100),
-            suggestedParams: {
-              ...params,
-              fee: 1000,
-              flatFee: true
-            }
-          })
-        });
-      } else {
-        composer.addMethodCall({
-          sender: this.app.account,
-          appID: buyContractId,
-          method: this.chainHelper.getMethod(buyContract, 'buy'),
-          methodArgs: [
-            this.prime.application_id,
-          ],
-          appForeignAssets: [
-            this.prime.prime_asset_id
-          ],
-          appForeignApps: [
-            this.prime.parent_application_id,
-          ],
+      composer.addTransaction({
+        txn: baseClient.makePaymentTxnWithSuggestedParamsFromObject({
+          from: this.app.account,
+          to: this.collection.artist_address,
+          amount: Math.floor(this.item.price * this.collection.artist_market_share / 100),
           suggestedParams: {
             ...params,
-            fee: 3000,
+            fee: 1000,
             flatFee: true
           }
-        });
+        })
+      });
 
-        composer.addTransaction({
-          txn: baseClient.makePaymentTxnWithSuggestedParamsFromObject({
-            from: this.app.account,
-            to: this.prime.seller,
-            amount: Math.floor(this.prime.price * environment.gen2.seller_market_share / 100),
-            suggestedParams: {
-              ...params,
-              fee: 1000,
-              flatFee: true
-            }
-          })
-        });
-
-        composer.addTransaction({
-          txn: baseClient.makePaymentTxnWithSuggestedParamsFromObject({
-            from: this.app.account,
-            to: this.prime.parent_application_address,
-            amount: Math.floor(this.prime.price * environment.gen2.parent_market_share / 100),
-            suggestedParams: {
-              ...params,
-              fee: 1000,
-              flatFee: true
-            }
-          })
-        });
-
-        composer.addTransaction({
-          txn: baseClient.makePaymentTxnWithSuggestedParamsFromObject({
-            from: this.app.account,
-            to: environment.admin_address,
-            amount: Math.floor(this.prime.price * environment.gen2.admin_market_share / 100),
-            suggestedParams: {
-              ...params,
-              fee: 1000,
-              flatFee: true
-            }
-          })
-        });
-      }
+      composer.addTransaction({
+        txn: baseClient.makePaymentTxnWithSuggestedParamsFromObject({
+          from: this.app.account,
+          to: environment.admin_address,
+          amount: Math.floor(this.item.price * this.collection.admin_market_share / 100),
+          suggestedParams: {
+            ...params,
+            fee: 1000,
+            flatFee: true
+          }
+        })
+      });
 
       let group = composer.buildGroup();
 
@@ -396,13 +323,13 @@ export class ToolsLaunchpadItemMarketPage implements OnInit, OnChanges {
         transactions.push(group[i].txn);
       }
 
-      this.actions.buyPrime = true;
+      this.actions.buyItem = true;
       this.chainHelper.submitTransactions(transactions).then((response) => {
-        this.actions.buyPrime = false;
+        this.actions.buyItem = false;
         if (response.success) {
-          this.dataHelper.loadPrimeDetails();
+          this.launchpadHelper.loadItemDetails();
           this.appHelper.loadAccountDetails();
-          this.appHelper.showSuccess('Bought prime successfully');
+          this.appHelper.showSuccess('Bought item successfully');
         }
       });
     });

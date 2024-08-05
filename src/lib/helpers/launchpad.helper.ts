@@ -4,7 +4,7 @@ import { CollectionGuardians, CollectionTakos } from '@lib/collections';
 import { IndexerHelper } from './indexer.helper';
 import { Subject } from 'rxjs';
 import { environment } from '@environment';
-
+import * as Contracts from '@lib/contracts';
 
 const algosdk = require("algosdk");
 
@@ -80,19 +80,47 @@ export class LaunchpadHelper {
         let collection = new CollectionModel();
 
         let definition = CollectionGuardians;
-        let contracts = {};
         let platform_asset_id = 0;
+        let manager_address = '';
+        let artist_address = '';
+        let treasury_address = '';
+        let contracts = {};
+        let abis = {};
 
         switch (collection_id) {
             case 'guardians':
                 definition = CollectionGuardians;
-                contracts = environment.launchpad.guardians.contracts;
                 platform_asset_id = environment.launchpad.guardians.platform.asset_id;
+                manager_address = environment.launchpad.guardians.manager_address;
+                artist_address = environment.launchpad.guardians.artist_address;
+                treasury_address = environment.launchpad.guardians.treasury_address;
+                contracts = environment.launchpad.guardians.contracts;
+                abis = {
+                    app: Contracts.LaunchpadGuardiansItemAppContract,
+                    buy: Contracts.LaunchpadGuardiansItemBuyContract,
+                    claim: Contracts.LaunchpadGuardiansItemClaimContract,
+                    list: Contracts.LaunchpadGuardiansItemListContract,
+                    mint: Contracts.LaunchpadGuardiansItemMintContract,
+                    rename: Contracts.LaunchpadGuardiansItemRenameContract,
+                    unlist: Contracts.LaunchpadGuardiansItemUnlistContract
+                };
                 break;
             case 'takos':
                 definition = CollectionTakos;
-                contracts = environment.launchpad.takos.contracts;
                 platform_asset_id = environment.launchpad.takos.platform.asset_id;
+                manager_address = environment.launchpad.takos.manager_address;
+                artist_address = environment.launchpad.takos.artist_address;
+                treasury_address = environment.launchpad.takos.treasury_address;
+                contracts = environment.launchpad.takos.contracts;
+                abis = {
+                    app: Contracts.LaunchpadTakosItemAppContract,
+                    buy: Contracts.LaunchpadTakosItemBuyContract,
+                    claim: Contracts.LaunchpadTakosItemClaimContract,
+                    list: Contracts.LaunchpadTakosItemListContract,
+                    mint: Contracts.LaunchpadTakosItemMintContract,
+                    rename: Contracts.LaunchpadTakosItemRenameContract,
+                    unlist: Contracts.LaunchpadTakosItemUnlistContract
+                };
                 break;
         }
 

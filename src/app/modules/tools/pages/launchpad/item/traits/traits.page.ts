@@ -1,5 +1,4 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import { BadgeHelper } from '@lib/helpers';
 import { AppModel, CollectionModel, ItemModel, LaunchpadModel } from '@lib/models';
 
 @Component({
@@ -35,20 +34,9 @@ export class ToolsLaunchpadItemTraitsPage implements OnInit, OnChanges {
   badges: Array<any> = [];
 
   /**
-   * Construct component
-   *
-   * @param appHelper
-   * @param badgeHelper
-   */
-  constructor(
-    private badgeHelper: BadgeHelper
-  ) { }
-
-  /**
    * Initialize component
    */
   ngOnInit() {
-    this.initBadges();
     this.refreshView();
   }
 
@@ -60,31 +48,26 @@ export class ToolsLaunchpadItemTraitsPage implements OnInit, OnChanges {
   }
 
   /**
-   * Initialize badges
-   */
-  initBadges() {
-    this.badges = this.badgeHelper.list();
-  }
-
-  /**
    * Refresh view state
    */
   refreshView() {
-    if (this.prime) {
-      for (let i = 0; i < this.badges.length; i++) {
-        this.badges[i].active = this.prime.badges.includes(this.badges[i].name);
-      }
+    if (this.item) {
+      for (let i = 0; i < this.item.params.length; i++) {
+        let param = this.item.params[i];
 
-      let primes = [];
-      if (this.prime.gen == 1) {
-        primes = this.data.gen_one_primes;
-      } else {
-        primes = this.data.gen_two_primes;
-      }
+        for (let j = 0; j < param.values.length; j++) {
+          let value = param.values[i];
 
-      for (let i = 0; i < this.badges.length; i++) {
-        this.badges[i].count = primes.filter(p => p.badges.includes(this.badges[i].name)).length;
-        this.badges[i].percentage = Math.floor(this.badges[i].count * 100 / primes.length);
+          let count = this.collection.items.filter(x => x.params.find(y => y.name == param.name) && x.params.find(y => y.name == param.name)?.values.includes(value)).length;
+          let percentage = Math.floor(count * 100 / this.collection.items.length);
+
+          this.badges.push({
+            param: param.name,
+            value: value,
+            count: count,
+            percentage: percentage
+          });
+        }
       }
     }
   }

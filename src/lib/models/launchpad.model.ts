@@ -22,10 +22,14 @@ export class CollectionModel {
     params: Array<ParamModel> = [];
     items: Array<ItemModel> = [];
     platform_asset_id: number = 0;
+    manager_address: string = '';
+    artist_address: string = '';
+    treasury_address: string = '';
     stats_count: number = 0;
     stats_owners: number = 0;
     stats_listed: number = 0;
     contracts: any = {};
+    abis: any = {};
 }
 
 export class ItemModel {

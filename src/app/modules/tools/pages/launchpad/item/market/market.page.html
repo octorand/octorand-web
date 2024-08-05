@@ -2,28 +2,28 @@
     <h2 class="card-title text-center text-secondary mt-0 mb-20">
         MARKET
     </h2>
-    <div *ngIf="prime.is_listed">
+    <div *ngIf="item.is_listed">
         <div *ngIf="isSeller">
             <p class="text-muted text-center mt-0 mb-20">
-                You have listed this Prime for sale at the moment. Unlist it if you want to pull it off the market.
+                You have listed this item for sale at the moment. Unlist it if you want to pull it off the market.
             </p>
             <div class="info row justify-content-center mt-0 mb-20">
                 <div class="col-auto">
                     <lib-tags-chip key="Price">
-                        <span innerHTML="{{prime.price | amount:0 | async}}"></span>
+                        <span innerHTML="{{item.price | amount:0 | async}}"></span>
                     </lib-tags-chip>
                 </div>
                 <div class="col-auto">
                     <lib-tags-chip key="Seller">
-                        <span innerHTML="{{prime.seller | identity:true:true | async}}"></span>
+                        <span innerHTML="{{item.seller | identity:true:true | async}}"></span>
                     </lib-tags-chip>
                 </div>
             </div>
             <div class="text-center mt-0 mb-0">
-                <button *ngIf="!actions.unlistPrime" class="btn btn-primary" (click)="unlistPrime()">
-                    Unlist Prime
+                <button *ngIf="!actions.unlistItem" class="btn btn-primary" (click)="unlistItem()">
+                    Unlist Item
                 </button>
-                <button *ngIf="actions.unlistPrime" class="btn btn-primary">
+                <button *ngIf="actions.unlistItem" class="btn btn-primary">
                     <i class="fas fa-cog fa-spin mx-20"></i>
                 </button>
             </div>
@@ -31,52 +31,52 @@
         <div *ngIf="!isSeller">
             <div *ngIf="isConnected">
                 <p class="text-muted text-center mt-0 mb-20">
-                    This Prime is currently listed for sale. Buy it by paying the asking price.
+                    This item is currently listed for sale. Buy it by paying the asking price.
                 </p>
                 <div class="info row justify-content-center mt-0 mb-20">
                     <div class="col-auto">
                         <lib-tags-chip key="Price">
-                            <span innerHTML="{{prime.price | amount:0 | async}}"></span>
+                            <span innerHTML="{{item.price | amount:0 | async}}"></span>
                         </lib-tags-chip>
                     </div>
                     <div class="col-auto">
                         <lib-tags-chip key="Seller">
-                            <span innerHTML="{{prime.seller | identity:true:true | async}}"></span>
+                            <span innerHTML="{{item.seller | identity:true:true | async}}"></span>
                         </lib-tags-chip>
                     </div>
                 </div>
                 <div class="text-center mt-0 mb-0">
-                    <button *ngIf="!actions.buyPrime" class="btn btn-primary" (click)="buyPrime()">
-                        Buy Prime
+                    <button *ngIf="!actions.buyItem" class="btn btn-primary" (click)="buyItem()">
+                        Buy Item
                     </button>
-                    <button *ngIf="actions.buyPrime" class="btn btn-primary">
+                    <button *ngIf="actions.buyItem" class="btn btn-primary">
                         <i class="fas fa-cog fa-spin mx-20"></i>
                     </button>
                 </div>
             </div>
             <div *ngIf="!isConnected">
                 <p class="text-muted text-center mt-0 mb-20">
-                    This Prime is currently listed for sale. Connect your wallet to buy it.
+                    This item is currently listed for sale. Connect your wallet to buy it.
                 </p>
                 <div class="info row justify-content-center mt-0 mb-0">
                     <div class="col-auto">
                         <lib-tags-chip key="Price">
-                            <span innerHTML="{{prime.price | amount:0 | async}}"></span>
+                            <span innerHTML="{{item.price | amount:0 | async}}"></span>
                         </lib-tags-chip>
                     </div>
                     <div class="col-auto">
                         <lib-tags-chip key="Seller">
-                            <span innerHTML="{{prime.seller | identity:true:true | async}}"></span>
+                            <span innerHTML="{{item.seller | identity:true:true | async}}"></span>
                         </lib-tags-chip>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div *ngIf="!prime.is_listed">
-        <div *ngIf="isPrimeOwner">
+    <div *ngIf="!item.is_listed">
+        <div *ngIf="isItemOwner">
             <p class="text-muted text-center mt-0 mb-20">
-                This Prime is not listed for sale at the moment. Since you are the owner of this Prime, you can list it
+                This item is not listed for sale at the moment. Since you are the owner of this item, you can list it
                 for sale any time you want.
             </p>
             <div class="info row justify-content-center mt-0 mb-20">
@@ -93,7 +93,7 @@
                 </div>
             </div>
             <p class="text-muted text-center mt-0 mb-20">
-                Listing a Prime for sale is free, but please note that the platform will
+                Listing a item for sale is free, but please note that the artist will
                 charge a 10% fee when a sale is made, which means you will only get 90% of the selling price.
             </p>
             <div class="info row justify-content-center mt-0 mb-20">
@@ -104,17 +104,17 @@
                 </div>
             </div>
             <div class="text-center mt-0 mb-0">
-                <button *ngIf="!actions.listPrime" class="btn btn-primary" (click)="listPrime()">
-                    List Prime
+                <button *ngIf="!actions.listItem" class="btn btn-primary" (click)="listItem()">
+                    List Item
                 </button>
-                <button *ngIf="actions.listPrime" class="btn btn-primary">
+                <button *ngIf="actions.listItem" class="btn btn-primary">
                     <i class="fas fa-cog fa-spin mx-20"></i>
                 </button>
             </div>
         </div>
-        <div *ngIf="!isPrimeOwner">
+        <div *ngIf="!isItemOwner">
             <p class="text-muted text-center mt-0 mb-0">
-                This Prime is not listed for sale at the moment.
+                This item is not listed for sale at the moment.
             </p>
         </div>
     </div>

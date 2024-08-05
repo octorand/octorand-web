@@ -32,7 +32,6 @@ export class CollectionPrimeTraitsPage implements OnInit, OnChanges {
   /**
    * Construct component
    *
-   * @param appHelper
    * @param badgeHelper
    */
   constructor(
