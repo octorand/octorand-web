@@ -1,13 +1,15 @@
 <div class="container-fluid">
     <div class="content">
         <div *ngIf="ready">
-            <lib-tags-collection [collection]="collection" [selectedOption]="'Browse'">
+            <lib-tags-collection [collection]="collection" [selectedOption]="''">
             </lib-tags-collection>
             <div class="row">
                 <div class="col">
                     <div class="mx-auto text-center">
-                        <lib-tags-item-image [item]="item"></lib-tags-item-image>
-                        <h1 class="content-title text-secondary mb-20">
+                        <div class="mt-20">
+                            <lib-tags-item-image [item]="item"></lib-tags-item-image>
+                        </div>
+                        <h1 class="content-title text-secondary mt-20 mb-0">
                             {{item.name}}
                         </h1>
                     </div>

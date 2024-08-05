@@ -52,16 +52,18 @@ export class ToolsLaunchpadItemTraitsPage implements OnInit, OnChanges {
    */
   refreshView() {
     if (this.item) {
+      let badges = [];
+
       for (let i = 0; i < this.item.params.length; i++) {
         let param = this.item.params[i];
 
         for (let j = 0; j < param.values.length; j++) {
-          let value = param.values[i];
+          let value = param.values[j];
 
           let count = this.collection.items.filter(x => x.params.find(y => y.name == param.name) && x.params.find(y => y.name == param.name)?.values.includes(value)).length;
           let percentage = Math.floor(count * 100 / this.collection.items.length);
 
-          this.badges.push({
+          badges.push({
             param: param.name,
             value: value,
             count: count,
@@ -69,6 +71,8 @@ export class ToolsLaunchpadItemTraitsPage implements OnInit, OnChanges {
           });
         }
       }
+
+      this.badges = badges;
     }
   }
 }

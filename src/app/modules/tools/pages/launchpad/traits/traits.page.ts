@@ -106,8 +106,8 @@ export class ToolsLaunchpadTraitsPage implements OnInit, OnDestroy {
    */
   refreshView() {
     if (this.launchpad && this.launchpad.initialised) {
-      let id = this.activatedRoute.snapshot.params['id'];
-      let collection = this.launchpad.collections.find(x => x.id == id);
+      let collection_id = this.activatedRoute.snapshot.params['collection_id'];
+      let collection = this.launchpad.collections.find(x => x.id == collection_id);
 
       if (collection) {
         this.collection = collection;
