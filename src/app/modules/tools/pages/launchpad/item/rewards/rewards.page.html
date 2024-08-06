@@ -15,7 +15,7 @@
     <p *ngIf="isListedOwner" class="text-muted text-center mt-0 mb-0">
         Unlist this item from market to make withdrawals.
     </p>
-    <div *ngIf="isItemOwner" class="text-center mt-20 mb-0">
+    <div *ngIf="isItemOwner && item.rewards > 0" class="text-center mt-20 mb-0">
         <button *ngIf="!actions.mintItem" class="btn btn-primary" (click)="mintItem()">
             Withdraw Rewards
         </button>

@@ -238,8 +238,8 @@ export class ToolsLaunchpadItemMarketPage implements OnInit, OnChanges {
     let baseClient = this.chainHelper.getBaseClient();
     let algodClient = this.chainHelper.getAlgodClient();
 
-    let buyContract: any = new baseClient.ABIContract(this.collection.abis.list);
-    let buyContractId = this.collection.contracts.item.list.application_id;
+    let buyContract: any = new baseClient.ABIContract(this.collection.abis.buy);
+    let buyContractId = this.collection.contracts.item.buy.application_id;
 
     algodClient.getTransactionParams().do().then((params: any) => {
       let composer = new baseClient.AtomicTransactionComposer();

@@ -54,6 +54,24 @@ export class EventHelper {
             case 'prwd':
                 data.params = this.decodePrimeWithdrawParams(data.version, value);
                 break;
+            case 'imby':
+                data.params = this.decodeItemBuyParams(data.version, value);
+                break;
+            case 'imcl':
+                data.params = this.decodeItemClaimParams(data.version, value);
+                break;
+            case 'imls':
+                data.params = this.decodeItemListParams(data.version, value);
+                break;
+            case 'immt':
+                data.params = this.decodeItemMintParams(data.version, value);
+                break;
+            case 'imrn':
+                data.params = this.decodeItemRenameParams(data.version, value);
+                break;
+            case 'imul':
+                data.params = this.decodeItemUnlistParams(data.version, value);
+                break;
         }
 
         return data;
@@ -343,6 +361,162 @@ export class EventHelper {
                 params.prime = algosdk.decodeUint64(value.subarray(20, 28));
                 params.sender = algosdk.encodeAddress(value.subarray(28, 60));
                 params.amount = algosdk.decodeUint64(value.subarray(60, 68));
+                break;
+        }
+
+        return params;
+    }
+
+    /**
+     * Decode item buy params
+     *
+     * @param version
+     * @parm value
+     */
+    decodeItemBuyParams(version: number, value: Buffer) {
+        let params = {
+            name: 'item_buy',
+            item: null,
+            sender: null,
+            seller: null,
+            price: null,
+        };
+
+        switch (version) {
+            case 0:
+            case 1:
+                params.item = algosdk.decodeUint64(value.subarray(20, 28));
+                params.sender = algosdk.encodeAddress(value.subarray(28, 60));
+                params.seller = algosdk.encodeAddress(value.subarray(60, 92));
+                params.price = algosdk.decodeUint64(value.subarray(92, 100));
+                break;
+        }
+
+        return params;
+    }
+
+    /**
+     * Decode item claim params
+     *
+     * @param version
+     * @parm value
+     */
+    decodeItemClaimParams(version: number, value: Buffer) {
+        let params = {
+            name: 'item_claim',
+            item: null,
+            sender: null,
+        };
+
+        switch (version) {
+            case 0:
+            case 1:
+                params.item = algosdk.decodeUint64(value.subarray(20, 28));
+                params.sender = algosdk.encodeAddress(value.subarray(28, 60));
+                break;
+        }
+
+        return params;
+    }
+
+    /**
+     * Decode item list params
+     *
+     * @param version
+     * @parm value
+     */
+    decodeItemListParams(version: number, value: Buffer) {
+        let params = {
+            name: 'item_list',
+            item: null,
+            sender: null,
+            price: null,
+        };
+
+        switch (version) {
+            case 0:
+            case 1:
+                params.item = algosdk.decodeUint64(value.subarray(20, 28));
+                params.sender = algosdk.encodeAddress(value.subarray(28, 60));
+                params.price = algosdk.decodeUint64(value.subarray(60, 68));
+                break;
+        }
+
+        return params;
+    }
+
+    /**
+     * Decode item mint params
+     *
+     * @param version
+     * @parm value
+     */
+    decodeItemMintParams(version: number, value: Buffer) {
+        let params = {
+            name: 'item_mint',
+            item: null,
+            sender: null,
+            amount: null,
+        };
+
+        switch (version) {
+            case 0:
+            case 1:
+                params.item = algosdk.decodeUint64(value.subarray(20, 28));
+                params.sender = algosdk.encodeAddress(value.subarray(28, 60));
+                params.amount = algosdk.decodeUint64(value.subarray(60, 68));
+                break;
+        }
+
+        return params;
+    }
+
+    /**
+     * Decode item rename params
+     *
+     * @param version
+     * @parm value
+     */
+    decodeItemRenameParams(version: number, value: Buffer) {
+        let params = {
+            name: 'item_rename',
+            item: null,
+            sender: null,
+            value: '',
+            price: null,
+        };
+
+        switch (version) {
+            case 0:
+            case 1:
+                params.item = algosdk.decodeUint64(value.subarray(20, 28));
+                params.sender = algosdk.encodeAddress(value.subarray(28, 60));
+                params.value = value.subarray(60, 76).toString('utf-8').trim();
+                params.price = algosdk.decodeUint64(value.subarray(76, 84));
+                break;
+        }
+
+        return params;
+    }
+
+    /**
+     * Decode item unlist params
+     *
+     * @param version
+     * @parm value
+     */
+    decodeItemUnlistParams(version: number, value: Buffer) {
+        let params = {
+            name: 'item_unlist',
+            item: null,
+            sender: null,
+        };
+
+        switch (version) {
+            case 0:
+            case 1:
+                params.item = algosdk.decodeUint64(value.subarray(20, 28));
+                params.sender = algosdk.encodeAddress(value.subarray(28, 60));
                 break;
         }
 
