@@ -1,0 +1,37 @@
+<div class="card">
+    <h2 class="card-title text-center text-secondary mt-0 mb-20">
+        RENAME
+    </h2>
+    <div class="info row justify-content-center mt-0 mb-20">
+        <div class="col-auto">
+            <lib-tags-chip key="Name">
+                {{item.name}}
+            </lib-tags-chip>
+        </div>
+    </div>
+    <p class="text-muted text-center mt-0 mb-0">
+        Owner of item asset can change its name.
+    </p>
+    <p *ngIf="isListedOwner" class="text-muted text-center mt-0 mb-0">
+        Unlist this item from market to rename it.
+    </p>
+    <div *ngIf="isItemOwner" class="text-center mt-20 mb-0">
+        <div class="info row justify-content-center mt-0 mb-20">
+            <div class="col-auto">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text px-10 text-secondary">Name</span>
+                    </div>
+                    <input [(ngModel)]="inputs.name" class="form-control w-100" type="text" placeholder="Name"
+                        maxlength="16">
+                </div>
+            </div>
+        </div>
+        <button *ngIf="!actions.renameItem" class="btn btn-primary" (click)="renameItem()">
+            Rename
+        </button>
+        <button *ngIf="actions.renameItem" class="btn btn-primary">
+            <i class="fas fa-cog fa-spin mx-20"></i>
+        </button>
+    </div>
+</div>

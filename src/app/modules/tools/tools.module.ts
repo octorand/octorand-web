@@ -64,6 +64,7 @@ const routes: Routes = [
     Pages.ToolsLaunchpadTraitsPage,
     Pages.ToolsLaunchpadItemPage,
     Pages.ToolsLaunchpadItemMarketPage,
+    Pages.ToolsLaunchpadItemRenamePage,
     Pages.ToolsLaunchpadItemRewardsPage,
     Pages.ToolsLaunchpadItemSummaryPage,
     Pages.ToolsLaunchpadItemTraitsPage,

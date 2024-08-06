@@ -61,6 +61,20 @@ export class ChainHelper {
     }
 
     /**
+     * Get bytes representation of a string
+     *
+     * @param value
+     * @param length
+     */
+    getBytes(value: string, length?: number): Uint8Array {
+        if (length) {
+            return new Uint8Array(Buffer.from((value + ' '.repeat(length)).substring(0, length)));
+        } else {
+            return new Uint8Array(Buffer.from(value));
+        }
+    }
+
+    /**
      * Submit transactions to blockchain
      *
      * @param transactions
