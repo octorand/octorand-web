@@ -149,28 +149,28 @@ export const environment = {
       contracts: {
         item: {
           buy: {
-            application_id: 0,
-            application_address: ''
+            application_id: 2219030131,
+            application_address: 'GKKVDTSIN2YHZQRAOX2UZ3STSDOYJQOPSPGNZOG3ACZ6VMKFAG3DO24TVE'
           },
           claim: {
-            application_id: 0,
-            application_address: ''
+            application_id: 2219030186,
+            application_address: '2UICQODIHWCGLAZAVX2VT4Z4KOHRAWBZORDMNXNIYWQ7EHQM3MOGC3EURU'
           },
           list: {
-            application_id: 0,
-            application_address: ''
+            application_id: 2219030292,
+            application_address: 'K2ZPE5L25Z442OFHCNZUC3D7F3YSXIUVE3GQJAJOONUS6DLNTA32FU2AEQ'
           },
           mint: {
-            application_id: 0,
-            application_address: ''
+            application_id: 2219030447,
+            application_address: '7SEOOTSUGFWK3CYHHZ7DZTWFZWPM5GNN22GCW5ODOWKUAL57C76HTH3SUY'
           },
           rename: {
-            application_id: 0,
-            application_address: ''
+            application_id: 2219030551,
+            application_address: 'DCVVF46G3X76Z2SHFK3NFPK6ERD5YBM6ZXUI46C5LLXCIMJX2YOFOLXMRE'
           },
           unlist: {
-            application_id: 0,
-            application_address: ''
+            application_id: 2219030652,
+            application_address: 'TOVORRH35WCBLSHOZCKK3J2FK7QKRBDNQYZ3W4Y3PKE5ZC6H7SW3ROL34E'
           }
         }
       }
@@ -187,28 +187,28 @@ export const environment = {
       contracts: {
         item: {
           buy: {
-            application_id: 0,
-            application_address: ''
+            application_id: 2219033662,
+            application_address: 'ZIPPMJ45F2L2HIYUIW4STLVBWQFPEAQ4F5AN3AWVAZ6KEZBHVFPM5QEUNQ'
           },
           claim: {
-            application_id: 0,
-            application_address: ''
+            application_id: 2219033769,
+            application_address: '7HRNM4TVIF6UDASBH3E435Z3GVVOAHYLYKUA3XZ5IXP4AZRJMTIZGPEWGE'
           },
           list: {
-            application_id: 0,
-            application_address: ''
+            application_id: 2219033985,
+            application_address: 'JZQQZ4G7IGQRLJOPL3NMRKG57M6TUPUFX7QJKZEISL45IJNKIZHTFK5D34'
           },
           mint: {
-            application_id: 0,
-            application_address: ''
+            application_id: 2219034068,
+            application_address: 'T3B6CXQYFFONJ6JH66AO5PQJYIMDXJIRIUNFKBT5YOZXYTQFDVSCV6A6HE'
           },
           rename: {
-            application_id: 0,
-            application_address: ''
+            application_id: 2219034147,
+            application_address: 'WS53GYFVLLJIRW235MLO5BUA65JHFLMLNTMEXB5CPI7UWPI3IW2GM3GYRU'
           },
           unlist: {
-            application_id: 0,
-            application_address: ''
+            application_id: 2219034197,
+            application_address: 'KRKLNAX3HRPZ7MQKZEZL5VSIGQZDRQT4L3RT2PSWSVBAX2XQJEFBNCIVPA'
           }
         }
       }
