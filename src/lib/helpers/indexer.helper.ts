@@ -206,7 +206,21 @@ export class IndexerHelper {
             logs.push(this.eventHelper.decode(log));
         }
 
-        return logs;
+        let entries: Array<any> = [];
+        let hashes: Array<string> = [];
+
+        for (let i = 0; i < logs.length; i++) {
+            let entry = logs[i];
+            let hash = Md5.hashStr(JSON.stringify(entry));
+
+            if (!hashes.includes(hash)) {
+                entries.push(entry);
+                hashes.push(hash);
+            }
+
+        }
+
+        return entries;
     }
 
     /**
