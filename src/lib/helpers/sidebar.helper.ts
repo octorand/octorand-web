@@ -90,6 +90,19 @@ export class SidebarHelper {
             ]
         },
         {
+            id: 'games',
+            name: 'Games',
+            items: [
+                {
+                    id: 'questora',
+                    name: 'Questora',
+                    icon: 'fas fa-hiking',
+                    color: '#1abc9c',
+                    route: 'games/questora',
+                },
+            ]
+        },
+        {
             id: 'tools',
             name: 'Tools',
             items: [
