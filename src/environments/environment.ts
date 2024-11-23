@@ -1,6 +1,7 @@
 export const environment = {
   production: false,
   version: '',
+  api_server: '',
   algo_server: '',
   algo_indexer: '',
   algo_explorer: '',

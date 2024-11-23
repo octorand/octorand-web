@@ -1,6 +1,7 @@
 export const environment = {
   production: false,
-  version: '2.2.1',
+  version: '3.0.0',
+  api_server: 'http://localhost:8830',
   algo_server: 'https://testnet-api.algonode.cloud',
   algo_indexer: 'https://testnet-idx.algonode.cloud',
   algo_explorer: 'https://testnet.explorer.perawallet.app',

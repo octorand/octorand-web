@@ -1,6 +1,7 @@
 export const environment = {
   production: true,
-  version: '2.2.1',
+  version: '3.0.0',
+  api_server: 'https:://api.octorand.com',
   algo_server: 'https://mainnet-api.algonode.cloud',
   algo_indexer: 'https://mainnet-idx.algonode.cloud',
   algo_explorer: 'https://explorer.perawallet.app',
