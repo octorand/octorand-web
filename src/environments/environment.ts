@@ -18,6 +18,18 @@ export const environment = {
     app_id: 0,
     app_address: ''
   },
+  game: {
+    contracts: {
+      auth: {
+        application_id: 0,
+        application_address: ''
+      },
+      deposit: {
+        application_id: 0,
+        application_address: ''
+      }
+    }
+  },
   gen1: {
     manager_address: '',
     seller_market_share: 0,

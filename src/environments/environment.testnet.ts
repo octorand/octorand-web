@@ -18,6 +18,18 @@ export const environment = {
     app_id: 497806551,
     app_address: '3TKF2GMZJ5VZ4BQVQGC72BJ63WFN4QBPU2EUD4NQYHFLC3NE5D7GXHXYOQ'
   },
+  game: {
+    contracts: {
+      auth: {
+        application_id: 729715291,
+        application_address: 'LCECSSU7TZ25ZRNO37SAFJKYO3CPKHYB546VT7ZDYVDVIYHNOZBCTEADOQ'
+      },
+      deposit: {
+        application_id: 729715292,
+        application_address: '7K3ZRHNWWMCZGNSK4F4GEZCW2OM2CN6IMV6QH4SVEULHYDGMQGATFKT3OQ'
+      }
+    }
+  },
   gen1: {
     manager_address: '5VOHHIR344ZYOVOL6BKKVOTB27ZDLLQMVACB3MUVM3ZX2PEMNYU2DUW6GQ',
     seller_market_share: 90,
