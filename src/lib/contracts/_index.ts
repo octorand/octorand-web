@@ -1,4 +1,7 @@
-﻿export { default as GenOnePrimeAppContract } from "./gen1/prime/app/contract.json";
+﻿export { default as GameAuthContract } from "./game/auth/contract.json";
+export { default as GameDepositContract } from "./game/deposit/contract.json";
+
+export { default as GenOnePrimeAppContract } from "./gen1/prime/app/contract.json";
 export { default as GenOnePrimeBuyContract } from "./gen1/prime/buy/contract.json";
 export { default as GenOnePrimeClaimContract } from "./gen1/prime/claim/contract.json";
 export { default as GenOnePrimeListContract } from "./gen1/prime/list/contract.json";

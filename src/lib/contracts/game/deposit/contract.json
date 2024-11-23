@@ -1,0 +1,30 @@
+{
+    "name": "GameDeposit",
+    "methods": [
+        {
+            "name": "initialize",
+            "args": [
+                {
+                    "type": "asset",
+                    "name": "platform_asset"
+                }
+            ],
+            "returns": {
+                "type": "void"
+            }
+        },
+        {
+            "name": "deposit",
+            "args": [
+                {
+                    "type": "uint64",
+                    "name": "amount"
+                }
+            ],
+            "returns": {
+                "type": "void"
+            }
+        }
+    ],
+    "networks": {}
+}
