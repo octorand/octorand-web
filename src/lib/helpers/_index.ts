@@ -5,6 +5,7 @@ export * from './chain.helper';
 export * from './color.helper';
 export * from './data.helper';
 export * from './event.helper';
+export * from './game.helper';
 export * from './identity.helper';
 export * from './indexer.helper';
 export * from './launchpad.helper';

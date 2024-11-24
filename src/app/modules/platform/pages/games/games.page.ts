@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppHelper } from '@lib/helpers';
+import { AppHelper, GameHelper } from '@lib/helpers';
 import { AppModel } from '@lib/models';
 import { Subscription } from 'rxjs';
 
@@ -27,14 +27,21 @@ export class PlatformGamesPage implements OnInit, OnDestroy {
   ready: boolean = false;
 
   /**
+   * List of games
+   */
+  games: Array<any> = [];
+
+  /**
    * Construct component
    *
    * @param router
    * @param appHelper
+   * @param gameHelper
    */
   constructor(
     private router: Router,
-    private appHelper: AppHelper
+    private appHelper: AppHelper,
+    private gameHelper: GameHelper
   ) { }
 
   /**
@@ -42,6 +49,7 @@ export class PlatformGamesPage implements OnInit, OnDestroy {
    */
   ngOnInit() {
     this.initApp();
+    this.initGames();
     this.refreshView();
   }
 
@@ -64,10 +72,26 @@ export class PlatformGamesPage implements OnInit, OnDestroy {
   }
 
   /**
+   * Initialize games
+   */
+  initGames() {
+    this.games = this.gameHelper.list();
+  }
+
+  /**
    * Refresh view state
    */
   refreshView() {
     this.ready = true;
+  }
+
+  /**
+   * Open play game page
+   *
+   * @param id
+   */
+  playGame(id: string) {
+    this.navigateToPage('/platform/games/' + id);
   }
 
   /**
