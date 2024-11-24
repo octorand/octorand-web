@@ -21,4 +21,13 @@ export class GameHelper {
     list() {
         return this.games;
     }
+
+    /**
+     * Find game
+     *
+     * @param id
+     */
+    find(id: string): any {
+        return this.games.find(g => g.id == id);
+    }
 }

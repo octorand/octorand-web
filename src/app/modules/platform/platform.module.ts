@@ -12,10 +12,6 @@ const routes: Routes = [
     component: PlatformContainer,
     children: [
       {
-        path: 'games',
-        component: Pages.PlatformGamesPage
-      },
-      {
         path: 'guide',
         component: Pages.PlatformGuidePage
       },
@@ -43,6 +39,14 @@ const routes: Routes = [
         path: 'upgrade',
         component: Pages.PlatformUpgradePage
       },
+      {
+        path: 'games',
+        component: Pages.PlatformGamesPage
+      },
+      {
+        path: 'games/spell-seeker',
+        component: Pages.PlatformGamesSpellSeekerPage
+      },
     ]
   }
 ];
@@ -50,7 +54,6 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     PlatformContainer,
-    Pages.PlatformGamesPage,
     Pages.PlatformGuidePage,
     Pages.PlatformHistoryPage,
     Pages.PlatformLeaderboardPage,
@@ -58,6 +61,8 @@ const routes: Routes = [
     Pages.PlatformTokenomicsPage,
     Pages.PlatformTraitsPage,
     Pages.PlatformUpgradePage,
+    Pages.PlatformGamesPage,
+    Pages.PlatformGamesSpellSeekerPage,
   ],
   imports: [
     CommonModule,
