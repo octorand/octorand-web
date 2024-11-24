@@ -1,4 +1,5 @@
-﻿export * from './guide/guide.page';
+﻿export * from './games/games.page';
+export * from './guide/guide.page';
 export * from './history/history.page';
 export * from './leaderboard/leaderboard.page';
 export * from './statistics/statistics.page';

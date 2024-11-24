@@ -39,6 +39,13 @@ export class SidebarHelper {
             name: 'Platform',
             items: [
                 {
+                    id: 'games',
+                    name: 'Games',
+                    icon: 'fas fa-chess-knight',
+                    color: '#f39c12',
+                    route: 'platform/games',
+                },
+                {
                     id: 'tokenomics',
                     name: 'Tokenomics',
                     icon: 'fas fa-coins',
@@ -86,19 +93,6 @@ export class SidebarHelper {
                     icon: 'fas fa-book-open',
                     color: '#f39c12',
                     route: 'platform/guide',
-                },
-            ]
-        },
-        {
-            id: 'games',
-            name: 'Games',
-            items: [
-                {
-                    id: 'questora',
-                    name: 'Questora',
-                    icon: 'fas fa-hiking',
-                    color: '#1abc9c',
-                    route: 'games/questora',
                 },
             ]
         },

@@ -67,9 +67,6 @@
       "@app/modules/platform/pages": [
         "./src/app/modules/platform/pages/_index"
       ],
-      "@app/modules/games/pages": [
-        "./src/app/modules/games/pages/_index"
-      ],
       "@app/modules/tools/pages": [
         "./src/app/modules/tools/pages/_index"
       ],

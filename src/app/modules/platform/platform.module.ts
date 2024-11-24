@@ -12,6 +12,10 @@ const routes: Routes = [
     component: PlatformContainer,
     children: [
       {
+        path: 'games',
+        component: Pages.PlatformGamesPage
+      },
+      {
         path: 'guide',
         component: Pages.PlatformGuidePage
       },
@@ -46,6 +50,7 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     PlatformContainer,
+    Pages.PlatformGamesPage,
     Pages.PlatformGuidePage,
     Pages.PlatformHistoryPage,
     Pages.PlatformLeaderboardPage,
