@@ -39,18 +39,18 @@ export class SidebarHelper {
             name: 'Platform',
             items: [
                 {
-                    id: 'games',
-                    name: 'Games',
-                    icon: 'fas fa-chess-knight',
-                    color: '#f39c12',
-                    route: 'platform/games',
-                },
-                {
                     id: 'tokenomics',
                     name: 'Tokenomics',
                     icon: 'fas fa-coins',
                     color: '#9b59b6',
                     route: 'platform/tokenomics',
+                },
+                {
+                    id: 'games',
+                    name: 'Games',
+                    icon: 'fas fa-chess-knight',
+                    color: '#f39c12',
+                    route: 'platform/games',
                 },
                 {
                     id: 'traits',
