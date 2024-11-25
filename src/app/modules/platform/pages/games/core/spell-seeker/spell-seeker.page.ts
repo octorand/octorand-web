@@ -1,15 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { AppHelper, GameHelper } from '@lib/helpers';
+import { AppHelper } from '@lib/helpers';
 import { AppModel } from '@lib/models';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-platform-games-spell-seeker',
+  selector: 'app-platform-games-core-spell-seeker',
   templateUrl: './spell-seeker.page.html',
   styleUrls: ['./spell-seeker.page.scss'],
 })
-export class PlatformGamesSpellSeekerPage implements OnInit, OnDestroy {
+export class PlatformGamesCoreSpellSeekerPage implements OnInit, OnDestroy {
 
   /**
    * App state
@@ -27,21 +26,12 @@ export class PlatformGamesSpellSeekerPage implements OnInit, OnDestroy {
   ready: boolean = false;
 
   /**
-   * Game information
-   */
-  game: any = {};
-
-  /**
    * Construct component
    *
-   * @param router
    * @param appHelper
-   * @param gameHelper
    */
   constructor(
-    private router: Router,
-    private appHelper: AppHelper,
-    private gameHelper: GameHelper
+    private appHelper: AppHelper
   ) { }
 
   /**
@@ -49,7 +39,6 @@ export class PlatformGamesSpellSeekerPage implements OnInit, OnDestroy {
    */
   ngOnInit() {
     this.initApp();
-    this.initGame();
     this.refreshView();
   }
 
@@ -72,25 +61,9 @@ export class PlatformGamesSpellSeekerPage implements OnInit, OnDestroy {
   }
 
   /**
-   * Initialize games
-   */
-  initGame() {
-    this.game = this.gameHelper.find('spell-seeker');
-  }
-
-  /**
    * Refresh view state
    */
   refreshView() {
     this.ready = true;
-  }
-
-  /**
-   * Navigate to page
-   *
-   * @param page
-   */
-  navigateToPage(page: string) {
-    this.router.navigate([page]);
   }
 }

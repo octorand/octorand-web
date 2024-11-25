@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { AppHelper, AssetHelper, ChainHelper, DataHelper, IndexerHelper } from '@lib/helpers';
-import { GenOnePrimeAppContract, GenOnePrimeMintContract, GenOnePrimeOptinContract, GenOnePrimeOptoutContract, GenTwoPrimeAppContract, GenTwoPrimeMintContract, GenTwoPrimeOptinContract, GenTwoPrimeOptoutContract } from '@lib/contracts';
+import { GenOnePrimeOptinContract, GenOnePrimeOptoutContract, GenTwoPrimeOptinContract, GenTwoPrimeOptoutContract } from '@lib/contracts';
 import { AppModel, DataModel, PrimeModel } from '@lib/models';
 import { environment } from '@environment';
 

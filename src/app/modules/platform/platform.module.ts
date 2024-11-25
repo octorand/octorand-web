@@ -44,8 +44,8 @@ const routes: Routes = [
         component: Pages.PlatformGamesPage
       },
       {
-        path: 'games/spell-seeker',
-        component: Pages.PlatformGamesSpellSeekerPage
+        path: 'games/:game_id',
+        component: Pages.PlatformGamesCorePage
       },
     ]
   }
@@ -62,7 +62,8 @@ const routes: Routes = [
     Pages.PlatformTraitsPage,
     Pages.PlatformUpgradePage,
     Pages.PlatformGamesPage,
-    Pages.PlatformGamesSpellSeekerPage,
+    Pages.PlatformGamesCorePage,
+    Pages.PlatformGamesCoreSpellSeekerPage,
   ],
   imports: [
     CommonModule,

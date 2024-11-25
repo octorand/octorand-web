@@ -6,4 +6,5 @@ export * from './tokenomics/tokenomics.page';
 export * from './traits/traits.page';
 export * from './upgrade/upgrade.page';
 export * from './games/games.page';
-export * from './games/spell-seeker/spell-seeker.page';
+export * from './games/core/core.page';
+export * from './games/core/spell-seeker/spell-seeker.page';
