@@ -334,7 +334,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
 
       this.appHelper.setWallet(wallet);
       this.appHelper.setAccount(addresses[0]);
-      this.appHelper.setAddresses(addresses);
+      this.appHelper.setAccounts(addresses);
       this.appHelper.loadAccountDetails();
     }
   }
@@ -345,7 +345,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   disconnectAccount() {
     this.appHelper.setWallet('');
     this.appHelper.setAccount('');
-    this.appHelper.setAddresses([]);
+    this.appHelper.setAccounts([]);
     this.appHelper.loadAccountDetails();
 
     this.peraConnection.disconnect();

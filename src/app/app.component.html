@@ -21,11 +21,11 @@
                     <span *ngIf="!isMobile && !app.account" class="ml-5">Connect</span>
                 </button>
                 <div *ngIf="app.account" class="dropdown-menu dropdown-menu-right" aria-labelledby="connect-dropdown">
-                    <a *ngFor="let address of app.addresses" class="dropdown-item hand"
-                        (click)="selectAddress(address)">
-                        <i class="fas fa-circle mr-5" [ngClass]="{'text-primary': app.account == address}"></i>
-                        <span [ngClass]="{'text-primary': app.account == address}">
-                            {{address | identity: false:false | async}}
+                    <a *ngFor="let account of app.accounts" class="dropdown-item hand"
+                        (click)="selectAddress(account.address)">
+                        <i class="fas fa-circle mr-5" [ngClass]="{'text-primary': app.account == account.address}"></i>
+                        <span [ngClass]="{'text-primary': app.account == account.address}">
+                            {{account.address | identity: false:false | async}}
                         </span>
                     </a>
                     <div class="dropdown-divider"></div>

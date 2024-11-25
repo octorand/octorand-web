@@ -1,7 +1,9 @@
+import { AccountModel } from "./account.model";
+
 export class AppModel {
-    initialised: boolean = false
+    initialised: boolean = false;
     account: string | null = null;
     wallet: string | null = null;
-    addresses: Array<string> = [];
+    accounts: Array<AccountModel> = [];
     assets: Array<any> = [];
 }
