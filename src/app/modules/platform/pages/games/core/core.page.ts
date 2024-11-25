@@ -85,7 +85,7 @@ export class PlatformGamesCorePage implements OnInit, OnDestroy {
     this.game = this.gameHelper.find(game);
 
     if (this.app.account) {
-
+      this.status = 'auth-required';
     } else {
       this.status = 'connect-required';
     }
