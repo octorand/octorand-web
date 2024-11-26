@@ -91,9 +91,9 @@ export class ToolsLaunchpadItemRenamePage implements OnInit, OnChanges {
    */
   refreshView() {
     if (this.item) {
-      this.isConnected = this.app.account ? true : false;
+      this.isConnected = this.app.address ? true : false;
       this.isItemOwner = this.app.assets.find(a => a.id == this.item.item_asset_id && a.amount > 0) ? true : false;
-      this.isListedOwner = (this.item.is_listed && this.item.seller == this.app.account) ? true : false;
+      this.isListedOwner = (this.item.is_listed && this.item.seller == this.app.address) ? true : false;
     }
   }
 
@@ -121,7 +121,7 @@ export class ToolsLaunchpadItemRenamePage implements OnInit, OnChanges {
       let composer = new baseClient.AtomicTransactionComposer();
 
       composer.addMethodCall({
-        sender: this.app.account,
+        sender: this.app.address,
         appID: renameContractId,
         method: this.chainHelper.getMethod(renameContract, 'rename'),
         methodArgs: [
@@ -139,9 +139,9 @@ export class ToolsLaunchpadItemRenamePage implements OnInit, OnChanges {
       });
 
       composer.addTransaction({
-        sender: this.app.account,
+        sender: this.app.address,
         txn: baseClient.makeAssetTransferTxnWithSuggestedParamsFromObject({
-          from: this.app.account,
+          from: this.app.address,
           to: environment.burner.app_address,
           assetIndex: this.collection.platform_asset_id,
           amount: Math.floor(this.collection.rename_price * this.collection.rename_burner_share / 100),
@@ -154,9 +154,9 @@ export class ToolsLaunchpadItemRenamePage implements OnInit, OnChanges {
       });
 
       composer.addTransaction({
-        sender: this.app.account,
+        sender: this.app.address,
         txn: baseClient.makeAssetTransferTxnWithSuggestedParamsFromObject({
-          from: this.app.account,
+          from: this.app.address,
           to: this.collection.treasury_address,
           assetIndex: this.collection.platform_asset_id,
           amount: Math.floor(this.collection.rename_price * this.collection.rename_treasury_share / 100),
@@ -169,9 +169,9 @@ export class ToolsLaunchpadItemRenamePage implements OnInit, OnChanges {
       });
 
       composer.addTransaction({
-        sender: this.app.account,
+        sender: this.app.address,
         txn: baseClient.makeAssetTransferTxnWithSuggestedParamsFromObject({
-          from: this.app.account,
+          from: this.app.address,
           to: environment.admin_address,
           assetIndex: this.collection.platform_asset_id,
           amount: Math.floor(this.collection.rename_price * this.collection.rename_admin_share / 100),

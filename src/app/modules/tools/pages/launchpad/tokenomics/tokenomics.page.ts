@@ -171,7 +171,7 @@ export class ToolsLaunchpadTokenomicsPage implements OnInit, OnDestroy {
         this.assetId = this.collection.platform_asset_id;
         this.assetBurner = environment.burner.app_address;
 
-        this.isConnected = this.app.account ? true : false;
+        this.isConnected = this.app.address ? true : false;
         this.isOptedIn = this.app.assets.find(a => a.id == this.assetId) ? true : false;
         this.isOptinable = (this.isConnected && !this.isOptedIn) ? true : false;
 
@@ -222,8 +222,8 @@ export class ToolsLaunchpadTokenomicsPage implements OnInit, OnDestroy {
 
       composer.addTransaction({
         txn: baseClient.makeAssetTransferTxnWithSuggestedParamsFromObject({
-          from: this.app.account,
-          to: this.app.account,
+          from: this.app.address,
+          to: this.app.address,
           assetIndex: this.assetId,
           amount: 0,
           suggestedParams: {

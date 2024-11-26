@@ -155,7 +155,7 @@ export class ToolsLaunchpadAccountPage implements OnInit, OnDestroy {
         let allResults = this.collection.items;
 
         let assets = this.app.assets.filter(a => a.amount > 0).map(a => a.id);
-        allResults = allResults.filter(x => assets.includes(x.item_asset_id) || x.seller == this.app.account);
+        allResults = allResults.filter(x => assets.includes(x.item_asset_id) || x.seller == this.app.address);
 
         for (let i = 0; i < this.selectedParamValues.length; i++) {
           let param = this.selectedParamValues[i];

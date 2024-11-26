@@ -50,9 +50,9 @@ export class AppHelper {
      * Load account
      */
     loadAccountDetails() {
-        if (this.state.account) {
+        if (this.state.address) {
             let promises = [
-                this.indexerHelper.lookupAccount(this.state.account),
+                this.indexerHelper.lookupAccount(this.state.address),
             ];
 
             Promise.all(promises).then(values => {
@@ -77,13 +77,13 @@ export class AppHelper {
     }
 
     /**
-     * Set currently selected account
+     * Set currently selected address
      *
-     * @param account
+     * @param address
      */
-    setAccount(account: string) {
-        localStorage.setItem('account', account.toUpperCase());
-        this.state.account = account;
+    setAddress(address: string) {
+        localStorage.setItem('address', address.toUpperCase());
+        this.state.address = address;
         this.app.next({ ...this.state });
     }
 
@@ -122,10 +122,10 @@ export class AppHelper {
     }
 
     /**
-     * Get Current account
+     * Get Current address
      */
-    getAccount(): string | null {
-        return this.state.account;
+    getAddress(): string | null {
+        return this.state.address;
     }
 
     /**
@@ -209,11 +209,11 @@ export class AppHelper {
      * Initialise current user details
      */
     private initCurrentUser() {
-        let account = localStorage.getItem('account');
+        let address = localStorage.getItem('address');
         let wallet = localStorage.getItem('wallet');
         let accounts = localStorage.getItem('accounts');
 
-        this.state.account = account;
+        this.state.address = address;
         this.state.wallet = wallet;
 
         if (accounts) {

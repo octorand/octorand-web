@@ -324,7 +324,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
    * Connect to a wallet account
    *
    * @param wallet
-   * @param accounts
+   * @param addresses
    */
   connectAccount(wallet: string, addresses: Array<string>) {
     if (addresses.length > 0) {
@@ -333,7 +333,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
       }
 
       this.appHelper.setWallet(wallet);
-      this.appHelper.setAccount(addresses[0]);
+      this.appHelper.setAddress(addresses[0]);
       this.appHelper.setAccounts(addresses);
       this.appHelper.loadAccountDetails();
     }
@@ -344,7 +344,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
    */
   disconnectAccount() {
     this.appHelper.setWallet('');
-    this.appHelper.setAccount('');
+    this.appHelper.setAddress('');
     this.appHelper.setAccounts([]);
     this.appHelper.loadAccountDetails();
 
@@ -361,7 +361,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
    * @param address
    */
   selectAddress(address: string) {
-    this.appHelper.setAccount(address);
+    this.appHelper.setAddress(address);
     this.appHelper.loadAccountDetails();
     this.hideConnectDropdown();
   }

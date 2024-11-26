@@ -86,10 +86,10 @@ export class PlatformGamesCorePage implements OnInit, OnDestroy {
     let game = this.activatedRoute.snapshot.params['game_id'];
     this.game = this.gameHelper.find(game);
 
-    if (this.app.account) {
+    if (this.app.address) {
       let authRequired = true;
 
-      let account = this.app.accounts.find(a => a.address == this.app.account);
+      let account = this.app.accounts.find(a => a.address == this.app.address);
       if (account) {
 
       }

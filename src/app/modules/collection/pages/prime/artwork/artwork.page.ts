@@ -155,9 +155,9 @@ export class CollectionPrimeArtworkPage implements OnInit, OnChanges {
    */
   refreshView() {
     if (this.prime) {
-      this.isConnected = this.app.account ? true : false;
+      this.isConnected = this.app.address ? true : false;
       this.isPrimeOwner = this.app.assets.find(a => a.id == this.prime.prime_asset_id && a.amount > 0) ? true : false;
-      this.isListedOwner = (this.prime.is_listed && this.prime.seller == this.app.account) ? true : false;
+      this.isListedOwner = (this.prime.is_listed && this.prime.seller == this.app.address) ? true : false;
 
       if (!this.isInitialised) {
         this.selectedThemeId = this.prime.theme;
@@ -266,7 +266,7 @@ export class CollectionPrimeArtworkPage implements OnInit, OnChanges {
       let composer = new baseClient.AtomicTransactionComposer();
 
       composer.addMethodCall({
-        sender: this.app.account,
+        sender: this.app.address,
         appID: repaintContractId,
         method: this.chainHelper.getMethod(repaintContract, 'repaint'),
         methodArgs: [
@@ -287,7 +287,7 @@ export class CollectionPrimeArtworkPage implements OnInit, OnChanges {
 
       composer.addTransaction({
         txn: baseClient.makeAssetTransferTxnWithSuggestedParamsFromObject({
-          from: this.app.account,
+          from: this.app.address,
           to: environment.platform.reserve,
           assetIndex: this.prime.platform_asset_id,
           amount: this.repaintPrice,

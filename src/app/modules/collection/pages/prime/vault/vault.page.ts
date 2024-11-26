@@ -165,9 +165,9 @@ export class CollectionPrimeVaultPage implements OnInit, OnChanges, OnDestroy {
    */
   refreshView() {
     if (this.prime) {
-      this.isConnected = this.app.account ? true : false;
+      this.isConnected = this.app.address ? true : false;
       this.isPrimeOwner = this.app.assets.find(a => a.id == this.prime.prime_asset_id && a.amount > 0) ? true : false;
-      this.isListedOwner = (this.prime.is_listed && this.prime.seller == this.app.account) ? true : false;
+      this.isListedOwner = (this.prime.is_listed && this.prime.seller == this.app.address) ? true : false;
       this.depositableAssets = this.app.assets.filter(a => a.amount > 0 && ![this.prime.platform_asset_id, this.prime.legacy_asset_id, this.prime.prime_asset_id].includes(a.id));
     }
   }
@@ -225,8 +225,8 @@ export class CollectionPrimeVaultPage implements OnInit, OnChanges, OnDestroy {
       if (!this.app.assets.find(a => a.id == asset)) {
         composer.addTransaction({
           txn: baseClient.makeAssetTransferTxnWithSuggestedParamsFromObject({
-            from: this.app.account,
-            to: this.app.account,
+            from: this.app.address,
+            to: this.app.address,
             assetIndex: asset,
             amount: 0,
             suggestedParams: {
@@ -239,7 +239,7 @@ export class CollectionPrimeVaultPage implements OnInit, OnChanges, OnDestroy {
       }
 
       composer.addMethodCall({
-        sender: this.app.account,
+        sender: this.app.address,
         appID: optoutContractId,
         method: this.chainHelper.getMethod(optoutContract, 'optout'),
         methodArgs: [
@@ -325,7 +325,7 @@ export class CollectionPrimeVaultPage implements OnInit, OnChanges, OnDestroy {
         if (this.prime.gen == 1) {
           composer.addTransaction({
             txn: baseClient.makePaymentTxnWithSuggestedParamsFromObject({
-              from: this.app.account,
+              from: this.app.address,
               to: this.prime.application_address,
               amount: environment.gen1.optin_price,
               suggestedParams: {
@@ -338,7 +338,7 @@ export class CollectionPrimeVaultPage implements OnInit, OnChanges, OnDestroy {
         } else {
           composer.addTransaction({
             txn: baseClient.makePaymentTxnWithSuggestedParamsFromObject({
-              from: this.app.account,
+              from: this.app.address,
               to: this.prime.application_address,
               amount: environment.gen2.optin_price,
               suggestedParams: {
@@ -351,7 +351,7 @@ export class CollectionPrimeVaultPage implements OnInit, OnChanges, OnDestroy {
         }
 
         composer.addMethodCall({
-          sender: this.app.account,
+          sender: this.app.address,
           appID: optinContractId,
           method: this.chainHelper.getMethod(optinContract, 'optin'),
           methodArgs: [
@@ -371,7 +371,7 @@ export class CollectionPrimeVaultPage implements OnInit, OnChanges, OnDestroy {
 
       composer.addTransaction({
         txn: baseClient.makeAssetTransferTxnWithSuggestedParamsFromObject({
-          from: this.app.account,
+          from: this.app.address,
           to: this.prime.application_address,
           assetIndex: this.selectedAssetId,
           amount: Number(this.inputs.amount) * Math.pow(10, this.selectedAssetDecimals),

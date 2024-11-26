@@ -132,7 +132,7 @@ export class PlatformTokenomicsPage implements OnInit, OnDestroy {
     this.assetId = environment.platform.asset_id;
     this.assetBurner = environment.platform.reserve;
 
-    this.isConnected = this.app.account ? true : false;
+    this.isConnected = this.app.address ? true : false;
     this.isOptedIn = this.app.assets.find(a => a.id == this.assetId) ? true : false;
     this.isOptinable = (this.isConnected && !this.isOptedIn) ? true : false;
 
@@ -179,8 +179,8 @@ export class PlatformTokenomicsPage implements OnInit, OnDestroy {
 
       composer.addTransaction({
         txn: baseClient.makeAssetTransferTxnWithSuggestedParamsFromObject({
-          from: this.app.account,
-          to: this.app.account,
+          from: this.app.address,
+          to: this.app.address,
           assetIndex: this.assetId,
           amount: 0,
           suggestedParams: {

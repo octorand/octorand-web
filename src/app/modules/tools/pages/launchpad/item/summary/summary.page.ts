@@ -94,11 +94,11 @@ export class ToolsLaunchpadItemSummaryPage implements OnInit, OnChanges {
    */
   refreshView() {
     if (this.item) {
-      this.isConnected = this.app.account ? true : false;
+      this.isConnected = this.app.address ? true : false;
       this.isOptedIn = this.app.assets.find(a => a.id == this.item.item_asset_id) ? true : false;
       this.isItemOwner = this.app.assets.find(a => a.id == this.item.item_asset_id && a.amount > 0) ? true : false;
       this.isOptinable = (this.isConnected && !this.isOptedIn) ? true : false;
-      this.isClaimable = (this.isItemOwner && this.item.owner != this.app.account) ? true : false;
+      this.isClaimable = (this.isItemOwner && this.item.owner != this.app.address) ? true : false;
     }
   }
 
@@ -114,8 +114,8 @@ export class ToolsLaunchpadItemSummaryPage implements OnInit, OnChanges {
 
       composer.addTransaction({
         txn: baseClient.makeAssetTransferTxnWithSuggestedParamsFromObject({
-          from: this.app.account,
-          to: this.app.account,
+          from: this.app.address,
+          to: this.app.address,
           assetIndex: this.item.item_asset_id,
           amount: 0,
           suggestedParams: {
@@ -158,7 +158,7 @@ export class ToolsLaunchpadItemSummaryPage implements OnInit, OnChanges {
       let composer = new baseClient.AtomicTransactionComposer();
 
       composer.addMethodCall({
-        sender: this.app.account,
+        sender: this.app.address,
         appID: claimContractId,
         method: this.chainHelper.getMethod(claimContract, 'claim'),
         methodArgs: [

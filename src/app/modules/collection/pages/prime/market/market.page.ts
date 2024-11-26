@@ -94,10 +94,10 @@ export class CollectionPrimeMarketPage implements OnInit, OnChanges {
    */
   refreshView() {
     if (this.prime) {
-      this.isConnected = this.app.account ? true : false;
+      this.isConnected = this.app.address ? true : false;
       this.isOptedIn = this.app.assets.find(a => a.id == this.prime.prime_asset_id) ? true : false;
       this.isPrimeOwner = this.app.assets.find(a => a.id == this.prime.prime_asset_id && a.amount > 0) ? true : false;
-      this.isSeller = this.prime.seller == this.app.account ? true : false;
+      this.isSeller = this.prime.seller == this.app.address ? true : false;
     }
   }
 
@@ -123,7 +123,7 @@ export class CollectionPrimeMarketPage implements OnInit, OnChanges {
       let composer = new baseClient.AtomicTransactionComposer();
 
       composer.addMethodCall({
-        sender: this.app.account,
+        sender: this.app.address,
         appID: listContractId,
         method: this.chainHelper.getMethod(listContract, 'list'),
         methodArgs: [
@@ -139,7 +139,7 @@ export class CollectionPrimeMarketPage implements OnInit, OnChanges {
 
       composer.addTransaction({
         txn: baseClient.makeAssetTransferTxnWithSuggestedParamsFromObject({
-          from: this.app.account,
+          from: this.app.address,
           to: this.prime.application_address,
           assetIndex: this.prime.prime_asset_id,
           amount: 1,
@@ -194,8 +194,8 @@ export class CollectionPrimeMarketPage implements OnInit, OnChanges {
       if (!this.isOptedIn) {
         composer.addTransaction({
           txn: baseClient.makeAssetTransferTxnWithSuggestedParamsFromObject({
-            from: this.app.account,
-            to: this.app.account,
+            from: this.app.address,
+            to: this.app.address,
             assetIndex: this.prime.prime_asset_id,
             amount: 0,
             suggestedParams: {
@@ -208,7 +208,7 @@ export class CollectionPrimeMarketPage implements OnInit, OnChanges {
       }
 
       composer.addMethodCall({
-        sender: this.app.account,
+        sender: this.app.address,
         appID: unlistContractId,
         method: this.chainHelper.getMethod(unlistContract, 'unlist'),
         methodArgs: [
@@ -267,8 +267,8 @@ export class CollectionPrimeMarketPage implements OnInit, OnChanges {
       if (!this.isOptedIn) {
         composer.addTransaction({
           txn: baseClient.makeAssetTransferTxnWithSuggestedParamsFromObject({
-            from: this.app.account,
-            to: this.app.account,
+            from: this.app.address,
+            to: this.app.address,
             assetIndex: this.prime.prime_asset_id,
             amount: 0,
             suggestedParams: {
@@ -282,7 +282,7 @@ export class CollectionPrimeMarketPage implements OnInit, OnChanges {
 
       if (this.prime.gen == 1) {
         composer.addMethodCall({
-          sender: this.app.account,
+          sender: this.app.address,
           appID: buyContractId,
           method: this.chainHelper.getMethod(buyContract, 'buy'),
           methodArgs: [
@@ -300,7 +300,7 @@ export class CollectionPrimeMarketPage implements OnInit, OnChanges {
 
         composer.addTransaction({
           txn: baseClient.makePaymentTxnWithSuggestedParamsFromObject({
-            from: this.app.account,
+            from: this.app.address,
             to: this.prime.seller,
             amount: Math.floor(this.prime.price * environment.gen1.seller_market_share / 100),
             suggestedParams: {
@@ -313,7 +313,7 @@ export class CollectionPrimeMarketPage implements OnInit, OnChanges {
 
         composer.addTransaction({
           txn: baseClient.makePaymentTxnWithSuggestedParamsFromObject({
-            from: this.app.account,
+            from: this.app.address,
             to: environment.admin_address,
             amount: Math.floor(this.prime.price * environment.gen1.admin_market_share / 100),
             suggestedParams: {
@@ -325,7 +325,7 @@ export class CollectionPrimeMarketPage implements OnInit, OnChanges {
         });
       } else {
         composer.addMethodCall({
-          sender: this.app.account,
+          sender: this.app.address,
           appID: buyContractId,
           method: this.chainHelper.getMethod(buyContract, 'buy'),
           methodArgs: [
@@ -346,7 +346,7 @@ export class CollectionPrimeMarketPage implements OnInit, OnChanges {
 
         composer.addTransaction({
           txn: baseClient.makePaymentTxnWithSuggestedParamsFromObject({
-            from: this.app.account,
+            from: this.app.address,
             to: this.prime.seller,
             amount: Math.floor(this.prime.price * environment.gen2.seller_market_share / 100),
             suggestedParams: {
@@ -359,7 +359,7 @@ export class CollectionPrimeMarketPage implements OnInit, OnChanges {
 
         composer.addTransaction({
           txn: baseClient.makePaymentTxnWithSuggestedParamsFromObject({
-            from: this.app.account,
+            from: this.app.address,
             to: this.prime.parent_application_address,
             amount: Math.floor(this.prime.price * environment.gen2.parent_market_share / 100),
             suggestedParams: {
@@ -372,7 +372,7 @@ export class CollectionPrimeMarketPage implements OnInit, OnChanges {
 
         composer.addTransaction({
           txn: baseClient.makePaymentTxnWithSuggestedParamsFromObject({
-            from: this.app.account,
+            from: this.app.address,
             to: environment.admin_address,
             amount: Math.floor(this.prime.price * environment.gen2.admin_market_share / 100),
             suggestedParams: {

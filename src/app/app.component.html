@@ -15,16 +15,16 @@
                 <button class="btn btn-secondary" data-toggle="dropdown" type="button" id="connect-dropdown"
                     aria-haspopup="true" aria-expanded="false" [ngClass]="{'btn-action': isMobile}">
                     <i class="fas fa-user"></i>
-                    <span *ngIf="!isMobile && app.account" class="ml-5">
-                        {{app.account | identity: false:false | async}}
+                    <span *ngIf="!isMobile && app.address" class="ml-5">
+                        {{app.address | identity: false:false | async}}
                     </span>
-                    <span *ngIf="!isMobile && !app.account" class="ml-5">Connect</span>
+                    <span *ngIf="!isMobile && !app.address" class="ml-5">Connect</span>
                 </button>
-                <div *ngIf="app.account" class="dropdown-menu dropdown-menu-right" aria-labelledby="connect-dropdown">
+                <div *ngIf="app.address" class="dropdown-menu dropdown-menu-right" aria-labelledby="connect-dropdown">
                     <a *ngFor="let account of app.accounts" class="dropdown-item hand"
                         (click)="selectAddress(account.address)">
-                        <i class="fas fa-circle mr-5" [ngClass]="{'text-primary': app.account == account.address}"></i>
-                        <span [ngClass]="{'text-primary': app.account == account.address}">
+                        <i class="fas fa-circle mr-5" [ngClass]="{'text-primary': app.address == account.address}"></i>
+                        <span [ngClass]="{'text-primary': app.address == account.address}">
                             {{account.address | identity: false:false | async}}
                         </span>
                     </a>
@@ -34,7 +34,7 @@
                         <span class="text-danger">Disconnect</span>
                     </a>
                 </div>
-                <div *ngIf="!app.account" class="dropdown-menu dropdown-menu-right" aria-labelledby="connect-dropdown">
+                <div *ngIf="!app.address" class="dropdown-menu dropdown-menu-right" aria-labelledby="connect-dropdown">
                     <a *ngFor="let wallet of wallets" class="dropdown-item hand" (click)="selectWallet(wallet)">
                         <i class="fas fa-circle mr-5" [ngStyle]="{'color': wallet.color}"></i>
                         <span>{{wallet.name}}</span>

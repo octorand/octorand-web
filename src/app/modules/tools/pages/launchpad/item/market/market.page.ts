@@ -98,10 +98,10 @@ export class ToolsLaunchpadItemMarketPage implements OnInit, OnChanges {
    */
   refreshView() {
     if (this.item) {
-      this.isConnected = this.app.account ? true : false;
+      this.isConnected = this.app.address ? true : false;
       this.isOptedIn = this.app.assets.find(a => a.id == this.item.item_asset_id) ? true : false;
       this.isItemOwner = this.app.assets.find(a => a.id == this.item.item_asset_id && a.amount > 0) ? true : false;
-      this.isSeller = this.item.seller == this.app.account ? true : false;
+      this.isSeller = this.item.seller == this.app.address ? true : false;
     }
   }
 
@@ -119,7 +119,7 @@ export class ToolsLaunchpadItemMarketPage implements OnInit, OnChanges {
       let composer = new baseClient.AtomicTransactionComposer();
 
       composer.addMethodCall({
-        sender: this.app.account,
+        sender: this.app.address,
         appID: listContractId,
         method: this.chainHelper.getMethod(listContract, 'list'),
         methodArgs: [
@@ -135,7 +135,7 @@ export class ToolsLaunchpadItemMarketPage implements OnInit, OnChanges {
 
       composer.addTransaction({
         txn: baseClient.makeAssetTransferTxnWithSuggestedParamsFromObject({
-          from: this.app.account,
+          from: this.app.address,
           to: this.item.application_address,
           assetIndex: this.item.item_asset_id,
           amount: 1,
@@ -182,8 +182,8 @@ export class ToolsLaunchpadItemMarketPage implements OnInit, OnChanges {
       if (!this.isOptedIn) {
         composer.addTransaction({
           txn: baseClient.makeAssetTransferTxnWithSuggestedParamsFromObject({
-            from: this.app.account,
-            to: this.app.account,
+            from: this.app.address,
+            to: this.app.address,
             assetIndex: this.item.item_asset_id,
             amount: 0,
             suggestedParams: {
@@ -196,7 +196,7 @@ export class ToolsLaunchpadItemMarketPage implements OnInit, OnChanges {
       }
 
       composer.addMethodCall({
-        sender: this.app.account,
+        sender: this.app.address,
         appID: unlistContractId,
         method: this.chainHelper.getMethod(unlistContract, 'unlist'),
         methodArgs: [
@@ -247,8 +247,8 @@ export class ToolsLaunchpadItemMarketPage implements OnInit, OnChanges {
       if (!this.isOptedIn) {
         composer.addTransaction({
           txn: baseClient.makeAssetTransferTxnWithSuggestedParamsFromObject({
-            from: this.app.account,
-            to: this.app.account,
+            from: this.app.address,
+            to: this.app.address,
             assetIndex: this.item.item_asset_id,
             amount: 0,
             suggestedParams: {
@@ -261,7 +261,7 @@ export class ToolsLaunchpadItemMarketPage implements OnInit, OnChanges {
       }
 
       composer.addMethodCall({
-        sender: this.app.account,
+        sender: this.app.address,
         appID: buyContractId,
         method: this.chainHelper.getMethod(buyContract, 'buy'),
         methodArgs: [
@@ -279,7 +279,7 @@ export class ToolsLaunchpadItemMarketPage implements OnInit, OnChanges {
 
       composer.addTransaction({
         txn: baseClient.makePaymentTxnWithSuggestedParamsFromObject({
-          from: this.app.account,
+          from: this.app.address,
           to: this.item.seller,
           amount: Math.floor(this.item.price * this.collection.seller_market_share / 100),
           suggestedParams: {
@@ -292,7 +292,7 @@ export class ToolsLaunchpadItemMarketPage implements OnInit, OnChanges {
 
       composer.addTransaction({
         txn: baseClient.makePaymentTxnWithSuggestedParamsFromObject({
-          from: this.app.account,
+          from: this.app.address,
           to: this.collection.artist_address,
           amount: Math.floor(this.item.price * this.collection.artist_market_share / 100),
           suggestedParams: {
@@ -305,7 +305,7 @@ export class ToolsLaunchpadItemMarketPage implements OnInit, OnChanges {
 
       composer.addTransaction({
         txn: baseClient.makePaymentTxnWithSuggestedParamsFromObject({
-          from: this.app.account,
+          from: this.app.address,
           to: environment.admin_address,
           amount: Math.floor(this.item.price * this.collection.admin_market_share / 100),
           suggestedParams: {

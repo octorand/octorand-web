@@ -102,12 +102,12 @@ export class CollectionPrimeSummaryPage implements OnInit, OnChanges {
    */
   refreshView() {
     if (this.prime) {
-      this.isConnected = this.app.account ? true : false;
+      this.isConnected = this.app.address ? true : false;
       this.isOptedIn = this.app.assets.find(a => a.id == this.prime.prime_asset_id) ? true : false;
       this.isPrimeOwner = this.app.assets.find(a => a.id == this.prime.prime_asset_id && a.amount > 0) ? true : false;
       this.isLegacyOwner = this.app.assets.find(a => a.id == this.prime.legacy_asset_id && a.amount > 0) ? true : false;
       this.isOptinable = (this.isConnected && !this.isOptedIn) ? true : false;
-      this.isClaimable = (this.isPrimeOwner && this.prime.owner != this.app.account) ? true : false;
+      this.isClaimable = (this.isPrimeOwner && this.prime.owner != this.app.address) ? true : false;
       this.isUpgradable = (this.isLegacyOwner && !this.prime.badges.includes('Explorer')) ? true : false;
     }
   }
@@ -124,8 +124,8 @@ export class CollectionPrimeSummaryPage implements OnInit, OnChanges {
 
       composer.addTransaction({
         txn: baseClient.makeAssetTransferTxnWithSuggestedParamsFromObject({
-          from: this.app.account,
-          to: this.app.account,
+          from: this.app.address,
+          to: this.app.address,
           assetIndex: this.prime.prime_asset_id,
           amount: 0,
           suggestedParams: {
@@ -176,7 +176,7 @@ export class CollectionPrimeSummaryPage implements OnInit, OnChanges {
       let composer = new baseClient.AtomicTransactionComposer();
 
       composer.addMethodCall({
-        sender: this.app.account,
+        sender: this.app.address,
         appID: claimContractId,
         method: this.chainHelper.getMethod(claimContract, 'claim'),
         methodArgs: [
@@ -234,8 +234,8 @@ export class CollectionPrimeSummaryPage implements OnInit, OnChanges {
       if (!this.isOptedIn) {
         composer.addTransaction({
           txn: baseClient.makeAssetTransferTxnWithSuggestedParamsFromObject({
-            from: this.app.account,
-            to: this.app.account,
+            from: this.app.address,
+            to: this.app.address,
             assetIndex: this.prime.prime_asset_id,
             amount: 0,
             suggestedParams: {
@@ -248,7 +248,7 @@ export class CollectionPrimeSummaryPage implements OnInit, OnChanges {
       }
 
       composer.addMethodCall({
-        sender: this.app.account,
+        sender: this.app.address,
         appID: upgradeContractId,
         method: this.chainHelper.getMethod(upgradeContract, 'upgrade'),
         methodArgs: [
@@ -266,7 +266,7 @@ export class CollectionPrimeSummaryPage implements OnInit, OnChanges {
 
       composer.addTransaction({
         txn: baseClient.makeAssetTransferTxnWithSuggestedParamsFromObject({
-          from: this.app.account,
+          from: this.app.address,
           to: this.prime.application_address,
           assetIndex: this.prime.legacy_asset_id,
           amount: 1,

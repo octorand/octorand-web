@@ -129,7 +129,7 @@ export class PlatformUpgradePage implements OnInit, OnDestroy {
    */
   refreshView() {
     if (this.data && this.data.initialised) {
-      if (this.app.account) {
+      if (this.app.address) {
         let allResults = [
           ...this.data.gen_one_primes,
           ...this.data.gen_two_primes
@@ -209,8 +209,8 @@ export class PlatformUpgradePage implements OnInit, OnDestroy {
       if (!isOptedIn) {
         composer.addTransaction({
           txn: baseClient.makeAssetTransferTxnWithSuggestedParamsFromObject({
-            from: this.app.account,
-            to: this.app.account,
+            from: this.app.address,
+            to: this.app.address,
             assetIndex: prime.prime_asset_id,
             amount: 0,
             suggestedParams: {
@@ -223,7 +223,7 @@ export class PlatformUpgradePage implements OnInit, OnDestroy {
       }
 
       composer.addMethodCall({
-        sender: this.app.account,
+        sender: this.app.address,
         appID: upgradeContractId,
         method: this.chainHelper.getMethod(upgradeContract, 'upgrade'),
         methodArgs: [
@@ -241,7 +241,7 @@ export class PlatformUpgradePage implements OnInit, OnDestroy {
 
       composer.addTransaction({
         txn: baseClient.makeAssetTransferTxnWithSuggestedParamsFromObject({
-          from: this.app.account,
+          from: this.app.address,
           to: prime.application_address,
           assetIndex: prime.legacy_asset_id,
           amount: 1,

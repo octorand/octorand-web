@@ -98,9 +98,9 @@ export class CollectionPrimeRewardsPage implements OnInit, OnChanges {
    */
   refreshView() {
     if (this.prime) {
-      this.isConnected = this.app.account ? true : false;
+      this.isConnected = this.app.address ? true : false;
       this.isPrimeOwner = this.app.assets.find(a => a.id == this.prime.prime_asset_id && a.amount > 0) ? true : false;
-      this.isListedOwner = (this.prime.is_listed && this.prime.seller == this.app.account) ? true : false;
+      this.isListedOwner = (this.prime.is_listed && this.prime.seller == this.app.address) ? true : false;
       this.isOptedIn = this.app.assets.find(a => a.id == this.prime.platform_asset_id) ? true : false;
     }
   }
@@ -125,7 +125,7 @@ export class CollectionPrimeRewardsPage implements OnInit, OnChanges {
 
       composer.addTransaction({
         txn: baseClient.makeAssetTransferTxnWithSuggestedParamsFromObject({
-          from: this.app.account,
+          from: this.app.address,
           to: this.prime.application_address,
           assetIndex: this.prime.platform_asset_id,
           amount: Number(this.inputs.depositOCTO) * Math.pow(10, 6),
@@ -138,7 +138,7 @@ export class CollectionPrimeRewardsPage implements OnInit, OnChanges {
       });
 
       composer.addMethodCall({
-        sender: this.app.account,
+        sender: this.app.address,
         appID: this.prime.application_id,
         method: this.chainHelper.getMethod(appContract, 'refresh'),
         methodArgs: [],
@@ -190,7 +190,7 @@ export class CollectionPrimeRewardsPage implements OnInit, OnChanges {
 
       composer.addTransaction({
         txn: baseClient.makePaymentTxnWithSuggestedParamsFromObject({
-          from: this.app.account,
+          from: this.app.address,
           to: this.prime.application_address,
           amount: Number(this.inputs.depositALGO) * Math.pow(10, 6),
           suggestedParams: {
@@ -202,7 +202,7 @@ export class CollectionPrimeRewardsPage implements OnInit, OnChanges {
       });
 
       composer.addMethodCall({
-        sender: this.app.account,
+        sender: this.app.address,
         appID: this.prime.application_id,
         method: this.chainHelper.getMethod(appContract, 'refresh'),
         methodArgs: [],
@@ -263,8 +263,8 @@ export class CollectionPrimeRewardsPage implements OnInit, OnChanges {
       if (!this.isOptedIn) {
         composer.addTransaction({
           txn: baseClient.makeAssetTransferTxnWithSuggestedParamsFromObject({
-            from: this.app.account,
-            to: this.app.account,
+            from: this.app.address,
+            to: this.app.address,
             assetIndex: this.prime.platform_asset_id,
             amount: 0,
             suggestedParams: {
@@ -277,7 +277,7 @@ export class CollectionPrimeRewardsPage implements OnInit, OnChanges {
       }
 
       composer.addMethodCall({
-        sender: this.app.account,
+        sender: this.app.address,
         appID: mintContractId,
         method: this.chainHelper.getMethod(mintContract, 'mint'),
         methodArgs: [
@@ -340,7 +340,7 @@ export class CollectionPrimeRewardsPage implements OnInit, OnChanges {
       let composer = new baseClient.AtomicTransactionComposer();
 
       composer.addMethodCall({
-        sender: this.app.account,
+        sender: this.app.address,
         appID: withdrawContractId,
         method: this.chainHelper.getMethod(withdrawContract, 'withdraw'),
         methodArgs: [
