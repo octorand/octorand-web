@@ -46,6 +46,9 @@
       "@lib/pipes": [
         "./src/lib/pipes/_index"
       ],
+      "@lib/services": [
+        "./src/lib/services/_index"
+      ],
       "@lib/tags": [
         "./src/lib/tags/_index"
       ],

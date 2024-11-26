@@ -9,6 +9,7 @@ export class HttpHelper {
 
     /**
      * Send a post request to api
+     *
      * @param url
      * @param data
      */
@@ -18,6 +19,7 @@ export class HttpHelper {
 
     /**
      * Send a put request to api
+     *
      * @param url
      * @param data
      */
@@ -27,6 +29,7 @@ export class HttpHelper {
 
     /**
      * Send a get request to api
+     *
      * @param url
      */
     async get(url: string) {
@@ -35,6 +38,7 @@ export class HttpHelper {
 
     /**
      * Send a delete request to api
+     *
      * @param url
      */
     async delete(url: string) {

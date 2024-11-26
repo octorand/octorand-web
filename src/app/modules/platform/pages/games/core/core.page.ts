@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppHelper, GameHelper } from '@lib/helpers';
 import { AppModel } from '@lib/models';
+import { AuthService } from '@lib/services';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -48,7 +49,8 @@ export class PlatformGamesCorePage implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private appHelper: AppHelper,
-    private gameHelper: GameHelper
+    private gameHelper: GameHelper,
+    private authService: AuthService
   ) { }
 
   /**
@@ -85,7 +87,18 @@ export class PlatformGamesCorePage implements OnInit, OnDestroy {
     this.game = this.gameHelper.find(game);
 
     if (this.app.account) {
-      this.status = 'auth-required';
+      let authRequired = true;
+
+      let account = this.app.accounts.find(a => a.address == this.app.account);
+      if (account) {
+
+      }
+
+      if (authRequired) {
+        this.status = 'auth-required';
+      } else {
+        this.status = 'ready';
+      }
     } else {
       this.status = 'connect-required';
     }
