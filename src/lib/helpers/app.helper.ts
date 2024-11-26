@@ -109,13 +109,24 @@ export class AppHelper {
         for (let i = 0; i < addresses.length; i++) {
             let account = new AccountModel();
             account.address = addresses[i].toUpperCase();
-            account.private_key = null;
-            account.public_key = null;
             account.token = null;
             accounts.push(account);
         }
 
         localStorage.setItem('accounts', JSON.stringify(accounts));
+
+        this.state.accounts = accounts;
+        this.app.next({ ...this.state });
+    }
+
+    /**
+     * Update current account
+     *
+     * @param account
+     */
+    updateAccount(account: AccountModel) {
+        let accounts = this.state.accounts.filter(a => a.address != account.address);
+        accounts.push(account);
 
         this.state.accounts = accounts;
         this.app.next({ ...this.state });
@@ -133,6 +144,18 @@ export class AppHelper {
      */
     getWallet(): string | null {
         return this.state.wallet;
+    }
+
+    /**
+     * Get current account
+     */
+    getAccount(): AccountModel | undefined {
+        let account = undefined;
+        if (this.state.address) {
+            account = this.state.accounts.find(a => a.address == this.state.address);
+        }
+
+        return account;
     }
 
     /**
@@ -230,8 +253,6 @@ export class AppHelper {
             for (let i = 0; i < values.length; i++) {
                 let account = new AccountModel();
                 account.address = values[i].address;
-                account.private_key = values[i].private_key;
-                account.public_key = values[i].public_key;
                 account.token = values[i].token;
                 results.push(account);
             }

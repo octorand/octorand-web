@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppHelper, GameHelper } from '@lib/helpers';
-import { AppModel } from '@lib/models';
+import { AccountModel, AppModel } from '@lib/models';
 import { AuthService } from '@lib/services';
 import { Subscription } from 'rxjs';
 
@@ -58,6 +58,7 @@ export class PlatformGamesCorePage implements OnInit, OnDestroy {
    */
   ngOnInit() {
     this.initApp();
+    this.initGame();
     this.refreshView();
   }
 
@@ -80,24 +81,23 @@ export class PlatformGamesCorePage implements OnInit, OnDestroy {
   }
 
   /**
+   * Initialize game
+   */
+  initGame() {
+    let game = this.activatedRoute.snapshot.params['game_id'];
+    this.game = this.gameHelper.find(game);
+  }
+
+  /**
    * Refresh view state
    */
   refreshView() {
-    let game = this.activatedRoute.snapshot.params['game_id'];
-    this.game = this.gameHelper.find(game);
-
-    if (this.app.address) {
-      let authRequired = true;
-
-      let account = this.app.accounts.find(a => a.address == this.app.address);
-      if (account) {
-
-      }
-
-      if (authRequired) {
-        this.status = 'auth-required';
-      } else {
+    let account = this.appHelper.getAccount();
+    if (account) {
+      if (account.token) {
         this.status = 'ready';
+      } else {
+        this.status = 'auth-required';
       }
     } else {
       this.status = 'connect-required';
@@ -109,7 +109,18 @@ export class PlatformGamesCorePage implements OnInit, OnDestroy {
   /**
    * Start the game
    */
-  startGame() {
+  async startGame() {
+    let account = this.appHelper.getAccount();
+    if (!account && this.app.address) {
+      account = new AccountModel();
+      account.address = this.app.address;
+    }
+
+    if (account) {
+      let setup = await this.authService.setup();
+      let private_key = setup.private_key;
+      let public_key = setup.public_key;
+    }
   }
 
   /**
