@@ -19,7 +19,7 @@
                         <lib-tags-loader></lib-tags-loader>
                     </div>
                 </div>
-                <div *ngIf="status == 'connect-required'" class="card">
+                <div *ngIf="status == 'connecting'" class="card">
                     <h1 class="text-center text-danger">
                         <i class="{{game.icon}}"></i>
                     </h1>
@@ -27,7 +27,7 @@
                         Connect you wallet to start playing
                     </p>
                 </div>
-                <div *ngIf="status == 'auth-required'" class="card">
+                <div *ngIf="status == 'authenticating'" class="card">
                     <h1 class="text-center text-danger">
                         <i class="{{game.icon}}"></i>
                     </h1>

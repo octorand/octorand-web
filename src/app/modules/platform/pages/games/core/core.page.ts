@@ -109,10 +109,10 @@ export class PlatformGamesCorePage implements OnInit, OnDestroy {
       if (account.token) {
         this.status = 'ready';
       } else {
-        this.status = 'auth-required';
+        this.status = 'authenticating';
       }
     } else {
-      this.status = 'connect-required';
+      this.status = 'connecting';
     }
 
     this.ready = true;
