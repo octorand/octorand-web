@@ -107,9 +107,14 @@ export class AppHelper {
         let accounts: Array<AccountModel> = [];
 
         for (let i = 0; i < addresses.length; i++) {
-            let account = new AccountModel();
-            account.address = addresses[i].toUpperCase();
-            account.token = null;
+            let address = addresses[i].toUpperCase();
+            let account = this.state.accounts.find(a => a.address == address);
+            if (!account) {
+                account = new AccountModel();
+                account.address = address;
+                account.token = null;
+            }
+
             accounts.push(account);
         }
 
