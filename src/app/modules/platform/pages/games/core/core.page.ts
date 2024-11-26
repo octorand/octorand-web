@@ -1,8 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AppHelper, GameHelper } from '@lib/helpers';
+import { GameAuthContract } from '@lib/contracts';
+import { AppHelper, ChainHelper, GameHelper } from '@lib/helpers';
 import { AccountModel, AppModel } from '@lib/models';
 import { AuthService } from '@lib/services';
+import { environment } from '@environment';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -38,17 +40,27 @@ export class PlatformGamesCorePage implements OnInit, OnDestroy {
   status: string = 'loading';
 
   /**
+   * Tracking actions
+   */
+  actions = {
+    startGame: false,
+  };
+
+  /**
    * Construct component
    *
    * @param activatedRoute
    * @param router
    * @param appHelper
+   * @param chainHelper
    * @param gameHelper
+   * @param authService
    */
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private appHelper: AppHelper,
+    private chainHelper: ChainHelper,
     private gameHelper: GameHelper,
     private authService: AuthService
   ) { }
@@ -120,6 +132,46 @@ export class PlatformGamesCorePage implements OnInit, OnDestroy {
       let setup = await this.authService.setup();
       let private_key = setup.private_key;
       let public_key = setup.public_key;
+
+      let baseClient = this.chainHelper.getBaseClient();
+      let algodClient = this.chainHelper.getAlgodClient();
+
+      let authContract: any = new baseClient.ABIContract(GameAuthContract);
+      let authContractId = environment.game.contracts.auth.application_id;
+
+      algodClient.getTransactionParams().do().then((params: any) => {
+        let composer = new baseClient.AtomicTransactionComposer();
+
+        composer.addMethodCall({
+          sender: this.app.address,
+          appID: authContractId,
+          method: this.chainHelper.getMethod(authContract, 'auth'),
+          methodArgs: [
+            this.chainHelper.getBytes(public_key),
+          ],
+          suggestedParams: {
+            ...params,
+            fee: 1000,
+            flatFee: true
+          }
+        });
+
+        let group = composer.buildGroup();
+
+        let transactions = [];
+        for (let i = 0; i < group.length; i++) {
+          transactions.push(group[i].txn);
+        }
+
+        this.actions.startGame = true;
+        this.chainHelper.submitTransactions(transactions).then((response) => {
+          this.actions.startGame = false;
+          if (response.success) {
+            console.log(response);
+            this.appHelper.showSuccess('Game started successfully');
+          }
+        });
+      });
     }
   }
 
