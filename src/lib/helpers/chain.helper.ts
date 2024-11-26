@@ -81,6 +81,7 @@ export class ChainHelper {
      */
     async submitTransactions(transactions: Array<any>) {
         let success = false;
+        let id = null;
         let result = null;
 
         this.appHelper.showWarning('Please sign the transaction using your wallet.');
@@ -92,8 +93,10 @@ export class ChainHelper {
                 let transactionResult = await this.getAlgodClient().sendRawTransaction(signs.signed).do();
                 this.appHelper.showSuccess('Transaction submitted successfully.');
 
-                await this.waitForTransaction(transactionResult.txId);
-                result = await this.getAlgodClient().pendingTransactionInformation(transactionResult.txId).do();
+                id = transactionResult.txId;
+
+                await this.waitForTransaction(id);
+                result = await this.getAlgodClient().pendingTransactionInformation(id).do();
 
                 this.appHelper.showSuccess('Transaction executed successfully.');
                 success = true;
@@ -107,6 +110,7 @@ export class ChainHelper {
 
         return {
             success: success,
+            id: id,
             result: result
         };
     }

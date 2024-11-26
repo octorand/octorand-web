@@ -34,11 +34,20 @@
                     <p class="description text-center text-muted mb-40">
                         Let's get this party started
                     </p>
+
                     <div class="text-center mb-20">
-                        <button class="btn btn-primary" (click)="startGame()" type="button">
+                        <button *ngIf="!actions.startGame" class="btn btn-primary" (click)="startGame()">
                             Start Game
                         </button>
+                        <button *ngIf="actions.startGame" class="btn btn-primary">
+                            <i class="fas fa-cog fa-spin mx-20"></i>
+                        </button>
                     </div>
+                </div>
+                <div *ngIf="status == 'ready'" class="card">
+                    <p class="description text-center text-muted mb-40">
+                        READY
+                    </p>
                 </div>
             </div>
         </div>

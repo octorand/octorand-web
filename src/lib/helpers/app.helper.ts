@@ -128,6 +128,8 @@ export class AppHelper {
         let accounts = this.state.accounts.filter(a => a.address != account.address);
         accounts.push(account);
 
+        localStorage.setItem('accounts', JSON.stringify(accounts));
+
         this.state.accounts = accounts;
         this.app.next({ ...this.state });
     }

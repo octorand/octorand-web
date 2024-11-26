@@ -122,57 +122,76 @@ export class PlatformGamesCorePage implements OnInit, OnDestroy {
    * Start the game
    */
   async startGame() {
-    let account = this.appHelper.getAccount();
-    if (!account && this.app.address) {
-      account = new AccountModel();
-      account.address = this.app.address;
-    }
+    let setup = await this.authService.setup();
+    let private_key = setup.private_key;
+    let public_key = setup.public_key;
 
-    if (account) {
-      let setup = await this.authService.setup();
-      let private_key = setup.private_key;
-      let public_key = setup.public_key;
+    let baseClient = this.chainHelper.getBaseClient();
+    let algodClient = this.chainHelper.getAlgodClient();
 
-      let baseClient = this.chainHelper.getBaseClient();
-      let algodClient = this.chainHelper.getAlgodClient();
+    let authContract: any = new baseClient.ABIContract(GameAuthContract);
+    let authContractId = environment.game.contracts.auth.application_id;
 
-      let authContract: any = new baseClient.ABIContract(GameAuthContract);
-      let authContractId = environment.game.contracts.auth.application_id;
+    algodClient.getTransactionParams().do().then((params: any) => {
+      let composer = new baseClient.AtomicTransactionComposer();
 
-      algodClient.getTransactionParams().do().then((params: any) => {
-        let composer = new baseClient.AtomicTransactionComposer();
-
-        composer.addMethodCall({
-          sender: this.app.address,
-          appID: authContractId,
-          method: this.chainHelper.getMethod(authContract, 'auth'),
-          methodArgs: [
-            this.chainHelper.getBytes(public_key),
-          ],
-          suggestedParams: {
-            ...params,
-            fee: 1000,
-            flatFee: true
-          }
-        });
-
-        let group = composer.buildGroup();
-
-        let transactions = [];
-        for (let i = 0; i < group.length; i++) {
-          transactions.push(group[i].txn);
+      composer.addMethodCall({
+        sender: this.app.address,
+        appID: authContractId,
+        method: this.chainHelper.getMethod(authContract, 'auth'),
+        methodArgs: [
+          this.chainHelper.getBytes(public_key),
+        ],
+        suggestedParams: {
+          ...params,
+          fee: 1000,
+          flatFee: true
         }
-
-        this.actions.startGame = true;
-        this.chainHelper.submitTransactions(transactions).then((response) => {
-          this.actions.startGame = false;
-          if (response.success) {
-            console.log(response);
-            this.appHelper.showSuccess('Game started successfully');
-          }
-        });
       });
+
+      let group = composer.buildGroup();
+
+      let transactions = [];
+      for (let i = 0; i < group.length; i++) {
+        transactions.push(group[i].txn);
+      }
+
+      this.actions.startGame = true;
+      this.chainHelper.submitTransactions(transactions).then(async (response) => {
+        this.actions.startGame = false;
+        if (response.success) {
+          this.appHelper.showSuccess('Player verified successfully');
+          this.verifyGame(response.id, private_key);
+        }
+      });
+    });
+  }
+
+  /**
+   * Verify game details
+   *
+   * @param transaction_id
+   * @param private_key
+   */
+  async verifyGame(transaction_id: string, private_key: string) {
+    this.status = 'loading';
+
+    let verify = await this.authService.verify(transaction_id, private_key);
+    if (verify.token && this.app.address) {
+      let account = this.appHelper.getAccount();
+      if (!account) {
+        account = new AccountModel();
+      }
+
+      account.address = this.app.address;
+      account.token = verify.token;
+      this.appHelper.updateAccount(account);
+      this.appHelper.showSuccess('Game started successfully');
+    } else {
+      this.appHelper.showError('Game failed to start');
     }
+
+    this.refreshView();
   }
 
   /**
