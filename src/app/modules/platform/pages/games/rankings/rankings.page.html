@@ -1,0 +1,30 @@
+<div class="container-fluid" *ngIf="game">
+    <div class="content">
+        <div class="row">
+            <div class="col">
+                <div class="mx-auto text-center">
+                    <h1 class="content-title text-secondary mt-0 mb-20">
+                        View Rankings
+                    </h1>
+                    <p class="text-muted mx-auto mw-600 mt-0 mb-20">
+                        Players are ranked by their star balance. Play games and do well to climb up the
+                        ranking leaderboard.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="column col-12 col-md-12 col-lg-8 col-xl-6">
+                <lib-tags-player [player]="player"></lib-tags-player>
+                <div class="text-center mt-20 mb-20">
+                    <button class="btn btn-primary m-5" (click)="playGame()">
+                        Back to Game
+                    </button>
+                </div>
+                <div class="card mt-20">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

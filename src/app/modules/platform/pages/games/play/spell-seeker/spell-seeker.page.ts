@@ -4,11 +4,11 @@ import { AppModel } from '@lib/models';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-platform-games-core-spell-seeker',
+  selector: 'app-platform-games-play-spell-seeker',
   templateUrl: './spell-seeker.page.html',
   styleUrls: ['./spell-seeker.page.scss'],
 })
-export class PlatformGamesCoreSpellSeekerPage implements OnInit, OnDestroy {
+export class PlatformGamesPlaySpellSeekerPage implements OnInit, OnDestroy {
 
   /**
    * App state

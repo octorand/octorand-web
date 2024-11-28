@@ -91,7 +91,7 @@ export class PlatformGamesPage implements OnInit, OnDestroy {
    * @param id
    */
   playGame(id: string) {
-    this.navigateToPage('/platform/games/' + id);
+    this.navigateToPage('/platform/games/play/' + id);
   }
 
   /**

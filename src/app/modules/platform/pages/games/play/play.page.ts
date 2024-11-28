@@ -8,11 +8,11 @@ import { environment } from '@environment';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-platform-games-core',
-  templateUrl: './core.page.html',
-  styleUrls: ['./core.page.scss'],
+  selector: 'app-platform-games-play',
+  templateUrl: './play.page.html',
+  styleUrls: ['./play.page.scss'],
 })
-export class PlatformGamesCorePage implements OnInit, OnDestroy {
+export class PlatformGamesPlayPage implements OnInit, OnDestroy {
 
   /**
    * App state
@@ -212,6 +212,20 @@ export class PlatformGamesCorePage implements OnInit, OnDestroy {
       this.player.stars = account.stars;
       this.player.ranking = account.ranking;
     }
+  }
+
+  /**
+   * Open purchase hearts page
+   */
+  purchaseHearts() {
+    this.navigateToPage('/platform/games/purchase/' + this.game.id);
+  }
+
+  /**
+   * Open view rankings page
+   */
+  viewRankings() {
+    this.navigateToPage('/platform/games/rankings/' + this.game.id);
   }
 
   /**

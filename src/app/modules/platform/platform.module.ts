@@ -44,8 +44,16 @@ const routes: Routes = [
         component: Pages.PlatformGamesPage
       },
       {
-        path: 'games/:game_id',
-        component: Pages.PlatformGamesCorePage
+        path: 'games/purchase/:game_id',
+        component: Pages.PlatformGamesPurchasePage
+      },
+      {
+        path: 'games/rankings/:game_id',
+        component: Pages.PlatformGamesRankingsPage
+      },
+      {
+        path: 'games/play/:game_id',
+        component: Pages.PlatformGamesPlayPage
       },
     ]
   }
@@ -62,8 +70,10 @@ const routes: Routes = [
     Pages.PlatformTraitsPage,
     Pages.PlatformUpgradePage,
     Pages.PlatformGamesPage,
-    Pages.PlatformGamesCorePage,
-    Pages.PlatformGamesCoreSpellSeekerPage,
+    Pages.PlatformGamesPurchasePage,
+    Pages.PlatformGamesRankingsPage,
+    Pages.PlatformGamesPlayPage,
+    Pages.PlatformGamesPlaySpellSeekerPage,
   ],
   imports: [
     CommonModule,
