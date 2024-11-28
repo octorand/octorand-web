@@ -5,6 +5,7 @@ export * from './item/info/info.tag';
 export * from './item/owner/owner.tag';
 export * from './loader/loader.tag';
 export * from './pager/pager.tag';
+export * from './player/player.tag';
 export * from './prime/badges/badges.tag';
 export * from './prime/boxes/boxes.tag';
 export * from './prime/info/info.tag';

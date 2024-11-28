@@ -1,0 +1,65 @@
+<div class="row justify-content-center mt-0 mb-20">
+  <div class="col-auto dropdown with-arrow">
+    <div data-toggle="dropdown" id="popover-toggle" aria-haspopup="true" aria-expanded="false">
+      <button class="btn option">
+        <i class="fas fa-heart mr-5 text-danger"></i>
+        {{player.hearts}}
+      </button>
+    </div>
+    <div class="dropdown-menu dropdown-menu-center" aria-labelledby="popover-toggle">
+      <div class="dropdown-item">
+        <i class="fas fa-heart mr-5 text-danger"></i>
+        Hearts
+      </div>
+      <div class="dropdown-divider"></div>
+      <div class="dropdown-item">
+        <p class="description">
+          Each game round costs 1 heart. Additional hearts can be purchased by spending
+          OCTO token.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="col-auto dropdown with-arrow">
+    <div data-toggle="dropdown" id="popover-toggle" aria-haspopup="true" aria-expanded="false">
+      <button class="btn option">
+        <i class="fas fa-star mr-5 text-secondary"></i>
+        {{player.stars}}
+      </button>
+    </div>
+    <div class="dropdown-menu dropdown-menu-center" aria-labelledby="popover-toggle">
+      <div class="dropdown-item">
+        <i class="fas fa-star mr-5 text-secondary"></i>
+        Stars
+      </div>
+      <div class="dropdown-divider"></div>
+      <div class="dropdown-item">
+        <p class="description">
+          Earn stars by playing games. The better you performe, the better your star
+          rewards will be.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="col-auto dropdown with-arrow">
+    <div data-toggle="dropdown" id="popover-toggle" aria-haspopup="true" aria-expanded="false">
+      <button class="btn option">
+        <i class="fas fa-trophy mr-5 text-success"></i>
+        {{player.ranking}}
+      </button>
+    </div>
+    <div class="dropdown-menu dropdown-menu-center" aria-labelledby="popover-toggle">
+      <div class="dropdown-item">
+        <i class="fas fa-trophy mr-5 text-success"></i>
+        Ranking
+      </div>
+      <div class="dropdown-divider"></div>
+      <div class="dropdown-item">
+        <p class="description">
+          Players are ranked by their star balance. Play games and do well to climb up the
+          ranking leaderboard.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
