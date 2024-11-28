@@ -3,4 +3,5 @@ export class PlayerModel {
     address: string = '';
     hearts: number = 0;
     stars: number = 0;
+    ranking: number = 0;
 }

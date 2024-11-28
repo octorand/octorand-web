@@ -44,10 +44,38 @@
                         </button>
                     </div>
                 </div>
-                <div *ngIf="status == 'ready'" class="card">
-                    <p class="description text-center text-muted mb-40">
-                        READY
-                    </p>
+                <div *ngIf="status == 'ready'">
+                    <div class="row justify-content-center mt-0 mb-20">
+                        <div class="col-auto">
+                            <button class="btn option">
+                                <i class="fas fa-heart mr-5 text-danger"></i>
+                                {{player.hearts}}
+                            </button>
+                        </div>
+                        <div class="col-auto">
+                            <button class="btn option">
+                                <i class="fas fa-star mr-5 text-secondary"></i>
+                                {{player.stars}}
+                            </button>
+                        </div>
+                        <div class="col-auto">
+                            <button class="btn option">
+                                <i class="fas fa-trophy mr-5 text-success"></i>
+                                {{player.ranking}}
+                            </button>
+                        </div>
+                    </div>
+                    <div class="text-center mt-20 mb-20">
+                        <button class="btn btn-primary mx-5" (click)="refreshPlayer()">
+                            Purchase Hearts
+                        </button>
+                        <button class="btn btn-primary mx-5" (click)="refreshPlayer()">
+                            View Rankings
+                        </button>
+                    </div>
+                    <div class="card">
+
+                    </div>
                 </div>
             </div>
         </div>

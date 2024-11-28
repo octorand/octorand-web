@@ -73,11 +73,9 @@ export class HttpHelper {
         if (auth) {
             const account = this.appHelper.getAccount();
             if (account) {
-                headers.append('Authorization', 'Bearer ' + account.token);
+                headers = headers.append('Authorization', 'Bearer ' + account.token);
             }
         }
-
-        console.log(headers);
 
         return headers;
     }

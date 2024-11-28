@@ -210,6 +210,7 @@ export class PlatformGamesCorePage implements OnInit, OnDestroy {
       this.player.address = account.address;
       this.player.hearts = account.hearts;
       this.player.stars = account.stars;
+      this.player.ranking = account.ranking;
     }
   }
 
