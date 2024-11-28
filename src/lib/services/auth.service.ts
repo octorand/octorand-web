@@ -4,19 +4,36 @@ import { HttpHelper } from '@lib/helpers';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 
-    constructor(private httpHelper: HttpHelper) { }
+    /**
+     * Construct component
+     *
+     * @param httpHelper
+     */
+    constructor(
+        private httpHelper: HttpHelper
+    ) { }
 
     /**
      * Setup authentication
      */
     async setup() {
-        return await this.httpHelper.post('auth/setup', {});
+        const data = {};
+        return await this.httpHelper.post('auth/setup', data, false);
     }
 
     /**
      * Verify authentication
      */
     async verify(transaction_id: string, private_key: string) {
-        return await this.httpHelper.post('auth/verify', { transaction_id: transaction_id, private_key: private_key });
+        const data = { transaction_id: transaction_id, private_key: private_key };
+        return await this.httpHelper.post('auth/verify', data, false);
+    }
+
+    /**
+     * Get authenticated account
+     */
+    async account() {
+        const data = {};
+        return await this.httpHelper.post('auth/account', data, true);
     }
 }

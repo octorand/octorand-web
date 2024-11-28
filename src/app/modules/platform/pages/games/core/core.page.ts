@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GameAuthContract } from '@lib/contracts';
 import { AppHelper, ChainHelper, GameHelper } from '@lib/helpers';
-import { AccountModel, AppModel } from '@lib/models';
+import { AccountModel, AppModel, PlayerModel } from '@lib/models';
 import { AuthService } from '@lib/services';
 import { environment } from '@environment';
 import { Subscription } from 'rxjs';
@@ -38,6 +38,11 @@ export class PlatformGamesCorePage implements OnInit, OnDestroy {
    * Game status
    */
   status: string = 'loading';
+
+  /**
+   * Player information
+   */
+  player: PlayerModel = new PlayerModel();
 
   /**
    * Tracking actions
@@ -107,6 +112,7 @@ export class PlatformGamesCorePage implements OnInit, OnDestroy {
     let account = this.appHelper.getAccount();
     if (account) {
       if (account.token) {
+        this.refreshPlayer();
         this.status = 'ready';
       } else {
         this.status = 'authenticating';
@@ -192,6 +198,19 @@ export class PlatformGamesCorePage implements OnInit, OnDestroy {
     }
 
     this.refreshView();
+  }
+
+  /**
+   * Refresh player status
+   */
+  async refreshPlayer() {
+    let account = await this.authService.account();
+    if (account) {
+      this.player.id = account.id;
+      this.player.address = account.address;
+      this.player.hearts = account.hearts;
+      this.player.stars = account.stars;
+    }
   }
 
   /**
