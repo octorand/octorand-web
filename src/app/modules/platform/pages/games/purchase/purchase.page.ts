@@ -219,8 +219,13 @@ export class PlatformGamesPurchasePage implements OnInit, OnDestroy {
    * Update player balances
    */
   async refreshBalances() {
-    await this.depositService.sync();
-    await this.refreshPlayer();
+    let account = this.appHelper.getAccount();
+    if (account) {
+      if (account.token) {
+        await this.depositService.sync();
+        await this.refreshPlayer();
+      }
+    }
   }
 
   /**
