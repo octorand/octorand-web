@@ -46,19 +46,16 @@
                 </div>
                 <div *ngIf="status == 'ready'">
                     <lib-tags-player [player]="player"></lib-tags-player>
-                    <div class="text-center mt-20 mb-20">
-                        <button class="btn btn-primary m-5" (click)="purchaseHearts()">
-                            Purchase Hearts
-                        </button>
-                        <button class="btn btn-primary m-5" (click)="viewRankings()">
-                            View Rankings
-                        </button>
-                    </div>
                     <div class="card">
 
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="text-center mt-20 mb-20">
+            <button class="btn" (click)="backToGames()">
+                Back to Games
+            </button>
         </div>
     </div>
 </div>

@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppHelper, GameHelper } from '@lib/helpers';
-import { AppModel } from '@lib/models';
+import { AppModel, PlayerModel } from '@lib/models';
+import { AuthService } from '@lib/services';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -32,6 +33,11 @@ export class PlatformGamesPage implements OnInit, OnDestroy {
   games: Array<any> = [];
 
   /**
+   * Player information
+   */
+  player: PlayerModel = new PlayerModel();
+
+  /**
    * Construct component
    *
    * @param router
@@ -41,7 +47,8 @@ export class PlatformGamesPage implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private appHelper: AppHelper,
-    private gameHelper: GameHelper
+    private gameHelper: GameHelper,
+    private authService: AuthService
   ) { }
 
   /**
@@ -82,7 +89,39 @@ export class PlatformGamesPage implements OnInit, OnDestroy {
    * Refresh view state
    */
   refreshView() {
+    let account = this.appHelper.getAccount();
+    if (account) {
+      if (account.token) {
+        this.refreshPlayer();
+      } else {
+        this.resetPlayer();
+      }
+    } else {
+      this.resetPlayer();
+    }
+
     this.ready = true;
+  }
+
+  /**
+   * Refresh player status
+   */
+  async refreshPlayer() {
+    let account = await this.authService.account();
+    if (account) {
+      this.player.id = account.id;
+      this.player.address = account.address;
+      this.player.hearts = account.hearts;
+      this.player.stars = account.stars;
+      this.player.ranking = account.ranking;
+    }
+  }
+
+  /**
+   * Reset player status
+   */
+  resetPlayer() {
+    this.player = new PlayerModel();
   }
 
   /**

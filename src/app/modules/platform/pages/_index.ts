@@ -8,5 +8,6 @@ export * from './upgrade/upgrade.page';
 export * from './games/games.page';
 export * from './games/purchase/purchase.page';
 export * from './games/rankings/rankings.page';
+export * from './games/redeem/redeem.page';
 export * from './games/play/play.page';
 export * from './games/play/spell-seeker/spell-seeker.page';

@@ -6,11 +6,11 @@ import { AuthService } from '@lib/services';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-platform-games-purchase',
-  templateUrl: './purchase.page.html',
-  styleUrls: ['./purchase.page.scss'],
+  selector: 'app-platform-games-redeem',
+  templateUrl: './redeem.page.html',
+  styleUrls: ['./redeem.page.scss'],
 })
-export class PlatformGamesPurchasePage implements OnInit, OnDestroy {
+export class PlatformGamesRedeemPage implements OnInit, OnDestroy {
 
   /**
    * App state

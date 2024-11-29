@@ -14,9 +14,14 @@
       <div class="dropdown-divider"></div>
       <div class="dropdown-item">
         <p class="description">
-          Each game round costs 1 heart. Additional hearts can be purchased by spending
-          OCTO token.
+          Each game round uses one Heart. You can get extra Hearts by spending OCTO tokens.
         </p>
+      </div>
+      <div class="dropdown-divider"></div>
+      <div class="dropdown-item">
+        <button class="btn btn-block btn-primary my-5" (click)="purchaseHearts()">
+          Purchase Hearts
+        </button>
       </div>
     </div>
   </div>
@@ -35,9 +40,14 @@
       <div class="dropdown-divider"></div>
       <div class="dropdown-item">
         <p class="description">
-          Earn stars by playing games. The better you performe, the better your star
-          rewards will be.
+          Play games to earn Stars. The better you play, the more Stars you will collect.
         </p>
+      </div>
+      <div class="dropdown-divider"></div>
+      <div class="dropdown-item">
+        <button class="btn btn-block btn-primary my-5" (click)="redeemStars()">
+          Redeem Stars
+        </button>
       </div>
     </div>
   </div>
@@ -56,9 +66,14 @@
       <div class="dropdown-divider"></div>
       <div class="dropdown-item">
         <p class="description">
-          Players are ranked by their star balance. Play games and do well to climb up the
-          ranking leaderboard.
+          Players are ranked based on their Star balance. Perform well in games to climb the leaderboard.
         </p>
+      </div>
+      <div class="dropdown-divider"></div>
+      <div class="dropdown-item">
+        <button class="btn btn-block btn-primary my-5" (click)="viewRankings()">
+          View Rankings
+        </button>
       </div>
     </div>
   </div>

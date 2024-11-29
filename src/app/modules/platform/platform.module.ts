@@ -44,12 +44,16 @@ const routes: Routes = [
         component: Pages.PlatformGamesPage
       },
       {
-        path: 'games/purchase/:game_id',
+        path: 'games/purchase',
         component: Pages.PlatformGamesPurchasePage
       },
       {
-        path: 'games/rankings/:game_id',
+        path: 'games/rankings',
         component: Pages.PlatformGamesRankingsPage
+      },
+      {
+        path: 'games/redeem',
+        component: Pages.PlatformGamesRedeemPage
       },
       {
         path: 'games/play/:game_id',
@@ -72,6 +76,7 @@ const routes: Routes = [
     Pages.PlatformGamesPage,
     Pages.PlatformGamesPurchasePage,
     Pages.PlatformGamesRankingsPage,
+    Pages.PlatformGamesRedeemPage,
     Pages.PlatformGamesPlayPage,
     Pages.PlatformGamesPlaySpellSeekerPage,
   ],

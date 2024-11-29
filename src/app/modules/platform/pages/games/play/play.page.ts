@@ -215,17 +215,10 @@ export class PlatformGamesPlayPage implements OnInit, OnDestroy {
   }
 
   /**
-   * Open purchase hearts page
+   * Open games page
    */
-  purchaseHearts() {
-    this.navigateToPage('/platform/games/purchase/' + this.game.id);
-  }
-
-  /**
-   * Open view rankings page
-   */
-  viewRankings() {
-    this.navigateToPage('/platform/games/rankings/' + this.game.id);
+  backToGames() {
+    this.navigateToPage('/platform/games');
   }
 
   /**

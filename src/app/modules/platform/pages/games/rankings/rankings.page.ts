@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AppHelper, GameHelper } from '@lib/helpers';
+import { Router } from '@angular/router';
+import { AppHelper } from '@lib/helpers';
 import { AppModel, PlayerModel } from '@lib/models';
 import { AuthService } from '@lib/services';
 import { Subscription } from 'rxjs';
@@ -23,34 +23,25 @@ export class PlatformGamesRankingsPage implements OnInit, OnDestroy {
   appSubscription: Subscription = new Subscription();
 
   /**
-   * Whether the page is ready to be rendered
-   */
-  ready: boolean = false;
-
-  /**
-   * Game information
-   */
-  game: any = {};
-
-  /**
    * Player information
    */
   player: PlayerModel = new PlayerModel();
 
   /**
+   * Whether the page is ready to be rendered
+   */
+  ready: boolean = false;
+
+  /**
    * Construct component
    *
-   * @param activatedRoute
    * @param router
    * @param appHelper
-   * @param gameHelper
    * @param authService
    */
   constructor(
-    private activatedRoute: ActivatedRoute,
     private router: Router,
     private appHelper: AppHelper,
-    private gameHelper: GameHelper,
     private authService: AuthService
   ) { }
 
@@ -59,7 +50,6 @@ export class PlatformGamesRankingsPage implements OnInit, OnDestroy {
    */
   ngOnInit() {
     this.initApp();
-    this.initGame();
     this.refreshView();
   }
 
@@ -82,14 +72,6 @@ export class PlatformGamesRankingsPage implements OnInit, OnDestroy {
   }
 
   /**
-   * Initialize game
-   */
-  initGame() {
-    let game = this.activatedRoute.snapshot.params['game_id'];
-    this.game = this.gameHelper.find(game);
-  }
-
-  /**
    * Refresh view state
    */
   refreshView() {
@@ -98,10 +80,10 @@ export class PlatformGamesRankingsPage implements OnInit, OnDestroy {
       if (account.token) {
         this.refreshPlayer();
       } else {
-        this.playGame();
+        this.backToGames();
       }
     } else {
-      this.playGame();
+      this.backToGames();
     }
 
     this.ready = true;
@@ -122,10 +104,10 @@ export class PlatformGamesRankingsPage implements OnInit, OnDestroy {
   }
 
   /**
-   * Open play game page
+   * Open games page
    */
-  playGame() {
-    this.navigateToPage('/platform/games/play/' + this.game.id);
+  backToGames() {
+    this.navigateToPage('/platform/games');
   }
 
   /**

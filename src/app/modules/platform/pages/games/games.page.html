@@ -13,7 +13,8 @@
                 </div>
             </div>
         </div>
-        <div class="row" *ngIf="ready">
+        <lib-tags-player *ngIf="player && player.id" [player]="player"></lib-tags-player>
+        <div class="row">
             <div class="col">
                 <div class="row justify-content-center">
                     <div class="column col-12 col-md-6 col-lg-4 col-xl-3" *ngFor="let game of games">
