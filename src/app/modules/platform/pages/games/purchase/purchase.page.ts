@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppHelper, ChainHelper } from '@lib/helpers';
 import { AppModel, PlayerModel } from '@lib/models';
-import { AuthService } from '@lib/services';
+import { AuthService, DepositService } from '@lib/services';
 import { GameDepositContract } from '@lib/contracts';
 import { Subscription } from 'rxjs';
 import { environment } from '@environment';
@@ -60,12 +60,14 @@ export class PlatformGamesPurchasePage implements OnInit, OnDestroy {
    * @param appHelper
    * @param chainHelper
    * @param authService
+   * @param depositService
    */
   constructor(
     private router: Router,
     private appHelper: AppHelper,
     private chainHelper: ChainHelper,
-    private authService: AuthService
+    private authService: AuthService,
+    private depositService: DepositService
   ) { }
 
   /**
@@ -73,6 +75,7 @@ export class PlatformGamesPurchasePage implements OnInit, OnDestroy {
    */
   ngOnInit() {
     this.initApp();
+    this.refreshBalances();
     this.refreshView();
   }
 
@@ -142,6 +145,21 @@ export class PlatformGamesPurchasePage implements OnInit, OnDestroy {
       return;
     }
 
+    if (this.inputs.hearts < 1) {
+      this.appHelper.showError('Hearts to purchase must be greater than 1');
+      return;
+    }
+
+    if (this.inputs.hearts > 100) {
+      this.appHelper.showError('Hearts to purchase must be less than 100');
+      return;
+    }
+
+    if (!Number.isInteger(this.inputs.hearts)) {
+      this.appHelper.showError('Hearts to purchase must not be a decimal number');
+      return;
+    }
+
     let baseClient = this.chainHelper.getBaseClient();
     let algodClient = this.chainHelper.getAlgodClient();
 
@@ -187,13 +205,22 @@ export class PlatformGamesPurchasePage implements OnInit, OnDestroy {
       }
 
       this.actions.purchaseHearts = true;
-      this.chainHelper.submitTransactions(transactions).then((response) => {
+      this.chainHelper.submitTransactions(transactions).then(async (response) => {
         this.actions.purchaseHearts = false;
         if (response.success) {
+          await this.refreshBalances();
           this.appHelper.showSuccess('Purchased hearts successfully');
         }
       });
     });
+  }
+
+  /**
+   * Update player balances
+   */
+  async refreshBalances() {
+    await this.depositService.sync();
+    await this.refreshPlayer();
   }
 
   /**
