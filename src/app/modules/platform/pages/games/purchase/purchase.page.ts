@@ -156,7 +156,7 @@ export class PlatformGamesPurchasePage implements OnInit, OnDestroy {
         appID: depositContractId,
         method: this.chainHelper.getMethod(depositContract, 'deposit'),
         methodArgs: [
-          this.inputs.hearts * 1000000,
+          this.inputs.hearts * Math.pow(10, 6),
         ],
         suggestedParams: {
           ...params,
@@ -170,7 +170,7 @@ export class PlatformGamesPurchasePage implements OnInit, OnDestroy {
           from: this.app.address,
           to: environment.platform.reserve,
           assetIndex: this.assetId,
-          amount: this.inputs.hearts * 1000000,
+          amount: this.inputs.hearts * Math.pow(10, 6),
           suggestedParams: {
             ...params,
             fee: 1000,

@@ -7,7 +7,7 @@
                         Purchase Hearts
                     </h1>
                     <p class="text-muted mx-auto mw-600 mt-0 mb-20">
-                        Each game round uses one Heart. You can get extra Hearts by spending OCTO tokens.
+                        Each game round requires one Heart. You can get extra Hearts by spending OCTO tokens.
                     </p>
                 </div>
             </div>
@@ -23,19 +23,12 @@
                         OCTO tokens used to purchase Hearts are instantly burned, gradually reducing the total OCTO
                         supply.
                     </p>
-                    <div class="info row justify-content-center mt-0 mb-20">
-                        <div class="col-auto">
-                            <lib-tags-chip key="Exchange Ratio">
-                                1 Heart = 1 OCTO
-                            </lib-tags-chip>
-                        </div>
-                    </div>
                     <div class="text-center mt-20 mb-0">
                         <div class="info row justify-content-center mt-0 mb-20">
                             <div class="col-auto">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text px-10 text-secondary">Number of Hearts</span>
+                                        <span class="input-group-text px-10 text-secondary">Hearts to Buy</span>
                                     </div>
                                     <input [(ngModel)]="inputs.hearts" class="form-control w-100" type="number"
                                         placeholder="Hearts" min="1" max="1000">
