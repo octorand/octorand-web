@@ -16,7 +16,70 @@
         <div class="row justify-content-center">
             <div class="column col-12 col-md-12 col-lg-8 col-xl-6">
                 <div class="card">
-
+                    <div class="row" *ngIf="ready">
+                        <div class="col">
+                            <div *ngIf="currentPageResults.length > 0">
+                                <div class="my-20">
+                                    <lib-tags-pager [totalPages]="pagesCount" [currentPage]="currentPage"
+                                        (onPageChange)="changePage($event)">
+                                    </lib-tags-pager>
+                                </div>
+                                <div class="row justify-content-center">
+                                    <div class="column col-12">
+                                        <div class="card">
+                                            <div class="info mb-0">
+                                                <div class="table-responsive">
+                                                    <table class="table table-no-outer-padding">
+                                                        <thead>
+                                                            <tr class="text-success">
+                                                                <th>Rank</th>
+                                                                <th>Player</th>
+                                                                <th>Stars</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr *ngFor="let result of currentPageResults">
+                                                                <td>
+                                                                    <p class="mt-0 mb-0 text-wrap">
+                                                                        {{result.ranking}}
+                                                                    </p>
+                                                                </td>
+                                                                <td>
+                                                                    <p class="mt-0 mb-0 text-wrap"
+                                                                        [innerHtml]="result.address | identity:true:true | async">
+                                                                    </p>
+                                                                </td>
+                                                                <td>
+                                                                    <p class="mt-0 mb-0 text-wrap">
+                                                                        {{result.stars}}
+                                                                    </p>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt-20">
+                                    <lib-tags-pager [totalPages]="pagesCount" [currentPage]="currentPage"
+                                        (onPageChange)="changePage($event)">
+                                    </lib-tags-pager>
+                                </div>
+                            </div>
+                            <div *ngIf="currentPageResults.length == 0" class="mw-600 mx-auto text-center">
+                                <div class="text-muted mt-60 mb-60">
+                                    No results found
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="!ready">
+                        <div class="col py-20">
+                            <lib-tags-loader></lib-tags-loader>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
