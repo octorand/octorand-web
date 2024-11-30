@@ -113,7 +113,6 @@ export class PlatformGamesPlayPage implements OnInit, OnDestroy {
     if (account) {
       if (account.token) {
         this.refreshPlayer();
-        this.status = 'ready';
       } else {
         this.status = 'authenticating';
       }
@@ -212,6 +211,19 @@ export class PlatformGamesPlayPage implements OnInit, OnDestroy {
       this.player.stars = account.stars;
       this.player.ranking = account.ranking;
     }
+
+    if (this.player.hearts > 0) {
+      this.status = 'ready';
+    } else {
+      this.status = 'purchasing';
+    }
+  }
+
+  /**
+   * Open purchase hearts page
+   */
+  purchaseHearts() {
+    this.navigateToPage('/platform/games/purchase');
   }
 
   /**

@@ -34,13 +34,25 @@
                     <p class="description text-center text-muted mb-40">
                         Let's get this party started
                     </p>
-
                     <div class="text-center mb-20">
                         <button *ngIf="!actions.startGame" class="btn btn-primary" (click)="startGame()">
                             Start Game
                         </button>
                         <button *ngIf="actions.startGame" class="btn btn-primary">
                             <i class="fas fa-cog fa-spin mx-20"></i>
+                        </button>
+                    </div>
+                </div>
+                <div *ngIf="status == 'purchasing'" class="card">
+                    <h1 class="text-center text-danger">
+                        <i class="{{game.icon}}"></i>
+                    </h1>
+                    <p class="description text-center text-muted mb-40">
+                        Each game round requires one Heart. Let's get some Hearts to start playing.
+                    </p>
+                    <div class="text-center mb-20">
+                        <button class="btn btn-primary" (click)="purchaseHearts()">
+                            Get Hearts
                         </button>
                     </div>
                 </div>
