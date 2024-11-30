@@ -43,17 +43,20 @@
                         </button>
                     </div>
                 </div>
-                <div *ngIf="status == 'purchasing'" class="card">
-                    <h1 class="text-center text-danger">
-                        <i class="{{game.icon}}"></i>
-                    </h1>
-                    <p class="description text-center text-muted mb-40">
-                        Each game round requires one Heart. Let's get some Hearts to start playing.
-                    </p>
-                    <div class="text-center mb-20">
-                        <button class="btn btn-primary" (click)="purchaseHearts()">
-                            Get Hearts
-                        </button>
+                <div *ngIf="status == 'purchasing'">
+                    <lib-tags-player [player]="player"></lib-tags-player>
+                    <div class="card">
+                        <h1 class="text-center text-danger">
+                            <i class="{{game.icon}}"></i>
+                        </h1>
+                        <p class="description text-center text-muted mb-40">
+                            Each game round requires one Heart. Let's get some Hearts to start playing.
+                        </p>
+                        <div class="text-center mb-20">
+                            <button class="btn btn-primary" (click)="purchaseHearts()">
+                                Get Hearts
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <div *ngIf="status == 'ready'">
