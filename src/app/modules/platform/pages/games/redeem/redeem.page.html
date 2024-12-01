@@ -14,9 +14,38 @@
         </div>
         <lib-tags-player [player]="player"></lib-tags-player>
         <div class="row justify-content-center">
-            <div class="column col-12 col-md-12 col-lg-8 col-xl-6">
+            <div class="column col-12 col-md-8 col-lg-6 col-xl-4">
                 <div class="card">
-
+                    <h2 class="card-title text-center text-secondary mt-0 mb-20">
+                        PRIME SCORE
+                    </h2>
+                    <p class="text-muted text-center mt-0 mb-20">
+                        Spend your Stars to boost the scores of your Primes. Higher scores help elevate your Primes
+                        rank, giving them greater recognition.
+                    </p>
+                    <div class="text-center mt-20 mb-0">
+                        <div class="info row justify-content-center mt-0 mb-20">
+                            <div class="col-auto">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text px-10 text-secondary">Stars to Redeem</span>
+                                    </div>
+                                    <input [(ngModel)]="inputs.stars" class="form-control w-100" type="number"
+                                        placeholder="Hearts" min="1" step="1">
+                                </div>
+                            </div>
+                        </div>
+                        <button *ngIf="!actions.redeemStars" class="btn btn-primary" (click)="redeemStars()">
+                            Redeem
+                        </button>
+                        <button *ngIf="actions.redeemStars" class="btn btn-primary">
+                            <i class="fas fa-cog fa-spin mx-20"></i>
+                        </button>
+                        <p *ngIf="inputs.stars" class="text-muted text-center mt-20 mb-0">
+                            Redeeming {{inputs.stars}} stars will increase the score of Prime by {{inputs.stars}}
+                            points.
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
