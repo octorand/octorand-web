@@ -15,6 +15,11 @@ export class RedeemService {
 
     /**
      * Process redeem
+     *
+     * @param prime_generation
+     * @param prime_position
+     * @param stars
+     * @param action
      */
     async process(prime_generation: number, prime_position: number, stars: number, action: string) {
         const data = {

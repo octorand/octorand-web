@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppHelper } from '@lib/helpers';
-import { AppModel, PlayerModel } from '@lib/models';
+import { AppHelper, DataHelper } from '@lib/helpers';
+import { AppModel, DataModel, PlayerModel, PrimeModel } from '@lib/models';
 import { AuthService, RedeemService } from '@lib/services';
 import { Subscription } from 'rxjs';
 
@@ -18,9 +18,19 @@ export class PlatformGamesRedeemPage implements OnInit, OnDestroy {
   app: AppModel = new AppModel();
 
   /**
+   * Data state
+   */
+  data: DataModel = new DataModel();
+
+  /**
    * App subscription
    */
   appSubscription: Subscription = new Subscription();
+
+  /**
+   * Data subscription
+   */
+  dataSubscription: Subscription = new Subscription();
 
   /**
    * Player information
@@ -49,16 +59,23 @@ export class PlatformGamesRedeemPage implements OnInit, OnDestroy {
   };
 
   /**
+   * Prime details
+   */
+  prime: PrimeModel | undefined = undefined;
+
+  /**
    * Construct component
    *
    * @param router
    * @param appHelper
+   * @param dataHelper
    * @param authService
    * @param redeemService
    */
   constructor(
     private router: Router,
     private appHelper: AppHelper,
+    private dataHelper: DataHelper,
     private authService: AuthService,
     private redeemService: RedeemService
   ) { }
@@ -68,7 +85,9 @@ export class PlatformGamesRedeemPage implements OnInit, OnDestroy {
    */
   ngOnInit() {
     this.initApp();
+    this.initData();
     this.refreshView();
+    this.refreshPrime();
   }
 
   /**
@@ -76,6 +95,7 @@ export class PlatformGamesRedeemPage implements OnInit, OnDestroy {
    */
   ngOnDestroy() {
     this.appSubscription.unsubscribe();
+    this.dataSubscription.unsubscribe();
   }
 
   /**
@@ -86,6 +106,17 @@ export class PlatformGamesRedeemPage implements OnInit, OnDestroy {
     this.appSubscription = this.appHelper.app.subscribe((value: AppModel) => {
       this.app = value;
       this.refreshView();
+    });
+  }
+
+  /**
+   * Initialize data
+   */
+  initData() {
+    this.data = this.dataHelper.getDefaultState();
+    this.dataSubscription = this.dataHelper.data.subscribe((value: DataModel) => {
+      this.data = value;
+      this.refreshPrime();
     });
   }
 
@@ -157,6 +188,40 @@ export class PlatformGamesRedeemPage implements OnInit, OnDestroy {
 
     this.actions.redeemStars = false;
     this.appHelper.showSuccess('Stars redeemed successfully');
+  }
+
+  /**
+   * Change prime generation
+   *
+   * @param generation
+   */
+  changePrimeGeneration(generation: number) {
+    this.inputs.prime_generation = generation;
+    this.refreshPrime();
+  }
+
+  /**
+   * When prime position changed
+   */
+  primePositionChanged() {
+    this.refreshPrime();
+  }
+
+  /**
+   * Refresh prime details
+   */
+  refreshPrime() {
+    let prime: PrimeModel | undefined = undefined;
+
+    if (this.data && this.data.initialised) {
+      if (this.inputs.prime_generation == 1) {
+        prime = this.data.gen_one_primes.find(p => p.id == this.inputs.prime_position);
+      } else {
+        prime = this.data.gen_two_primes.find(p => p.id == this.inputs.prime_position);
+      }
+    }
+
+    this.prime = prime;
   }
 
   /**
