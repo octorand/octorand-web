@@ -4,6 +4,7 @@ import { IndexerHelper } from './indexer.helper';
 import { SkinHelper } from './skin.helper';
 import { ThemeHelper } from './theme.helper';
 import { WordHelper } from './word.helper';
+import { PrimeService } from '@lib/services';
 import { Subject } from 'rxjs';
 import { environment } from '@environment';
 
@@ -29,12 +30,14 @@ export class DataHelper {
      * @param skinHelper
      * @param themeHelper
      * @param wordHelper
+     * @param primeService
      */
     constructor(
         private indexerHelper: IndexerHelper,
         private skinHelper: SkinHelper,
         private themeHelper: ThemeHelper,
-        private wordHelper: WordHelper
+        private wordHelper: WordHelper,
+        private primeService: PrimeService
     ) {
         this.data = new Subject<any>();
         this.state = new DataModel();
@@ -62,11 +65,12 @@ export class DataHelper {
         let promises = [
             this.indexerHelper.lookupAccountCreatedApplications(environment.gen1.manager_address),
             this.indexerHelper.lookupAccountCreatedApplications(environment.gen2.manager_address),
+            this.primeService.all(),
         ];
 
         Promise.all(promises).then(values => {
-            let genOnePrimes = this.listGenOne(values[0]);
-            let genTwoPrimes = this.listGenTwo(values[1]);
+            let genOnePrimes = this.listGenOne(values[0], values[2]);
+            let genTwoPrimes = this.listGenTwo(values[1], values[2]);
 
             for (let i = 0; i < genOnePrimes.length; i++) {
                 genOnePrimes[i].children = genTwoPrimes.filter(p => p.parent_application_id == genOnePrimes[i].application_id).map(p => { return { id: p.id, owner: p.owner } });
@@ -103,13 +107,15 @@ export class DataHelper {
      * Create prime models from application states
      *
      * @param applications
+     * @param customPrimes
      */
-    private listGenOne(applications: Array<any>): Array<PrimeModel> {
+    private listGenOne(applications: Array<any>, customPrimes: Array<any>): Array<PrimeModel> {
         let models = [];
 
         for (let i = 0; i < applications.length; i++) {
             let model = new PrimeModel();
             model = this.loadGenOneValues(model, applications[i]);
+            model = this.applyGenOneCustomProperties(model, customPrimes);
             model = this.calculateGenOneBadges(model);
             models.push(model);
         }
@@ -123,13 +129,15 @@ export class DataHelper {
      * Create prime models from application states
      *
      * @param applications
+     * @param customPrimes
      */
-    private listGenTwo(applications: Array<any>): Array<PrimeModel> {
+    private listGenTwo(applications: Array<any>, customPrimes: Array<any>): Array<PrimeModel> {
         let models = [];
 
         for (let i = 0; i < applications.length; i++) {
             let model = new PrimeModel();
             model = this.loadGenTwoValues(model, applications[i]);
+            model = this.applyGenTwoCustomProperties(model, customPrimes);
             model = this.calculateGenTwoBadges(model);
             models.push(model);
         }
@@ -249,6 +257,36 @@ export class DataHelper {
         model.parent_application_address = algosdk.getApplicationAddress(model.parent_application_id);
         model.skin_text = this.skinHelper.find(model.skin).name;
         model.theme_text = this.themeHelper.find(model.theme).name;
+
+        return model;
+    }
+
+    /**
+     * Apply custom properties
+     *
+     * @param model
+     * @param customPrimes
+     */
+    private applyGenOneCustomProperties(model: PrimeModel, customPrimes: Array<any>): PrimeModel {
+        let prime = customPrimes.find(p => p.generation == 1 && p.position == model.id);
+        if (prime) {
+            model.score = model.score + prime.score;
+        }
+
+        return model;
+    }
+
+    /**
+     * Apply custom properties
+     *
+     * @param model
+     * @param customPrimes
+     */
+    private applyGenTwoCustomProperties(model: PrimeModel, customPrimes: Array<any>): PrimeModel {
+        let prime = customPrimes.find(p => p.generation == 2 && p.position == model.id);
+        if (prime) {
+            model.score = model.score + prime.score;
+        }
 
         return model;
     }

@@ -187,6 +187,7 @@ export class PlatformGamesRedeemPage implements OnInit, OnDestroy {
     await this.refreshPlayer();
 
     this.actions.redeemStars = false;
+    this.dataHelper.loadPrimeDetails();
     this.appHelper.showSuccess('Stars redeemed successfully');
   }
 
