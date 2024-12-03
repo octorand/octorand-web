@@ -1,6 +1,6 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { AppHelper } from '@lib/helpers';
-import { AppModel, GameSpellSeekerModel } from '@lib/models';
+import { AppModel, GameSpellSeekerModel, PlayerModel } from '@lib/models';
 import { GameService } from '@lib/services';
 import { Subscription } from 'rxjs';
 
@@ -10,6 +10,11 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./spell-seeker.page.scss'],
 })
 export class PlatformGamesPlaySpellSeekerPage implements OnInit, OnDestroy {
+
+  /**
+   * Selected player
+   */
+  @Input() player: PlayerModel = new PlayerModel();
 
   /**
    * Fired when account details changed
@@ -87,6 +92,39 @@ export class PlatformGamesPlaySpellSeekerPage implements OnInit, OnDestroy {
     this.game.update(game);
 
     this.ready = true;
+  }
+
+  /**
+   * Check letter
+   *
+   * @param letter
+   */
+  checkLetter(letter: string) {
+
+  }
+
+  /**
+   * Apply boost
+   *
+   * @param boost
+   */
+  applyBoost(boost: string) {
+    switch (boost) {
+      case 'reveal-10':
+        if (this.player.stars >= 5) {
+          this.appHelper.showSuccess('Boost applied successfully');
+        } else {
+          this.appHelper.showError('Not enough stars to apply this boost');
+        }
+        break;
+    }
+  }
+
+  /**
+   * End game round
+   */
+  endGame() {
+
   }
 
   /**

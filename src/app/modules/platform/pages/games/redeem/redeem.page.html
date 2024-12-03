@@ -7,7 +7,7 @@
                         Redeem Stars
                     </h1>
                     <p class="text-muted mx-auto mw-600 mt-0 mb-20">
-                        Trade your Stars for exciting rewards within the Octorand ecosystem.
+                        Trade your stars for exciting rewards within the Octorand ecosystem.
                     </p>
                 </div>
             </div>
@@ -20,7 +20,7 @@
                         PRIME SCORE
                     </h2>
                     <p class="text-muted text-center mt-0 mb-20">
-                        Spend your Stars to boost the scores of your Primes. Higher scores help elevate your Primes
+                        Spend your stars to boost the scores of your Primes. Higher scores help elevate your Primes
                         rank, giving them greater recognition.
                     </p>
                     <div class="text-center mt-20 mb-0">
@@ -74,7 +74,7 @@
                                 </div>
                             </div>
                             <p class="text-muted text-center mt-0 mb-20">
-                                Select how many Stars to redeem.
+                                Select how many stars to redeem.
                             </p>
                             <div class="info row justify-content-center mt-0 mb-20">
                                 <div class="col-auto">
@@ -87,11 +87,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <button *ngIf="!actions.redeemStars" class="btn btn-primary" (click)="redeemStars()">
+                            <button class="btn btn-primary" (click)="redeemStars()">
                                 Redeem
-                            </button>
-                            <button *ngIf="actions.redeemStars" class="btn btn-primary">
-                                <i class="fas fa-cog fa-spin mx-20"></i>
                             </button>
                             <p *ngIf="inputs.stars" class="text-muted text-center mt-20 mb-0">
                                 Redeeming {{inputs.stars}} stars will increase the score of Prime by {{inputs.stars}}

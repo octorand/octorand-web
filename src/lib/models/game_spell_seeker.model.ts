@@ -9,6 +9,7 @@ export class GameSpellSeekerModel {
     answers: Array<any> = [];
     inputs: Array<any> = [];
     rewards: number = 0;
+    completed: boolean = false;
 
     /**
      * Letters in alphabet
@@ -55,5 +56,12 @@ export class GameSpellSeekerModel {
 
         // Calculate rewards
         this.rewards = 25 - this.tries;
+
+        // Calculate completed status
+        if (this.reveal.split('').includes('-')) {
+            this.completed = false;
+        } else {
+            this.completed = true;
+        }
     }
 }

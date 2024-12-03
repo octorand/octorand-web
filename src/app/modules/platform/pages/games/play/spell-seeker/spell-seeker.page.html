@@ -7,28 +7,42 @@
             </div>
         </div>
     </div>
-    <p class="description text-center text-muted mt-20 mb-20">
-        Put your word skills to the test. Guess the hidden 8-letter word by choosing letters one at a time. The fewer
-        guesses it takes, the more Stars you will earn.
-    </p>
-    <div class="info row justify-content-center mt-0 mb-20 py-20">
-        <div *ngFor="let input of game.inputs" class="col-auto">
-            <div class="px-20 py-10 chip"
-                [ngClass]="{'bg-primary hand': input.allowed, 'bg-dark-light text-muted': !input.allowed}">
-                {{input.letter}}
-            </div>
+    <div *ngIf="game.completed">
+        <p class="description text-center text-muted mt-0 mb-20">
+            Awesome job. You uncovered the hidden word in {{game.tries}} tries and earned {{game.rewards}} stars. Keep
+            it up.
+        </p>
+        <div class="text-center mt-0 mb-20 py-10">
+            <button class="btn btn-primary" (click)="endGame()">
+                Play Another Round
+            </button>
         </div>
     </div>
-    <p class="description text-center text-muted mt-20 mb-20">
-        Enhance your chances of success with these powerful boosts.
-    </p>
-    <div class="text-center mt-20 mb-20">
-        <button class="btn btn-primary" (click)="refreshView()">
-            Reveal 10 Mismatched Letters - Costs 5 Stars
-        </button>
+    <div *ngIf="!game.completed">
+        <p class="description text-center text-muted mt-0 mb-20">
+            Put your word skills to the test. Guess the hidden 8-letter word by choosing letters one at a time. The
+            fewer guesses it takes, the more stars you will earn.
+        </p>
+        <div class="info row justify-content-center mt-0 mb-20 py-20">
+            <div *ngFor="let input of game.inputs" class="col-auto">
+                <div class="px-20 py-10 chip" (click)="checkLetter(input.letter)"
+                    [ngClass]="{'bg-primary hand': input.allowed, 'bg-dark-light text-muted': !input.allowed}">
+                    {{input.letter}}
+                </div>
+            </div>
+        </div>
+        <p class="description text-center text-muted mt-0 mb-20">
+            Enhance your chances of success with this powerful boost.
+        </p>
+        <div class="text-center mt-0 mb-20 py-10">
+            <button class="btn btn-success" (click)="applyBoost('reveal-10')"
+                [ngClass]="{'disabled': player.stars < 5}">
+                Reveal 10 Non Matching Letters - Costs 5 Stars
+            </button>
+        </div>
+        <p class="description text-center text-muted mt-20 mb-0">
+            You have made {{game.tries}} tries so far. You have the potential to earn upto {{game.rewards}} stars from
+            this game.
+        </p>
     </div>
-    <p class="description text-center text-muted mt-20">
-        You have made {{game.tries}} tries so far. You have the potential to earn upto {{game.rewards}} Stars from this
-        game.
-    </p>
 </div>

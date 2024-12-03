@@ -52,13 +52,6 @@ export class PlatformGamesRedeemPage implements OnInit, OnDestroy {
   };
 
   /**
-   * Tracking actions
-   */
-  actions = {
-    redeemStars: false,
-  };
-
-  /**
    * Prime details
    */
   prime: PrimeModel | undefined = undefined;
@@ -181,12 +174,9 @@ export class PlatformGamesRedeemPage implements OnInit, OnDestroy {
       return;
     }
 
-    this.actions.redeemStars = true;
-
     await this.redeemService.process(this.inputs.prime_generation, this.inputs.prime_position, this.inputs.stars, 'score');
     await this.refreshPlayer();
 
-    this.actions.redeemStars = false;
     this.dataHelper.loadPrimeDetails();
     this.appHelper.showSuccess('Stars redeemed successfully');
   }

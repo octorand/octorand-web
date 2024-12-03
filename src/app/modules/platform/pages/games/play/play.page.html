@@ -50,7 +50,7 @@
                             <i class="{{game.icon}}"></i>
                         </h1>
                         <p class="description text-center text-muted mb-40">
-                            Each game round requires one Heart. Let's get some Hearts to start playing.
+                            Each game round requires one heart. Let's get some hearts to start playing.
                         </p>
                         <div class="text-center mb-20">
                             <button class="btn btn-primary" (click)="purchaseHearts()">
@@ -62,7 +62,7 @@
                 <div *ngIf="status == 'ready'">
                     <lib-tags-player [player]="player"></lib-tags-player>
                     <div class="card">
-                        <app-platform-games-play-spell-seeker *ngIf="game.id == 'spell-seeker'"
+                        <app-platform-games-play-spell-seeker *ngIf="game.id == 'spell-seeker'" [player]="player"
                             (accountUpdated)="refreshView()">
                         </app-platform-games-play-spell-seeker>
                     </div>
