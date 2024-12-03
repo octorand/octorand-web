@@ -103,6 +103,7 @@ export class PlatformGamesPlaySpellSeekerPage implements OnInit, OnDestroy {
     if (input.allowed) {
       let game = await this.gameService.process(this.gameId, 'check', { letter: input.letter });
       this.game.update(game);
+      this.updateAccount();
     }
   }
 
