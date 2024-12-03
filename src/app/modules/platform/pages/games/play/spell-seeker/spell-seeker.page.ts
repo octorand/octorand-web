@@ -97,10 +97,13 @@ export class PlatformGamesPlaySpellSeekerPage implements OnInit, OnDestroy {
   /**
    * Check letter
    *
-   * @param letter
+   * @param input
    */
-  checkLetter(letter: string) {
-
+  async checkLetter(input: any) {
+    if (input.allowed) {
+      let game = await this.gameService.process(this.gameId, 'check', { letter: input.letter });
+      this.game.update(game);
+    }
   }
 
   /**
@@ -108,10 +111,13 @@ export class PlatformGamesPlaySpellSeekerPage implements OnInit, OnDestroy {
    *
    * @param boost
    */
-  applyBoost(boost: string) {
+  async applyBoost(boost: string) {
     switch (boost) {
       case 'reveal-10':
         if (this.player.stars >= 5) {
+          let game = await this.gameService.process(this.gameId, 'boost', { boost: boost });
+          this.game.update(game);
+          this.updateAccount();
           this.appHelper.showSuccess('Boost applied successfully');
         } else {
           this.appHelper.showError('Not enough stars to apply this boost');
@@ -123,8 +129,13 @@ export class PlatformGamesPlaySpellSeekerPage implements OnInit, OnDestroy {
   /**
    * End game round
    */
-  endGame() {
-
+  async endGame() {
+    if (this.game.completed) {
+      await this.gameService.process(this.gameId, 'end', {});
+      this.updateAccount();
+      this.refreshView();
+      this.appHelper.showSuccess('Stars collected successfully');
+    }
   }
 
   /**

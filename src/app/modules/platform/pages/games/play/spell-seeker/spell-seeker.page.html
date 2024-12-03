@@ -14,7 +14,7 @@
         </p>
         <div class="text-center mt-0 mb-20 py-10">
             <button class="btn btn-primary" (click)="endGame()">
-                Play Another Round
+                Collect Your Stars
             </button>
         </div>
     </div>
@@ -25,7 +25,7 @@
         </p>
         <div class="info row justify-content-center mt-0 mb-20 py-20">
             <div *ngFor="let input of game.inputs" class="col-auto">
-                <div class="px-20 py-10 chip" (click)="checkLetter(input.letter)"
+                <div class="px-20 py-10 chip" (click)="checkLetter(input)"
                     [ngClass]="{'bg-primary hand': input.allowed, 'bg-dark-light text-muted': !input.allowed}">
                     {{input.letter}}
                 </div>
