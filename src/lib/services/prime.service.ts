@@ -17,7 +17,7 @@ export class PrimeService {
      * Read all primes
      */
     async all() {
-        const data = {};
-        return await this.httpHelper.post('prime/all', data, false);
+        const body = {};
+        return await this.httpHelper.post('prime/all', body, false);
     }
 }

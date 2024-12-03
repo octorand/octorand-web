@@ -22,12 +22,12 @@ export class RedeemService {
      * @param action
      */
     async process(prime_generation: number, prime_position: number, stars: number, action: string) {
-        const data = {
+        const body = {
             prime_generation: prime_generation,
             prime_position: prime_position,
             stars: stars,
             action: action
         };
-        return await this.httpHelper.post('redeem/process', data, true);
+        return await this.httpHelper.post('redeem/process', body, true);
     }
 }

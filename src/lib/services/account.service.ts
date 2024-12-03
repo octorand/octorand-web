@@ -17,7 +17,7 @@ export class AccountService {
      * Read account rankings
      */
     async rankings() {
-        const data = {};
-        return await this.httpHelper.post('account/rankings', data, true);
+        const body = {};
+        return await this.httpHelper.post('account/rankings', body, true);
     }
 }

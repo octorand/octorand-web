@@ -17,23 +17,23 @@ export class AuthService {
      * Setup authentication
      */
     async setup() {
-        const data = {};
-        return await this.httpHelper.post('auth/setup', data, false);
+        const body = {};
+        return await this.httpHelper.post('auth/setup', body, false);
     }
 
     /**
      * Verify authentication
      */
     async verify(transaction_id: string, private_key: string) {
-        const data = { transaction_id: transaction_id, private_key: private_key };
-        return await this.httpHelper.post('auth/verify', data, false);
+        const body = { transaction_id: transaction_id, private_key: private_key };
+        return await this.httpHelper.post('auth/verify', body, false);
     }
 
     /**
      * Get authenticated account
      */
     async account() {
-        const data = {};
-        return await this.httpHelper.post('auth/account', data, true);
+        const body = {};
+        return await this.httpHelper.post('auth/account', body, true);
     }
 }

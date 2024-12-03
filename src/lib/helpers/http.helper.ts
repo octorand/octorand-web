@@ -21,24 +21,24 @@ export class HttpHelper {
      * Send a post request to api
      *
      * @param url
-     * @param data
+     * @param body
      * @param auth
      */
-    async post(url: string, data: any, auth: boolean) {
+    async post(url: string, body: any, auth: boolean) {
         let headers = this.headers(auth);
-        return await this.http.post<any>(environment.api_server + '/' + url, data, { headers: headers }).toPromise();
+        return await this.http.post<any>(environment.api_server + '/' + url, body, { headers: headers }).toPromise();
     }
 
     /**
      * Send a put request to api
      *
      * @param url
-     * @param data
+     * @param body
      * @param auth
      */
-    async put(url: string, data: any, auth: boolean) {
+    async put(url: string, body: any, auth: boolean) {
         let headers = this.headers(auth);
-        return await this.http.put<any>(environment.api_server + '/' + url, data, { headers: headers }).toPromise();
+        return await this.http.put<any>(environment.api_server + '/' + url, body, { headers: headers }).toPromise();
     }
 
     /**

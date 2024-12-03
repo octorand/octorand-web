@@ -17,7 +17,7 @@ export class DepositService {
      * Sync deposits
      */
     async sync() {
-        const data = {};
-        return await this.httpHelper.post('deposit/sync', data, true);
+        const body = {};
+        return await this.httpHelper.post('deposit/sync', body, true);
     }
 }
