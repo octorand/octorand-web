@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { AppHelper } from '@lib/helpers';
-import { AppModel } from '@lib/models';
+import { AppModel, GameSpellSeekerModel } from '@lib/models';
+import { GameService } from '@lib/services';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -26,17 +27,29 @@ export class PlatformGamesPlaySpellSeekerPage implements OnInit, OnDestroy {
   appSubscription: Subscription = new Subscription();
 
   /**
+   * Game instance
+   */
+  game: GameSpellSeekerModel = new GameSpellSeekerModel();
+
+  /**
    * Whether the page is ready to be rendered
    */
   ready: boolean = false;
 
   /**
+   * Game identifier
+   */
+  gameId = 'spell-seeker';
+
+  /**
    * Construct component
    *
    * @param appHelper
+   * @param gameService
    */
   constructor(
-    private appHelper: AppHelper
+    private appHelper: AppHelper,
+    private gameService: GameService
   ) { }
 
   /**
@@ -68,7 +81,11 @@ export class PlatformGamesPlaySpellSeekerPage implements OnInit, OnDestroy {
   /**
    * Refresh view state
    */
-  refreshView() {
+  async refreshView() {
+    // Read and update game status
+    let game = await this.gameService.load(this.gameId);
+    this.game.update(game);
+
     this.ready = true;
   }
 
