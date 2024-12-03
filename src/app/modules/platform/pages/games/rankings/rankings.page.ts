@@ -138,6 +138,8 @@ export class PlatformGamesRankingsPage implements OnInit, OnDestroy {
       this.currentPage = 1;
     }
 
+    this.refreshPlayer();
+
     this.ready = true;
   }
 
