@@ -5,7 +5,9 @@ export class GameSpellSeekerModel {
     allowed: string = '';
     started: boolean = false;
     ended: boolean = false;
-    tries: number = 0;
+    boost_1: boolean = false;
+    boost_2: boolean = false;
+    guesses: number = 0;
     answers: Array<any> = [];
     inputs: Array<any> = [];
     rewards: number = 0;
@@ -27,8 +29,10 @@ export class GameSpellSeekerModel {
         this.reveal = data.reveal;
         this.allowed = data.allowed;
         this.started = data.started;
+        this.boost_1 = data.boost_1;
+        this.boost_2 = data.boost_2;
         this.ended = data.ended;
-        this.tries = data.tries;
+        this.guesses = data.tries;
 
         // Calculate answers property
         let answers = [];
@@ -55,7 +59,14 @@ export class GameSpellSeekerModel {
         this.inputs = inputs;
 
         // Calculate rewards
-        this.rewards = 25 - this.tries;
+        this.rewards = 25 - this.guesses;
+        if (this.boost_1) {
+            this.rewards = this.rewards - 5;
+        }
+        if (this.boost_2) {
+            this.rewards = this.rewards - 5;
+        }
+        this.rewards = Math.max(this.rewards, 0);
 
         // Calculate completed status
         if (this.reveal.split('').includes('-')) {

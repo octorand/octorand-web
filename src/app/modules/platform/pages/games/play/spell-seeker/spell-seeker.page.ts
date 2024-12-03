@@ -111,19 +111,15 @@ export class PlatformGamesPlaySpellSeekerPage implements OnInit, OnDestroy {
    * Apply boost
    *
    * @param boost
+   * @param status
    */
-  async applyBoost(boost: string) {
-    switch (boost) {
-      case 'reveal-10':
-        if (this.player.stars >= 5) {
-          let game = await this.gameService.process(this.gameId, 'boost', { boost: boost });
-          this.game.update(game);
-          this.updateAccount();
-          this.appHelper.showSuccess('Boost applied successfully');
-        } else {
-          this.appHelper.showError('Not enough stars to apply this boost');
-        }
-        break;
+  async applyBoost(boost: number, status: boolean) {
+    if (status) {
+      this.appHelper.showError('Boost already applied');
+    } else {
+      let game = await this.gameService.process(this.gameId, 'boost', { boost: boost });
+      this.game.update(game);
+      this.appHelper.showSuccess('Boost applied successfully');
     }
   }
 
