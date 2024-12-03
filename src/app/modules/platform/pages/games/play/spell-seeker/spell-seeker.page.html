@@ -20,7 +20,7 @@
     </div>
     <div *ngIf="!game.completed">
         <p class="description text-center text-muted mt-0 mb-20">
-            Put your word skills to the test. Guess the hidden 8-letter word by guessing letters one at a time. The
+            Put your word skills to the test. Find the hidden 8-letter word by guessing letters one at a time. The
             fewer guesses it takes, the more stars you will earn.
         </p>
         <div class="info row justify-content-center mt-0 mb-20 py-20">
@@ -35,11 +35,11 @@
             Enhance your chances of success with these powerful boosts.
         </p>
         <div class="text-center mt-0 mb-20 py-10">
-            <button class="btn btn-success" (click)="applyBoost(1, game.boost_1)"
+            <button class="btn btn-success m-5" (click)="applyBoost(1, game.boost_1)"
                 [ngClass]="{'disabled': game.boost_1}">
-                Reveal 10 Non Matching Letters - Costs 5 Stars
+                Discard Ten Non Matching Letters - Costs 5 Stars
             </button>
-            <button class="btn btn-success" (click)="applyBoost(2, game.boost_2)"
+            <button class="btn btn-success m-5" (click)="applyBoost(2, game.boost_2)"
                 [ngClass]="{'disabled': game.boost_2}">
                 Reveal First and Last Letters - Costs 5 Stars
             </button>

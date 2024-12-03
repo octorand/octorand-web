@@ -114,9 +114,7 @@ export class PlatformGamesPlaySpellSeekerPage implements OnInit, OnDestroy {
    * @param status
    */
   async applyBoost(boost: number, status: boolean) {
-    if (status) {
-      this.appHelper.showError('Boost already applied');
-    } else {
+    if (!status) {
       let game = await this.gameService.process(this.gameId, 'boost', { boost: boost });
       this.game.update(game);
       this.appHelper.showSuccess('Boost applied successfully');

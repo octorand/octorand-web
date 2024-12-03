@@ -32,7 +32,7 @@ export class GameSpellSeekerModel {
         this.boost_1 = data.boost_1;
         this.boost_2 = data.boost_2;
         this.ended = data.ended;
-        this.guesses = data.tries;
+        this.guesses = data.guesses;
 
         // Calculate answers property
         let answers = [];
@@ -59,7 +59,7 @@ export class GameSpellSeekerModel {
         this.inputs = inputs;
 
         // Calculate rewards
-        this.rewards = 25 - this.guesses;
+        this.rewards = 30 - this.guesses;
         if (this.boost_1) {
             this.rewards = this.rewards - 5;
         }
