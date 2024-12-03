@@ -1,5 +1,34 @@
 <div>
-    <h1 class="content-title text-secondary mt-20 mb-20">
-        SPELL SEEKER
-    </h1>
+    <div class="info row justify-content-center mt-0 mb-20 py-20">
+        <div *ngFor="let answer of game.answers" class="col-auto">
+            <div class="px-20 py-10 chip"
+                [ngClass]="{'bg-secondary text-dark': answer.revealed, 'bg-dark-light text-white': !answer.revealed}">
+                {{answer.text}}
+            </div>
+        </div>
+    </div>
+    <p class="description text-center text-muted mt-20 mb-20">
+        Put your word skills to the test. Guess the hidden 8-letter word by choosing letters one at a time. The fewer
+        guesses it takes, the more Stars you will earn.
+    </p>
+    <div class="info row justify-content-center mt-0 mb-20 py-20">
+        <div *ngFor="let input of game.inputs" class="col-auto">
+            <div class="px-20 py-10 chip"
+                [ngClass]="{'bg-primary hand': input.allowed, 'bg-dark-light text-muted': !input.allowed}">
+                {{input.letter}}
+            </div>
+        </div>
+    </div>
+    <p class="description text-center text-muted mt-20 mb-20">
+        Enhance your chances of success with these powerful boosts.
+    </p>
+    <div class="text-center mt-20 mb-20">
+        <button class="btn btn-primary" (click)="refreshView()">
+            Reveal 10 Mismatched Letters - Costs 5 Stars
+        </button>
+    </div>
+    <p class="description text-center text-muted mt-20">
+        You have made {{game.tries}} tries so far. You have the potential to earn upto {{game.rewards}} Stars from this
+        game.
+    </p>
 </div>
