@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { AppHelper } from '@lib/helpers';
 import { AppModel } from '@lib/models';
 import { Subscription } from 'rxjs';
@@ -9,6 +9,11 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./spell-seeker.page.scss'],
 })
 export class PlatformGamesPlaySpellSeekerPage implements OnInit, OnDestroy {
+
+  /**
+   * Fired when account details changed
+   */
+  @Output() accountUpdated = new EventEmitter<any>();
 
   /**
    * App state
@@ -65,5 +70,14 @@ export class PlatformGamesPlaySpellSeekerPage implements OnInit, OnDestroy {
    */
   refreshView() {
     this.ready = true;
+  }
+
+  /**
+   * Refresh account details
+   *
+   * @param page
+   */
+  updateAccount() {
+    this.accountUpdated.emit();
   }
 }

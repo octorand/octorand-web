@@ -20,7 +20,7 @@ export class PagerTag {
   /**
    * Fired when selected page changed
    */
-  @Output() onPageChange = new EventEmitter<number>();
+  @Output() pageChanged = new EventEmitter<number>();
 
   /**
    * Change to first page
@@ -52,9 +52,10 @@ export class PagerTag {
 
   /**
    * Change selected page
+   *
    * @param page
    */
   changePage(page: number) {
-    this.onPageChange.emit(page);
+    this.pageChanged.emit(page);
   }
 }

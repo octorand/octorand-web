@@ -19,7 +19,7 @@
                 <div *ngIf="currentPageResults.length > 0">
                     <div class="my-20">
                         <lib-tags-pager [totalPages]="pagesCount" [currentPage]="currentPage"
-                            (onPageChange)="changePage($event)">
+                            (pageChanged)="changePage($event)">
                         </lib-tags-pager>
                     </div>
                     <div class="row justify-content-center">
@@ -49,7 +49,7 @@
                     </div>
                     <div class="mt-20">
                         <lib-tags-pager [totalPages]="pagesCount" [currentPage]="currentPage"
-                            (onPageChange)="changePage($event)">
+                            (pageChanged)="changePage($event)">
                         </lib-tags-pager>
                     </div>
                 </div>

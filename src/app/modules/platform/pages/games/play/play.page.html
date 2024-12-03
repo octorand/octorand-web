@@ -62,7 +62,9 @@
                 <div *ngIf="status == 'ready'">
                     <lib-tags-player [player]="player"></lib-tags-player>
                     <div class="card">
-
+                        <app-platform-games-play-spell-seeker *ngIf="game.id == 'spell-seeker'"
+                            (accountUpdated)="refreshView()">
+                        </app-platform-games-play-spell-seeker>
                     </div>
                 </div>
             </div>
