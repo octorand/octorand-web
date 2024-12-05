@@ -44,7 +44,9 @@
                         <p *ngIf="inputs.hearts" class="text-muted text-center mt-20 mb-0">
                             This purchase costs
                             <span innerHTML="{{inputs.hearts * 1000000 | amount:assetId | async}}">
-                            </span>
+                            </span>. You have
+                            <span innerHTML="{{assetBalance | amount:assetId | async}}">
+                            </span> in your wallet.
                         </p>
                     </div>
                 </div>

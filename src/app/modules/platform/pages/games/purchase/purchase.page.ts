@@ -54,6 +54,11 @@ export class PlatformGamesPurchasePage implements OnInit, OnDestroy {
   assetId: number = 0;
 
   /**
+   * Platform asset balance
+   */
+  assetBalance: number = 0;
+
+  /**
    * Construct component
    *
    * @param router
@@ -102,6 +107,13 @@ export class PlatformGamesPurchasePage implements OnInit, OnDestroy {
    */
   refreshView() {
     this.assetId = environment.platform.asset_id;
+
+    let platformAsset = this.app.assets.find(a => a.id == this.assetId);
+    if (platformAsset) {
+      this.assetBalance = platformAsset.amount;
+    } else {
+      this.assetBalance = 0;
+    }
 
     let account = this.appHelper.getAccount();
     if (account) {
@@ -157,6 +169,11 @@ export class PlatformGamesPurchasePage implements OnInit, OnDestroy {
 
     if (!Number.isInteger(this.inputs.hearts)) {
       this.appHelper.showError('Hearts to purchase must not be a decimal number');
+      return;
+    }
+
+    if (this.inputs.hearts * Math.pow(10, 6) > this.assetBalance) {
+      this.appHelper.showError('You do not have enough OCTO to make this purchase');
       return;
     }
 
