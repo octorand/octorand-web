@@ -59,12 +59,12 @@ export class GameSpellSeekerModel {
         this.inputs = inputs;
 
         // Calculate rewards
-        this.rewards = 30 - this.guesses;
+        this.rewards = 100 - (3 * this.guesses);
         if (this.boost_1) {
-            this.rewards = this.rewards - 5;
+            this.rewards = this.rewards - 15;
         }
         if (this.boost_2) {
-            this.rewards = this.rewards - 5;
+            this.rewards = this.rewards - 15;
         }
         this.rewards = Math.max(this.rewards, 0);
 
