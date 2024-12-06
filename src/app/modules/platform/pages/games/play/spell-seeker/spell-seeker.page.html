@@ -1,8 +1,7 @@
 <div>
     <div class="info row justify-content-center mt-0 mb-20 py-20">
         <div *ngFor="let answer of game.answers" class="col-auto">
-            <div class="px-20 py-10 chip"
-                [ngClass]="{'bg-secondary text-dark': answer.revealed, 'bg-dark-light text-white': !answer.revealed}">
+            <div class="px-20 py-10 chip {{answer.style}}">
                 {{answer.text}}
             </div>
         </div>
@@ -45,7 +44,7 @@
             </button>
         </div>
         <p class="description text-center text-muted mt-20 mb-0">
-            You have made {{game.guesses}} guesses so far. You have the potential to earn upto {{game.rewards}} stars
+            You have made {{game.guesses}} guesses so far. You have the potential to earn up to {{game.rewards}} stars
             from this game.
         </p>
     </div>

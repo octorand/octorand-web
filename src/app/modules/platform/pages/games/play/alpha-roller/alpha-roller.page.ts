@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { AppHelper } from '@lib/helpers';
-import { AppModel, GameSpellSeekerModel, PlayerModel } from '@lib/models';
+import { AppModel, GameAlphaRollerModel, PlayerModel } from '@lib/models';
 import { GameService } from '@lib/services';
 import { Subscription } from 'rxjs';
 
@@ -34,7 +34,7 @@ export class PlatformGamesPlayAlphaRollerPage implements OnInit, OnDestroy {
   /**
    * Game instance
    */
-  game: GameSpellSeekerModel = new GameSpellSeekerModel();
+  game: GameAlphaRollerModel = new GameAlphaRollerModel();
 
   /**
    * Whether the page is ready to be rendered
@@ -44,7 +44,7 @@ export class PlatformGamesPlayAlphaRollerPage implements OnInit, OnDestroy {
   /**
    * Game identifier
    */
-  gameId = 'spell-seeker';
+  gameId = 'alpha-roller';
 
   /**
    * Construct component
@@ -95,16 +95,14 @@ export class PlatformGamesPlayAlphaRollerPage implements OnInit, OnDestroy {
   }
 
   /**
-   * Check letter
+   * Check answer
    *
-   * @param input
+   * @param direction
    */
-  async checkLetter(input: any) {
-    if (input.allowed) {
-      let game = await this.gameService.process(this.gameId, 'check', { letter: input.letter });
-      this.game.update(game);
-      this.updateAccount();
-    }
+  async checkAnswer(direction: number) {
+    let game = await this.gameService.process(this.gameId, 'check', { direction: direction });
+    this.game.update(game);
+    this.updateAccount();
   }
 
   /**
