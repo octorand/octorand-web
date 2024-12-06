@@ -35,7 +35,7 @@ export class GameAlphaRollerModel {
 
         // Calculate cards property
         let cards = [];
-        for (let i = 0; i < this.rounds; i++) {
+        for (let i = 0; i <= this.rounds; i++) {
             let text = '';
             let style = '';
 
@@ -43,7 +43,7 @@ export class GameAlphaRollerModel {
                 text = this.reveal.charAt(i);
                 if (i > 0) {
                     if (this.results.charAt(i - 1) == '1') {
-                        style = 'bg-dark-light text-success';
+                        style = 'bg-success text-dark';
                     } else if (this.results.charAt(i - 1) == '0') {
                         style = 'bg-dark-light text-white';
                     }
