@@ -39,9 +39,9 @@ export class GameSpellSeekerModel {
         for (let i = 0; i < this.reveal.length; i++) {
             let answer = this.reveal.charAt(i);
             if (answer == '-') {
-                answers.push({ index: i, text: answer, style: 'bg-secondary text-dark' });
-            } else {
                 answers.push({ index: i, text: answer, style: 'bg-dark-light text-white' });
+            } else {
+                answers.push({ index: i, text: answer, style: 'bg-secondary text-dark' });
             }
         }
         this.answers = answers;

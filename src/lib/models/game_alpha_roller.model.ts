@@ -56,7 +56,7 @@ export class GameAlphaRollerModel {
         this.rewards = Math.max(this.rewards, 0);
 
         // Calculate max rewards
-        this.max = (this.rounds - this.inputs.length) * 10;
+        this.max = (this.hits + this.rounds - this.inputs.length) * 10;
         if (this.boost_1) {
             this.max = this.max - 15;
         }
