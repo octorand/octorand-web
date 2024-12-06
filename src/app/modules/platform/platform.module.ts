@@ -78,6 +78,7 @@ const routes: Routes = [
     Pages.PlatformGamesRankingsPage,
     Pages.PlatformGamesRedeemPage,
     Pages.PlatformGamesPlayPage,
+    Pages.PlatformGamesPlayAlphaRollerPage,
     Pages.PlatformGamesPlaySpellSeekerPage,
   ],
   imports: [

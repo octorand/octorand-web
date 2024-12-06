@@ -10,4 +10,5 @@ export * from './games/purchase/purchase.page';
 export * from './games/rankings/rankings.page';
 export * from './games/redeem/redeem.page';
 export * from './games/play/play.page';
+export * from './games/play/alpha-roller/alpha-roller.page';
 export * from './games/play/spell-seeker/spell-seeker.page';

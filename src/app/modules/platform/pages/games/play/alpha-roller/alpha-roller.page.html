@@ -1,0 +1,52 @@
+<div>
+    <div class="info row justify-content-center mt-0 mb-20 py-20">
+        <div *ngFor="let answer of game.answers" class="col-auto">
+            <div class="px-20 py-10 chip"
+                [ngClass]="{'bg-secondary text-dark': answer.revealed, 'bg-dark-light text-white': !answer.revealed}">
+                {{answer.text}}
+            </div>
+        </div>
+    </div>
+    <div *ngIf="game.completed">
+        <p class="description text-center text-muted mt-0 mb-20">
+            Awesome job. You uncovered the hidden word in {{game.guesses}} guesses and earned {{game.rewards}} stars.
+            Keep it up.
+        </p>
+        <div class="text-center mt-0 mb-20 py-10">
+            <button class="btn btn-primary" (click)="endGame()">
+                Collect Your Stars
+            </button>
+        </div>
+    </div>
+    <div *ngIf="!game.completed">
+        <p class="description text-center text-muted mt-0 mb-20">
+            Put your word skills to the test. Find the hidden 8-letter word by guessing letters one at a time. The
+            fewer guesses it takes, the more stars you will earn.
+        </p>
+        <div class="info row justify-content-center mt-0 mb-20 py-20">
+            <div *ngFor="let input of game.inputs" class="col-auto">
+                <div class="px-20 py-10 chip" (click)="checkLetter(input)"
+                    [ngClass]="{'bg-primary hand': input.allowed, 'bg-dark-light text-muted': !input.allowed}">
+                    {{input.letter}}
+                </div>
+            </div>
+        </div>
+        <p class="description text-center text-muted mt-0 mb-20">
+            Enhance your chances of success with these powerful boosts.
+        </p>
+        <div class="text-center mt-0 mb-20 py-10">
+            <button class="btn btn-success m-5" (click)="applyBoost(1, game.boost_1)"
+                [ngClass]="{'disabled': game.boost_1}">
+                Discard Ten Non Matching Letters - Costs 15 Stars
+            </button>
+            <button class="btn btn-success m-5" (click)="applyBoost(2, game.boost_2)"
+                [ngClass]="{'disabled': game.boost_2}">
+                Reveal First and Last Letters - Costs 15 Stars
+            </button>
+        </div>
+        <p class="description text-center text-muted mt-20 mb-0">
+            You have made {{game.guesses}} guesses so far. You have the potential to earn upto {{game.rewards}} stars
+            from this game.
+        </p>
+    </div>
+</div>

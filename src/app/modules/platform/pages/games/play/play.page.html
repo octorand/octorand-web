@@ -20,7 +20,7 @@
                     </div>
                 </div>
                 <div *ngIf="status == 'connecting'" class="card">
-                    <h1 class="text-center text-danger">
+                    <h1 class="text-center" [ngStyle]="{'color': game.color}">
                         <i class="{{game.icon}}"></i>
                     </h1>
                     <p class="description text-center text-muted">
@@ -28,7 +28,7 @@
                     </p>
                 </div>
                 <div *ngIf="status == 'authenticating'" class="card">
-                    <h1 class="text-center text-danger">
+                    <h1 class="text-center" [ngStyle]="{'color': game.color}">
                         <i class="{{game.icon}}"></i>
                     </h1>
                     <p class="description text-center text-muted mb-40">
@@ -46,7 +46,7 @@
                 <div *ngIf="status == 'purchasing'">
                     <lib-tags-player [player]="player"></lib-tags-player>
                     <div class="card">
-                        <h1 class="text-center text-danger">
+                        <h1 class="text-center" [ngStyle]="{'color': game.color}">
                             <i class="{{game.icon}}"></i>
                         </h1>
                         <p class="description text-center text-muted mb-40">
@@ -62,6 +62,9 @@
                 <div *ngIf="status == 'ready'">
                     <lib-tags-player [player]="player"></lib-tags-player>
                     <div class="card">
+                        <app-platform-games-play-alpha-roller *ngIf="game.id == 'alpha-roller'" [player]="player"
+                            (accountUpdated)="refreshView()">
+                        </app-platform-games-play-alpha-roller>
                         <app-platform-games-play-spell-seeker *ngIf="game.id == 'spell-seeker'" [player]="player"
                             (accountUpdated)="refreshView()">
                         </app-platform-games-play-spell-seeker>
