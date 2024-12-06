@@ -35,13 +35,30 @@ export class GameAlphaRollerModel {
 
         // Calculate cards property
         let cards = [];
-        for (let i = 0; i < this.reveal.length; i++) {
-            let answer = this.reveal.charAt(i);
-            if (answer == '-') {
-                cards.push({ index: i, text: answer, revealed: false });
+        for (let i = 0; i < this.rounds; i++) {
+            let text = '';
+            let style = '';
+
+            if (this.reveal.length > i) {
+                text = this.reveal.charAt(i);
+                if (i > 0) {
+                    if (this.results.charAt(i - 1) == '1') {
+                        style = 'bg-dark-light text-success';
+                    } else if (this.results.charAt(i - 1) == '0') {
+                        style = 'bg-dark-light text-white';
+                    }
+                } else {
+                    style = 'bg-dark-light text-white';
+                }
+            } else if (this.reveal.length == i) {
+                text = '?';
+                style = 'bg-secondary text-dark';
             } else {
-                cards.push({ index: i, text: answer, revealed: true });
+                text = '-';
+                style = 'bg-dark-light text-white';
             }
+
+            cards.push({ index: i, text: text, style: style });
         }
         this.cards = cards;
 
