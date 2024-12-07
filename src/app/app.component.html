@@ -11,6 +11,16 @@
             <span>OCTORAND</span>
         </a>
         <div class="navbar-content ml-auto">
+            <div *ngIf="app.address && !isMobile" class="mr-5">
+                <button class="btn text-success" type="button">
+                    <span innerHTML="{{coreAssetBalance | amount:0 | async}}"></span>
+                </button>
+            </div>
+            <div *ngIf="app.address && !isMobile" class="mr-5">
+                <button class="btn text-success" type="button">
+                    <span innerHTML="{{platformAssetBalance | amount:platformAssetId | async}}"></span>
+                </button>
+            </div>
             <div *ngIf="app" class="dropdown with-arrow connect-dropdown">
                 <button class="btn btn-secondary" data-toggle="dropdown" type="button" id="connect-dropdown"
                     aria-haspopup="true" aria-expanded="false" [ngClass]="{'btn-action': isMobile}">

@@ -58,6 +58,14 @@ export class AppHelper {
             Promise.all(promises).then(values => {
                 let account = values[0];
                 let assets = [];
+
+                if (account['amount']) {
+                    assets.push({
+                        id: 0,
+                        amount: account['amount']
+                    });
+                }
+
                 if (account['assets']) {
                     for (let i = 0; i < account['assets'].length; i++) {
                         assets.push({

@@ -69,6 +69,21 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   version: string = environment.version;
 
   /**
+   * Platform asset id
+   */
+  platformAssetId: number = environment.platform.asset_id;
+
+  /**
+   * Platform asset balance
+   */
+  platformAssetBalance: number = 0;
+
+  /**
+   * Core asset balance
+   */
+  coreAssetBalance: number = 0;
+
+  /**
    * Construct component
    *
    * @param router
@@ -124,11 +139,27 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     this.app = this.appHelper.getDefaultState();
     this.appSubscription = this.appHelper.app.subscribe((value: any) => {
       this.app = value;
+      this.refreshBalances();
     });
 
     this.socials = this.socialHelper.list();
     this.wallets = this.walletHelper.list();
     this.sidebar = this.sidebarHelper.list();
+  }
+
+  /**
+   * Refresh asset balances
+   */
+  refreshBalances() {
+    let core = this.app.assets.find(a => a.id == 0);
+    if (core) {
+      this.coreAssetBalance = core.amount;
+    }
+
+    let platform = this.app.assets.find(a => a.id == this.platformAssetId);
+    if (platform) {
+      this.platformAssetBalance = platform.amount;
+    }
   }
 
   /**
