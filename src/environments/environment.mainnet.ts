@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  version: '3.0.0',
+  version: '3.0.1',
   api_server: 'https://api.octorand.com',
   algo_server: 'https://mainnet-api.algonode.cloud',
   algo_indexer: 'https://mainnet-idx.algonode.cloud',
