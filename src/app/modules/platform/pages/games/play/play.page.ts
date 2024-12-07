@@ -227,6 +227,20 @@ export class PlatformGamesPlayPage implements OnInit, OnDestroy {
   }
 
   /**
+   * Open redeem stars page
+   */
+  redeemStars() {
+    this.navigateToPage('/platform/games/redeem');
+  }
+
+  /**
+   * Open view rankings page
+   */
+  viewRankings() {
+    this.navigateToPage('/platform/games/rankings');
+  }
+
+  /**
    * Open games page
    */
   backToGames() {
