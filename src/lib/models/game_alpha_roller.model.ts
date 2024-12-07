@@ -13,6 +13,8 @@ export class GameAlphaRollerModel {
     cards: Array<any> = [];
     rewards: number = 0;
     max: number = 0;
+    lower: string = '';
+    higher: string = '';
     completed: boolean = false;
 
     /**
@@ -61,6 +63,12 @@ export class GameAlphaRollerModel {
             cards.push({ index: i, text: text, style: style });
         }
         this.cards = cards;
+
+        // Calculate lower and higher letters
+        let alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+        let current = alphabet.indexOf(this.reveal.charAt(this.reveal.length - 1));
+        this.lower = alphabet.join('').substring(0, current);
+        this.higher = alphabet.join('').substring(current + 1);
 
         // Calculate rewards
         this.rewards = this.hits * 10;

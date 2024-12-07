@@ -23,13 +23,15 @@
         </p>
         <div class="info row justify-content-center mt-0 mb-20 py-20">
             <div class="col-auto">
-                <div class="px-20 py-10 chip bg-danger hand" (click)="checkAnswer(0)">
-                    Lower
+                <div class="px-20 py-10 chip bg-danger text-center hand" (click)="checkAnswer(0)">
+                    <p class="mb-0">Lower</p>
+                    <p class="mt-0 range">( {{game.lower}} )</p>
                 </div>
             </div>
             <div class="col-auto">
-                <div class="px-20 py-10 chip bg-primary hand" (click)="checkAnswer(1)">
-                    Higher
+                <div class="px-20 py-10 chip bg-primary text-center hand" (click)="checkAnswer(1)">
+                    <p class="mb-0">Higher</p>
+                    <p class="mt-0 range">( {{game.higher}} )</p>
                 </div>
             </div>
         </div>
