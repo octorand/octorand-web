@@ -270,6 +270,7 @@ export class DataHelper {
     private applyGenOneCustomProperties(model: PrimeModel, customPrimes: Array<any>): PrimeModel {
         let prime = customPrimes.find(p => p.generation == 1 && p.position == model.id);
         if (prime) {
+            model.applied_stars = prime.score;
             model.score = model.score + prime.score;
         }
 
@@ -285,6 +286,7 @@ export class DataHelper {
     private applyGenTwoCustomProperties(model: PrimeModel, customPrimes: Array<any>): PrimeModel {
         let prime = customPrimes.find(p => p.generation == 2 && p.position == model.id);
         if (prime) {
+            model.applied_stars = prime.score;
             model.score = model.score + prime.score;
         }
 

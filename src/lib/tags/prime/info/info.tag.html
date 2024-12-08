@@ -8,7 +8,12 @@
                 </tr>
                 <tr>
                     <td class="text-secondary">Score</td>
-                    <td class="text-right">{{prime.score}}</td>
+                    <td class="text-right">
+                        {{prime.score}}
+                        <i class="fas fa-star"
+                            [ngClass]="{'text-secondary': prime.applied_stars > 0, 'text-muted': prime.applied_stars == 0}">
+                        </i>
+                    </td>
                 </tr>
                 <tr>
                     <td class="text-secondary">Rank</td>

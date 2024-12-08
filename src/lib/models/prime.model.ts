@@ -34,4 +34,5 @@ export class PrimeModel {
     url: string = '';
     is_listed: boolean = false;
     parent_application_address: string = '';
+    applied_stars: number = 0;
 }
