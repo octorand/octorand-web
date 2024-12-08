@@ -19,6 +19,24 @@
         <div class="col-auto">
             <lib-tags-chip key="Score">
                 {{prime.score}}
+                <div class="dropdown dropup with-arrow">
+                    <div data-toggle="dropdown" id="popover-toggle" aria-haspopup="true" aria-expanded="false"
+                        class="hand">
+                        <i class="fas fa-star"
+                            [ngClass]="{'text-secondary': prime.applied_stars > 0, 'text-muted': prime.applied_stars == 0}">
+                        </i>
+                    </div>
+                    <div class="dropdown-menu dropdown-menu-center" aria-labelledby="popover-toggle">
+                        <div class="dropdown-item">
+                            <span *ngIf="prime.applied_stars > 0">
+                                The score is increased by {{prime.applied_stars}} points through the use of game stars
+                            </span>
+                            <span *ngIf="prime.applied_stars == 0">
+                                This Prime's score is not boosted by any game stars
+                            </span>
+                        </div>
+                    </div>
+                </div>
             </lib-tags-chip>
         </div>
         <div class="col-auto">
