@@ -79,10 +79,10 @@
             <button class="btn m-5" *ngIf="status == 'ready'" (click)="purchaseHearts()">
                 Purchase Hearts
             </button>
-            <button class="btn m-5" *ngIf="status == 'ready'" (click)="redeemStars()">
+            <button class="btn m-5" *ngIf="status == 'ready' || status == 'purchasing'" (click)="redeemStars()">
                 Redeem Stars
             </button>
-            <button class="btn m-5" *ngIf="status == 'ready'" (click)="viewRankings()">
+            <button class="btn m-5" *ngIf="status == 'ready' || status == 'purchasing'" (click)="viewRankings()">
                 View Rankings
             </button>
         </div>
