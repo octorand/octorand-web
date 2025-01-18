@@ -53,7 +53,8 @@ export class ToolsLaunchpadItemRewardsPage implements OnInit, OnChanges {
    * Tracking actions
    */
   actions = {
-    mintItem: false
+    mintItem: false,
+    refreshBalance: false,
   };
 
   /**
@@ -156,6 +157,51 @@ export class ToolsLaunchpadItemRewardsPage implements OnInit, OnChanges {
         if (response.success) {
           this.launchpadHelper.loadItemDetails();
           this.appHelper.showSuccess('Rewards withdrawn successfully');
+        }
+      });
+    });
+  }
+
+  /**
+   * Refresh item rewards balance
+   */
+  refreshBalance() {
+    let baseClient = this.chainHelper.getBaseClient();
+    let algodClient = this.chainHelper.getAlgodClient();
+
+    let appContract: any = new baseClient.ABIContract(this.collection.abis.app);
+
+    algodClient.getTransactionParams().do().then((params: any) => {
+      let composer = new baseClient.AtomicTransactionComposer();
+
+      composer.addMethodCall({
+        sender: this.app.address,
+        appID: this.item.application_id,
+        method: this.chainHelper.getMethod(appContract, 'refresh'),
+        methodArgs: [],
+        appForeignAssets: [
+          this.item.platform_asset_id
+        ],
+        suggestedParams: {
+          ...params,
+          fee: 1000,
+          flatFee: true
+        }
+      });
+
+      let group = composer.buildGroup();
+
+      let transactions = [];
+      for (let i = 0; i < group.length; i++) {
+        transactions.push(group[i].txn);
+      }
+
+      this.actions.refreshBalance = true;
+      this.chainHelper.submitTransactions(transactions).then((response) => {
+        this.actions.refreshBalance = false;
+        if (response.success) {
+          this.launchpadHelper.loadItemDetails();
+          this.appHelper.showSuccess('Rewards balance refreshed successfully');
         }
       });
     });
