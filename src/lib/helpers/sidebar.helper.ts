@@ -46,13 +46,6 @@ export class SidebarHelper {
                     route: 'platform/tokenomics',
                 },
                 {
-                    id: 'games',
-                    name: 'Games',
-                    icon: 'fas fa-chess-knight',
-                    color: '#f39c12',
-                    route: 'platform/games',
-                },
-                {
                     id: 'traits',
                     name: 'Traits',
                     icon: 'fas fa-trophy',

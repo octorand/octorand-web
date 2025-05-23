@@ -40,10 +40,6 @@ const routes: Routes = [
         component: Pages.PlatformUpgradePage
       },
       {
-        path: 'games',
-        component: Pages.PlatformGamesPage
-      },
-      {
         path: 'games/purchase',
         component: Pages.PlatformGamesPurchasePage
       },
