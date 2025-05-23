@@ -39,22 +39,6 @@ const routes: Routes = [
         path: 'upgrade',
         component: Pages.PlatformUpgradePage
       },
-      {
-        path: 'games/purchase',
-        component: Pages.PlatformGamesPurchasePage
-      },
-      {
-        path: 'games/rankings',
-        component: Pages.PlatformGamesRankingsPage
-      },
-      {
-        path: 'games/redeem',
-        component: Pages.PlatformGamesRedeemPage
-      },
-      {
-        path: 'games/play/:game_id',
-        component: Pages.PlatformGamesPlayPage
-      },
     ]
   }
 ];
@@ -69,13 +53,6 @@ const routes: Routes = [
     Pages.PlatformTokenomicsPage,
     Pages.PlatformTraitsPage,
     Pages.PlatformUpgradePage,
-    Pages.PlatformGamesPage,
-    Pages.PlatformGamesPurchasePage,
-    Pages.PlatformGamesRankingsPage,
-    Pages.PlatformGamesRedeemPage,
-    Pages.PlatformGamesPlayPage,
-    Pages.PlatformGamesPlayAlphaRollerPage,
-    Pages.PlatformGamesPlaySpellSeekerPage,
   ],
   imports: [
     CommonModule,
